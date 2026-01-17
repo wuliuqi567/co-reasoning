@@ -1,36 +1,67 @@
-.idea
-.vscode
-.DS_Store
-docs/.DS_Store
-**/.DS_Store
-logs/
-videos/
-models/
-results/
-dist/
-.eggs/
-xuance.egg-info/
-.VSCodeCounter/
-**/__pycache__
-rank_0/
-docs/build
-wandb/
-.pypirc
-.pytest_cache
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
 
+# OS
+.DS_Store
+**/.DS_Store
+
+# Python
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.eggs/
+*.egg-info/
+xuance.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# 训练产物 - 日志和模型
+logs/
+**/logs/
+models/
+**/models/
+videos/
+results/
+rank_0/
+wandb/
+
+# TensorBoard 事件文件
+events.out.tfevents.*
+
+# 生成的数据文件
+*.pkl
+*.pickle
+
+# 生成的图片（如拓扑图等）
+environment/*.png
+environment/*.pkl
+
+# Jupyter Notebook
+*-checkpoint.ipynb
+.ipynb_checkpoints/
+
+# 调试文件
 debug.py
 debug_marl.py
 debug_*.py
-.debug_ddp.py.swp
-dataset/
 
-demo_mindspore.py
+# 数据集
+dataset/
 mnist.npz
 
-*-checkpoint.ipynb
-/.ipynb_checkpoints
+# 文档构建
+docs/build/
+_site/
 
+# 其他
+.VSCodeCounter/
+.pypirc
+demo_mindspore.py
 Gemfile
 Gemfile.lock
 _config.yml
-_site/
