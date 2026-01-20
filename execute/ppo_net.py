@@ -3,36 +3,37 @@ import os
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+
 import argparse
 import numpy as np
 from copy import deepcopy
 from xuance.common import get_configs, recursive_dict_update
 from xuance.environment import make_envs
 from xuance.torch.utils.operations import set_seed
-from agents.myddqn_agent import MyDDQNAgent
 
+from agents.myppo_agent import MyPPOAgent
 from environment.net_tupu import NetTupu
 from xuance.environment import REGISTRY_ENV
 
-
 def parse_args():
-    parser = argparse.ArgumentParser("Double DQN for NetEnv.")
+    parser = argparse.ArgumentParser("ppo for netenv")
     parser.add_argument("--env-id", type=str, default="NetEnv-Net30-v0")
     parser.add_argument("--test", type=int, default=0)
     parser.add_argument("--benchmark", type=int, default=0)
+
     return parser.parse_args()
+
 
 if __name__ == "__main__":
     parser = parse_args()
-    configs_dict = get_configs(file_dir="../config/ddqn.yaml")
+    configs_dict = get_configs(file_dir="../config/ppo.yaml")
     configs_dict = recursive_dict_update(configs_dict, parser.__dict__)
-
     configs = argparse.Namespace(**configs_dict)
-    REGISTRY_ENV[configs.env_name] = NetTupu
 
+    REGISTRY_ENV[configs.env_name] = NetTupu
     set_seed(configs.seed)
     envs = make_envs(configs)
-    Agent = MyDDQNAgent(config=configs, envs=envs)
+    Agent = MyPPOAgent(config=configs, envs=envs)
 
     train_information = {"Deep learning toolbox": configs.dl_toolbox,
                          "Calculating device": configs.device,
@@ -77,12 +78,14 @@ if __name__ == "__main__":
                 configs.parallels = configs.test_episode
                 return make_envs(configs)
 
+
             Agent.load_model(path=Agent.model_dir_load)
-            Agent.test(configs.test_episode, env_fn())
+            scores = Agent.test(env_fn, configs.test_episode)
+            print(f"Mean Score: {np.mean(scores)}, Std: {np.std(scores)}")
+            print("Finish testing.")
         else:
             Agent.train(configs.running_steps // configs.parallels)
             Agent.save_model("final_train_model.pth")
-            print("Finish training!")
             print("Finish training!")
 
     Agent.finish()

@@ -15,8 +15,8 @@ class NetTupu(RawEnvironment):
         # 默认路径相对于项目根目录
         default_graph_path = os.path.join(os.path.dirname(__file__), "topology.pkl")
         self.graph_path = getattr(env_config, "graph_path", default_graph_path)
-        seed = getattr(env_config, "seed", None)
-        self.rng = np.random.default_rng(seed)
+        # seed = getattr(env_config, "seed", None)
+        self.rng = np.random.default_rng()
         if self.graph_path is not None:
             print(f"Loading topology from {self.graph_path}...")
             self.graph = load_topology(self.graph_path)
@@ -43,8 +43,6 @@ class NetTupu(RawEnvironment):
         self.shortest_path_delay = 0.0  # 最短路径时延
         
         # 奖励函数配置
-        # 可选: "v1" (原始), "v2", "v3", "v4" (推荐，带环路和超时惩罚)
-        self.reward_version = getattr(env_config, "reward_version", "v4")
         self.loop_penalty = getattr(env_config, "loop_penalty", -0.5)  # 环路惩罚
         self.timeout_penalty = getattr(env_config, "timeout_penalty", -5.0)  # 超时惩罚
         # 观测空间: [current_node, dst_node, neighbor_info × max_degree]
@@ -78,7 +76,7 @@ class NetTupu(RawEnvironment):
         self._sample_src_dst()
         self.current_node = self.src
         self.path.append(self.current_node)  # 记录起始节点
-        self.shortest_path = nx.shortest_path(self.graph, self.src, self.dst)
+        self.shortest_path = nx.shortest_path(self.graph, self.src, self.dst, weight="delay")
         self.shortest_path_delay = self._calculate_path_delay(self.shortest_path)
         observation = self._build_observation()
         info = {
@@ -137,17 +135,8 @@ class NetTupu(RawEnvironment):
         return observation, reward, terminated, truncated, info
     
     def _get_reward(self, action, neighbors):
-        """根据配置选择奖励函数"""
-        if self.reward_version == "v1":
-            return self._compute_reward(action, neighbors)
-        elif self.reward_version == "v2":
-            return self._compute_reward_v2(action, neighbors)
-        elif self.reward_version == "v3":
-            return self._compute_reward_v3(action, neighbors)
-        elif self.reward_version == "v4":
-            return self._compute_reward_v4(action, neighbors)
-        else:
-            return self._compute_reward(action, neighbors)
+        """计算奖励"""
+        return self._compute_reward(action, neighbors)
 
     def render(self, *args, **kwargs):  # Render your environment and return an image if the render_mode is "rgb_array".
         return {
@@ -255,119 +244,7 @@ class NetTupu(RawEnvironment):
 
     def _compute_reward(self, action, neighbors):
         """
-        原始奖励函数：
-        计算奖励并更新当前节点。
-        返回: (reward, terminated, next_node, step_delay)
-        - 有效动作: 奖励 = -时延归一化 + 带宽归一化，到达目标额外 +1
-        - 无效动作: 奖励 = -1，保持原地不动，不终止
-        """
-        if 0 <= action < len(neighbors):
-            next_node = neighbors[action]
-            edge_data = self.graph[self.current_node][next_node]
-            step_delay = edge_data["delay"]
-            delay_norm = self._normalize(edge_data["delay"], *self.delay_range)
-            bandwidth_norm = self._normalize(edge_data["bandwidth"], *self.bandwidth_range)
-            reward = -delay_norm + 0 * bandwidth_norm  # 低时延高带宽更好
-            terminated = (next_node == self.dst)
-            if terminated:
-                reward += 1.0  # 到达目标额外奖励
-            return reward, terminated, next_node, step_delay
-        else:
-            # 无效动作：惩罚但不终止，保持原地
-            return -1.0, False, self.current_node, 0.0
-
-    def _compute_reward_v2(self, action, neighbors):
-        """
-        改进的奖励函数 V2：
-        
-        1. 无效动作：reward = -1.0，保持原地不动
-        2. 有效动作（未到达终点）：reward = 0.0
-        3. 到达终点：reward = 10.0 * (最短时延 / 实际时延)
-        
-        返回: (reward, terminated, next_node, step_delay)
-        """
-        if 0 <= action < len(neighbors):
-            next_node = neighbors[action]
-            edge_data = self.graph[self.current_node][next_node]
-            step_delay = edge_data["delay"]
-            
-            # 检查是否到达终点
-            terminated = (next_node == self.dst)
-            
-            if terminated:
-                # 到达终点：计算路径时延比值作为奖励
-                total_delay = self.path_delay + step_delay
-                if total_delay > 0:
-                    # 性能奖励：最短时延/实际时延，值域 (0, 1]，最优为1
-                    delay_ratio = self.shortest_path_delay / total_delay
-                    reward = 10.0 * delay_ratio  # 放大奖励信号
-                else:
-                    reward = 10.0  # 边界情况
-            else:
-                # 中间步骤：reward = 0.0
-                reward = 0.0
-                
-            return reward, terminated, next_node, step_delay
-        else:
-            # 无效动作：惩罚，保持原地，时延为0
-            return -1.0, False, self.current_node, 0.0
-
-    def _compute_reward_v3(self, action, neighbors):
-        """
-        改进的奖励函数 V3：
-        
-        解决源目的变化导致的奖励不一致问题：
-        1. 使用相对指标（比值）而非绝对值
-        2. 中间步骤提供引导信号
-        3. 终点奖励反映路径质量
-        
-        奖励设计：
-        1. 无效动作：reward = -1.0
-        2. 有效动作（中间步骤）：reward = 小的负值（引导快速到达）
-        3. 到达终点：reward = 基础奖励 + 质量奖励
-           - 基础奖励：1.0（鼓励完成任务）
-           - 质量奖励：根据 (最短时延/实际时延) 计算
-        
-        返回: (reward, terminated, next_node, step_delay)
-        """
-        if 0 <= action < len(neighbors):
-            next_node = neighbors[action]
-            edge_data = self.graph[self.current_node][next_node]
-            step_delay = edge_data["delay"]
-            
-            # 检查是否到达终点
-            terminated = (next_node == self.dst)
-            
-            if terminated:
-                # 到达终点：基础奖励 + 质量奖励
-                total_delay = self.path_delay + step_delay
-                if total_delay > 0 and self.shortest_path_delay > 0:
-                    # 质量比值：值域 (0, 1]，最优为1
-                    quality_ratio = self.shortest_path_delay / total_delay
-                    # 基础奖励 + 质量奖励（按比例）
-                    # 最优路径: 1.0 + 9.0 * 1.0 = 10.0
-                    # 2倍时延: 1.0 + 9.0 * 0.5 = 5.5
-                    # 3倍时延: 1.0 + 9.0 * 0.33 = 4.0
-                    reward = 1.0 + 9.0 * quality_ratio
-                else:
-                    reward = 10.0
-            else:
-                # 中间步骤：小的负奖励，引导快速到达终点
-                # 使用归一化的步进惩罚，与源目的无关
-                reward = -0.01  # 每步小惩罚，鼓励找短路径
-                
-            return reward, terminated, next_node, step_delay
-        else:
-            # 无效动作：较大惩罚
-            return -1.0, False, self.current_node, 0.0
-
-    def _compute_reward_v4(self, action, neighbors):
-        """
-        改进的奖励函数 V4（推荐）：
-        
-        在 V3 基础上增加：
-        1. 环路惩罚：访问已访问过的节点，惩罚与访问次数成正比
-        2. 超时惩罚：超过最大跳数未到达终点
+        计算奖励（带环路和超时惩罚）
         
         奖励设计：
         1. 无效动作：reward = -1.0
@@ -377,7 +254,7 @@ class NetTupu(RawEnvironment):
            - 第3次重复访问: -0.5 × 3 = -1.5
         3. 有效动作（中间步骤）：reward = -0.01（引导快速到达）
         4. 到达终点：reward = 1.0 + 9.0 * (最短时延/实际时延)
-        5. 超时未到达：在 step 中额外惩罚 -5.0
+        5. 超时未到达：在 step 中额外惩罚 timeout_penalty
         
         返回: (reward, terminated, next_node, step_delay)
         """

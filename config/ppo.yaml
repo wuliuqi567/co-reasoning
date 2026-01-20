@@ -1,5 +1,5 @@
 dl_toolbox: "torch"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorlayer"
-project_name: "netenv_ddqn_1"
+project_name: "netenv_ppo_1"
 logger: "wandb"  # Choices: tensorboard, wandb.
 wandb_user_name: "wmqbit"
 render: False
@@ -10,48 +10,51 @@ device: "cuda:0"  # Choose an calculating device. PyTorch: "cpu", "cuda:0"; Tens
 distributed_training: False  # Whether to use multi-GPU for distributed training.
 master_port: '12355'  # The master port for current experiment when use distributed training.
 
-agent: "DDQN"
+agent: "PPO_Clip"  # choice: PPO_Clip, PPO_KL
 env_name: "NetEnv"
 env_id: "NetEnv-Net30-v0"
 env_seed: 1
 RGBImgPartialObsWrapper: False
 ImgObsWrapper: False
 vectorize: "DummyVecEnv"
-learner: "MyDDQNLearner"
-policy: "Basic_Q_network"
+learner: "MYPPOCLIP_Learner"
+policy: "Categorical_AC"  # choice: Gaussian_AC for continuous actions, Categorical_AC for discrete actions.
 representation: "Basic_MLP"
-runner: "DRL"
 
-representation_hidden_size: [128, 64]
-q_hidden_size: [128, 64]
-activation: 'relu'
+representation_hidden_size: [64, 32]
+actor_hidden_size: [32, 16]
+critic_hidden_size: [32, 16]
+activation: "leaky_relu"
 
-seed: 1
+seed: 79811
 parallels: 50
-buffer_size: 500000
-batch_size: 128
+running_steps: 10000000
+horizon_size: 128  # the horizon size for an environment, buffer_size = horizon_size * parallels.
+n_epochs: 16
+n_minibatch: 8
 learning_rate: 0.0001
-gamma: 0.99
-n_epochs: 4
 
-start_greedy: 0.8
-end_greedy: 0.05
-decay_step_greedy: 200000000
-sync_frequency: 1000
-training_frequency: 1
-running_steps: 20000000
-start_training: 10000
+vf_coef: 0.25
+ent_coef: 0.0
+target_kl: 0.25  # for PPO_KL agent
+kl_coef: 1.0  # for PPO_KL agent
+clip_range: 0.2  # for PPO_Clip agent
+gamma: 0.99
+use_gae: True
+gae_lambda: 0.95
+use_advnorm: True
 
 use_grad_clip: True  # gradient normalization
-grad_clip_norm: 1.0
+clip_type: 1  # Gradient clip for Mindspore: 0: ms.ops.clip_by_value; 1: ms.nn.ClipByNorm()
+grad_clip_norm: 0.5
 use_actions_mask: False
-use_obsnorm: False
+use_obsnorm: True
 use_rewnorm: True
 obsnorm_range: 5
 rewnorm_range: 5
 
 test_steps: 10000
-eval_interval: 20000
-test_episode: 7
-log_dir: "../logs/ddqn/"
-model_dir: "../models/ddqn/"
+eval_interval: 1000
+test_episode: 5
+log_dir: "../logs/ppo/"
+model_dir: "../models/ppo/"
