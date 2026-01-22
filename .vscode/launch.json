@@ -9,8 +9,17 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "cwd": "${workspaceFolder}/algorithm/ddqn",
-            "program": "./ddqn_netenv.py",
+            "cwd": "${workspaceFolder}/execute",
+            "program": "./ddqn_net.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "topo_parser",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/environment/topo_parse",
+            "program": "./topo_parser.py",
             "console": "integratedTerminal",
             "justMyCode": true
         }

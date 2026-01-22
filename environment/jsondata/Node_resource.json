@@ -1,0 +1,90 @@
+{
+    "data": {
+        "node_resource": [
+            {
+                "node_id": "49cfd799e19ecc76df4eb8a8c69f9b74",
+                "cpu_num": null,
+                "cpu_main_frequency": null,
+                "total_memory": null,
+                "total_disk": null
+            },
+            {
+                "node_id": "5a7532dcedfd35bf4a87c06389da0cf7",
+                "cpu_num": null,
+                "cpu_main_frequency": null,
+                "total_memory": null,
+                "total_disk": null
+            },
+            {
+                "node_id": "2ddb40e6057aae20ae04f5c65d685d48",
+                "cpu_num": null,
+                "cpu_main_frequency": null,
+                "total_memory": null,
+                "total_disk": null
+            },
+            {
+                "node_id": "0001236891d06fd11100004400000000",
+                "cpu_num": 4,
+                "cpu_main_frequency": 1.8,
+                "total_memory": 8,
+                "total_disk": 57
+            },
+            {
+                "node_id": "00012400163635386700004400000000",
+                "cpu_num": 6,
+                "cpu_main_frequency": 2.5,
+                "total_memory": 64,
+                "total_disk": 937
+            },
+            {
+                "node_id": "00012400163764666600004400000000",
+                "cpu_num": 6,
+                "cpu_main_frequency": 2.5,
+                "total_memory": 64,
+                "total_disk": 937
+            },
+            {
+                "node_id": "00012400163632633800004400000000",
+                "cpu_num": 6,
+                "cpu_main_frequency": 2.5,
+                "total_memory": 64,
+                "total_disk": 937
+            },
+            {
+                "node_id": "00012500163030653a00004400000000",
+                "cpu_num": 12,
+                "cpu_main_frequency": 2.1,
+                "total_memory": 64,
+                "total_disk": 937
+            },
+            {
+                "node_id": "00024600166139663700004400000000",
+                "cpu_num": 6,
+                "cpu_main_frequency": 2.5,
+                "total_memory": 32,
+                "total_disk": 915
+            },
+            {
+                "node_id": "0001236891d06fd10f00004400000000",
+                "cpu_num": 4,
+                "cpu_main_frequency": 1.8,
+                "total_memory": 8,
+                "total_disk": 57
+            },
+            {
+                "node_id": "0001236891d06fd10d00004400000000",
+                "cpu_num": 4,
+                "cpu_main_frequency": 1.8,
+                "total_memory": 8,
+                "total_disk": 57
+            },
+            {
+                "node_id": "00024600163964623200004400000000",
+                "cpu_num": 6,
+                "cpu_main_frequency": 2.5,
+                "total_memory": 16,
+                "total_disk": 233
+            }
+        ]
+    }
+}

@@ -148,24 +148,49 @@ class MyPPOAgent(OnPolicyAgent):
                                             train_steps=train_steps, train_info=train_info)
         return train_info
 
+
     def test(self,
              test_episodes: int,
              test_envs: Optional[DummyVecEnv | SubprocVecEnv] = None,
              close_envs: bool = True) -> list:
+        """Evaluate the current policy in a vectorized environment.
 
+        This method runs evaluation episodes using `test_envs` and returns the per-episode scores. Actions are produced
+        by the current policy (by default sampled from the policy distribution for on-policy methods), and optional
+        RGB-array frames can be recorded for video logging when rendering is enabled.
+
+        Args:
+            test_episodes (int): Total number of evaluation episodes to run across all vectorized environments.
+            test_envs (Optional[DummyVecEnv | SubprocVecEnv]): Vectorized environments used for evaluation.
+                Must not be None.
+            close_envs (bool): Whether to close `test_envs` before returning.
+                Set this to False if `test_envs` is managed externally and will be reused after evaluation.
+
+        Returns:
+            list: A list of episode scores collected during evaluation.
+
+        Notes:
+            - This method resets the evaluation environments at the beginning of testing and steps them
+                until `test_episodes` episodes are completed.
+            - When `render_mode == "rgb_array"` and `self.render` is True, the method records frames and logs
+                the best-scoring episode as a video.
+            - By default, this implementation updates `obs_rms` during testing. If you want to avoid contaminating
+                training statistics, consider guarding this update with a dedicated flag (e.g., `update_rms=False`).
+        """
         if test_envs is None:
             raise ValueError("`test_envs` must be provided for evaluation.")
         num_envs = test_envs.num_envs
         videos, episode_videos, images = [[] for _ in range(num_envs)], [], None
         current_episode, current_step, scores, best_score = 0, 0, [], -np.inf
         obs, infos = test_envs.reset()
-        
+
         while current_episode < test_episodes:
             self.obs_rms.update(obs)
             obs = self._process_observation(obs)
-            policy_out = self.action(obs, test_mode=True)
+            policy_out = self.action(obs)
             next_obs, rewards, terminals, truncations, infos = test_envs.step(policy_out['actions'])
-           
+
+
             self.callback.on_test_step(envs=test_envs, policy=self.policy, images=images,
                                        obs=obs, policy_out=policy_out, next_obs=next_obs, rewards=rewards,
                                        terminals=terminals, truncations=truncations, infos=infos,
@@ -175,22 +200,19 @@ class MyPPOAgent(OnPolicyAgent):
             obs = deepcopy(next_obs)
             for i in range(num_envs):
                 if terminals[i] or truncations[i]:
-                    if self.atari and (~truncations[i]):
-                        pass
-                    else:
-                        obs[i] = infos[i]["reset_obs"]
-                        scores.append(infos[i]["episode_score"])
-                        current_episode += 1
-                        if best_score < infos[i]["episode_score"]:
-                            best_score = infos[i]["episode_score"]
-                    
+                    obs[i] = infos[i]["reset_obs"]
+                    scores.append(infos[i]["episode_score"])
+                    current_episode += 1
+                    if best_score < infos[i]["episode_score"]:
+                        best_score = infos[i]["episode_score"]
+                        episode_videos = videos[i].copy()
+
                     print(f"Info src: {infos[i]['src']}")
                     print(f"Info dst: {infos[i]['dst']}")
                     print(f"Info path: {infos[i]['path']}")
                     print(f"Info path_delay: {infos[i]['path_delay']}")
                     print(f"Info shortest_path: {infos[i]['shortest_path']}")
                     print(f"Info shortest_path_delay: {infos[i]['shortest_path_delay']}")
-
             current_step += num_envs
 
         self.callback.on_test_end(envs=test_envs, policy=self.policy,

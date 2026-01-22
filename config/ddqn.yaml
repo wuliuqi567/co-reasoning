@@ -1,6 +1,6 @@
 dl_toolbox: "torch"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorlayer"
-project_name: "netenv_ddqn_1"
-logger: "wandb"  # Choices: tensorboard, wandb.
+project_name: "netenv_ddqn_resilience"
+logger: "tensorboard"  # Choices: tensorboard, wandb.
 wandb_user_name: "wmqbit"
 render: False
 render_mode: 'rgb_array' # Choices: 'human', 'rgb_array'.
@@ -35,16 +35,56 @@ gamma: 0.99
 n_epochs: 4
 
 start_greedy: 0.8
-end_greedy: 0.05
-decay_step_greedy: 200000000
+end_greedy: 0.00
+decay_step_greedy: 20000000
 sync_frequency: 1000
 training_frequency: 1
-running_steps: 20000000
-start_training: 10000
+running_steps: 2000000
+start_training: 5000
 
 use_grad_clip: True  # gradient normalization
 grad_clip_norm: 1.0
-use_actions_mask: False
+
+# =========================
+# Resilience / Anti-damage (NetTupu env_config)
+# =========================
+# failure_mode: "none" | "link" | "node"
+# 推荐训练：用 link 为主；node 失败更难、会更频繁断开
+failure_mode: "link"
+
+# 每回合损毁数量：推荐用 range 做 domain randomization
+# 这里表示每回合随机断 0~3 条链路（含 0，便于课程学习）
+fail_num_range: [0, 3]
+
+# 损毁发生的步数：0 表示 reset 时就损毁；也可在回合中途发生
+# 这里表示每回合随机在第 0~10 步发生一次损毁（含 0）
+fail_step_range: [0, 10]
+
+# 若你不想随机，可以用固定值（会被 range 覆盖）
+fail_num: 0
+fail_step: 0
+
+# 防止把 src/dst（以及中途的 current_node）删掉（node failure 时很重要）
+protect_src_dst: True
+protect_current_node: True
+
+# 损毁导致不可达时的重罚（在 env 内会直接 done）
+disconnect_penalty: -10.0
+
+# reset 时若 fail_step==0 且随机损毁导致 src->dst 无路，
+# 环境会重采样 src/dst，最多尝试 max_reset_tries 次
+max_reset_tries: 50
+
+# 奖励项（传入 NetTupu）
+# 抗毁伤场景绕行可能出现回退/重复节点，loop_penalty 建议先调小
+loop_penalty: -0.1
+timeout_penalty: -1.0
+
+# =========================
+# Mask / Norm settings
+# =========================
+# 强烈建议开启：损毁后邻居数变化会更频繁，不开 mask 会大量无效动作
+use_actions_mask: True
 use_obsnorm: False
 use_rewnorm: True
 obsnorm_range: 5
@@ -52,6 +92,6 @@ rewnorm_range: 5
 
 test_steps: 10000
 eval_interval: 20000
-test_episode: 7
+test_episode: 20
 log_dir: "../logs/ddqn/"
 model_dir: "../models/ddqn/"

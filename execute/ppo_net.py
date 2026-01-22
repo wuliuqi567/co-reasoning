@@ -18,7 +18,7 @@ from xuance.environment import REGISTRY_ENV
 def parse_args():
     parser = argparse.ArgumentParser("ppo for netenv")
     parser.add_argument("--env-id", type=str, default="NetEnv-Net30-v0")
-    parser.add_argument("--test", type=int, default=0)
+    parser.add_argument("--test", type=int, default=1)
     parser.add_argument("--benchmark", type=int, default=0)
 
     return parser.parse_args()
@@ -79,8 +79,8 @@ if __name__ == "__main__":
                 return make_envs(configs)
 
 
-            Agent.load_model(path=Agent.model_dir_load)
-            scores = Agent.test(env_fn, configs.test_episode)
+            Agent.load_model(path=Agent.model_dir_load, model="seed_79811_2026_0120_154247")
+            scores = Agent.test(configs.test_episode, env_fn())
             print(f"Mean Score: {np.mean(scores)}, Std: {np.std(scores)}")
             print("Finish testing.")
         else:
