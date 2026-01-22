@@ -16,14 +16,16 @@ env_id: "NetEnv-Net30-v0"
 env_seed: 1
 RGBImgPartialObsWrapper: False
 ImgObsWrapper: False
-vectorize: "DummyVecEnv"
+vectorize: "SubprocVecEnv" # DummyVecEnv, SubprocVecEnv
 learner: "MyDDQNLearner"
 policy: "Basic_Q_network"
 representation: "Basic_MLP"
 runner: "DRL"
 
-representation_hidden_size: [128, 64]
-q_hidden_size: [128, 64]
+# representation_hidden_size: [128, 64]
+# q_hidden_size: [128, 64]
+representation_hidden_size: [256, 128]
+q_hidden_size: [256, 128, 32]
 activation: 'relu'
 
 seed: 1
@@ -34,7 +36,7 @@ learning_rate: 0.0001
 gamma: 0.99
 n_epochs: 4
 
-start_greedy: 0.8
+start_greedy: 0.6
 end_greedy: 0.00
 decay_step_greedy: 200000000
 sync_frequency: 1000
@@ -93,5 +95,5 @@ rewnorm_range: 5
 test_steps: 10000
 eval_interval: 20000
 test_episode: 20
-log_dir: "../logs/ddqn/"
-model_dir: "../models/ddqn/"
+log_dir: "../logs/ddqn_iii/"
+model_dir: "../models/ddqn_iii/"

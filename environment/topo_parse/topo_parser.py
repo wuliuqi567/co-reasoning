@@ -7,9 +7,12 @@
     1. parse_topology(json_path) -> 从JSON文件解析得到networkx图
     2. update_link_metrics(G, json_path) -> 从link_metric.json更新图的边属性
     3. visualize(G, output_path)  -> 可视化拓扑图
+    4. save_to_graphml(G, filename) -> 保存为GraphML格式到graph_data目录
+    5. load_from_graphml(filepath) -> 从GraphML文件加载拓扑
 
 使用示例:
     from topo_parser import parse_topology, update_link_metrics, visualize
+    from topo_parser import save_to_graphml, load_from_graphml
 
     # 解析JSON得到图
     G = parse_topology("response_1768554636080.json")
@@ -19,6 +22,12 @@
 
     # 可视化
     visualize(G, "topo.png")
+    
+    # 保存为GraphML格式
+    save_to_graphml(G, "my_topology.graphml")
+    
+    # 从GraphML加载
+    G2 = load_from_graphml("graph_data/my_topology.graphml")
 """
 
 import json
@@ -552,6 +561,186 @@ def visualize(
 
 
 # ============================================================================
+# 导出函数
+# ============================================================================
+
+def save_to_graphml(
+    G: nx.Graph,
+    filename: str = "topology.graphml",
+    output_dir: Optional[Union[str, Path]] = None
+) -> Path:
+    """
+    将解析后的拓扑图保存为 GraphML 格式
+    
+    参数:
+        G: networkx 图对象
+        filename: 输出文件名 (默认 "topology.graphml")
+        output_dir: 输出目录路径，默认为 topo_parse 同级的 graph_data 目录
+    
+    返回:
+        Path: 保存的文件完整路径
+    
+    使用示例:
+        G = parse_topology("topo.json")
+        saved_path = save_to_graphml(G, "my_topo.graphml")
+        print(f"已保存到: {saved_path}")
+    """
+    # 确定输出目录
+    if output_dir is None:
+        # 默认保存到 topo_parse 同级的 graph_data 目录
+        output_dir = Path(__file__).parent.parent / "graph_data"
+    else:
+        output_dir = Path(output_dir)
+    
+    # 确保目录存在
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # 确保文件名以 .graphml 结尾
+    if not filename.endswith('.graphml'):
+        filename += '.graphml'
+    
+    output_path = output_dir / filename
+    
+    # GraphML 格式对属性类型有要求，需要处理 None 和 list 类型
+    G_export = _prepare_graph_for_graphml(G)
+    
+    # 保存为 GraphML 格式
+    nx.write_graphml(G_export, str(output_path))
+    
+    print(f"✓ 拓扑已保存为 GraphML 格式: {output_path}")
+    print(f"  - 节点数: {G.number_of_nodes()}")
+    print(f"  - 边数: {G.number_of_edges()}")
+    
+    return output_path
+
+
+def _prepare_graph_for_graphml(G: nx.Graph) -> nx.Graph:
+    """
+    为 GraphML 导出准备图数据，处理不兼容的属性类型
+    
+    GraphML 支持的属性类型: boolean, int, long, float, double, string
+    需要将 None、list 等类型转换为字符串
+    """
+    G_copy = G.copy()
+    
+    # 处理节点属性
+    for node in G_copy.nodes():
+        attrs = G_copy.nodes[node]
+        for key, value in list(attrs.items()):
+            attrs[key] = _convert_attr_value(value)
+    
+    # 处理边属性
+    for u, v in G_copy.edges():
+        attrs = G_copy[u][v]
+        for key, value in list(attrs.items()):
+            attrs[key] = _convert_attr_value(value)
+    
+    return G_copy
+
+
+def _convert_attr_value(value):
+    """
+    转换属性值为 GraphML 兼容类型
+    """
+    if value is None:
+        return ""
+    elif isinstance(value, (list, tuple)):
+        # 将列表转换为逗号分隔的字符串
+        return ",".join(str(v) for v in value)
+    elif isinstance(value, bool):
+        return value
+    elif isinstance(value, (int, float)):
+        return value
+    else:
+        return str(value)
+
+
+def load_from_graphml(
+    filepath: Union[str, Path],
+    restore_types: bool = True
+) -> nx.Graph:
+    """
+    从 GraphML 文件加载拓扑图
+    
+    参数:
+        filepath: GraphML 文件路径
+        restore_types: 是否尝试恢复属性类型 (默认 True)
+    
+    返回:
+        nx.Graph: 加载的图对象
+    
+    使用示例:
+        G = load_from_graphml("graph_data/topology.graphml")
+    """
+    G = nx.read_graphml(str(filepath))
+    
+    if restore_types:
+        G = _restore_attr_types(G)
+    
+    print(f"✓ 已从 GraphML 加载拓扑: {filepath}")
+    print(f"  - 节点数: {G.number_of_nodes()}")
+    print(f"  - 边数: {G.number_of_edges()}")
+    
+    return G
+
+
+def _restore_attr_types(G: nx.Graph) -> nx.Graph:
+    """
+    尝试恢复 GraphML 导入后的属性类型
+    """
+    # 需要转为 int 的节点属性
+    int_node_attrs = {'node_type', 'node_status', 'port_count'}
+    # 需要转为 float 的节点属性  
+    float_node_attrs = {'longitude', 'latitude'}
+    # 需要转为列表的节点属性
+    list_node_attrs = {'port_ids'}
+    
+    # 需要转为 float 的边属性
+    float_edge_attrs = {'link_bandwidth', 'link_latency', 'link_utilization', 
+                        'bandwidth_capacity_available', 'link_loss_rate'}
+    int_edge_attrs = {'link_status', 'flow_table_status'}
+    
+    # 处理节点属性
+    for node in G.nodes():
+        attrs = G.nodes[node]
+        for key in int_node_attrs:
+            if key in attrs and attrs[key] != '':
+                try:
+                    attrs[key] = int(float(attrs[key]))
+                except (ValueError, TypeError):
+                    pass
+        for key in float_node_attrs:
+            if key in attrs and attrs[key] != '':
+                try:
+                    attrs[key] = float(attrs[key])
+                except (ValueError, TypeError):
+                    pass
+        for key in list_node_attrs:
+            if key in attrs and isinstance(attrs[key], str) and attrs[key]:
+                attrs[key] = attrs[key].split(',')
+            elif key in attrs and attrs[key] == '':
+                attrs[key] = []
+    
+    # 处理边属性
+    for u, v in G.edges():
+        attrs = G[u][v]
+        for key in float_edge_attrs:
+            if key in attrs and attrs[key] != '':
+                try:
+                    attrs[key] = float(attrs[key])
+                except (ValueError, TypeError):
+                    pass
+        for key in int_edge_attrs:
+            if key in attrs and attrs[key] != '':
+                try:
+                    attrs[key] = int(float(attrs[key]))
+                except (ValueError, TypeError):
+                    pass
+    
+    return G
+
+
+# ============================================================================
 # 辅助函数
 # ============================================================================
 
@@ -723,9 +912,9 @@ def summary(G: nx.Graph, show_edges: bool = True) -> None:
 # ============================================================================
 
 if __name__ == "__main__":
-    # 示例：解析 + 更新链路属性 + 可视化
-    json_file = Path(__file__).parent.parent / "jsondata/topo.json"
-    link_metric_file = Path(__file__).parent.parent / "jsondata/link_metric.json"
+    # 示例：解析 + 更新链路属性 + 可视化 + 保存GraphML
+    json_file = Path(__file__).parent.parent / "jsondata/topo2.json"
+    link_metric_file = Path(__file__).parent.parent / "jsondata/link_metric2.json"
 
     if json_file.exists():
         # 1. 解析拓扑
@@ -752,5 +941,17 @@ if __name__ == "__main__":
         G_ii = get_subgraph(G, {3, 4, 5})
         print(f"\nII类子图: {G_ii.number_of_nodes()} 节点, {G_ii.number_of_edges()} 边")
         visualize(G_ii, "topo_ii.png", title="II类网络拓扑")
+        
+        # 7. 保存为 GraphML 格式
+        print("\n保存为 GraphML 格式...")
+        # save_to_graphml(G, "topology.graphml")
+        save_to_graphml(G_ii, "topology_ii.graphml")
+        
+        # # 8. 验证：从 GraphML 加载并比较
+        # print("\n验证 GraphML 加载...")
+        # graph_data_dir = Path(__file__).parent.parent / "graph_data"
+        # G_loaded = load_from_graphml(graph_data_dir / "topology.graphml")
+        # print(f"原图节点数: {G.number_of_nodes()}, 加载后节点数: {G_loaded.number_of_nodes()}")
+        # print(f"原图边数: {G.number_of_edges()}, 加载后边数: {G_loaded.number_of_edges()}")
     else:
         print(f"找不到文件: {json_file}")

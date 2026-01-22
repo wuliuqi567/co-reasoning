@@ -11,7 +11,7 @@ from xuance.environment import make_envs
 from xuance.torch.utils.operations import set_seed
 from agents.myddqn_agent import MyDDQNAgent
 
-from environment.net_tupu import NetTupu
+from environment.net_tupu_iii import NetTupu
 from xuance.environment import REGISTRY_ENV
 
 
