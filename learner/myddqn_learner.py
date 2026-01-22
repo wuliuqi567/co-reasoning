@@ -33,8 +33,19 @@ class MyDDQNLearner(Learner):
                                              next_obs=next_batch, rew=rew_batch, termination=ter_batch)
 
         _, _, evalQ = self.policy(obs_batch)
-        _, targetA, _ = self.policy(next_batch)
+        _, _, nextQ = self.policy(next_batch)  # Q values for action selection (Double DQN)
         _, _, targetQ = self.policy.target(next_batch)
+
+        # Apply action mask to target action selection (Double DQN)
+        if getattr(self.config, "use_actions_mask", False):
+            # Extract mask from next_obs: nbr_id >= 0 means valid action
+            # obs layout: [current_node, dst_node, (nbr_id, delay, bw) * max_degree]
+            next_mask = next_batch[:, 2::3] >= 0.0  # (batch, n_actions)
+            nextQ_masked = nextQ.clone()
+            nextQ_masked[~next_mask] = -1e9
+            targetA = nextQ_masked.argmax(dim=-1)
+        else:
+            targetA = nextQ.argmax(dim=-1)
 
         predictQ = evalQ.gather(-1, act_batch.unsqueeze(-1)).squeeze(-1)
         targetQ = targetQ.gather(-1, targetA.unsqueeze(-1)).squeeze(-1)

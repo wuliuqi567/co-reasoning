@@ -30,6 +30,9 @@ if __name__ == "__main__":
     configs = argparse.Namespace(**configs_dict)
     REGISTRY_ENV[configs.env_name] = NetTupu
 
+    if configs.test:
+        configs.logger = "tensorboard"
+
     set_seed(configs.seed)
     envs = make_envs(configs)
     Agent = MyDDQNAgent(config=configs, envs=envs)
@@ -53,7 +56,7 @@ if __name__ == "__main__":
         test_episode = configs.test_episode
         num_epoch = int(train_steps / eval_interval)
 
-        test_scores = Agent.test(env_fn, test_episode)
+        test_scores = Agent.test(test_episode, env_fn())
         Agent.save_model(model_name="best_model.pth")
         best_scores_info = {"mean": np.mean(test_scores),
                             "std": np.std(test_scores),
@@ -61,7 +64,7 @@ if __name__ == "__main__":
         for i_epoch in range(num_epoch):
             print("Epoch: %d/%d:" % (i_epoch, num_epoch))
             Agent.train(eval_interval)
-            test_scores = Agent.test(env_fn, test_episode)
+            test_scores = Agent.test(test_episode, env_fn())
 
             if np.mean(test_scores) > best_scores_info["mean"]:
                 best_scores_info = {"mean": np.mean(test_scores),

@@ -3,9 +3,16 @@ from gymnasium.spaces import Space
 from xuance.common import Optional, BaseCallback
 from xuance.environment import DummyVecEnv, SubprocVecEnv
 from xuance.torch.agents.qlearning_family.dqn_agent import DQN_Agent
+from xuance.torch.agents import OffPolicyAgent
 from copy import deepcopy
 from xuance.torch.learners import REGISTRY_Learners
 from learner.myddqn_learner import MyDDQNLearner
+from xuance.torch.utils import NormalizeFunctions, ActivationFunctions
+from xuance.torch.policies import REGISTRY_Policy
+from xuance.torch.agents import OffPolicyAgent
+from xuance.torch import Module
+from policy.q_network import Q_Network
+from xuance.common import Optional, DummyOffPolicyBuffer
 
 import torch
 from torch import nn
@@ -13,7 +20,7 @@ from tqdm import tqdm
 import numpy as np
 
 
-class MyDDQNAgent(DQN_Agent):
+class MyDDQNAgent(OffPolicyAgent):
     def __init__(
             self,
             config: Namespace,
@@ -31,6 +38,42 @@ class MyDDQNAgent(DQN_Agent):
         env_seed = int(getattr(config, "env_seed", 0) or 0)
         rank = int(getattr(self, "rank", 0) or 0)
         self.np_rng = np.random.default_rng(base_seed + 1000 * rank + env_seed)
+
+        self.start_greedy, self.end_greedy = config.start_greedy, config.end_greedy
+        self.e_greedy = config.start_greedy
+        self.delta_egreedy = (self.start_greedy - self.end_greedy) / (config.decay_step_greedy / self.n_envs)
+
+        self.policy = self._build_policy()  # build policy
+        self.memory = self._build_memory()  # build memory
+        self.learner = self._build_learner(self.config, self.policy, self.callback)  # build learner
+
+    def _build_policy(self) -> Module:
+        normalize_fn = NormalizeFunctions[self.config.normalize] if hasattr(self.config, "normalize") else None
+        initializer = torch.nn.init.orthogonal_
+        activation = ActivationFunctions[self.config.activation]
+        device = self.device
+
+        # build representation.
+        representation = self._build_representation(self.config.representation, self.observation_space, self.config)
+
+        # build policy.
+
+        policy = Q_Network(
+                action_space=self.action_space, representation=representation, hidden_size=self.config.q_hidden_size,
+                normalize=normalize_fn, initialize=initializer, activation=activation, device=device,
+                use_distributed_training=self.distributed_training)
+
+        return policy
+
+    # def _build_memory(self) -> DummyOffPolicyBuffer:
+    #     """Build and initialize the replay buffer for off-policy training."""
+    #     return DummyOffPolicyBuffer(
+    #         observation_space=self.observation_space,
+    #         action_space=self.action_space,
+    #         auxiliary_shape=self.auxiliary_info_shape,
+    #         n_envs=self.n_envs,
+    #         buffer_size=self.buffer_size,
+    #         batch_size=self.batch_size)
 
     # ---------------------------------------------------------------------
     # Masked action selection (critical for resilience / anti-damage)
@@ -124,6 +167,7 @@ class MyDDQNAgent(DQN_Agent):
         if test_mode:
             final_acts_t = greedy_acts_t
         else:
+            
             eps = self._get_eps()
             N = evalQ.shape[0]
             explore = (torch.rand((N,), device=self.device) < eps)
@@ -273,34 +317,3 @@ class MyDDQNAgent(DQN_Agent):
         return scores
 
 
-class MyPolicy(nn.Module):
-    """
-    An example of self-defined policy.
-    """
-
-    def __init__(self, representation: nn.Module, hidden_dim: int, n_actions: int, device: torch.device):
-        super(MyPolicy, self).__init__()
-        self.representation = representation
-        self.feature_dim = self.representation.output_shapes['state'][0]
-        self.q_net = nn.Sequential(
-            nn.Linear(self.feature_dim, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, n_actions),
-        ).to(device)
-        self.target_q_net = deepcopy(self.q_net)
-
-    def forward(self, observation):
-        output_rep = self.representation(observation)
-        output = self.q_net(output_rep['state'])
-        argmax_action = output.argmax(dim=-1)
-        return output_rep, argmax_action, output
-
-    def target(self, observation):
-        outputs_target = self.representation(observation)
-        Q_target = self.target_q_net(outputs_target['state'])
-        argmax_action = Q_target.argmax(dim=-1)
-        return outputs_target, argmax_action.detach(), Q_target.detach()
-
-    def copy_target(self):
-        for ep, tp in zip(self.q_net.parameters(), self.target_q_net.parameters()):
-            tp.data.copy_(ep)
