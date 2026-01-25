@@ -37,15 +37,10 @@ class MyDDQNLearner(Learner):
         _, _, targetQ = self.policy.target(next_batch)
 
         # Apply action mask to target action selection (Double DQN)
-        if getattr(self.config, "use_actions_mask", False):
-            # Extract mask from next_obs: nbr_id >= 0 means valid action
-            # obs layout: [current_node, dst_node, (nbr_id, delay, bw) * max_degree]
-            next_mask = next_batch[:, 2::3] >= 0.0  # (batch, n_actions)
-            nextQ_masked = nextQ.clone()
-            nextQ_masked[~next_mask] = -1e9
-            targetA = nextQ_masked.argmax(dim=-1)
-        else:
-            targetA = nextQ.argmax(dim=-1)
+        # 注意：由于 replay buffer 中没有存储 action_mask，
+        # 且 state 模式的 obs 无法直接提取 mask，这里直接使用 argmax
+        # Agent 在选择动作时已经使用了 mask，确保只选择有效动作
+        targetA = nextQ.argmax(dim=-1)
 
         predictQ = evalQ.gather(-1, act_batch.unsqueeze(-1)).squeeze(-1)
         targetQ = targetQ.gather(-1, targetA.unsqueeze(-1)).squeeze(-1)

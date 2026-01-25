@@ -46,6 +46,11 @@ class MyDDQNAgent(OffPolicyAgent):
         self.policy = self._build_policy()  # build policy
         self.memory = self._build_memory()  # build memory
         self.learner = self._build_learner(self.config, self.policy, self.callback)  # build learner
+        
+        # 分别存储 train 和 test 的 action_mask (从 infos 中获取)
+        self._train_action_masks = None
+        self._test_action_masks = None
+        self._is_test_mode = False  # 标记当前是 train 还是 test
 
     def _build_policy(self) -> Module:
         normalize_fn = NormalizeFunctions[self.config.normalize] if hasattr(self.config, "normalize") else None
@@ -97,22 +102,46 @@ class MyDDQNAgent(OffPolicyAgent):
             return obs.to(self.device)
         return torch.as_tensor(obs, dtype=torch.float32, device=self.device)
 
-    def _extract_action_mask_from_obs(self, obs):
+    def _update_action_masks_from_infos(self, infos, is_test: bool = False):
+        """从 infos 中提取并存储 action_mask。"""
+        if infos is None:
+            return
+        masks = []
+        for info in infos:
+            if isinstance(info, dict) and "action_mask" in info:
+                masks.append(info["action_mask"])
+        if masks:
+            stacked = np.stack(masks, axis=0)  # (N, max_degree)
+            if is_test:
+                self._test_action_masks = stacked
+            else:
+                self._train_action_masks = stacked
+    
+    def _extract_action_mask_from_obs(self, obs, is_test: bool = False):
         """
-        Derive action mask from observation itself.
-
-        Your obs layout:
-          [current_node, dst_node, (nbr_id, delay, bw) * max_degree]
-        nbr_id == -1 indicates invalid slot. So:
-          mask[i, a] = (obs[i, 2 + 3*a] >= 0)
+        获取 action mask。
+        
+        优先使用从 infos 中存储的 action_mask，
+        如果不可用则使用默认全 True mask。
         """
+        masks = self._test_action_masks if is_test else self._train_action_masks
+        
+        # 检查 masks 是否存在且形状匹配
+        if masks is not None:
+            N = obs.shape[0] if torch.is_tensor(obs) else np.asarray(obs).shape[0]
+            if masks.shape[0] == N:
+                return masks
+        
+        # 备用：全部可用 (使用 action_space 的维度)
         if torch.is_tensor(obs):
-            nbr_ids = obs[:, 2::3]  # (N, max_degree)
-            return nbr_ids >= 0.0
+            N = obs.shape[0]
+            A = self.action_space.n
+            return torch.ones((N, A), dtype=torch.bool, device=obs.device)
         else:
             obs_np = np.asarray(obs)
-            nbr_ids = obs_np[:, 2::3]
-            return nbr_ids >= 0.0
+            N = obs_np.shape[0]
+            A = self.action_space.n
+            return np.ones((N, A), dtype=bool)
 
     def _masked_greedy_actions(self, q_values: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
         """
@@ -155,8 +184,8 @@ class MyDDQNAgent(OffPolicyAgent):
         # policy(obs) -> (rep_out, argmax_action, evalQ)
         rep_out, argmax_action, evalQ = self.policy(obs_t)  # evalQ: (N, A)
 
-        # Build mask from obs itself
-        mask_t = self._extract_action_mask_from_obs(obs_t)
+        # Build mask from stored action_masks
+        mask_t = self._extract_action_mask_from_obs(obs_t, is_test=test_mode)
         if not torch.is_tensor(mask_t):
             mask_t = torch.as_tensor(mask_t, dtype=torch.bool, device=self.device)
         else:
@@ -193,6 +222,9 @@ class MyDDQNAgent(OffPolicyAgent):
     def train(self, train_steps: int) -> dict:
         train_info = {}
         obs = self.train_envs.buf_obs
+        # 初始化 action_masks (从 buf_infos 获取)
+        if hasattr(self.train_envs, 'buf_infos') and self.train_envs.buf_infos is not None:
+            self._update_action_masks_from_infos(self.train_envs.buf_infos, is_test=False)
         for _ in tqdm(range(train_steps)):
             self.obs_rms.update(obs)
             obs = self._process_observation(obs)
@@ -200,6 +232,9 @@ class MyDDQNAgent(OffPolicyAgent):
             policy_out = self.action(obs, test_mode=False)
             acts = policy_out['actions']
             next_obs, rewards, terminals, truncations, infos = self.train_envs.step(acts)
+            
+            # 更新 action_masks
+            self._update_action_masks_from_infos(infos, is_test=False)
 
             self.callback.on_train_step(self.current_step, envs=self.train_envs, policy=self.policy,
                                         obs=obs, policy_out=policy_out, acts=acts, next_obs=next_obs, rewards=rewards,
@@ -263,6 +298,9 @@ class MyDDQNAgent(OffPolicyAgent):
         videos, episode_videos, images = [[] for _ in range(num_envs)], [], None
         current_episode, current_step, scores, best_score = 0, 0, [], -np.inf
         obs, infos = test_envs.reset()
+        
+        # 初始化 action_masks
+        self._update_action_masks_from_infos(infos, is_test=True)
 
         while current_episode < test_episodes:
             self.obs_rms.update(obs)
@@ -270,6 +308,9 @@ class MyDDQNAgent(OffPolicyAgent):
             policy_out = self.action(obs, test_mode=True)
 
             next_obs, rewards, terminals, truncations, infos = test_envs.step(policy_out['actions'])
+            
+            # 更新 action_masks
+            self._update_action_masks_from_infos(infos, is_test=True)
 
             self.callback.on_test_step(envs=test_envs, policy=self.policy, images=images,
                                        obs=obs, policy_out=policy_out, next_obs=next_obs, rewards=rewards,

@@ -19,7 +19,7 @@ def parse_args():
     parser = argparse.ArgumentParser("Double DQN for NetEnv.")
     parser.add_argument("--env-id", type=str, default="NetEnv-Net30-v0")
     parser.add_argument("--test", type=int, default=0)
-    parser.add_argument("--benchmark", type=int, default=0)
+    parser.add_argument("--benchmark", type=int, default=1)
     return parser.parse_args()
 
 if __name__ == "__main__":

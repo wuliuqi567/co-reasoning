@@ -80,6 +80,7 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
 
     边属性:
         - link_id, link_status
+        - link_type: 链路类型 (1=有线1000Mbps, 2=无线60Mbps)
         - link_bandwidth, link_latency
         - src_port, dst_port
     """
@@ -98,11 +99,12 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
     # 构建图
     G = nx.Graph()
 
+    # 收集有效节点并分配 idx
+    valid_nodes = [node for node in nodes if node.get('node_id')]
+    
     # 添加节点
-    for node in nodes:
+    for idx, node in enumerate(valid_nodes):
         node_id = node.get('node_id')
-        if not node_id:
-            continue
 
         node_type = node.get('node_type', 0)
         location_str = node.get('node_location', '')
@@ -124,6 +126,7 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
         
         G.add_node(
             node_id,
+            idx=idx,  # 整数索引 (用于观测空间)
             node_id=node_id,
             node_type=node_type,
             node_type_name=NODE_TYPE_NAMES.get(node_type, f'类型{node_type}'),
@@ -131,7 +134,7 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
             node_location=location_str,
             longitude=longitude,
             latitude=latitude,
-            node_status=node.get('node_status'),
+            node_status=node.get('node_status', 1),
             port_count=port_count,
             port_ids=port_ids,
         )
@@ -157,9 +160,12 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
         G.add_edge(
             src_node, dst_node,
             link_id=link.get('link_id', ''),
-            link_status=link.get('link_status'),
+            link_status=link.get('link_status', 1),
+            link_type=link.get('link_type'),  # 1=有线1000Mbps, 2=无线60Mbps
             link_bandwidth=bandwidth,
             link_latency=latency,
+            link_utilization=link.get('link_utilization', 0.0),  # 链路利用率
+            link_loss_rate=link.get('link_loss_rate', 0.0),  # 链路丢包率
             src_port=link.get('src', {}).get('src_port', ''),
             dst_port=link.get('dst', {}).get('dst_port', ''),
         )
@@ -689,7 +695,7 @@ def _restore_attr_types(G: nx.Graph) -> nx.Graph:
     尝试恢复 GraphML 导入后的属性类型
     """
     # 需要转为 int 的节点属性
-    int_node_attrs = {'node_type', 'node_status', 'port_count'}
+    int_node_attrs = {'idx', 'node_type', 'node_status', 'port_count'}
     # 需要转为 float 的节点属性  
     float_node_attrs = {'longitude', 'latitude'}
     # 需要转为列表的节点属性
@@ -698,7 +704,7 @@ def _restore_attr_types(G: nx.Graph) -> nx.Graph:
     # 需要转为 float 的边属性
     float_edge_attrs = {'link_bandwidth', 'link_latency', 'link_utilization', 
                         'bandwidth_capacity_available', 'link_loss_rate'}
-    int_edge_attrs = {'link_status', 'flow_table_status'}
+    int_edge_attrs = {'link_status', 'link_type', 'flow_table_status'}
     
     # 处理节点属性
     for node in G.nodes():
@@ -935,16 +941,18 @@ if __name__ == "__main__":
         results = compute_ii_shortest_paths(G, print_result=True)
         
         # 5. 可视化
-        visualize(G, "topo.png", title="网络拓扑图")
+        vis_pic = Path(__file__).parent / "vis_pic"
+        vis_pic.mkdir(parents=True, exist_ok=True)
+        visualize(G, vis_pic / "topo.png", title="网络拓扑图")
 
         # 6. 获取II类子图 (可选)
         G_ii = get_subgraph(G, {3, 4, 5})
         print(f"\nII类子图: {G_ii.number_of_nodes()} 节点, {G_ii.number_of_edges()} 边")
-        visualize(G_ii, "topo_ii.png", title="II类网络拓扑")
+        visualize(G_ii, vis_pic / "topo_ii.png", title="II类网络拓扑")
         
         # 7. 保存为 GraphML 格式
         print("\n保存为 GraphML 格式...")
-        # save_to_graphml(G, "topology.graphml")
+        save_to_graphml(G, "topology.graphml")
         save_to_graphml(G_ii, "topology_ii.graphml")
         
         # # 8. 验证：从 GraphML 加载并比较
