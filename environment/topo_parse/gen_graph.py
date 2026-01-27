@@ -102,7 +102,7 @@ def _generate_connected_graph(num_nodes: int, min_degree: int, max_degree: int) 
 
 
 def _add_node_attributes(G: nx.Graph) -> None:
-    """添加节点属性: idx, node_id, node_type, node_status 等。"""
+    """添加节点属性: idx, node_id, node_type, node_status, port_count, port_ids 等。"""
     num_nodes = G.number_of_nodes()
 
     # 节点类型分布
@@ -125,23 +125,41 @@ def _add_node_attributes(G: nx.Graph) -> None:
         # 生成字符串 node_id
         node_id = f"0001{node_type:02x}{uuid.uuid4().hex[:16]}00004400000000"
 
+        # 生成经纬度
+        longitude = round(random.uniform(112.9, 113.1), 6)
+        latitude = round(random.uniform(28.1, 28.3), 6)
+        node_location = f"{longitude},{latitude}"
+
+        # 生成端口信息 (根据节点度数生成足够的端口)
+        degree = G.degree(node)
+        port_count = max(degree, random.randint(4, 8))  # 至少4个端口，或与度数匹配
+        port_ids = [f"{node_id}:{p+1}" for p in range(port_count)]
+
         G.nodes[node].update({
             "idx": i,  # 整数索引 (用于观测空间)
             "node_id": node_id,  # 字符串标识
             "node_type": node_type,
             "node_type_name": NODE_TYPES.get(node_type, f"类型{node_type}"),
             "node_manage_ip_addr": f"192.168.{subnet}.{host}",
+            "node_location": node_location,
+            "longitude": longitude,
+            "latitude": latitude,
             "node_status": 1,
-            "longitude": random.uniform(112.9, 113.1),
-            "latitude": random.uniform(28.1, 28.3),
+            "port_count": port_count,
+            "port_ids": port_ids,
         })
 
 
 def _add_edge_attributes(G: nx.Graph) -> None:
-    """添加边属性: link_latency, link_bandwidth, link_status 等。"""
+    """添加边属性: link_id, link_latency, link_bandwidth, link_status, src_port, dst_port 等。"""
+    # 记录每个节点已使用的端口索引
+    node_port_idx = {n: 0 for n in G.nodes()}
+
     for u, v in G.edges():
         u_type = G.nodes[u].get("node_type", 4)
         v_type = G.nodes[v].get("node_type", 4)
+        u_node_id = G.nodes[u].get("node_id", str(u))
+        v_node_id = G.nodes[v].get("node_id", str(v))
 
         # 根据节点类型确定带宽
         if u_type == 5 or v_type == 5:
@@ -151,13 +169,28 @@ def _add_edge_attributes(G: nx.Graph) -> None:
         else:
             bandwidth = random.choice(BANDWIDTH_OPTIONS)
 
+        # 分配端口 (使用端口索引递增)
+        src_port_idx = node_port_idx[u]
+        dst_port_idx = node_port_idx[v]
+        node_port_idx[u] += 1
+        node_port_idx[v] += 1
+
+        src_port = f"{u_node_id}:{src_port_idx + 1}"
+        dst_port = f"{v_node_id}:{dst_port_idx + 1}"
+
+        # 生成链路 ID: u_node_id:src_port_v_node_id:dst_port
+        link_id = f"{src_port}_{dst_port}"
+
         G[u][v].update({
+            "link_id": link_id,
             "link_status": 1,
             "link_type": 2 if bandwidth == 60 else 1,  # 1=有线, 2=无线
             "link_bandwidth": bandwidth,
             "link_latency": round(random.uniform(*LATENCY_RANGE), 3),
             "link_utilization": 0.0,
             "link_loss_rate": 0.0,
+            "src_port": src_port,
+            "dst_port": dst_port,
         })
 
 

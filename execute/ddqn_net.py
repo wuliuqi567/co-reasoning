@@ -32,6 +32,10 @@ if __name__ == "__main__":
 
     if configs.test:
         configs.logger = "tensorboard"
+        configs.benchmark = 0
+        configs.parallels = 1
+        configs.vectorize = "DummyVecEnv"
+        # configs.test_episode = 1
 
     set_seed(configs.seed)
     envs = make_envs(configs)
@@ -80,7 +84,7 @@ if __name__ == "__main__":
                 configs.parallels = configs.test_episode
                 return make_envs(configs)
 
-            Agent.load_model(path=Agent.model_dir_load)
+            Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0127_144115")
             Agent.test(configs.test_episode, env_fn())
         else:
             Agent.train(configs.running_steps // configs.parallels)

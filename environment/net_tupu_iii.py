@@ -22,6 +22,9 @@
 """
 
 import os
+import sys
+# 添加项目根目录到 Python 路径
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import pickle
 from pathlib import Path
 from dataclasses import dataclass
@@ -109,10 +112,11 @@ class ObservationConfig:
 @dataclass
 class FailureConfig:
     """故障注入配置"""
-    enable_failure: bool = True
+    enable_failure: bool = False
     failure_mode: str = "edge"  # "edge" | "node"
     fail_num: int = 2
     fail_step: int = -1  # -1: reset时注入; >=0: 指定步数时注入
+    failure_prob: float = 0.2  # 故障发生概率 (0.0-1.0)，1.0 表示每次都发生
     ensure_reachable: bool = True
     max_failure_tries: int = 30
     utilization_threshold: float = 0.85  # 链路利用率阈值
@@ -121,10 +125,11 @@ class FailureConfig:
     @classmethod
     def from_env_config(cls, env_config) -> "FailureConfig":
         return cls(
-            enable_failure=bool(getattr(env_config, "enable_failure", True)),
+            enable_failure=bool(getattr(env_config, "enable_failure", False)),
             failure_mode=getattr(env_config, "failure_mode", "edge"),
             fail_num=int(getattr(env_config, "fail_num", 2)),
             fail_step=int(getattr(env_config, "fail_step", -1)),
+            failure_prob=float(getattr(env_config, "failure_prob", 0.2)),
             ensure_reachable=bool(getattr(env_config, "ensure_reachable", True)),
             max_failure_tries=int(getattr(env_config, "max_failure_tries", 30)),
             utilization_threshold=float(getattr(env_config, "utilization_threshold", 0.85)),
@@ -143,6 +148,7 @@ class RewardConfig:
     progress_scale: float = 0.02
     success_base: float = 1.0
     success_scale: float = 9.0
+    suboptimal_penalty: float = -2.0  # 最后一跳绕路的惩罚
 
     @classmethod
     def from_env_config(cls, env_config) -> "RewardConfig":
@@ -155,6 +161,7 @@ class RewardConfig:
             progress_scale=float(getattr(env_config, "progress_scale", 0.02)),
             success_base=float(getattr(env_config, "success_base", 1.0)),
             success_scale=float(getattr(env_config, "success_scale", 9.0)),
+            suboptimal_penalty=float(getattr(env_config, "suboptimal_penalty", -2.0)),
         )
 
 
@@ -495,11 +502,39 @@ class RewardCalculator:
         # 到达目标
         if next_node == dst:
             total_delay = path_delay + step_delay
+            
+            # 无法计算最短路径延迟时，给基础奖励
             if not np.isfinite(shortest_path_delay) or shortest_path_delay <= 0.0:
-                quality_ratio = 0.0
+                return cfg.success_base, True, "arrive"
+            
+            # 获取当前节点到目的地的最短距离
+            d_cur = dist_to_dst.get(current_node, np.inf)
+            
+            # 判断最后一跳是否是最优的
+            # d_cur 是从 current_node 到 dst 的最短路径延迟
+            # step_delay 是实际走的这一跳的延迟
+            # 如果 d_cur ≈ step_delay，说明直接走就是最短的（最后一跳最优）
+            # 如果 d_cur < step_delay，说明有更短的路径但没选（最后一跳绕路）
+            is_last_hop_optimal = np.isfinite(d_cur) and np.isclose(d_cur, step_delay, rtol=0.01)
+            
+            # 判断整条路径是否是最优的
+            is_path_optimal = np.isclose(total_delay, shortest_path_delay, rtol=0.01)
+            
+            if is_path_optimal:
+                # 整条路径都是最优的，给最高奖励
+                quality_ratio = 1.0
+                return cfg.success_base + cfg.success_scale * quality_ratio, True, "arrive_optimal"
+            elif is_last_hop_optimal:
+                # 最后一跳是最优的，但整条路径不是（之前绕路了）
+                # 根据路径质量给奖励
+                quality_ratio = float(np.clip(shortest_path_delay / max(total_delay, 1e-6), 0.0, 1.0))
+                return cfg.success_base + cfg.success_scale * quality_ratio, True, "arrive"
             else:
-                quality_ratio = float(np.clip(shortest_path_delay / max(total_delay, 1e-6), 0.0, 2.0))
-            return cfg.success_base + cfg.success_scale * quality_ratio, True, "arrive"
+                # 最后一跳也绕路了，给惩罚
+                # 惩罚程度与绕路比例相关
+                detour_ratio = (step_delay - d_cur) / max(d_cur, 1e-6) if np.isfinite(d_cur) and d_cur > 0 else 1.0
+                penalty = cfg.suboptimal_penalty * min(detour_ratio, 1.0)
+                return cfg.success_base + penalty, True, "arrive_suboptimal"
 
         # 环路惩罚
         visit_count = path.count(next_node)
@@ -569,7 +604,12 @@ class NetTupu(RawEnvironment):
         self.reward_calculator = RewardCalculator(config=self.reward_config)
 
         # Episode 状态
-        self.src, self.dst, self.current_node = None, None, None
+        self.test_or_train = getattr(env_config, "test", False) and getattr(env_config, "execute_reroute", False)
+        if self.test_or_train:
+            self.src = env_config.src
+            self.dst = env_config.dst
+        else:
+            self.src, self.dst, self.current_node = None, None, None
         self.path, self.path_delay = [], 0.0
         self.shortest_path, self.shortest_path_delay = None, np.inf
         self.dist_to_dst = {}
@@ -595,28 +635,39 @@ class NetTupu(RawEnvironment):
         if kwargs.get("regenerate_graph", False):
             self.regenerate_topology()
 
-        self._sample_src_dst()
+        
+        if self.test_or_train:
+            if self.src is None or self.dst is None:
+                raise ValueError("test_or_train=True 需要传入 src 和 dst")
+            self.src = int(self.src)
+            self.dst = int(self.dst)
+        else:
+            self._sample_src_dst()
 
+        # 根据概率决定是否注入故障
         if self.failure_config.enable_failure and self.failure_config.fail_step < 0:
-            self._inject_failure()
+            if self.rng.random() < self.failure_config.failure_prob:
+                self._inject_failure()
 
         self.current_node = self.src
         self.path.append(self.current_node)
         self._recompute_shortest_and_dists()
 
-        return self._build_observation(), self._build_info(extra={"reset": True})
+        extra = {"reset": True, "test_or_train": self.test_or_train} if not self.test_or_train else {"reset": True, "src": self.src, "dst": self.dst, "test_or_train": self.test_or_train}
+        return self._build_observation(), self._build_info(extra=extra)
 
     def step(self, action):
         """执行动作。"""
         self._current_step += 1
 
-        # 动态损毁
+        # 动态损毁（根据概率决定是否注入）
         if (self.failure_config.enable_failure
             and not self.failure_happened
             and self.failure_config.fail_step >= 0
             and self._current_step == self.failure_config.fail_step):
-            self._inject_failure()
-            self._recompute_shortest_and_dists()
+            if self.rng.random() < self.failure_config.failure_prob:
+                self._inject_failure()
+                self._recompute_shortest_and_dists()
 
         neighbors = self._get_neighbor_list(self.current_node)
 
@@ -685,7 +736,8 @@ class NetTupu(RawEnvironment):
     # =========================================================================
 
     def visualize(self, **kwargs):
-        return visualize(self.active_graph, **kwargs)
+        visualize_fn = self._resolve_visualize()
+        return visualize_fn(self.active_graph, **kwargs)
 
     def regenerate_topology(self):
         """重新生成拓扑。"""
@@ -714,6 +766,88 @@ class NetTupu(RawEnvironment):
             nodes = list(self.base_graph.nodes())
         selected = self.rng.choice(nodes, size=2, replace=False)
         self.src, self.dst = int(selected[0]), int(selected[1])
+    
+    def set_src_dst_idx(self, src: int, dst: int):
+        self.src = src
+        self.dst = dst
+
+    def set_src_dst_ip(self, src: str, dst: str):
+        map = self.get_manage_ip_to_node_id_map()
+        self.src = map[src]
+        self.dst = map[dst]
+
+    def get_manage_ip_to_node_id_map(self, graph: Optional[nx.Graph] = None) -> Dict[str, str]:
+        """构建节点 node_manage_ip_addr -> node_id 映射。"""
+        g = graph or self.base_graph
+        mapping: Dict[str, str] = {}
+        if g is None:
+            return mapping
+        for _, attrs in g.nodes(data=True):
+            node_id = attrs.get("node_id")
+            ip_addr = attrs.get("node_manage_ip_addr")
+            if node_id and ip_addr:
+                mapping[str(ip_addr)] = str(node_id)
+        return mapping
+
+    def get_idx_to_ip_map(self, graph: Optional[nx.Graph] = None) -> Dict[int, str]:
+        """构建节点 idx -> node_manage_ip_addr 映射。"""
+        g = graph or self.base_graph
+        mapping: Dict[int, str] = {}
+        if g is None:
+            return mapping
+        for node, attrs in g.nodes(data=True):
+            idx = attrs.get("idx", node)
+            ip_addr = attrs.get("node_manage_ip_addr", "")
+            mapping[int(idx)] = str(ip_addr)
+        return mapping
+
+    def _path_to_ip_port(self, path: List[int], graph: Optional[nx.Graph] = None) -> List[Dict[str, str]]:
+        """
+        将节点路径转换为 IP:port 格式。
+        
+        返回格式: [
+            {"node_idx": 0, "ip": "192.168.1.1", "out_port": "node_id:1"},
+            {"node_idx": 1, "ip": "192.168.1.2", "in_port": "node_id:2", "out_port": "node_id:3"},
+            ...
+            {"node_idx": n, "ip": "192.168.1.n", "in_port": "node_id:x"}
+        ]
+        """
+        g = graph or self.active_graph
+        if g is None or len(path) == 0:
+            return []
+
+        result = []
+        idx_to_ip = self.get_idx_to_ip_map(g)
+
+        for i, node_idx in enumerate(path):
+            node_attrs = g.nodes.get(node_idx, {})
+            ip = idx_to_ip.get(node_idx, node_attrs.get("node_manage_ip_addr", ""))
+            
+            entry = {
+                "node_idx": node_idx,
+                "ip": ip,
+            }
+
+            # 获取入端口 (来自前一跳)
+            if i > 0:
+                prev_node = path[i - 1]
+                if g.has_edge(prev_node, node_idx):
+                    edge_data = g[prev_node][node_idx]
+                    # 对于无向图，需要判断方向
+                    entry["in_port"] = edge_data.get("dst_port", "")
+
+            # 获取出端口 (到下一跳)
+            if i < len(path) - 1:
+                next_node = path[i + 1]
+                if g.has_edge(node_idx, next_node):
+                    edge_data = g[node_idx][next_node]
+                    entry["out_port"] = edge_data.get("src_port", "")
+
+            result.append(entry)
+
+        return result
+
+    
 
     def _is_node_failed(self, node: int) -> bool:
         if not self.active_graph.has_node(node):
@@ -805,11 +939,16 @@ class NetTupu(RawEnvironment):
             "dst": self.dst,
             "current_node": self.current_node,
             "path": self.path.copy(),
+            "path_ip_port": self._path_to_ip_port(self.path),
             "shortest_path": self.shortest_path,
+            "shortest_path_ip_port": self._path_to_ip_port(self.shortest_path) if self.shortest_path else [],
             "shortest_path_delay": float(self.shortest_path_delay) if np.isfinite(self.shortest_path_delay) else None,
             "path_delay": float(self.path_delay),
             "action_mask": self._get_action_mask(),
             "failure_happened": self.failure_happened,
+            "failure_mode": self.failure_config.failure_mode,
+            "fail_step": self.failure_config.fail_step,
+            "fail_num": self.failure_config.fail_num,
             "dead_edges": self.status_dead_edges + self.dead_edges,
             "dead_nodes": self.status_dead_nodes + self.dead_nodes,
             "is_connected_src_dst": is_connected,
@@ -823,7 +962,7 @@ class NetTupu(RawEnvironment):
     # =========================================================================
 
     def _generate_graph(self) -> nx.Graph:
-        # 使用 topo_parse 的随机拓扑生成器
+        generate_random_topology = self._resolve_generate_random_topology()
         seed = int(self.rng.integers(0, 1_000_000_000))
         return generate_random_topology(
             num_nodes=self.num_nodes,
@@ -833,6 +972,34 @@ class NetTupu(RawEnvironment):
             max_degree=self.max_degree,
             seed=seed,
         )
+
+    @staticmethod
+    def _resolve_visualize():
+        """延迟导入可视化函数，兼容脚本/包两种运行方式。"""
+        try:
+            from environment.topo_parse.topo_parser import visualize  # type: ignore
+            return visualize
+        except (ModuleNotFoundError, ImportError):
+            try:
+                from topo_parse.topo_parser import visualize  # type: ignore
+                return visualize
+            except (ModuleNotFoundError, ImportError):
+                from .topo_parse.topo_parser import visualize  # type: ignore
+                return visualize
+
+    @staticmethod
+    def _resolve_generate_random_topology():
+        """延迟导入随机拓扑生成器，兼容脚本/包两种运行方式。"""
+        try:
+            from environment.topo_parse.gen_graph import generate_random_topology  # type: ignore
+            return generate_random_topology
+        except (ModuleNotFoundError, ImportError):
+            try:
+                from topo_parse.gen_graph import generate_random_topology  # type: ignore
+                return generate_random_topology
+            except (ModuleNotFoundError, ImportError):
+                from .topo_parse.gen_graph import generate_random_topology  # type: ignore
+                return generate_random_topology
 
     def _load_graph_by_source(self, source: str) -> Optional[nx.Graph]:
         """
@@ -986,7 +1153,7 @@ if __name__ == "__main__":
     class _Config:
         env_id = "NetTupu-Debug"
         obs_type = "state"
-        enable_failure = True
+        enable_failure = False
         failure_mode = "edge"
         fail_num = 2
         fail_step = -1

@@ -1,5 +1,5 @@
 dl_toolbox: "torch"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorlayer"
-project_name: "netenv_ddqn_resilience"
+project_name: "netenv_ddqn_reroute" # netenv_ddqn_resilience_v2 | netenv_ddqn_resilience_fail_v2
 logger: "wandb"  # Choices: tensorboard, wandb.
 wandb_user_name: "wmqbit"
 render: False
@@ -22,32 +22,43 @@ policy: "Basic_Q_network"
 representation: "Basic_MLP"
 runner: "DRL"
 
+execute_reroute: False # 模型训练完后，封装时候开启，
+enable_failure: True
+failure_mode: "edge" # "edge" | "node"
+fail_num: 2 # 故障数量
+fail_step: -1 # 注入时机：-1=reset时，>=0=指定步数时
+failure_prob: 1 # 故障发生概率 (0.0-1.0)，1.0 表示每次都发生
+ensure_reachable: True # 确保注入后 src→dst 仍可达
+max_failure_tries: 30 # 最大重试次数
+utilization_threshold: 0.85 # 利用率阈值，超过此值链路不可用
+loss_rate_threshold: 0.1 # 丢包率阈值，超过此值链路不可用
+
 # representation_hidden_size: [128, 64]
 # q_hidden_size: [128, 64]
-representation_hidden_size: [1024, 512, 256]
-q_hidden_size: [256, 64, 16]
+representation_hidden_size: [1024, 256]
+q_hidden_size: [128, 64, 32]
 activation: 'relu'
 
 seed: 1
 parallels: 50
 buffer_size: 400000
 batch_size: 128
-learning_rate: 0.0005
+learning_rate: 0.0004 # states模式下学习率范围 0.0005< lr <=0.001, 不加衰减了
 gamma: 0.99
 n_epochs: 4
 
 start_greedy: 0.6
 end_greedy: 0.00
-decay_step_greedy: 210_000_000
+decay_step_greedy: 100_000_000
 sync_frequency: 1000
 training_frequency: 1
-running_steps: 7_000_000
+running_steps: 4_500_000
 start_training: 5000
 
 use_grad_clip: True  # gradient normalization
 grad_clip_norm: 1.0
-use_linear_lr_decay: True
-end_factor_lr_decay: 0.3
+use_linear_lr_decay: False
+end_factor_lr_decay: 0.2
 
 use_actions_mask: True
 use_obsnorm: False

@@ -58,6 +58,57 @@ success_scale	9.0	到达目标质量奖励系数
 环路	-0.5 × 访问次数	否
 正常步进	-0.01 + 0.02 × (当前距离 - 下一距离)	否
 超时	额外 -5.0	是
+让我先查看 `dist_to_dst` 的计算方式以及相关逻辑。
+
+
+1. **判断整条路径是否最优**：比较 `total_delay` 与 `shortest_path_delay`
+2. **判断最后一跳是否最优**：比较 `d_cur`（当前节点到目的地的最短距离）与 `step_delay`
+
+如果 `d_cur < step_delay`，说明从当前节点有更短的路到目的地，但 agent 选择了直接走这条更长的边，即最后一跳绕路了。
+
+[4 tools called]
+
+已完成奖励函数的优化。
+
+## 修改内容
+
+### 1. `RewardConfig` 新增配置项 (151行)
+
+```python
+suboptimal_penalty: float = -2.0  # 最后一跳绕路的惩罚
+```
+
+### 2. `compute_reward` 优化逻辑 (502-537行)
+
+**核心判断：**
+- `d_cur`：当前节点到目的地的**最短路径延迟**
+- `step_delay`：实际走的最后一跳延迟
+- 如果 `d_cur ≈ step_delay`，说明最后一跳走的是最优路径
+- 如果 `d_cur < step_delay`，说明有更短的路径但没选（绕路了）
+
+**三种到达情况：**
+
+| 情况 | 条件 | 奖励 | reason |
+|------|------|------|--------|
+| **整条路径最优** | `total_delay ≈ shortest_path_delay` | `success_base + success_scale × 1.0` = 10.0 | `arrive_optimal` |
+| **最后一跳最优** | 最后一跳最优，但整体绕路 | `success_base + success_scale × quality_ratio` | `arrive` |
+| **最后一跳绕路** | `d_cur < step_delay` | `success_base + suboptimal_penalty × detour_ratio` | `arrive_suboptimal` |
+
+**奖励示例（使用默认配置）：**
+
+```
+# 走最优路径到达目的地
+reward = 1.0 + 9.0 × 1.0 = 10.0  (arrive_optimal)
+
+# 之前绕路了，但最后一跳是最优的，quality_ratio = 0.8
+reward = 1.0 + 9.0 × 0.8 = 8.2   (arrive)
+
+# 最后一跳绕路了，detour_ratio = 0.5
+reward = 1.0 + (-2.0) × 0.5 = 0.0  (arrive_suboptimal)
+
+# 最后一跳严重绕路，detour_ratio = 1.0
+reward = 1.0 + (-2.0) × 1.0 = -1.0  (arrive_suboptimal)
+```
 二、故障注入机制
 故障由 FailureInjector 类管理，采用标记状态方式（不删除节点/边）。
 配置参数（FailureConfig）

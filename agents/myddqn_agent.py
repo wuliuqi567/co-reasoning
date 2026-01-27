@@ -329,22 +329,22 @@ class MyDDQNAgent(OffPolicyAgent):
                         current_episode += 1
                         if best_score < infos[i]["episode_score"]:
                             best_score = infos[i]["episode_score"]
-
+                    print("-------------*****-------------------")
                     print(f"Info src: {infos[i].get('src')}")
                     print(f"Info dst: {infos[i].get('dst')}")
-                    print(f"Info path: {infos[i].get('path')}")
-                    print(f"Info path_delay: {infos[i].get('path_delay')}")
+                    print(f"Info selected_path: {infos[i].get('path')}")
                     print(f"Info shortest_path: {infos[i].get('shortest_path')}")
+                    print(f"Info selected_path_delay: {infos[i].get('path_delay')}")
                     print(f"Info shortest_path_delay: {infos[i].get('shortest_path_delay')}")
-
-                    if "failure_happened" in infos[i]:
+                    print("--------------------------------")
+                    if "failure_happened" in infos[i] and infos[i].get('failure_happened'):
                         print(f"Info failure_mode: {infos[i].get('failure_mode')}")
                         print(f"Info fail_step: {infos[i].get('fail_step')}")
                         print(f"Info fail_num: {infos[i].get('fail_num')}")
                         print(f"Info dead_edges: {infos[i].get('dead_edges')}")
                         print(f"Info dead_nodes: {infos[i].get('dead_nodes')}")
                         print(f"Info is_connected_src_dst: {infos[i].get('is_connected_src_dst')}")
-
+                    print("-------------*****-------------------\n")
             current_step += num_envs
 
         self.callback.on_test_end(envs=test_envs, policy=self.policy,
@@ -358,3 +358,34 @@ class MyDDQNAgent(OffPolicyAgent):
         return scores
 
 
+    def run_reroute(
+        self,
+        test_episodes: int,
+        test_envs: Optional[DummyVecEnv | SubprocVecEnv] = None,
+    ):
+
+        num_envs = test_envs.num_envs
+        episode = 0
+        paths = []
+        path_ip_ports = []
+        shortest_path_ip_ports = []
+
+        obs, infos = test_envs.reset()
+        self._update_action_masks_from_infos(infos, is_test=True)
+
+        while episode < test_episodes:
+            obs = self._process_observation(obs)
+            policy_out = self.action(obs, test_mode=True)
+            next_obs, rewards, terminals, truncations, infos = test_envs.step(policy_out['actions'])
+            self._update_action_masks_from_infos(infos, is_test=True)
+            obs = deepcopy(next_obs)
+            for i in range(num_envs):
+                if terminals[i] or truncations[i]:
+                    episode += 1
+                    if isinstance(infos[i], dict) and "path" in infos[i]:
+                        paths.append(infos[i]["path"])
+                        path_ip_ports.append(infos[i]["path_ip_port"])
+                        shortest_path_ip_ports.append(infos[i]["shortest_path_ip_port"])
+                    if episode >= test_episodes:
+                        break
+        return paths, path_ip_ports, shortest_path_ip_ports

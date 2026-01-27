@@ -15,11 +15,11 @@
             "justMyCode": true
         },
         {
-            "name": "topo_parser",
+            "name": "test_net_tupu_iii",
             "type": "python",
             "request": "launch",
-            "cwd": "${workspaceFolder}/environment/topo_parse",
-            "program": "./topo_parser.py",
+            "cwd": "${workspaceFolder}/environment/",
+            "program": "./net_tupu_iii.py",
             "console": "integratedTerminal",
             "justMyCode": true
         }
