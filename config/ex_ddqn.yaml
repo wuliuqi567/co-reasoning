@@ -1,0 +1,74 @@
+dl_toolbox: "torch"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorlayer"
+project_name: "netenv_ddqn_reroute_II_class" # netenv_ddqn_resilience_v2 | netenv_ddqn_resilience_fail_v2
+logger: "tensorboard"  # Choices: tensorboard, wandb.
+wandb_user_name: "wmqbit"
+render: False
+render_mode: 'rgb_array' # Choices: 'human', 'rgb_array'.
+fps: 50
+test_mode: False
+device: "cuda:0"  # Choose an calculating device. PyTorch: "cpu", "cuda:0"; TensorFlow: "cpu"/"CPU", "gpu"/"GPU"; MindSpore: "CPU", "GPU", "Ascend", "Davinci".
+distributed_training: False  # Whether to use multi-GPU for distributed training.
+master_port: '12355'  # The master port for current experiment when use distributed training.
+
+agent: "DDQN"
+env_name: "NetEnv"
+env_id: "NetEnv-Net30-v0"
+env_seed: 1
+RGBImgPartialObsWrapper: False
+ImgObsWrapper: False
+vectorize: "SubprocVecEnv" # DummyVecEnv, SubprocVecEnv
+learner: "MyDDQNLearner"
+policy: "Basic_Q_network"
+representation: "Basic_MLP"
+runner: "DRL"
+
+execute_reroute: False # 模型训练完后，封装时候开启，
+enable_failure: False
+failure_mode: "node" # "edge" | "node"
+fail_num: 2 # 故障数量
+fail_step: -1 # 注入时机：-1=reset时，>=0=指定步数时
+failure_prob: 1 # 故障发生概率 (0.0-1.0)，1.0 表示每次都发生
+ensure_reachable: True # 确保注入后 src→dst 仍可达
+max_failure_tries: 30 # 最大重试次数
+utilization_threshold: 0.85 # 利用率阈值，超过此值链路不可用
+loss_rate_threshold: 0.1 # 丢包率阈值，超过此值链路不可用
+
+# representation_hidden_size: [128, 64]
+# q_hidden_size: [128, 64]
+representation_hidden_size: [1024, 256]
+q_hidden_size: [128, 64, 32]
+activation: 'relu'
+
+seed: 1
+parallels: 50
+buffer_size: 400000
+batch_size: 128
+learning_rate: 0.0001 # states模式下学习率范围 0.0005< lr <=0.001, 不加衰减了
+gamma: 0.99
+n_epochs: 4
+
+start_greedy: 0.8
+end_greedy: 0.00
+decay_step_greedy: 160_000_000
+sync_frequency: 1000
+training_frequency: 1
+running_steps: 8_500_000
+start_training: 5000
+
+use_grad_clip: True  # gradient normalization
+grad_clip_norm: 1.0
+use_linear_lr_decay: False
+end_factor_lr_decay: 0.2
+
+use_actions_mask: True
+use_obsnorm: False
+use_rewnorm: True
+obsnorm_range: 5
+rewnorm_range: 5
+
+test_steps: 10000
+eval_interval: 50_000
+test_episode: 20
+log_dir: "./logs/ddqn_iii/"
+model_dir: "./themodels/ddqn_iii/"
+graph_source: "random_example" # "random_example" | "latest_II_class" | "II_class_history_random"

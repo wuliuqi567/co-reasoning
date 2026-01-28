@@ -25,6 +25,7 @@ environment/__pycache__/
 environment/topo_parse/__pycache__/
 kg_sdk/
 # 训练产物 - 日志和模型
+log/
 logs/
 **/logs/
 models/
