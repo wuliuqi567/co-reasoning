@@ -1,104 +1,174 @@
 {
     "data": {
-        "traffic_metrics": [
-            {
-                "node_id": "49cfd799e19ecc76df4eb8a8c69f9b74",
-                "receive_traffic_total": null,
-                "send_traffic_total": null,
-                "traffic_rate": null,
-                "packet_loss_rate": null
-            },
-            {
-                "node_id": "5a7532dcedfd35bf4a87c06389da0cf7",
-                "receive_traffic_total": null,
-                "send_traffic_total": null,
-                "traffic_rate": null,
-                "packet_loss_rate": null
-            },
-            {
-                "node_id": "2ddb40e6057aae20ae04f5c65d685d48",
-                "receive_traffic_total": null,
-                "send_traffic_total": null,
-                "traffic_rate": null,
-                "packet_loss_rate": null
-            },
-            {
-                "node_id": "0001236891d06fd10d00004400000000",
-                "receive_traffic_total": 16,
-                "send_traffic_total": 14,
-                "traffic_rate": 0.08174306125751918,
-                "packet_loss_rate": 0
-            },
-            {
-                "node_id": "00012400163632633800004400000000",
-                "receive_traffic_total": 0,
-                "send_traffic_total": 0,
-                "traffic_rate": 0.00019219669360530356,
-                "packet_loss_rate": 2.6060261512222853
-            },
-            {
-                "node_id": "00012500163431326600004400000000",
-                "receive_traffic_total": 339165,
-                "send_traffic_total": 338667,
-                "traffic_rate": 0.006480952038710149,
-                "packet_loss_rate": 0.00017042722590965352
-            },
-            {
-                "node_id": "00012400166636363500004400000000",
-                "receive_traffic_total": 0,
-                "send_traffic_total": 3,
-                "traffic_rate": 0.004384174782228262,
-                "packet_loss_rate": 4.570532915360501
-            },
-            {
-                "node_id": "00012400163734383900004400000000",
-                "receive_traffic_total": 0,
-                "send_traffic_total": 0,
-                "traffic_rate": 0.00021167298326657473,
-                "packet_loss_rate": 2.705038488453464
-            },
-            {
-                "node_id": "00012400163635386700004400000000",
-                "receive_traffic_total": 157274,
-                "send_traffic_total": 157251,
-                "traffic_rate": 0.1561389220729807,
-                "packet_loss_rate": 0.00023133473135490695
-            },
-            {
-                "node_id": "00012500163030653a00004400000000",
-                "receive_traffic_total": 398194,
-                "send_traffic_total": 396251,
-                "traffic_rate": 0.010964932882510488,
-                "packet_loss_rate": 0.005151562187083829
-            },
-            {
-                "node_id": "00012500166530323400004400000000",
-                "receive_traffic_total": 127906,
-                "send_traffic_total": 54505,
-                "traffic_rate": 0.004965058682304576,
-                "packet_loss_rate": 0.000015563123861216707
-            },
-            {
-                "node_id": "00012400163764666600004400000000",
-                "receive_traffic_total": 0,
-                "send_traffic_total": 0,
-                "traffic_rate": 0.001173153585816193,
-                "packet_loss_rate": 1.6369565217391304
-            },
-            {
-                "node_id": "0001236891d06fd11100004400000000",
-                "receive_traffic_total": 41,
-                "send_traffic_total": 23,
-                "traffic_rate": 0.06487043946798349,
-                "packet_loss_rate": 0
-            },
-            {
-                "node_id": "00024600163964623200004400000000",
-                "receive_traffic_total": 1,
-                "send_traffic_total": 1,
-                "traffic_rate": 0.08173248830214755,
-                "packet_loss_rate": 1.0504455760662
-            }
-        ]
+      "traffic_metrics": [
+        {
+          "node_id": "2ddb40e6057aae20ae04f5c65d685d48",
+          "receive_traffic_total": null,
+          "send_traffic_total": null,
+          "traffic_rate": null,
+          "packet_loss_rate": null
+        },
+        {
+          "node_id": "49cfd799e19ecc76df4eb8a8c69f9b74",
+          "receive_traffic_total": null,
+          "send_traffic_total": null,
+          "traffic_rate": null,
+          "packet_loss_rate": null
+        },
+        {
+          "node_id": "5a7532dcedfd35bf4a87c06389da0cf7",
+          "receive_traffic_total": null,
+          "send_traffic_total": null,
+          "traffic_rate": null,
+          "packet_loss_rate": null
+        },
+        {
+          "node_id": "00012400163635386700004400000000",
+          "receive_traffic_total": 34,
+          "send_traffic_total": 27,
+          "traffic_rate": 0.24963238001980276,
+          "packet_loss_rate": 0.0005071390650758612
+        },
+        {
+          "node_id": "00012400163764666600004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.001043180068449636,
+          "packet_loss_rate": 0.017846385542168674
+        },
+        {
+          "node_id": "00012400163632633800004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.0005908428296914228,
+          "packet_loss_rate": 0.030357142857142857
+        },
+        {
+          "node_id": "00012500163030653a00004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.010474146204581857,
+          "packet_loss_rate": 0.004524444444444445
+        },
+        {
+          "node_id": "00024600163964623200004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.03130592184862735,
+          "packet_loss_rate": 0.0511979358643568
+        },
+        {
+          "node_id": "00012500163431326600004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.005368586599092742,
+          "packet_loss_rate": 0.009961180124223602
+        },
+        {
+          "node_id": "00012500166530323400004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.006363035978696742,
+          "packet_loss_rate": 0.006884531590413944
+        },
+        {
+          "node_id": "00012400166636363500004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.004671196459393381,
+          "packet_loss_rate": 0.09975757575757575
+        },
+        {
+          "node_id": "00012400163734383900004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.0003710287125844269,
+          "packet_loss_rate": 0.02638036809815951
+        },
+        {
+          "node_id": "00024600166139663700004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.10096331057720805,
+          "packet_loss_rate": 0.04174898314933178
+        },
+        {
+          "node_id": "0001236891d070e0e000004400000000",
+          "receive_traffic_total": 5,
+          "send_traffic_total": 3,
+          "traffic_rate": 0,
+          "packet_loss_rate": 4.846487508178447e-7
+        },
+        {
+          "node_id": "0001236891d070e0d400004400000000",
+          "receive_traffic_total": 208,
+          "send_traffic_total": 1,
+          "traffic_rate": 0.05145747881333744,
+          "packet_loss_rate": 0
+        },
+        {
+          "node_id": "0001236891d06fd11100004400000000",
+          "receive_traffic_total": 3,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.06019105306808659,
+          "packet_loss_rate": 0
+        },
+        {
+          "node_id": "0001236891d070e0d600004400000000",
+          "receive_traffic_total": 208,
+          "send_traffic_total": 1,
+          "traffic_rate": 0.04849792049038356,
+          "packet_loss_rate": 0
+        },
+        {
+          "node_id": "0001236891d070e0de00004400000000",
+          "receive_traffic_total": 209,
+          "send_traffic_total": 2,
+          "traffic_rate": 0.059265922925180486,
+          "packet_loss_rate": 0
+        },
+        {
+          "node_id": "0001236891d06fd10f00004400000000",
+          "receive_traffic_total": 3,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.052621881725550185,
+          "packet_loss_rate": 0
+        },
+        {
+          "node_id": "0001236891d070e0e400004400000000",
+          "receive_traffic_total": 208,
+          "send_traffic_total": 1,
+          "traffic_rate": 0.04762636192636043,
+          "packet_loss_rate": 0
+        },
+        {
+          "node_id": "0001236891d06fd10d00004400000000",
+          "receive_traffic_total": 3,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.059533910284689136,
+          "packet_loss_rate": 0
+        },
+        {
+          "node_id": "00024600163030316300004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.1266271414051366,
+          "packet_loss_rate": 0.05253521126760563
+        },
+        {
+          "node_id": "0001236891d070e0d800004400000000",
+          "receive_traffic_total": 0,
+          "send_traffic_total": 0,
+          "traffic_rate": 0.02979361667811488,
+          "packet_loss_rate": 0
+        },
+        {
+          "node_id": "0001236891d070e0e200004400000000",
+          "receive_traffic_total": null,
+          "send_traffic_total": null,
+          "traffic_rate": null,
+          "packet_loss_rate": null
+        }
+      ]
     }
-}
+  }

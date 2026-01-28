@@ -1,18 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
-  <key id="d27" for="edge" attr.name="link_latency" attr.type="long" />
-  <key id="d26" for="edge" attr.name="flow_table_status" attr.type="long" />
-  <key id="d25" for="edge" attr.name="bandwidth_capacity_available" attr.type="long" />
-  <key id="d24" for="edge" attr.name="link_loss_rate" attr.type="long" />
-  <key id="d23" for="edge" attr.name="link_utilization" attr.type="long" />
-  <key id="d22" for="edge" attr.name="link_latency" attr.type="double" />
-  <key id="d21" for="edge" attr.name="link_bandwidth" attr.type="long" />
+  <key id="d22" for="edge" attr.name="flow_table_status" attr.type="long" />
+  <key id="d21" for="edge" attr.name="bandwidth_capacity_available" attr.type="double" />
   <key id="d20" for="edge" attr.name="dst_port" attr.type="string" />
   <key id="d19" for="edge" attr.name="src_port" attr.type="string" />
   <key id="d18" for="edge" attr.name="link_loss_rate" attr.type="double" />
   <key id="d17" for="edge" attr.name="link_utilization" attr.type="double" />
-  <key id="d16" for="edge" attr.name="link_latency" attr.type="string" />
-  <key id="d15" for="edge" attr.name="link_bandwidth" attr.type="string" />
+  <key id="d16" for="edge" attr.name="link_latency" attr.type="double" />
+  <key id="d15" for="edge" attr.name="link_bandwidth" attr.type="double" />
   <key id="d14" for="edge" attr.name="link_type" attr.type="long" />
   <key id="d13" for="edge" attr.name="link_status" attr.type="long" />
   <key id="d12" for="edge" attr.name="link_id" attr.type="string" />
@@ -29,50 +24,8 @@
   <key id="d1" for="node" attr.name="node_id" attr.type="string" />
   <key id="d0" for="node" attr.name="idx" attr.type="long" />
   <graph edgedefault="undirected">
-    <node id="2ddb40e6057aae20ae04f5c65d685d48">
-      <data key="d0">0</data>
-      <data key="d1">2ddb40e6057aae20ae04f5c65d685d48</data>
-      <data key="d2">8</data>
-      <data key="d3">III类网管</data>
-      <data key="d4">192.168.2.3</data>
-      <data key="d5">113.057603,28.663608</data>
-      <data key="d6">113.057603</data>
-      <data key="d7">28.663608</data>
-      <data key="d8">1</data>
-      <data key="d9">0</data>
-      <data key="d10" />
-      <data key="d11" />
-    </node>
-    <node id="49cfd799e19ecc76df4eb8a8c69f9b74">
-      <data key="d0">1</data>
-      <data key="d1">49cfd799e19ecc76df4eb8a8c69f9b74</data>
-      <data key="d2">8</data>
-      <data key="d3">III类网管</data>
-      <data key="d4">192.168.2.1</data>
-      <data key="d5">112.991490,28.223065</data>
-      <data key="d6">112.99149</data>
-      <data key="d7">28.223065</data>
-      <data key="d8">1</data>
-      <data key="d9">0</data>
-      <data key="d10" />
-      <data key="d11" />
-    </node>
-    <node id="5a7532dcedfd35bf4a87c06389da0cf7">
-      <data key="d0">2</data>
-      <data key="d1">5a7532dcedfd35bf4a87c06389da0cf7</data>
-      <data key="d2">8</data>
-      <data key="d3">III类网管</data>
-      <data key="d4">192.168.2.2</data>
-      <data key="d5">113.057468,28.663772</data>
-      <data key="d6">113.057468</data>
-      <data key="d7">28.663772</data>
-      <data key="d8">1</data>
-      <data key="d9">0</data>
-      <data key="d10" />
-      <data key="d11" />
-    </node>
     <node id="00012400163635386700004400000000">
-      <data key="d0">3</data>
+      <data key="d0">0</data>
       <data key="d1">00012400163635386700004400000000</data>
       <data key="d2">4</data>
       <data key="d3">II类接入</data>
@@ -86,7 +39,7 @@
       <data key="d11">{'port_id': '00012400163635386700004400000000:1', 'status': 1, 'nid': 258, 'teid': 254, 'ip_address': '192.168.166.1', 'mac_address': '00:16:36:35:38:67'},{'port_id': '00012400163635386700004400000000:2', 'status': 1, 'nid': 256, 'teid': 1, 'ip_address': '192.168.21.2', 'mac_address': '00:16:36:35:38:68'},{'port_id': '00012400163635386700004400000000:3', 'status': 1, 'nid': 12, 'teid': 1, 'ip_address': '192.168.12.2', 'mac_address': '00:16:36:35:38:69'},{'port_id': '00012400163635386700004400000000:4', 'status': 1, 'nid': 259, 'teid': 254, 'ip_address': '192.168.23.1', 'mac_address': '00:16:36:35:38:6a'},{'port_id': '00012400163635386700004400000000:5', 'status': 1, 'nid': 262, 'teid': 253, 'ip_address': '192.168.17.2', 'mac_address': '00:16:36:35:38:6b'},{'port_id': '00012400163635386700004400000000:6', 'status': 1, 'nid': 263, 'teid': 253, 'ip_address': '192.168.18.1', 'mac_address': '00:16:36:35:38:6c'},{'port_id': '00012400163635386700004400000000:7', 'status': 0, 'nid': 70, 'teid': 1, 'ip_address': '172.21.6.200', 'mac_address': '00:16:36:35:38:6d'},{'port_id': '00012400163635386700004400000000:8', 'status': 0, 'nid': 80, 'teid': 1, 'ip_address': '172.22.6.200', 'mac_address': '00:16:36:35:38:6e'}</data>
     </node>
     <node id="00012400163764666600004400000000">
-      <data key="d0">4</data>
+      <data key="d0">1</data>
       <data key="d1">00012400163764666600004400000000</data>
       <data key="d2">4</data>
       <data key="d3">II类接入</data>
@@ -100,7 +53,7 @@
       <data key="d11">{'port_id': '00012400163764666600004400000000:1', 'status': 1, 'nid': 267, 'teid': 1, 'ip_address': '192.168.15.2', 'mac_address': '00:16:37:64:66:66'},{'port_id': '00012400163764666600004400000000:2', 'status': 1, 'nid': 261, 'teid': 253, 'ip_address': '192.168.16.2', 'mac_address': '00:16:37:64:66:67'},{'port_id': '00012400163764666600004400000000:3', 'status': 1, 'nid': 262, 'teid': 254, 'ip_address': '192.168.17.1', 'mac_address': '00:16:37:64:66:68'},{'port_id': '00012400163764666600004400000000:4', 'status': 1, 'nid': 259, 'teid': 253, 'ip_address': '192.168.23.2', 'mac_address': '00:16:37:64:66:69'},{'port_id': '00012400163764666600004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400163764666600004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400163764666600004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400163764666600004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="00012400163632633800004400000000">
-      <data key="d0">5</data>
+      <data key="d0">2</data>
       <data key="d1">00012400163632633800004400000000</data>
       <data key="d2">4</data>
       <data key="d3">II类接入</data>
@@ -114,7 +67,7 @@
       <data key="d11">{'port_id': '00012400163632633800004400000000:1', 'status': 1, 'nid': 260, 'teid': 1, 'ip_address': '192.168.14.2', 'mac_address': '00:16:36:32:63:38'},{'port_id': '00012400163632633800004400000000:2', 'status': 1, 'nid': 261, 'teid': 254, 'ip_address': '192.168.16.1', 'mac_address': '00:16:36:32:63:39'},{'port_id': '00012400163632633800004400000000:3', 'status': 1, 'nid': 256, 'teid': 254, 'ip_address': '192.168.21.1', 'mac_address': '00:16:36:32:63:3a'},{'port_id': '00012400163632633800004400000000:4', 'status': 1, 'nid': 257, 'teid': 254, 'ip_address': '192.168.22.1', 'mac_address': '00:16:36:32:63:3b'},{'port_id': '00012400163632633800004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400163632633800004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400163632633800004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400163632633800004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="00012500163030653a00004400000000">
-      <data key="d0">6</data>
+      <data key="d0">3</data>
       <data key="d1">00012500163030653a00004400000000</data>
       <data key="d2">5</data>
       <data key="d3">II类骨干</data>
@@ -127,22 +80,8 @@
       <data key="d10">00012500163030653a00004400000000:1,00012500163030653a00004400000000:2,00012500163030653a00004400000000:3,00012500163030653a00004400000000:4,00012500163030653a00004400000000:5,00012500163030653a00004400000000:6,00012500163030653a00004400000000:7,00012500163030653a00004400000000:8</data>
       <data key="d11">{'port_id': '00012500163030653a00004400000000:1', 'status': 1, 'nid': 10, 'teid': 254, 'ip_address': '192.168.10.1', 'mac_address': '00:16:30:30:65:3a'},{'port_id': '00012500163030653a00004400000000:2', 'status': 1, 'nid': 11, 'teid': 254, 'ip_address': '192.168.11.1', 'mac_address': '00:16:30:30:65:3b'},{'port_id': '00012500163030653a00004400000000:3', 'status': 1, 'nid': 12, 'teid': 254, 'ip_address': '192.168.12.1', 'mac_address': '00:16:30:30:65:3c'},{'port_id': '00012500163030653a00004400000000:4', 'status': 1, 'nid': 13, 'teid': 254, 'ip_address': '192.168.13.1', 'mac_address': '00:16:30:30:65:3d'},{'port_id': '00012500163030653a00004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012500163030653a00004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012500163030653a00004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012500163030653a00004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
-    <node id="00024600163964623200004400000000">
-      <data key="d0">7</data>
-      <data key="d1">00024600163964623200004400000000</data>
-      <data key="d2">6</data>
-      <data key="d3">IV类网关</data>
-      <data key="d4">172.16.6.252</data>
-      <data key="d5">113.057457,28.163782</data>
-      <data key="d6">113.057457</data>
-      <data key="d7">28.163782</data>
-      <data key="d8">1</data>
-      <data key="d9">8</data>
-      <data key="d10">00024600163964623200004400000000:1,00024600163964623200004400000000:2,00024600163964623200004400000000:3,00024600163964623200004400000000:4,00024600163964623200004400000000:5,00024600163964623200004400000000:6,00024600163964623200004400000000:7,00024600163964623200004400000000:8</data>
-      <data key="d11">{'port_id': '00024600163964623200004400000000:1', 'status': 1, 'nid': 1026, 'teid': 1, 'ip_address': '192.168.60.10', 'mac_address': '00:16:39:64:62:32'},{'port_id': '00024600163964623200004400000000:2', 'status': 1, 'nid': 4098, 'teid': 254, 'ip_address': '172.16.6.254', 'mac_address': '00:16:39:64:62:33'},{'port_id': '00024600163964623200004400000000:3', 'status': 1, 'nid': 12, 'teid': 254, 'ip_address': '192.168.121.1', 'mac_address': '00:16:39:64:62:34'},{'port_id': '00024600163964623200004400000000:4', 'status': 1, 'nid': 13, 'teid': 254, 'ip_address': '192.168.131.1', 'mac_address': '00:16:39:64:62:35'},{'port_id': '00024600163964623200004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00024600163964623200004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00024600163964623200004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00024600163964623200004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
-    </node>
     <node id="00012500163431326600004400000000">
-      <data key="d0">8</data>
+      <data key="d0">4</data>
       <data key="d1">00012500163431326600004400000000</data>
       <data key="d2">5</data>
       <data key="d3">II类骨干</data>
@@ -156,7 +95,7 @@
       <data key="d11">{'port_id': '00012500163431326600004400000000:1', 'status': 1, 'nid': 260, 'teid': 254, 'ip_address': '192.168.40.1', 'mac_address': '00:16:34:31:32:66'},{'port_id': '00012500163431326600004400000000:2', 'status': 1, 'nid': 13, 'teid': 2, 'ip_address': '192.168.13.2', 'mac_address': '00:16:34:31:32:67'},{'port_id': '00012500163431326600004400000000:3', 'status': 1, 'nid': 257, 'teid': 253, 'ip_address': '192.168.22.2', 'mac_address': '00:16:34:31:32:68'},{'port_id': '00012500163431326600004400000000:4', 'status': 1, 'nid': 259, 'teid': 253, 'ip_address': '192.168.23.2', 'mac_address': '00:16:34:31:32:69'},{'port_id': '00012500163431326600004400000000:5', 'status': 1, 'nid': 265, 'teid': 254, 'ip_address': '192.168.24.1', 'mac_address': '00:16:34:31:32:6a'},{'port_id': '00012500163431326600004400000000:6', 'status': 1, 'nid': 266, 'teid': 254, 'ip_address': '192.168.19.1', 'mac_address': '00:16:34:31:32:6b'},{'port_id': '00012500163431326600004400000000:7', 'status': 0, 'nid': 70, 'teid': 1, 'ip_address': '172.21.6.200', 'mac_address': '00:16:34:31:32:6c'},{'port_id': '00012500163431326600004400000000:8', 'status': 0, 'nid': 80, 'teid': 1, 'ip_address': '172.22.6.200', 'mac_address': '00:16:34:31:32:6d'}</data>
     </node>
     <node id="00012500166530323400004400000000">
-      <data key="d0">9</data>
+      <data key="d0">5</data>
       <data key="d1">00012500166530323400004400000000</data>
       <data key="d2">5</data>
       <data key="d3">II类骨干</data>
@@ -170,7 +109,7 @@
       <data key="d11">{'port_id': '00012500166530323400004400000000:1', 'status': 1, 'nid': 255, 'teid': 1, 'ip_address': '192.168.20.1', 'mac_address': '00:16:65:30:32:34'},{'port_id': '00012500166530323400004400000000:2', 'status': 1, 'nid': 11, 'teid': 1, 'ip_address': '192.168.11.2', 'mac_address': '00:16:65:30:32:35'},{'port_id': '00012500166530323400004400000000:3', 'status': 1, 'nid': 256, 'teid': 254, 'ip_address': '192.168.21.1', 'mac_address': '00:16:65:30:32:36'},{'port_id': '00012500166530323400004400000000:4', 'status': 1, 'nid': 257, 'teid': 254, 'ip_address': '192.168.22.1', 'mac_address': '00:16:65:30:32:37'},{'port_id': '00012500166530323400004400000000:5', 'status': 1, 'nid': 267, 'teid': 254, 'ip_address': '192.168.15.1', 'mac_address': '00:16:65:30:32:38'},{'port_id': '00012500166530323400004400000000:6', 'status': 1, 'nid': 260, 'teid': 254, 'ip_address': '192.168.14.1', 'mac_address': '00:16:65:30:32:39'},{'port_id': '00012500166530323400004400000000:7', 'status': 0, 'nid': 70, 'teid': 1, 'ip_address': '172.21.6.200', 'mac_address': '00:16:65:30:32:3a'},{'port_id': '00012500166530323400004400000000:8', 'status': 0, 'nid': 80, 'teid': 1, 'ip_address': '172.22.6.200', 'mac_address': '00:16:65:30:32:3b'}</data>
     </node>
     <node id="00012400166636363500004400000000">
-      <data key="d0">10</data>
+      <data key="d0">6</data>
       <data key="d1">00012400166636363500004400000000</data>
       <data key="d2">4</data>
       <data key="d3">II类接入</data>
@@ -184,7 +123,7 @@
       <data key="d11">{'port_id': '00012400166636363500004400000000:1', 'status': 1, 'nid': 265, 'teid': 253, 'ip_address': '192.168.24.2', 'mac_address': '00:16:66:36:36:35'},{'port_id': '00012400166636363500004400000000:2', 'status': 1, 'nid': 264, 'teid': 253, 'ip_address': '192.168.25.2', 'mac_address': '00:16:66:36:36:36'},{'port_id': '00012400166636363500004400000000:3', 'status': 1, 'nid': 12, 'teid': 1, 'ip_address': '192.168.12.2', 'mac_address': '00:16:66:36:36:37'},{'port_id': '00012400166636363500004400000000:4', 'status': 1, 'nid': 259, 'teid': 254, 'ip_address': '192.168.23.1', 'mac_address': '00:16:66:36:36:38'},{'port_id': '00012400166636363500004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400166636363500004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400166636363500004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400166636363500004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="00012400163734383900004400000000">
-      <data key="d0">11</data>
+      <data key="d0">7</data>
       <data key="d1">00012400163734383900004400000000</data>
       <data key="d2">4</data>
       <data key="d3">II类接入</data>
@@ -197,22 +136,8 @@
       <data key="d10">00012400163734383900004400000000:1,00012400163734383900004400000000:2,00012400163734383900004400000000:3,00012400163734383900004400000000:4,00012400163734383900004400000000:5,00012400163734383900004400000000:6,00012400163734383900004400000000:7,00012400163734383900004400000000:8</data>
       <data key="d11">{'port_id': '00012400163734383900004400000000:1', 'status': 1, 'nid': 266, 'teid': 1, 'ip_address': '192.168.19.2', 'mac_address': '00:16:37:34:38:39'},{'port_id': '00012400163734383900004400000000:2', 'status': 1, 'nid': 263, 'teid': 254, 'ip_address': '192.168.18.2', 'mac_address': '00:16:37:34:38:3a'},{'port_id': '00012400163734383900004400000000:3', 'status': 1, 'nid': 264, 'teid': 254, 'ip_address': '192.168.25.1', 'mac_address': '00:16:37:34:38:3b'},{'port_id': '00012400163734383900004400000000:4', 'status': 1, 'nid': 257, 'teid': 254, 'ip_address': '192.168.22.1', 'mac_address': '00:16:37:34:38:3c'},{'port_id': '00012400163734383900004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400163734383900004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400163734383900004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00012400163734383900004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
-    <node id="00024600166139663700004400000000">
-      <data key="d0">12</data>
-      <data key="d1">00024600166139663700004400000000</data>
-      <data key="d2">6</data>
-      <data key="d3">IV类网关</data>
-      <data key="d4">172.16.7.252</data>
-      <data key="d5">112.991309,28.222978</data>
-      <data key="d6">112.991309</data>
-      <data key="d7">28.222978</data>
-      <data key="d8">1</data>
-      <data key="d9">8</data>
-      <data key="d10">00024600166139663700004400000000:1,00024600166139663700004400000000:2,00024600166139663700004400000000:3,00024600166139663700004400000000:4,00024600166139663700004400000000:5,00024600166139663700004400000000:6,00024600166139663700004400000000:7,00024600166139663700004400000000:8</data>
-      <data key="d11">{'port_id': '00024600166139663700004400000000:1', 'status': 1, 'nid': 1025, 'teid': 1, 'ip_address': '192.168.50.10', 'mac_address': '00:16:61:39:66:37'},{'port_id': '00024600166139663700004400000000:2', 'status': 1, 'nid': 4097, 'teid': 254, 'ip_address': '172.16.7.254', 'mac_address': '00:16:61:39:66:38'},{'port_id': '00024600166139663700004400000000:3', 'status': 1, 'nid': 333, 'teid': 3, 'ip_address': '192.168.177.1', 'mac_address': '00:16:61:39:66:39'},{'port_id': '00024600166139663700004400000000:4', 'status': 1, 'nid': 13, 'teid': 254, 'ip_address': '192.168.13.1', 'mac_address': '00:16:61:39:66:3a'},{'port_id': '00024600166139663700004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00024600166139663700004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00024600166139663700004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00024600166139663700004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
-    </node>
     <node id="0001236891d070e0e000004400000000">
-      <data key="d0">13</data>
+      <data key="d0">8</data>
       <data key="d1">0001236891d070e0e000004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -226,7 +151,7 @@
       <data key="d11">{'port_id': '0001236891d070e0e000004400000000:1', 'status': 1, 'nid': 258, 'teid': 3, 'ip_address': '192.168.166.102', 'mac_address': '68:91:d0:70:e0:e0'},{'port_id': '0001236891d070e0e000004400000000:2', 'status': 1, 'nid': 1027, 'teid': 254, 'ip_address': '192.168.70.1', 'mac_address': '68:91:d0:70:e0:e1'},{'port_id': '0001236891d070e0e000004400000000:3', 'status': 1, 'nid': 0, 'teid': 0, 'ip_address': '0.0.0.0', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0e000004400000000:4', 'status': 1, 'nid': 0, 'teid': 0, 'ip_address': '0.0.0.0', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0e000004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0e000004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0e000004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0e000004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="0001236891d070e0d400004400000000">
-      <data key="d0">14</data>
+      <data key="d0">9</data>
       <data key="d1">0001236891d070e0d400004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -240,7 +165,7 @@
       <data key="d11">{'port_id': '0001236891d070e0d400004400000000:1', 'status': 1, 'nid': 258, 'teid': 5, 'ip_address': '192.168.166.101', 'mac_address': '68:91:d0:70:e0:d4'},{'port_id': '0001236891d070e0d400004400000000:2', 'status': 1, 'nid': 20, 'teid': 1, 'ip_address': '172.16.6.200', 'mac_address': '68:91:d0:70:e0:d5'},{'port_id': '0001236891d070e0d400004400000000:3', 'status': 1, 'nid': 30, 'teid': 1, 'ip_address': '172.17.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0d400004400000000:4', 'status': 1, 'nid': 40, 'teid': 1, 'ip_address': '172.18.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0d400004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0d400004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0d400004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0d400004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="0001236891d06fd11100004400000000">
-      <data key="d0">15</data>
+      <data key="d0">10</data>
       <data key="d1">0001236891d06fd11100004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -254,7 +179,7 @@
       <data key="d11">{'port_id': '0001236891d06fd11100004400000000:1', 'status': 1, 'nid': 258, 'teid': 1, 'ip_address': '192.168.166.100', 'mac_address': '68:91:d0:6f:d1:11'},{'port_id': '0001236891d06fd11100004400000000:2', 'status': 1, 'nid': 20, 'teid': 1, 'ip_address': '172.16.6.200', 'mac_address': '68:91:d0:6f:d1:12'},{'port_id': '0001236891d06fd11100004400000000:3', 'status': 1, 'nid': 30, 'teid': 1, 'ip_address': '172.17.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d06fd11100004400000000:4', 'status': 1, 'nid': 40, 'teid': 1, 'ip_address': '172.18.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d06fd11100004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d06fd11100004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d06fd11100004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d06fd11100004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="0001236891d070e0d600004400000000">
-      <data key="d0">16</data>
+      <data key="d0">11</data>
       <data key="d1">0001236891d070e0d600004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -268,7 +193,7 @@
       <data key="d11">{'port_id': '0001236891d070e0d600004400000000:1', 'status': 1, 'nid': 258, 'teid': 6, 'ip_address': '192.168.166.102', 'mac_address': '68:91:d0:70:e0:d6'},{'port_id': '0001236891d070e0d600004400000000:2', 'status': 1, 'nid': 1027, 'teid': 254, 'ip_address': '192.168.70.1', 'mac_address': '68:91:d0:70:e0:d7'},{'port_id': '0001236891d070e0d600004400000000:3', 'status': 1, 'nid': 0, 'teid': 0, 'ip_address': '0.0.0.0', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0d600004400000000:4', 'status': 1, 'nid': 0, 'teid': 0, 'ip_address': '0.0.0.0', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0d600004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0d600004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0d600004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0d600004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="0001236891d070e0de00004400000000">
-      <data key="d0">17</data>
+      <data key="d0">12</data>
       <data key="d1">0001236891d070e0de00004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -282,7 +207,7 @@
       <data key="d11">{'port_id': '0001236891d070e0de00004400000000:1', 'status': 1, 'nid': 258, 'teid': 7, 'ip_address': '192.168.19.2', 'mac_address': '68:91:d0:70:e0:de'},{'port_id': '0001236891d070e0de00004400000000:2', 'status': 1, 'nid': 1027, 'teid': 254, 'ip_address': '192.168.25.2', 'mac_address': '68:91:d0:70:e0:df'},{'port_id': '0001236891d070e0de00004400000000:3', 'status': 1, 'nid': 0, 'teid': 0, 'ip_address': '192.168.26.1', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0de00004400000000:4', 'status': 1, 'nid': 0, 'teid': 0, 'ip_address': '0.0.0.0', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0de00004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0de00004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0de00004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0de00004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="0001236891d06fd10f00004400000000">
-      <data key="d0">18</data>
+      <data key="d0">13</data>
       <data key="d1">0001236891d06fd10f00004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -296,7 +221,7 @@
       <data key="d11">{'port_id': '0001236891d06fd10f00004400000000:1', 'status': 1, 'nid': 258, 'teid': 3, 'ip_address': '192.168.166.102', 'mac_address': '68:91:d0:6f:d1:0f'},{'port_id': '0001236891d06fd10f00004400000000:2', 'status': 1, 'nid': 1027, 'teid': 254, 'ip_address': '192.168.70.1', 'mac_address': '68:91:d0:6f:d1:10'},{'port_id': '0001236891d06fd10f00004400000000:3', 'status': 1, 'nid': 0, 'teid': 0, 'ip_address': '0.0.0.0', 'mac_address': '000000000000'},{'port_id': '0001236891d06fd10f00004400000000:4', 'status': 1, 'nid': 0, 'teid': 0, 'ip_address': '0.0.0.0', 'mac_address': '000000000000'},{'port_id': '0001236891d06fd10f00004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d06fd10f00004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d06fd10f00004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d06fd10f00004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="0001236891d070e0e400004400000000">
-      <data key="d0">19</data>
+      <data key="d0">14</data>
       <data key="d1">0001236891d070e0e400004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -310,7 +235,7 @@
       <data key="d11">{'port_id': '0001236891d070e0e400004400000000:1', 'status': 1, 'nid': 258, 'teid': 4, 'ip_address': '192.168.166.100', 'mac_address': '68:91:d0:70:e0:e4'},{'port_id': '0001236891d070e0e400004400000000:2', 'status': 1, 'nid': 20, 'teid': 1, 'ip_address': '172.16.6.200', 'mac_address': '68:91:d0:70:e0:e5'},{'port_id': '0001236891d070e0e400004400000000:3', 'status': 1, 'nid': 30, 'teid': 1, 'ip_address': '172.17.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0e400004400000000:4', 'status': 1, 'nid': 40, 'teid': 1, 'ip_address': '172.18.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0e400004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0e400004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0e400004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0e400004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="0001236891d06fd10d00004400000000">
-      <data key="d0">20</data>
+      <data key="d0">15</data>
       <data key="d1">0001236891d06fd10d00004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -323,22 +248,8 @@
       <data key="d10">0001236891d06fd10d00004400000000:1,0001236891d06fd10d00004400000000:2,0001236891d06fd10d00004400000000:3,0001236891d06fd10d00004400000000:4,0001236891d06fd10d00004400000000:5,0001236891d06fd10d00004400000000:6,0001236891d06fd10d00004400000000:7,0001236891d06fd10d00004400000000:8</data>
       <data key="d11">{'port_id': '0001236891d06fd10d00004400000000:1', 'status': 1, 'nid': 258, 'teid': 2, 'ip_address': '192.168.166.101', 'mac_address': '68:91:d0:6f:d1:0d'},{'port_id': '0001236891d06fd10d00004400000000:2', 'status': 1, 'nid': 20, 'teid': 1, 'ip_address': '172.16.6.200', 'mac_address': '68:91:d0:6f:d1:0e'},{'port_id': '0001236891d06fd10d00004400000000:3', 'status': 1, 'nid': 30, 'teid': 1, 'ip_address': '172.17.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d06fd10d00004400000000:4', 'status': 1, 'nid': 40, 'teid': 1, 'ip_address': '172.18.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d06fd10d00004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d06fd10d00004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d06fd10d00004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d06fd10d00004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
-    <node id="00024600163030316300004400000000">
-      <data key="d0">21</data>
-      <data key="d1">00024600163030316300004400000000</data>
-      <data key="d2">6</data>
-      <data key="d3">IV类网关</data>
-      <data key="d4">192.168.70.252</data>
-      <data key="d5">112.991309,28.222978</data>
-      <data key="d6">112.991309</data>
-      <data key="d7">28.222978</data>
-      <data key="d8">1</data>
-      <data key="d9">8</data>
-      <data key="d10">00024600163030316300004400000000:1,00024600163030316300004400000000:2,00024600163030316300004400000000:3,00024600163030316300004400000000:4,00024600163030316300004400000000:5,00024600163030316300004400000000:6,00024600163030316300004400000000:7,00024600163030316300004400000000:8</data>
-      <data key="d11">{'port_id': '00024600163030316300004400000000:1', 'status': 1, 'nid': 1027, 'teid': 1, 'ip_address': '192.168.70.10', 'mac_address': '00:16:30:30:31:63'},{'port_id': '00024600163030316300004400000000:2', 'status': 1, 'nid': 4099, 'teid': 254, 'ip_address': '172.16.9.254', 'mac_address': '00:16:30:30:31:64'},{'port_id': '00024600163030316300004400000000:3', 'status': 1, 'nid': 12, 'teid': 254, 'ip_address': '192.168.152.1', 'mac_address': '00:16:30:30:31:65'},{'port_id': '00024600163030316300004400000000:4', 'status': 1, 'nid': 13, 'teid': 254, 'ip_address': '192.168.153.1', 'mac_address': '00:16:30:30:31:66'},{'port_id': '00024600163030316300004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00024600163030316300004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00024600163030316300004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '00024600163030316300004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
-    </node>
     <node id="0001236891d070e0d800004400000000">
-      <data key="d0">22</data>
+      <data key="d0">16</data>
       <data key="d1">0001236891d070e0d800004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -352,7 +263,7 @@
       <data key="d11">{'port_id': '0001236891d070e0d800004400000000:1', 'status': 1, 'nid': 258, 'teid': 1, 'ip_address': '192.168.166.100', 'mac_address': '68:91:d0:70:e0:d8'},{'port_id': '0001236891d070e0d800004400000000:2', 'status': 1, 'nid': 20, 'teid': 1, 'ip_address': '172.16.6.200', 'mac_address': '68:91:d0:70:e0:d9'},{'port_id': '0001236891d070e0d800004400000000:3', 'status': 1, 'nid': 30, 'teid': 1, 'ip_address': '172.17.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0d800004400000000:4', 'status': 1, 'nid': 40, 'teid': 1, 'ip_address': '172.18.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0d800004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0d800004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0d800004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0d800004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
     <node id="0001236891d070e0e200004400000000">
-      <data key="d0">23</data>
+      <data key="d0">17</data>
       <data key="d1">0001236891d070e0e200004400000000</data>
       <data key="d2">3</data>
       <data key="d3">II类车载</data>
@@ -365,110 +276,77 @@
       <data key="d10">0001236891d070e0e200004400000000:1,0001236891d070e0e200004400000000:2,0001236891d070e0e200004400000000:3,0001236891d070e0e200004400000000:4,0001236891d070e0e200004400000000:5,0001236891d070e0e200004400000000:6,0001236891d070e0e200004400000000:7,0001236891d070e0e200004400000000:8</data>
       <data key="d11">{'port_id': '0001236891d070e0e200004400000000:1', 'status': 1, 'nid': 258, 'teid': 1, 'ip_address': '192.168.166.100', 'mac_address': '68:91:d0:70:e0:e2'},{'port_id': '0001236891d070e0e200004400000000:2', 'status': 1, 'nid': 20, 'teid': 1, 'ip_address': '172.16.6.200', 'mac_address': '68:91:d0:70:e0:e3'},{'port_id': '0001236891d070e0e200004400000000:3', 'status': 1, 'nid': 30, 'teid': 1, 'ip_address': '172.17.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0e200004400000000:4', 'status': 1, 'nid': 40, 'teid': 1, 'ip_address': '172.18.6.200', 'mac_address': '000000000000'},{'port_id': '0001236891d070e0e200004400000000:5', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0e200004400000000:6', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0e200004400000000:7', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''},{'port_id': '0001236891d070e0e200004400000000:8', 'status': 0, 'nid': 0, 'teid': 0, 'ip_address': '', 'mac_address': ''}</data>
     </node>
-    <edge source="2ddb40e6057aae20ae04f5c65d685d48" target="0001236891d06fd11100004400000000">
-      <data key="d12">0001236891d06fd11100004400000000:0_2ddb40e6057aae20ae04f5c65d685d48:0</data>
-      <data key="d13">1</data>
-      <data key="d14">1</data>
-      <data key="d15" />
-      <data key="d16" />
-      <data key="d17">0.0</data>
-      <data key="d18">0.0</data>
-      <data key="d19">0001236891d06fd11100004400000000:0</data>
-      <data key="d20">2ddb40e6057aae20ae04f5c65d685d48:0</data>
-    </edge>
-    <edge source="49cfd799e19ecc76df4eb8a8c69f9b74" target="00012500163030653a00004400000000">
-      <data key="d12">00012500163030653a00004400000000:0_49cfd799e19ecc76df4eb8a8c69f9b74:0</data>
-      <data key="d13">1</data>
-      <data key="d14">1</data>
-      <data key="d15" />
-      <data key="d16" />
-      <data key="d17">0.0</data>
-      <data key="d18">0.0</data>
-      <data key="d19">00012500163030653a00004400000000:0</data>
-      <data key="d20">49cfd799e19ecc76df4eb8a8c69f9b74:0</data>
-    </edge>
-    <edge source="5a7532dcedfd35bf4a87c06389da0cf7" target="0001236891d06fd10d00004400000000">
-      <data key="d12">0001236891d06fd10d00004400000000:0_5a7532dcedfd35bf4a87c06389da0cf7:0</data>
-      <data key="d13">1</data>
-      <data key="d14">1</data>
-      <data key="d15" />
-      <data key="d16" />
-      <data key="d17">0.0</data>
-      <data key="d18">0.0</data>
-      <data key="d19">0001236891d06fd10d00004400000000:0</data>
-      <data key="d20">5a7532dcedfd35bf4a87c06389da0cf7:0</data>
-    </edge>
     <edge source="00012400163635386700004400000000" target="00012500163431326600004400000000">
       <data key="d12">00012400163635386700004400000000:4_00012500163431326600004400000000:4</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.122</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.122</data>
+      <data key="d17">0.0</data>
+      <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:4</data>
       <data key="d20">00012500163431326600004400000000:4</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012400163635386700004400000000" target="00012500163030653a00004400000000">
       <data key="d12">00012400163635386700004400000000:3_00012500163030653a00004400000000:3</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.148</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.148</data>
+      <data key="d17">0.0</data>
+      <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:3</data>
       <data key="d20">00012500163030653a00004400000000:3</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012400163635386700004400000000" target="00012500166530323400004400000000">
       <data key="d12">00012400163635386700004400000000:2_00012500166530323400004400000000:3</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.135</data>
-      <data key="d23">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.135</data>
+      <data key="d17">0.0</data>
       <data key="d18">0.003333333333333333</data>
       <data key="d19">00012400163635386700004400000000:2</data>
       <data key="d20">00012500166530323400004400000000:3</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012400163635386700004400000000" target="00012400163734383900004400000000">
       <data key="d12">00012400163635386700004400000000:6_00012400163734383900004400000000:2</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.177</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.177</data>
+      <data key="d17">0.0</data>
+      <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:6</data>
       <data key="d20">00012400163734383900004400000000:2</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012400163635386700004400000000" target="00012400163764666600004400000000">
       <data key="d12">00012400163635386700004400000000:5_00012400163764666600004400000000:3</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.205</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.205</data>
+      <data key="d17">0.0</data>
+      <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:5</data>
       <data key="d20">00012400163764666600004400000000:3</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012400163635386700004400000000" target="0001236891d070e0d800004400000000">
       <data key="d12">00012400163635386700004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">2.397</data>
+      <data key="d15">60.0</data>
+      <data key="d16">2.397</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:1</data>
@@ -478,8 +356,8 @@
       <data key="d12">00012400163635386700004400000000:1_0001236891d070e0de00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.526</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.526</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:1</data>
@@ -489,8 +367,8 @@
       <data key="d12">00012400163635386700004400000000:1_0001236891d06fd11100004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">62.062</data>
+      <data key="d15">60.0</data>
+      <data key="d16">62.062</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:1</data>
@@ -500,8 +378,8 @@
       <data key="d12">00012400163635386700004400000000:1_0001236891d06fd10f00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">3.275</data>
+      <data key="d15">60.0</data>
+      <data key="d16">3.275</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:1</data>
@@ -511,8 +389,8 @@
       <data key="d12">00012400163635386700004400000000:1_0001236891d070e0d600004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">3.942</data>
+      <data key="d15">60.0</data>
+      <data key="d16">3.942</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:1</data>
@@ -522,8 +400,8 @@
       <data key="d12">00012400163635386700004400000000:1_0001236891d070e0e000004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">8.966</data>
+      <data key="d15">60.0</data>
+      <data key="d16">8.966</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:1</data>
@@ -533,8 +411,8 @@
       <data key="d12">00012400163635386700004400000000:1_0001236891d06fd10d00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">4.891</data>
+      <data key="d15">60.0</data>
+      <data key="d16">4.891</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:1</data>
@@ -544,8 +422,8 @@
       <data key="d12">00012400163635386700004400000000:1_0001236891d070e0d400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">43.417</data>
+      <data key="d15">60.0</data>
+      <data key="d16">43.417</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:1</data>
@@ -555,8 +433,8 @@
       <data key="d12">00012400163635386700004400000000:1_0001236891d070e0e400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">18.034</data>
+      <data key="d15">60.0</data>
+      <data key="d16">18.034</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">00012400163635386700004400000000:1</data>
@@ -566,8 +444,8 @@
       <data key="d12">0001236891d070e0e200004400000000:1_00012400163635386700004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">2.517</data>
+      <data key="d15">60.0</data>
+      <data key="d16">2.517</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>
@@ -577,147 +455,125 @@
       <data key="d12">00012400163764666600004400000000:2_00012400163632633800004400000000:2</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.11</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.11</data>
+      <data key="d17">0.0</data>
+      <data key="d18">0.0</data>
       <data key="d19">00012400163764666600004400000000:2</data>
       <data key="d20">00012400163632633800004400000000:2</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012400163764666600004400000000" target="00012500166530323400004400000000">
       <data key="d12">00012400163764666600004400000000:1_00012500166530323400004400000000:5</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.109</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.109</data>
+      <data key="d17">0.0</data>
+      <data key="d18">0.0</data>
       <data key="d19">00012400163764666600004400000000:1</data>
       <data key="d20">00012500166530323400004400000000:5</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012400163632633800004400000000" target="00012500166530323400004400000000">
       <data key="d12">00012400163632633800004400000000:1_00012500166530323400004400000000:6</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.064</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.064</data>
+      <data key="d17">0.0</data>
+      <data key="d18">0.0</data>
       <data key="d19">00012400163632633800004400000000:1</data>
       <data key="d20">00012500166530323400004400000000:6</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012500163030653a00004400000000" target="00012500163431326600004400000000">
       <data key="d12">00012500163030653a00004400000000:4_00012500163431326600004400000000:2</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.083</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.083</data>
+      <data key="d17">0.0</data>
+      <data key="d18">0.0</data>
       <data key="d19">00012500163030653a00004400000000:4</data>
       <data key="d20">00012500163431326600004400000000:2</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012500163030653a00004400000000" target="00012500166530323400004400000000">
       <data key="d12">00012500163030653a00004400000000:2_00012500166530323400004400000000:2</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d27">0</data>
-      <data key="d23">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.0</data>
+      <data key="d17">0.0</data>
       <data key="d18">0.0014285714285714286</data>
       <data key="d19">00012500163030653a00004400000000:2</data>
       <data key="d20">00012500166530323400004400000000:2</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
-    </edge>
-    <edge source="00024600163964623200004400000000" target="0001236891d06fd10d00004400000000">
-      <data key="d12">0001236891d06fd10d00004400000000:2_00024600163964623200004400000000:1</data>
-      <data key="d13">1</data>
-      <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.177</data>
-      <data key="d17">0.0</data>
-      <data key="d18">0.0</data>
-      <data key="d19">0001236891d06fd10d00004400000000:2</data>
-      <data key="d20">00024600163964623200004400000000:1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012500163431326600004400000000" target="00012400166636363500004400000000">
       <data key="d12">00012500163431326600004400000000:5_00012400166636363500004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d27">0</data>
-      <data key="d23">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.0</data>
+      <data key="d17">0.0</data>
       <data key="d18">0.0014285714285714286</data>
       <data key="d19">00012500163431326600004400000000:5</data>
       <data key="d20">00012400166636363500004400000000:1</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012500163431326600004400000000" target="00012400163734383900004400000000">
       <data key="d12">00012500163431326600004400000000:6_00012400163734383900004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.07</data>
-      <data key="d23">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.07</data>
+      <data key="d17">0.0</data>
       <data key="d18">0.001</data>
       <data key="d19">00012500163431326600004400000000:6</data>
       <data key="d20">00012400163734383900004400000000:1</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012500163431326600004400000000" target="00012500166530323400004400000000">
       <data key="d12">00012500163431326600004400000000:3_00012500166530323400004400000000:4</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d27">0</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.0</data>
+      <data key="d17">0.0</data>
+      <data key="d18">0.0</data>
       <data key="d19">00012500163431326600004400000000:3</data>
       <data key="d20">00012500166530323400004400000000:4</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="00012400166636363500004400000000" target="00012400163734383900004400000000">
       <data key="d12">00012400166636363500004400000000:2_00012400163734383900004400000000:3</data>
       <data key="d13">1</data>
       <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d27">0</data>
-      <data key="d23">0</data>
-      <data key="d24">0</data>
-      <data key="d19">00012400166636363500004400000000:2</data>
-      <data key="d20">00012400163734383900004400000000:3</data>
-      <data key="d25">1000</data>
-      <data key="d26">1</data>
-    </edge>
-    <edge source="00024600166139663700004400000000" target="0001236891d06fd11100004400000000">
-      <data key="d12">0001236891d06fd11100004400000000:2_00024600166139663700004400000000:1</data>
-      <data key="d13">1</data>
-      <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.161</data>
+      <data key="d15">1000.0</data>
+      <data key="d16">0.0</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
-      <data key="d19">0001236891d06fd11100004400000000:2</data>
-      <data key="d20">00024600166139663700004400000000:1</data>
+      <data key="d19">00012400166636363500004400000000:2</data>
+      <data key="d20">00012400163734383900004400000000:3</data>
+      <data key="d21">1000.0</data>
+      <data key="d22">1</data>
     </edge>
     <edge source="0001236891d070e0e000004400000000" target="0001236891d06fd10d00004400000000">
       <data key="d12">0001236891d06fd10d00004400000000:1_0001236891d070e0e000004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">3.966</data>
+      <data key="d15">60.0</data>
+      <data key="d16">3.966</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10d00004400000000:1</data>
@@ -727,8 +583,8 @@
       <data key="d12">0001236891d06fd11100004400000000:1_0001236891d070e0e000004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">2.762</data>
+      <data key="d15">60.0</data>
+      <data key="d16">2.762</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd11100004400000000:1</data>
@@ -738,8 +594,8 @@
       <data key="d12">0001236891d06fd10f00004400000000:1_0001236891d070e0e000004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">63.708</data>
+      <data key="d15">60.0</data>
+      <data key="d16">63.708</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10f00004400000000:1</data>
@@ -749,8 +605,8 @@
       <data key="d12">0001236891d070e0e400004400000000:1_0001236891d070e0e000004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">2.613</data>
+      <data key="d15">60.0</data>
+      <data key="d16">2.613</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e400004400000000:1</data>
@@ -760,8 +616,8 @@
       <data key="d12">0001236891d070e0d400004400000000:1_0001236891d070e0e000004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">2.661</data>
+      <data key="d15">60.0</data>
+      <data key="d16">2.661</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0d400004400000000:1</data>
@@ -771,8 +627,8 @@
       <data key="d12">0001236891d070e0d600004400000000:1_0001236891d070e0e000004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">3.966</data>
+      <data key="d15">60.0</data>
+      <data key="d16">3.966</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0d600004400000000:1</data>
@@ -782,8 +638,8 @@
       <data key="d12">0001236891d070e0de00004400000000:1_0001236891d070e0e000004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.444</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.444</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0de00004400000000:1</data>
@@ -793,8 +649,8 @@
       <data key="d12">0001236891d070e0e000004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">2.018</data>
+      <data key="d15">60.0</data>
+      <data key="d16">2.018</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e000004400000000:1</data>
@@ -804,8 +660,8 @@
       <data key="d12">0001236891d070e0e200004400000000:1_0001236891d070e0e000004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d27">0</data>
+      <data key="d15">60.0</data>
+      <data key="d16">0.0</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>
@@ -815,8 +671,8 @@
       <data key="d12">0001236891d06fd10d00004400000000:1_0001236891d070e0d400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">3.881</data>
+      <data key="d15">60.0</data>
+      <data key="d16">3.881</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10d00004400000000:1</data>
@@ -826,8 +682,8 @@
       <data key="d12">0001236891d06fd11100004400000000:1_0001236891d070e0d400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">3.954</data>
+      <data key="d15">60.0</data>
+      <data key="d16">3.954</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd11100004400000000:1</data>
@@ -837,8 +693,8 @@
       <data key="d12">0001236891d06fd10f00004400000000:1_0001236891d070e0d400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">20.288</data>
+      <data key="d15">60.0</data>
+      <data key="d16">20.288</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10f00004400000000:1</data>
@@ -848,8 +704,8 @@
       <data key="d12">0001236891d070e0e400004400000000:1_0001236891d070e0d400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">2.957</data>
+      <data key="d15">60.0</data>
+      <data key="d16">2.957</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e400004400000000:1</data>
@@ -859,8 +715,8 @@
       <data key="d12">0001236891d070e0d400004400000000:1_0001236891d070e0de00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.829</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.829</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0d400004400000000:1</data>
@@ -870,8 +726,8 @@
       <data key="d12">0001236891d070e0d400004400000000:1_0001236891d070e0d600004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">2.919</data>
+      <data key="d15">60.0</data>
+      <data key="d16">2.919</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0d400004400000000:1</data>
@@ -881,8 +737,8 @@
       <data key="d12">0001236891d070e0d400004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">0.655</data>
+      <data key="d15">60.0</data>
+      <data key="d16">0.655</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0d400004400000000:1</data>
@@ -892,8 +748,8 @@
       <data key="d12">0001236891d070e0e200004400000000:1_0001236891d070e0d400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d27">0</data>
+      <data key="d15">60.0</data>
+      <data key="d16">0.0</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>
@@ -903,8 +759,8 @@
       <data key="d12">0001236891d06fd10d00004400000000:1_0001236891d06fd11100004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">7.919</data>
+      <data key="d15">60.0</data>
+      <data key="d16">7.919</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10d00004400000000:1</data>
@@ -914,8 +770,8 @@
       <data key="d12">0001236891d06fd11100004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">0.911</data>
+      <data key="d15">60.0</data>
+      <data key="d16">0.911</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd11100004400000000:1</data>
@@ -925,8 +781,8 @@
       <data key="d12">0001236891d06fd11100004400000000:1_0001236891d070e0de00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.982</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.982</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd11100004400000000:1</data>
@@ -936,8 +792,8 @@
       <data key="d12">0001236891d06fd11100004400000000:1_0001236891d06fd10f00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">2.262</data>
+      <data key="d15">60.0</data>
+      <data key="d16">2.262</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd11100004400000000:1</data>
@@ -947,8 +803,8 @@
       <data key="d12">0001236891d06fd11100004400000000:1_0001236891d070e0d600004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.813</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.813</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd11100004400000000:1</data>
@@ -958,8 +814,8 @@
       <data key="d12">0001236891d06fd11100004400000000:1_0001236891d070e0e400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">3.866</data>
+      <data key="d15">60.0</data>
+      <data key="d16">3.866</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd11100004400000000:1</data>
@@ -969,8 +825,8 @@
       <data key="d12">0001236891d070e0e200004400000000:1_0001236891d06fd11100004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">218.808</data>
+      <data key="d15">60.0</data>
+      <data key="d16">218.808</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>
@@ -980,8 +836,8 @@
       <data key="d12">0001236891d06fd10d00004400000000:1_0001236891d070e0d600004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">36.751</data>
+      <data key="d15">60.0</data>
+      <data key="d16">36.751</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10d00004400000000:1</data>
@@ -991,8 +847,8 @@
       <data key="d12">0001236891d06fd10f00004400000000:1_0001236891d070e0d600004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">4.042</data>
+      <data key="d15">60.0</data>
+      <data key="d16">4.042</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10f00004400000000:1</data>
@@ -1002,8 +858,8 @@
       <data key="d12">0001236891d070e0e400004400000000:1_0001236891d070e0d600004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">3.302</data>
+      <data key="d15">60.0</data>
+      <data key="d16">3.302</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e400004400000000:1</data>
@@ -1013,8 +869,8 @@
       <data key="d12">0001236891d070e0d600004400000000:1_0001236891d070e0de00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">103.385</data>
+      <data key="d15">60.0</data>
+      <data key="d16">103.385</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0d600004400000000:1</data>
@@ -1024,8 +880,8 @@
       <data key="d12">0001236891d070e0d600004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">16.918</data>
+      <data key="d15">60.0</data>
+      <data key="d16">16.918</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0d600004400000000:1</data>
@@ -1035,8 +891,8 @@
       <data key="d12">0001236891d070e0e200004400000000:1_0001236891d070e0d600004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d27">0</data>
+      <data key="d15">60.0</data>
+      <data key="d16">0.0</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>
@@ -1046,8 +902,8 @@
       <data key="d12">0001236891d06fd10d00004400000000:1_0001236891d070e0de00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">19.735</data>
+      <data key="d15">60.0</data>
+      <data key="d16">19.735</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10d00004400000000:1</data>
@@ -1057,8 +913,8 @@
       <data key="d12">0001236891d06fd10f00004400000000:1_0001236891d070e0de00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.781</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.781</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10f00004400000000:1</data>
@@ -1068,8 +924,8 @@
       <data key="d12">0001236891d070e0e400004400000000:1_0001236891d070e0de00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.645</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.645</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e400004400000000:1</data>
@@ -1079,8 +935,8 @@
       <data key="d12">0001236891d070e0de00004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">26.389</data>
+      <data key="d15">60.0</data>
+      <data key="d16">26.389</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0de00004400000000:1</data>
@@ -1090,8 +946,8 @@
       <data key="d12">0001236891d070e0e200004400000000:1_0001236891d070e0de00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">215.888</data>
+      <data key="d15">60.0</data>
+      <data key="d16">215.888</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>
@@ -1101,8 +957,8 @@
       <data key="d12">0001236891d06fd10d00004400000000:1_0001236891d06fd10f00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">5.724</data>
+      <data key="d15">60.0</data>
+      <data key="d16">5.724</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10d00004400000000:1</data>
@@ -1112,8 +968,8 @@
       <data key="d12">0001236891d06fd10f00004400000000:1_0001236891d070e0e400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">205.019</data>
+      <data key="d15">60.0</data>
+      <data key="d16">205.019</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10f00004400000000:1</data>
@@ -1123,30 +979,19 @@
       <data key="d12">0001236891d06fd10f00004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">30.062</data>
+      <data key="d15">60.0</data>
+      <data key="d16">30.062</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10f00004400000000:1</data>
       <data key="d20">0001236891d070e0d800004400000000:1</data>
     </edge>
-    <edge source="0001236891d06fd10f00004400000000" target="00024600163030316300004400000000">
-      <data key="d12">0001236891d06fd10f00004400000000:2_00024600163030316300004400000000:1</data>
-      <data key="d13">1</data>
-      <data key="d14">1</data>
-      <data key="d21">1000</data>
-      <data key="d22">0.231</data>
-      <data key="d17">0.0</data>
-      <data key="d18">0.0</data>
-      <data key="d19">0001236891d06fd10f00004400000000:2</data>
-      <data key="d20">00024600163030316300004400000000:1</data>
-    </edge>
     <edge source="0001236891d06fd10f00004400000000" target="0001236891d070e0e200004400000000">
       <data key="d12">0001236891d070e0e200004400000000:1_0001236891d06fd10f00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d27">0</data>
+      <data key="d15">60.0</data>
+      <data key="d16">0.0</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>
@@ -1156,8 +1001,8 @@
       <data key="d12">0001236891d06fd10d00004400000000:1_0001236891d070e0e400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">6.337</data>
+      <data key="d15">60.0</data>
+      <data key="d16">6.337</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10d00004400000000:1</data>
@@ -1167,8 +1012,8 @@
       <data key="d12">0001236891d070e0e400004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.328</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.328</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e400004400000000:1</data>
@@ -1178,8 +1023,8 @@
       <data key="d12">0001236891d070e0e200004400000000:1_0001236891d070e0e400004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d27">0</data>
+      <data key="d15">60.0</data>
+      <data key="d16">0.0</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>
@@ -1189,8 +1034,8 @@
       <data key="d12">0001236891d06fd10d00004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.49</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.49</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d06fd10d00004400000000:1</data>
@@ -1200,8 +1045,8 @@
       <data key="d12">0001236891d070e0e200004400000000:1_0001236891d06fd10d00004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d27">0</data>
+      <data key="d15">60.0</data>
+      <data key="d16">0.0</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>
@@ -1211,8 +1056,8 @@
       <data key="d12">0001236891d070e0e200004400000000:1_0001236891d070e0d800004400000000:1</data>
       <data key="d13">1</data>
       <data key="d14">2</data>
-      <data key="d21">60</data>
-      <data key="d22">1.002</data>
+      <data key="d15">60.0</data>
+      <data key="d16">1.002</data>
       <data key="d17">0.0</data>
       <data key="d18">0.0</data>
       <data key="d19">0001236891d070e0e200004400000000:1</data>

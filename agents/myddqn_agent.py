@@ -329,22 +329,45 @@ class MyDDQNAgent(OffPolicyAgent):
                         current_episode += 1
                         if best_score < infos[i]["episode_score"]:
                             best_score = infos[i]["episode_score"]
-                    print("-------------*****-------------------")
-                    print(f"Info src: {infos[i].get('src')}")
-                    print(f"Info dst: {infos[i].get('dst')}")
-                    print(f"Info selected_path: {infos[i].get('path')}")
-                    print(f"Info shortest_path: {infos[i].get('shortest_path')}")
-                    print(f"Info selected_path_delay: {infos[i].get('path_delay')}")
-                    print(f"Info shortest_path_delay: {infos[i].get('shortest_path_delay')}")
-                    print("--------------------------------")
-                    if "failure_happened" in infos[i] and infos[i].get('failure_happened'):
-                        print(f"Info failure_mode: {infos[i].get('failure_mode')}")
-                        print(f"Info fail_step: {infos[i].get('fail_step')}")
-                        print(f"Info fail_num: {infos[i].get('fail_num')}")
-                        print(f"Info dead_edges: {infos[i].get('dead_edges')}")
-                        print(f"Info dead_nodes: {infos[i].get('dead_nodes')}")
-                        print(f"Info is_connected_src_dst: {infos[i].get('is_connected_src_dst')}")
-                    print("-------------*****-------------------\n")
+                    print("=" * 60)
+                    print(f"[基本信息] src: {infos[i].get('src')} -> dst: {infos[i].get('dst')}")
+                    print("-" * 60)
+                    
+                    # 选中路径信息
+                    print("[选中路径]")
+                    print(f"  路径: {infos[i].get('path')}")
+                    print(f"  延迟: {infos[i].get('path_delay'):.4f} ms")
+                    print(f"  带宽: {infos[i].get('path_bandwidth', 0):.2f} Mbps")
+                    print(f"  丢包率: {infos[i].get('path_loss_rate', 0) * 100:.4f} %")
+                    
+                    # 最短路径信息
+                    print("[最短路径]")
+                    print(f"  路径: {infos[i].get('shortest_path')}")
+                    print(f"  延迟: {infos[i].get('shortest_path_delay'):.4f} ms" if infos[i].get('shortest_path_delay') else "  延迟: N/A")
+                    print(f"  带宽: {infos[i].get('shortest_path_bandwidth', 0):.2f} Mbps")
+                    print(f"  丢包率: {infos[i].get('shortest_path_loss_rate', 0) * 100:.4f} %")
+                    
+                    # 故障信息
+                    if infos[i].get('failure_happened') and infos[i].get('failure_affected_original_path', False):
+                        print("-" * 60)
+                        print("[故障信息]")
+                        print(f"  故障模式: {infos[i].get('failure_mode')}")
+                        print(f"  故障步数: {infos[i].get('fail_step')}")
+                        print(f"  故障数量: {infos[i].get('fail_num')}")
+                        print(f"  故障边: {infos[i].get('dead_edges')}")
+                        print(f"  故障节点: {infos[i].get('dead_nodes')}")
+                        print(f"  src-dst连通: {infos[i].get('is_connected_src_dst')}")
+                        
+                        # 故障前路径对比
+                        if infos[i].get('shortest_path_before_failure'):
+                            print("[故障前最短路径]")
+                            print(f"  路径: {infos[i].get('shortest_path_before_failure')}")
+                            print(f"  延迟: {infos[i].get('shortest_path_before_failure_delay', 0):.4f} ms")
+                            print(f"  带宽: {infos[i].get('shortest_path_before_failure_bandwidth', 0):.2f} Mbps")
+                            print(f"  丢包率: {infos[i].get('shortest_path_before_failure_loss_rate', 0) * 100:.4f} %")
+                            print(f"  原路径受影响: {infos[i].get('failure_affected_original_path', False)}")
+                    
+                    print("=" * 60 + "\n")
             current_step += num_envs
 
         self.callback.on_test_end(envs=test_envs, policy=self.policy,

@@ -390,12 +390,14 @@ class FailureInjector:
 
         for _ in range(max(1, self.config.max_failure_tries)):
             g = base_graph.copy()
-            dead_edges, dead_nodes = [], []
+            dead_edges, dead_nodes, node_affected_edges = [], [], []
 
             if self.config.failure_mode == "edge":
                 dead_edges = self._fail_random_edges(g, self.config.fail_num)
             elif self.config.failure_mode == "node":
-                dead_nodes = self._fail_random_nodes(g, self.config.fail_num, exclude={src, dst})
+                dead_nodes, node_affected_edges = self._fail_random_nodes(g, self.config.fail_num, exclude={src, dst})
+                # 将节点故障导致的边故障也添加到 dead_edges
+                dead_edges.extend(node_affected_edges)
             else:
                 raise ValueError(f"Unknown failure_mode: {self.config.failure_mode}")
 
@@ -419,22 +421,27 @@ class FailureInjector:
             removed.append((int(u), int(v)))
         return removed
 
-    def _fail_random_nodes(self, g: nx.Graph, k: int, exclude: Set[int] = None) -> List[int]:
-        """随机标记 k 个节点为故障 (node_status = -1)，并同时标记相连的边为故障。"""
+    def _fail_random_nodes(self, g: nx.Graph, k: int, exclude: Set[int] = None) -> Tuple[List[int], List[Tuple[int, int]]]:
+        """随机标记 k 个节点为故障 (node_status = -1)，并同时标记相连的边为故障。
+        
+        返回: (故障节点列表, 受影响的边列表)
+        """
         exclude = exclude or set()
         nodes = [n for n in g.nodes() if n not in exclude and not _is_failed_status(g.nodes[n].get("node_status"))]
         if not nodes or k <= 0:
-            return []
+            return [], []
         self.rng.shuffle(nodes)
-        removed = []
+        removed_nodes = []
+        affected_edges = []
         for n in nodes[:k]:
             g.nodes[n]["node_status"] = -1
             # 标记与该节点相连的所有边为故障
             for neighbor in list(g.neighbors(n)):
                 if not _is_failed_status(g[n][neighbor].get("link_status")):
                     g[n][neighbor]["link_status"] = -1
-            removed.append(int(n))
-        return removed
+                    affected_edges.append((int(n), int(neighbor)))
+            removed_nodes.append(int(n))
+        return removed_nodes, affected_edges
 
     def _has_path_without_failed(self, g: nx.Graph, src: int, dst: int) -> bool:
         """判断在过滤故障后是否可达（同时检查利用率和丢包率阈值）。"""
@@ -614,6 +621,9 @@ class NetTupu(RawEnvironment):
         self.shortest_path, self.shortest_path_delay = None, np.inf
         self.dist_to_dst = {}
         self.failure_happened, self.dead_edges, self.dead_nodes = False, [], []
+        # 故障前的路径信息（用于对比）
+        self.path_before_failure = None
+        self.shortest_path_before_failure = None
 
         # 空间定义
         self.observation_space = self.obs_builder.get_observation_space()
@@ -631,6 +641,8 @@ class NetTupu(RawEnvironment):
         self.path, self.path_delay = [], 0.0
         self.active_graph = self.base_graph.copy()
         self.failure_happened, self.dead_edges, self.dead_nodes = False, [], []
+        self.path_before_failure = None
+        self.shortest_path_before_failure = None
 
         if kwargs.get("regenerate_graph", False):
             self.regenerate_topology()
@@ -903,6 +915,21 @@ class NetTupu(RawEnvironment):
         )
 
     def _inject_failure(self):
+        # 保存故障前的路径信息
+        self.path_before_failure = self.path.copy() if self.path else None
+        # 计算故障前的最短路径
+        try:
+            routing_graph_before = self._get_routing_graph()
+            if (routing_graph_before.has_node(self.src) and routing_graph_before.has_node(self.dst)
+                and nx.has_path(routing_graph_before, self.src, self.dst)):
+                self.shortest_path_before_failure = nx.shortest_path(
+                    routing_graph_before, self.src, self.dst, weight="link_latency"
+                )
+            else:
+                self.shortest_path_before_failure = None
+        except Exception:
+            self.shortest_path_before_failure = None
+        
         self.failure_happened = True
         self.active_graph, self.dead_edges, self.dead_nodes = self.failure_injector.inject(
             base_graph=self.base_graph, src=self.src, dst=self.dst
@@ -934,17 +961,31 @@ class NetTupu(RawEnvironment):
             and nx.has_path(routing_graph, self.src, self.dst)
         ) if (self.src is not None and self.dst is not None) else False
 
+        # 计算当前路径的指标
+        path_metrics = self._get_path_metrics(self.path) if self.path else {"delay": 0.0, "bandwidth": 0.0, "loss_rate": 0.0}
+        
+        # 计算最短路径的指标
+        shortest_path_metrics = self._get_path_metrics(self.shortest_path) if self.shortest_path else {"delay": 0.0, "bandwidth": 0.0, "loss_rate": 0.0}
+
         info = {
             "src": self.src,
             "dst": self.dst,
             "current_node": self.current_node,
+            # 当前路径信息
             "path": self.path.copy(),
             "path_ip_port": self._path_to_ip_port(self.path),
+            "path_delay": float(self.path_delay),
+            "path_bandwidth": float(path_metrics["bandwidth"]),
+            "path_loss_rate": float(path_metrics["loss_rate"]),
+            # 最短路径信息
             "shortest_path": self.shortest_path,
             "shortest_path_ip_port": self._path_to_ip_port(self.shortest_path) if self.shortest_path else [],
             "shortest_path_delay": float(self.shortest_path_delay) if np.isfinite(self.shortest_path_delay) else None,
-            "path_delay": float(self.path_delay),
+            "shortest_path_bandwidth": float(shortest_path_metrics["bandwidth"]),
+            "shortest_path_loss_rate": float(shortest_path_metrics["loss_rate"]),
+            # 动作掩码
             "action_mask": self._get_action_mask(),
+            # 故障信息
             "failure_happened": self.failure_happened,
             "failure_mode": self.failure_config.failure_mode,
             "fail_step": self.failure_config.fail_step,
@@ -953,9 +994,55 @@ class NetTupu(RawEnvironment):
             "dead_nodes": self.status_dead_nodes + self.dead_nodes,
             "is_connected_src_dst": is_connected,
         }
+
+        # 如果发生故障，添加故障前的路径信息
+        if self.failure_happened:
+            info["path_before_failure"] = self.path_before_failure
+            info["shortest_path_before_failure"] = self.shortest_path_before_failure
+            
+            # 计算故障前最短路径的指标（在 base_graph 上计算）
+            if self.shortest_path_before_failure:
+                before_metrics = {
+                    "delay": self._calculate_path_delay_on_graph(self.shortest_path_before_failure, self.base_graph),
+                    "bandwidth": self._calculate_path_bandwidth(self.shortest_path_before_failure, self.base_graph),
+                    "loss_rate": self._calculate_path_loss_rate(self.shortest_path_before_failure, self.base_graph),
+                }
+                info["shortest_path_before_failure_delay"] = float(before_metrics["delay"])
+                info["shortest_path_before_failure_bandwidth"] = float(before_metrics["bandwidth"])
+                info["shortest_path_before_failure_loss_rate"] = float(before_metrics["loss_rate"])
+            
+            # 检查故障是否影响了之前的最短路径
+            if self.shortest_path_before_failure:
+                affected = self._is_path_affected_by_failure(self.shortest_path_before_failure)
+                info["failure_affected_original_path"] = affected
+
         if extra:
             info.update(extra)
         return info
+
+    def _is_path_affected_by_failure(self, path: List[int]) -> bool:
+        """检查路径是否受故障影响。"""
+        if not path or len(path) < 2:
+            return False
+        
+        all_dead_edges = set()
+        for e in (self.status_dead_edges + self.dead_edges):
+            all_dead_edges.add((e[0], e[1]))
+            all_dead_edges.add((e[1], e[0]))  # 无向图
+        
+        all_dead_nodes = set(self.status_dead_nodes + self.dead_nodes)
+        
+        # 检查路径上的节点是否故障
+        for node in path:
+            if node in all_dead_nodes:
+                return True
+        
+        # 检查路径上的边是否故障
+        for i in range(len(path) - 1):
+            if (path[i], path[i + 1]) in all_dead_edges:
+                return True
+        
+        return False
 
     # =========================================================================
     # Graph Helpers
@@ -1025,15 +1112,6 @@ class NetTupu(RawEnvironment):
                 print(f"Warning: random_example.graphml not found at {target}")
                 return None
         
-        elif source == "history":
-            # 从 history 目录随机选择一个图
-            history_dir = self.graph_data_dir / "history"
-            if not history_dir.exists():
-                print(f"Warning: history directory not found, creating: {history_dir}")
-                history_dir.mkdir(parents=True, exist_ok=True)
-                return None
-            return self._load_random_from_dir(history_dir)
-        
         elif source == "random":
             # 从 random 目录随机选择一个图
             random_dir = self.graph_data_dir / "random"
@@ -1041,7 +1119,19 @@ class NetTupu(RawEnvironment):
                 print(f"Warning: random directory not found: {random_dir}")
                 return None
             return self._load_random_from_dir(random_dir)
-        
+
+        elif source == "latest_II_class":
+            # 加载 II 类网络拓扑图
+            return self._load_graph_file(self.graph_data_dir / "latest_II_class.graphml")
+
+        elif source == "II_class_history_random":
+            # 从 II 类网络拓扑图随机目录随机选择一个图
+            history_dir = self.graph_data_dir / "II_class_history"
+            if not history_dir.exists():
+                print(f"Warning: II_class_history directory not found: {history_dir}")
+                return None
+            return self._load_random_from_dir(history_dir)
+
         else:
             # 自定义路径
             return self._load_graph_from_path(source)
@@ -1142,6 +1232,57 @@ class NetTupu(RawEnvironment):
             u, v = path[i], path[i + 1]
             if self.active_graph.has_edge(u, v):
                 total += _get_edge_latency(self.active_graph[u][v])
+        return total
+
+    def _calculate_path_bandwidth(self, path: List[int], graph: nx.Graph = None) -> float:
+        """计算路径的瓶颈带宽（最小带宽）。"""
+        g = graph or self.active_graph
+        if not path or len(path) < 2:
+            return 0.0
+        min_bandwidth = float('inf')
+        for i in range(len(path) - 1):
+            u, v = path[i], path[i + 1]
+            if g.has_edge(u, v):
+                bw = _get_edge_bandwidth(g[u][v])
+                if bw < min_bandwidth:
+                    min_bandwidth = bw
+            else:
+                return 0.0  # 边不存在
+        return min_bandwidth if np.isfinite(min_bandwidth) else 0.0
+
+    def _calculate_path_loss_rate(self, path: List[int], graph: nx.Graph = None) -> float:
+        """计算路径的总丢包率（1 - 各段成功率的乘积）。"""
+        g = graph or self.active_graph
+        if not path or len(path) < 2:
+            return 0.0
+        success_rate = 1.0
+        for i in range(len(path) - 1):
+            u, v = path[i], path[i + 1]
+            if g.has_edge(u, v):
+                edge_loss = _get_edge_loss_rate(g[u][v])
+                success_rate *= (1.0 - edge_loss)
+            else:
+                return 1.0  # 边不存在，完全丢包
+        return 1.0 - success_rate
+
+    def _get_path_metrics(self, path: List[int], graph: nx.Graph = None) -> Dict[str, float]:
+        """获取路径的综合指标。"""
+        g = graph or self.active_graph
+        return {
+            "delay": self._calculate_path_delay(path) if g == self.active_graph else self._calculate_path_delay_on_graph(path, g),
+            "bandwidth": self._calculate_path_bandwidth(path, g),
+            "loss_rate": self._calculate_path_loss_rate(path, g),
+        }
+
+    def _calculate_path_delay_on_graph(self, path: List[int], graph: nx.Graph) -> float:
+        """在指定图上计算路径延迟。"""
+        if not path or len(path) < 2:
+            return 0.0
+        total = 0.0
+        for i in range(len(path) - 1):
+            u, v = path[i], path[i + 1]
+            if graph.has_edge(u, v):
+                total += _get_edge_latency(graph[u][v])
         return total
 
 

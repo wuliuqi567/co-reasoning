@@ -33,7 +33,8 @@
 import json
 from pathlib import Path
 from typing import Union, Optional
-
+import shutil
+import time
 import networkx as nx
 
 # ============================================================================
@@ -71,7 +72,7 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
         source: JSON文件路径(str/Path) 或 已解析的字典
 
     返回:
-        nx.Graph: 节点为网络设备，边为链路连接
+        nx.Graph: 节点为网络设备，边为链路连接, 只解析II类车载，II类接入，II类骨干节点和它们之间的链路，其他节点和链路不解析
 
     节点属性:
         - node_id, node_type, node_type_name
@@ -100,13 +101,18 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
     G = nx.Graph()
 
     # 收集有效节点并分配 idx
-    valid_nodes = [node for node in nodes if node.get('node_id')]
-    
+    valid_node_types = {3, 4, 5}
+    valid_nodes = [node for node in nodes if node.get('node_id') and node.get('node_type') in valid_node_types]
+
+    if not valid_nodes:
+        print("警告: 没有有效的节点")
+        return G
+
     # 添加节点
     for idx, node in enumerate(valid_nodes):
         node_id = node.get('node_id')
 
-        node_type = node.get('node_type', 0)
+        node_type = node.get('node_type', 3)
         location_str = node.get('node_location', '')
         
         # 解析经纬度
@@ -137,35 +143,63 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
             node_status=node.get('node_status', 1),
             port_count=port_count,
             port_ids=port_ids,
+            ports=ports,
         )
 
-    # 添加边
+    # 构建有效节点 ID 集合（用于边过滤）
+    valid_node_ids = set(G.nodes())
+    
+    # 添加边（只添加两端都是有效 II 类节点的边）
     for link in links:
         src_node = link.get('src', {}).get('src_node')
         dst_node = link.get('dst', {}).get('dst_node')
-
-        if not src_node or not dst_node:
+        
+        # 跳过两端节点不在有效节点集合中的边
+        if src_node not in valid_node_ids or dst_node not in valid_node_ids:
             continue
-        if src_node not in G or dst_node not in G:
-            continue
-
-        # 处理无效的带宽/延迟值
-        bandwidth = link.get('link_bandwidth')
-        latency = link.get('link_latency')
+        # 处理无效的带宽/延迟值，并强制转换为统一类型
+        bandwidth = link.get('link_bandwidth', 0.0)
+        latency = link.get('link_latency', 0.0)
+        utilization = link.get('link_utilization', 0.0)
+        loss_rate = link.get('link_loss_rate', 0.0)
+        link_status = link.get('link_status', 1)
+        link_type = link.get('link_type', 3)
+        
+            # 统一类型：float 类型属性
         if bandwidth in (-1, "", None):
-            bandwidth = None
+            print(f"Warning: 链路带宽为无效值: {bandwidth}")
+            bandwidth = 0.0
+        else:
+            bandwidth = float(bandwidth)
         if latency in (-1, "", None):
-            latency = None
+            print(f"Warning: 链路时延为无效值: {latency}")
+            latency = 0.0
+        else:
+            latency = float(latency)
+        if utilization in (-1, "", None):
+            print(f"Warning: 链路利用率为无效值: {utilization}")
+            utilization = 0.0
+        else:
+            utilization = float(utilization)
+        if loss_rate in (-1, "", None):
+            print(f"Warning: 链路丢包率为无效值: {loss_rate}")
+            loss_rate = 0.0
+        else:
+            loss_rate = float(loss_rate)
+        
+        # 统一类型：int 类型属性
+        link_status = int(link_status) if link_status not in ("", None) else 1
+        link_type = int(link_type) if link_type not in ("", None) else 1
 
         G.add_edge(
             src_node, dst_node,
             link_id=link.get('link_id', ''),
-            link_status=link.get('link_status', 1),
-            link_type=link.get('link_type'),  # 1=有线1000Mbps, 2=无线60Mbps
+            link_status=link_status,
+            link_type=link_type,  # 1=有线1000Mbps, 2=无线60Mbps
             link_bandwidth=bandwidth,
-            link_latency=latency,
-            link_utilization=link.get('link_utilization', 0.0),  # 链路利用率
-            link_loss_rate=link.get('link_loss_rate', 0.0),  # 链路丢包率
+            link_latency=latency,  # 链路时延（ms）
+            link_utilization=utilization,  # 链路利用率
+            link_loss_rate=loss_rate,  # 链路丢包率
             src_port=link.get('src', {}).get('src_port', ''),
             dst_port=link.get('dst', {}).get('dst_port', ''),
         )
@@ -208,7 +242,9 @@ def update_link_metrics(G: nx.Graph, json_path: Union[str, Path]) -> nx.Graph:
     
     # 统计更新情况
     updated_count = 0
-    not_found_count = 0
+    skipped_format = 0  # 格式不符（无冒号或格式错误）
+    skipped_non_ii = 0  # 非 II 类节点
+    skipped_no_edge = 0  # 节点存在但边不存在
     
     # 遍历每个链路指标
     for metric in link_metrics:
@@ -216,35 +252,40 @@ def update_link_metrics(G: nx.Graph, json_path: Union[str, Path]) -> nx.Graph:
         if not link_id:
             continue
         
-        # 解析link_id，可能的格式：
-        # 1. "节点1_节点2"
-        # 2. "节点1:端口1_节点2:端口2"
+        # 解析link_id，只解析如下格式：
+        # "节点1:端口1_节点2:端口2"
+        if ":" not in link_id:
+            skipped_format += 1
+            continue
+
         parts = link_id.split('_')
         if len(parts) != 2:
+            skipped_format += 1
+            continue
+        src_node, dst_node = parts
+        src_node_id = src_node.split(':')[0]
+        dst_node_id = dst_node.split(':')[0]
+        
+        # 检查节点是否存在于图中（只处理 II 类节点）
+        if src_node_id not in G or dst_node_id not in G:
+            skipped_non_ii += 1
             continue
         
-        src_part, dst_part = parts
-        
-        # 提取节点ID（去掉端口号）
-        src_node = src_part.split(':')[0] if ':' in src_part else src_part
-        dst_node = dst_part.split(':')[0] if ':' in dst_part else dst_part
-        
-        # 检查边是否存在
-        if not G.has_edge(src_node, dst_node):
-            not_found_count += 1
+        # 检查边是否存在（无向图需检查双向）
+        if not G.has_edge(src_node_id, dst_node_id):
+            skipped_no_edge += 1
             continue
         
-        # 获取边的属性字典（Graph 只有一条边）
-        edge_data = G[src_node][dst_node]
-        
-        # 更新边的属性
+        edge_data = G[src_node_id][dst_node_id]
         _update_edge_metrics(edge_data, metric)
         updated_count += 1
     
     print(f"链路属性更新完成:")
     print(f"  - 总链路数: {len(link_metrics)}")
     print(f"  - 成功更新: {updated_count}")
-    print(f"  - 未找到边: {not_found_count}")
+    print(f"  - 跳过(格式不符): {skipped_format}")
+    print(f"  - 跳过(非II类节点): {skipped_non_ii}")
+    print(f"  - 跳过(边不存在): {skipped_no_edge}")
     
     return G
 
@@ -256,31 +297,33 @@ def _update_edge_metrics(edge_data: dict, metric: dict) -> None:
     参数:
         edge_data: 边的属性字典
         metric: 从link_metric.json读取的指标数据
+    
+    注意: 所有数值属性强制转换为统一类型，避免 GraphML 导出时产生重复 key
     """
-    # 更新链路时延
+    # 更新链路时延 (float)
     latency = metric.get('link_latency')
     if latency is not None and latency != -1:
-        edge_data['link_latency'] = latency
+        edge_data['link_latency'] = float(latency)
     
-    # 更新链路利用率
+    # 更新链路利用率 (float)
     utilization = metric.get('link_utilization')
     if utilization is not None:
-        edge_data['link_utilization'] = utilization
+        edge_data['link_utilization'] = float(utilization)
     
-    # 更新有效带宽容量
+    # 更新有效带宽容量 (float)
     bandwidth_available = metric.get('bandwidth_capacity_available')
     if bandwidth_available is not None:
-        edge_data['bandwidth_capacity_available'] = bandwidth_available
+        edge_data['bandwidth_capacity_available'] = float(bandwidth_available)
     
-    # 更新丢包率
+    # 更新丢包率 (float)
     loss_rate = metric.get('link_loss_rate')
     if loss_rate is not None:
-        edge_data['link_loss_rate'] = loss_rate
+        edge_data['link_loss_rate'] = float(loss_rate)
     
-    # 更新流表状态
+    # 更新流表状态 (int)
     flow_status = metric.get('flow_table_status')
     if flow_status is not None:
-        edge_data['flow_table_status'] = flow_status
+        edge_data['flow_table_status'] = int(flow_status)
 
 
 def _extract_topo(data: dict) -> dict:
@@ -629,16 +672,48 @@ def _prepare_graph_for_graphml(G: nx.Graph) -> nx.Graph:
     """
     G_copy = G.copy()
     
+    # 统一属性类型，避免 GraphML 中同名不同类型导致重复 key
+    float_edge_attrs = {
+        "link_bandwidth",
+        "link_latency",
+        "link_utilization",
+        "bandwidth_capacity_available",
+        "link_loss_rate",
+    }
+    int_edge_attrs = {"link_status", "link_type", "flow_table_status"}
+    int_node_attrs = {"idx", "node_type", "node_status", "port_count"}
+    float_node_attrs = {"longitude", "latitude"}
+
     # 处理节点属性
     for node in G_copy.nodes():
         attrs = G_copy.nodes[node]
         for key, value in list(attrs.items()):
+            if key in int_node_attrs and value not in ("", None):
+                try:
+                    value = int(float(value))
+                except (ValueError, TypeError):
+                    pass
+            elif key in float_node_attrs and value not in ("", None):
+                try:
+                    value = float(value)
+                except (ValueError, TypeError):
+                    pass
             attrs[key] = _convert_attr_value(value)
     
     # 处理边属性
     for u, v in G_copy.edges():
         attrs = G_copy[u][v]
         for key, value in list(attrs.items()):
+            if key in int_edge_attrs and value not in ("", None):
+                try:
+                    value = int(float(value))
+                except (ValueError, TypeError):
+                    pass
+            elif key in float_edge_attrs and value not in ("", None):
+                try:
+                    value = float(value)
+                except (ValueError, TypeError):
+                    pass
             attrs[key] = _convert_attr_value(value)
     
     return G_copy
@@ -699,7 +774,7 @@ def _restore_attr_types(G: nx.Graph) -> nx.Graph:
     # 需要转为 float 的节点属性  
     float_node_attrs = {'longitude', 'latitude'}
     # 需要转为列表的节点属性
-    list_node_attrs = {'port_ids'}
+    list_node_attrs = {'port_ids', 'ports'}
     
     # 需要转为 float 的边属性
     float_edge_attrs = {'link_bandwidth', 'link_latency', 'link_utilization', 
@@ -919,8 +994,8 @@ def summary(G: nx.Graph, show_edges: bool = True) -> None:
 
 if __name__ == "__main__":
     # 示例：解析 + 更新链路属性 + 可视化 + 保存GraphML
-    json_file = Path(__file__).parent.parent / "jsondata/topo2.json"
-    link_metric_file = Path(__file__).parent.parent / "jsondata/link_metric2.json"
+    json_file = Path(__file__).parent.parent / "jsondata/topo.json"
+    link_metric_file = Path(__file__).parent.parent / "jsondata/link_metric.json"
 
     if json_file.exists():
         # 1. 解析拓扑
@@ -938,28 +1013,21 @@ if __name__ == "__main__":
         summary(G)
         
         # 4. 计算最短路径
-        results = compute_ii_shortest_paths(G, print_result=True)
+        # results = compute_ii_shortest_paths(G, print_result=True)
         
         # 5. 可视化
         vis_pic = Path(__file__).parent / "vis_pic"
         vis_pic.mkdir(parents=True, exist_ok=True)
-        visualize(G, vis_pic / "topo.png", title="网络拓扑图")
+        visualize(G, vis_pic / "topo_II_class.png", title="II类网络拓扑图")
 
-        # 6. 获取II类子图 (可选)
-        G_ii = get_subgraph(G, {3, 4, 5})
-        print(f"\nII类子图: {G_ii.number_of_nodes()} 节点, {G_ii.number_of_edges()} 边")
-        visualize(G_ii, vis_pic / "topo_ii.png", title="II类网络拓扑")
         
-        # 7. 保存为 GraphML 格式
+        # 7. 保存为 GraphML 格式        
         print("\n保存为 GraphML 格式...")
-        save_to_graphml(G, "topology.graphml")
-        save_to_graphml(G_ii, "topology_ii.graphml")
-        
-        # # 8. 验证：从 GraphML 加载并比较
-        # print("\n验证 GraphML 加载...")
-        # graph_data_dir = Path(__file__).parent.parent / "graph_data"
-        # G_loaded = load_from_graphml(graph_data_dir / "topology.graphml")
-        # print(f"原图节点数: {G.number_of_nodes()}, 加载后节点数: {G_loaded.number_of_nodes()}")
-        # print(f"原图边数: {G.number_of_edges()}, 加载后边数: {G_loaded.number_of_edges()}")
+        save_to_graphml(G, "latest_II_class.graphml")
+        # 将graphml文件复制到graph_data/II_class_history目录下，添加日期时间戳，不要图片
+        history_dir = Path(__file__).parent.parent / "graph_data" / "II_class_history"
+        history_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy(history_dir / "../latest_II_class.graphml", history_dir / f"topo_II_class_{time.strftime('%Y%m%d_%H%M%S')}.graphml")
+
     else:
         print(f"找不到文件: {json_file}")
