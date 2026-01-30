@@ -83,8 +83,9 @@ if __name__ == "__main__":
             def env_fn():
                 configs.parallels = configs.test_episode
                 return make_envs(configs)
+            # random_example 下最好加载随机图的模型 seed_1_2026_0127_144115
 
-            Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0127_144115")
+            Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0130_103220")
             Agent.test(configs.test_episode, env_fn())
         else:
             Agent.train(configs.running_steps // configs.parallels)

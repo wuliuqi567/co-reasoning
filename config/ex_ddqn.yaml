@@ -69,6 +69,8 @@ rewnorm_range: 5
 test_steps: 10000
 eval_interval: 50_000
 test_episode: 20
-log_dir: "./logs/ddqn_iii/"
-model_dir: "./themodels/ddqn_iii/"
-graph_source: "random_example" # "random_example" | "latest_II_class" | "II_class_history_random"
+log_dir: "./logs/latest_II_class_ddqn_iii/"
+model_dir: "./themodels/latest_II_class_ddqn_iii/"
+graph_source: "latest_II_class" # "random_example" | "latest_II_class" | "II_class_history_random" | "latest_II_class_base"
+update_graph_with_latest_metric: True
+base_url: "http://192.168.2.101:5000"

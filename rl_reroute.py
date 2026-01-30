@@ -19,8 +19,8 @@ def parse_args():
     parser.add_argument("--env-id", type=str, default="NetEnv-Net30-v0")
     parser.add_argument("--test", type=int, default=1)
     parser.add_argument("--benchmark", type=int, default=0)
-    parser.add_argument("--src", type=int, default=0)
-    parser.add_argument("--dst", type=int, default=10)
+    parser.add_argument("--src", type=int, default=10)
+    parser.add_argument("--dst", type=int, default=14)
 
     return parser.parse_args()
 
@@ -81,7 +81,8 @@ if __name__ == "__main__":
 
     time3 = time.time()
     content3 = "运行全局重路由模型"
-    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0127_144115")
+    # seed_1_2026_0128_172741 
+    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0130_103220")
 
     
     paths, path_ip_ports, shortest_path_ip_ports = Agent.run_reroute(configs.test_episode, envs)

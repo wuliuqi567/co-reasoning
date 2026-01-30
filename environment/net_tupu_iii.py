@@ -35,6 +35,9 @@ import networkx as nx
 from gymnasium.spaces import Box, Discrete
 
 from xuance.environment import RawEnvironment
+from kg_sdk import KGClient
+import json
+from topo_parse.topo_parser import update_graph_with_latest_metric
 
 
 # ============================================================================
@@ -585,10 +588,15 @@ class NetTupu(RawEnvironment):
         # graph_source = "random"        # 从random随机选择
         # graph_source = "/path/to/custom.graphml"  # 自定义路径
         
-        self.graph_source = getattr(env_config, "graph_source", "random_example")
+        self.graph_source = getattr(env_config, "graph_source", "latest_II_class_base")
         self.graph_data_dir = Path(os.path.dirname(__file__)) / "graph_data"
+
+        self.base_url = getattr(env_config, "base_url", "http://192.168.2.101:5000")
         
         graph = self._load_graph_by_source(self.graph_source)
+        if env_config.get("update_graph_with_latest_metric", False):
+            NM_topo, link_metric, e2e_flow_data = self.get_latest_metric_from_kg()
+            graph = update_graph_with_latest_metric(graph, NM_topo, link_metric, e2e_flow_data)
 
         if graph is not None:
             self._normalize_graph_attributes(graph)
@@ -767,6 +775,14 @@ class NetTupu(RawEnvironment):
         )
         self.observation_space = self.obs_builder.get_observation_space()
 
+    def get_latest_metric_from_kg(self):
+        api = KGClient(base_url=self.base_url)  # 知识库ip
+        NM_topo = api.get_data_attribute("NM_topo")  # 网络拓扑
+        link_metric = api.get_data_attribute("NM_link_metrics")# 链路状态
+        e2e_flow_data = api.get_data_attribute("E2E_flow_data") # e2e_flow_data
+
+        return NM_topo, link_metric, e2e_flow_data
+    
     # =========================================================================
     # Helper Methods
     # =========================================================================
@@ -1124,6 +1140,11 @@ class NetTupu(RawEnvironment):
             # 加载 II 类网络拓扑图
             return self._load_graph_file(self.graph_data_dir / "latest_II_class.graphml")
 
+        elif source == "latest_II_class_base":
+            # 加载 II 类网络拓扑图
+            return self._load_graph_file(self.graph_data_dir / "latest_II_class.base.graphml")
+
+
         elif source == "II_class_history_random":
             # 从 II 类网络拓扑图随机目录随机选择一个图
             history_dir = self.graph_data_dir / "II_class_history"
@@ -1301,6 +1322,12 @@ if __name__ == "__main__":
 
     env = NetTupu(env_config=_Config())
     obs, info = env.reset()
+
+    # pring node idx and ip
+    for node in env.active_graph.nodes():
+        print(f"node {node}: idx={env.active_graph.nodes[node]['idx']}, ip={env.active_graph.nodes[node]['node_manage_ip_addr']}, uuid={env.active_graph.nodes[node]['node_id']}")
+
+
     # 结构化输出，便于核对维度与取值
     if _Config.obs_type == "state":
         n = env.num_nodes

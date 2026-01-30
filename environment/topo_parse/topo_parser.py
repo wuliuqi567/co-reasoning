@@ -30,6 +30,7 @@
     G2 = load_from_graphml("graph_data/my_topology.graphml")
 """
 
+from ast import Dict
 import json
 from pathlib import Path
 from typing import Union, Optional
@@ -988,13 +989,176 @@ def summary(G: nx.Graph, show_edges: bool = True) -> None:
     print("=" * 60)
 
 
+def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metric:Dict, e2e_flow_data=None):
+    """
+    使用最新的拓扑和链路指标数据更新图
+    
+    参数:
+        base_graph: 基础图对象, 只包括II类节点
+        NM_topo: 网络拓扑数据 (格式: [{"preset_value": json_string}])
+        link_metric: 链路指标数据 (格式: [{"preset_value": json_string}])
+        e2e_flow_data: 端到端流数据 (可选)
+    
+    返回:
+        更新后的图对象
+    """
+    topo_input = NM_topo[0]["preset_value"]
+    topo_dict = json.loads(topo_input)
+
+    link_metric_dict = json.loads(link_metric[0]["preset_value"])
+
+    # 统计信息（区分II类和非II类）
+    total_nodes = 0
+    ii_nodes_updated = 0
+    non_ii_nodes = 0
+    
+    total_links = 0
+    ii_links_updated = 0
+    non_ii_links = 0  # 包含非II类节点的链路
+    
+    total_metrics = 0
+    ii_metrics_updated = 0
+    non_ii_metrics = 0
+
+    # 更新节点属性（只更新II类节点）
+    for node in topo_dict["data"]["topo"]["node"]:
+        total_nodes += 1
+        node_id = node.get("node_id")
+        
+        # 如果节点不在基础图中，说明它不是II类节点
+        if not node_id or node_id not in base_graph.nodes:
+            non_ii_nodes += 1
+            continue
+        
+        # 更新节点状态
+        base_graph.nodes[node_id]["node_status"] = node.get("node_status", 1)
+        
+        # 更新节点位置
+        node_location = node.get("node_location", "")
+        base_graph.nodes[node_id]["node_location"] = node_location
+        
+        # 解析并更新经纬度
+        coords = _parse_location(node_location)
+        if coords:
+            base_graph.nodes[node_id]["longitude"], base_graph.nodes[node_id]["latitude"] = coords
+        else:
+            base_graph.nodes[node_id]["longitude"] = None
+            base_graph.nodes[node_id]["latitude"] = None
+        
+        # 更新端口信息
+        base_graph.nodes[node_id]["node_ports"] = node.get("node_ports", [])
+        ii_nodes_updated += 1
+
+    # 更新链路属性（从拓扑数据，只更新II类节点之间的链路）
+    for link in topo_dict["data"]["topo"]["link"]:
+        total_links += 1
+        link_id = link.get("link_id", "")
+        
+        if not link_id:
+            non_ii_links += 1
+            continue
+        
+        # 解析 link_id 获取源节点和目标节点
+        # 格式: "节点1:端口1_节点2:端口2"
+        if ":" not in link_id or "_" not in link_id:
+            non_ii_links += 1
+            continue
+        
+        parts = link_id.split('_')
+        if len(parts) != 2:
+            non_ii_links += 1
+            continue
+        
+        src_node_id = parts[0].split(':')[0]
+        dst_node_id = parts[1].split(':')[0]
+        
+        # 如果节点不在基础图中，说明不是II类节点间的链路
+        if src_node_id not in base_graph.nodes or dst_node_id not in base_graph.nodes:
+            non_ii_links += 1
+            continue
+        
+        # 如果边不存在，说明这条链路在基础图中未定义
+        if not base_graph.has_edge(src_node_id, dst_node_id):
+            non_ii_links += 1
+            continue
+        
+        # 更新边属性
+        edge_data = base_graph[src_node_id][dst_node_id]
+        edge_data["link_status"] = link.get("link_status", 1)
+        edge_data["link_type"] = link.get("link_type", 1)
+        edge_data["link_bandwidth"] = link.get("link_bandwidth", 0.0)
+        edge_data["link_latency"] = link.get("link_latency", 0.0)
+        
+        # 更新端口信息
+        src_info = link.get("src", {})
+        dst_info = link.get("dst", {})
+        edge_data["src_port"] = src_info.get("src_port", "")
+        edge_data["dst_port"] = dst_info.get("dst_port", "")
+        
+        ii_links_updated += 1
+    
+    # 更新链路指标（从链路指标数据，只更新II类节点之间的链路）
+    for metric in link_metric_dict["data"]["link_metrics"]:
+        total_metrics += 1
+        link_id = metric.get("link_id", "")
+        
+        if not link_id:
+            non_ii_metrics += 1
+            continue
+        
+        # 解析 link_id
+        if ":" not in link_id or "_" not in link_id:
+            non_ii_metrics += 1
+            continue
+        
+        parts = link_id.split('_')
+        if len(parts) != 2:
+            non_ii_metrics += 1
+            continue
+        
+        src_node_id = parts[0].split(':')[0]
+        dst_node_id = parts[1].split(':')[0]
+        
+        # 如果节点不在基础图中，说明不是II类节点间的链路
+        if src_node_id not in base_graph.nodes or dst_node_id not in base_graph.nodes:
+            non_ii_metrics += 1
+            continue
+        
+        # 如果边不存在，跳过
+        if not base_graph.has_edge(src_node_id, dst_node_id):
+            non_ii_metrics += 1
+            continue
+        
+        # 更新边的指标属性
+        edge_data = base_graph[src_node_id][dst_node_id]
+        edge_data["link_latency"] = metric.get("link_latency", edge_data.get("link_latency", 0.0))
+        edge_data["link_utilization"] = metric.get("link_utilization", 0.0)
+        
+        # 可选：更新其他指标
+        if "link_loss_rate" in metric:
+            edge_data["link_loss_rate"] = metric["link_loss_rate"]
+        if "bandwidth_capacity_available" in metric:
+            edge_data["bandwidth_capacity_available"] = metric["bandwidth_capacity_available"]
+        
+        ii_metrics_updated += 1
+
+    # 打印更新统计（强调只处理II类节点和链路）
+    print(f"图更新完成 (仅II类节点):")
+    print(f"  节点: 总计 {total_nodes} 个, II类已更新 {ii_nodes_updated} 个, 非II类已忽略 {non_ii_nodes} 个")
+    print(f"  链路: 总计 {total_links} 条, II类已更新 {ii_links_updated} 条, 非II类已忽略 {non_ii_links} 条")
+    print(f"  指标: 总计 {total_metrics} 条, II类已更新 {ii_metrics_updated} 条, 非II类已忽略 {non_ii_metrics} 条")
+
+    return base_graph
+
+
+
 # ============================================================================
 # 主函数 (演示用法)
 # ============================================================================
 
 if __name__ == "__main__":
     # 示例：解析 + 更新链路属性 + 可视化 + 保存GraphML
-    json_file = Path(__file__).parent.parent / "jsondata/topo.json"
+    json_file = Path(__file__).parent.parent / "jsondata/faliure1node_topo.json"
     link_metric_file = Path(__file__).parent.parent / "jsondata/link_metric.json"
 
     if json_file.exists():
@@ -1018,12 +1182,12 @@ if __name__ == "__main__":
         # 5. 可视化
         vis_pic = Path(__file__).parent / "vis_pic"
         vis_pic.mkdir(parents=True, exist_ok=True)
-        visualize(G, vis_pic / "topo_II_class.png", title="II类网络拓扑图")
+        visualize(G, vis_pic / "topo_II_class2.png", title="II类网络拓扑图")
 
         
         # 7. 保存为 GraphML 格式        
         print("\n保存为 GraphML 格式...")
-        save_to_graphml(G, "latest_II_class.graphml")
+        save_to_graphml(G, "latest_II_class2.graphml")
         # 将graphml文件复制到graph_data/II_class_history目录下，添加日期时间戳，不要图片
         history_dir = Path(__file__).parent.parent / "graph_data" / "II_class_history"
         history_dir.mkdir(parents=True, exist_ok=True)
