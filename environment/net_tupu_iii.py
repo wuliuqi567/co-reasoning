@@ -1123,25 +1123,22 @@ class NetTupu(RawEnvironment):
         return g
 
     def _sync_graph_attributes(self, graph: nx.Graph):
-        """同步图相关属性；统计时仅考虑在线节点和边，不包含故障节点和边的时延、带宽与度数。"""
+        """同步图相关属性。
+        
+        - num_nodes / max_degree / min_degree：按拓扑结构统计（所有节点和边），保证观测与动作空间维度与训练一致，不随故障变化。
+        - delay_range / bandwidth_range：仅统计在线边，用于观测归一化。
+        """
         self.num_nodes = graph.number_of_nodes()
-        # 仅统计在线边上的时延、带宽
+        # 观测/动作空间维度必须固定：度数按拓扑结构（所有边）计算，不随故障变化
+        structural_degrees = [d for _, d in graph.degree()]
+        self.min_degree = min(structural_degrees) if structural_degrees else 0
+        self.max_degree = max(structural_degrees) if structural_degrees else 0
+        # 仅统计在线边上的时延、带宽，用于观测归一化
         online_edges = [(u, v, data) for u, v, data in graph.edges(data=True) if not _is_failed_status(data.get("link_status"))]
         delays = [_get_edge_latency(data) for _, _, data in online_edges]
         bandwidths = [_get_edge_bandwidth(data) for _, _, data in online_edges]
         self.delay_range = (min(delays) if delays else 0.0, max(delays) if delays else 0.0)
         self.bandwidth_range = (min(bandwidths) if bandwidths else 0.0, max(bandwidths) if bandwidths else 0.0)
-        # 度数仅统计在线边：每个节点的度 = 与其相连且 link_status=1 的边数，且对端节点在线
-        online_node = set(n for n, attrs in graph.nodes(data=True) if not _is_failed_status(attrs.get("node_status")))
-        degrees = []
-        for n in graph.nodes():
-            d = 0
-            for neighbor in graph.neighbors(n):
-                if neighbor in online_node and graph.has_edge(n, neighbor) and not _is_failed_status(graph[n][neighbor].get("link_status")):
-                    d += 1
-            degrees.append(d)
-        self.min_degree = min(degrees) if degrees else 0
-        self.max_degree = max(degrees) if degrees else 0
 
     def _calculate_path_delay(self, path: List[int]) -> float:
         if not path or len(path) < 2:

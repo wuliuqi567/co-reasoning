@@ -73,6 +73,6 @@ log_dir: "./logs/latest_II_class_ddqn_iii/"
 model_dir: "./themodels/latest_II_class_ddqn_iii/"
 graph_source: "latest_II_class_base" # "random_example" | "latest_II_class" | "II_class_history_random" | "latest_II_class_base"
 
-execute_reroute: True # 模型训练完后，封装时候开启，工程部署时开启，控制src 和 dst的设置 为rl_reroute.py的输入
+execute_reroute: False # 模型训练完后，封装时候开启，工程部署时开启，控制src 和 dst的设置 为rl_reroute.py的输入
 base_url: "http://192.168.2.101:5000"
 
