@@ -127,9 +127,23 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
                 pass
         
         # 端口信息
+        # node_manage_ip_addr 为当前交换节点的管理 IP，每个端口还有自己的 IP
         ports = node.get('node_ports') or []
         port_count = len(ports)
-        port_ids = [p.get('port_id', '') for p in ports]
+        
+        # 解析端口详细信息
+        port_ids = []       # 端口 ID 列表
+        port_ips = []       # 端口 IP 地址列表
+        port_info = {}      # 端口 ID -> 完整端口信息的映射
+        
+        for p in ports:
+            pid = p.get('port_id', '')
+            port_ids.append(pid)
+            port_ips.append(p.get('ip_address', ''))
+            port_info[pid] = {
+                'port_id': pid,
+                'ip_address': p.get('ip_address', '')
+            }
         
         G.add_node(
             node_id,
@@ -142,9 +156,11 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
             longitude=longitude,
             latitude=latitude,
             node_status=node.get('node_status', 1),
+            node_up_time=node.get('node_up_time'),
             port_count=port_count,
             port_ids=port_ids,
-            ports=ports,
+            port_ips=port_ips,
+            port_info=port_info,
         )
 
     # 构建有效节点 ID 集合（用于边过滤）
@@ -192,6 +208,20 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
         link_status = int(link_status) if link_status not in ("", None) else 1
         link_type = int(link_type) if link_type not in ("", None) else 1
 
+        # 获取端口信息
+        src_port = link.get('src', {}).get('src_port', '')
+        dst_port = link.get('dst', {}).get('dst_port', '')
+        
+        # 从节点的 port_info 中获取端口 IP
+        src_port_ip = ''
+        dst_port_ip = ''
+        if src_node in G.nodes() and src_port:
+            src_port_info = G.nodes[src_node].get('port_info', {})
+            src_port_ip = src_port_info.get(src_port, {}).get('ip_address', '')
+        if dst_node in G.nodes() and dst_port:
+            dst_port_info = G.nodes[dst_node].get('port_info', {})
+            dst_port_ip = dst_port_info.get(dst_port, {}).get('ip_address', '')
+
         G.add_edge(
             src_node, dst_node,
             link_id=link.get('link_id', ''),
@@ -201,8 +231,10 @@ def parse_topology(source: Union[str, Path, dict]) -> nx.Graph:
             link_latency=latency,  # 链路时延（ms）
             link_utilization=utilization,  # 链路利用率
             link_loss_rate=loss_rate,  # 链路丢包率
-            src_port=link.get('src', {}).get('src_port', ''),
-            dst_port=link.get('dst', {}).get('dst_port', ''),
+            src_port=src_port,
+            dst_port=dst_port,
+            src_port_ip=src_port_ip,
+            dst_port_ip=dst_port_ip,
         )
 
     return G
@@ -1020,33 +1052,43 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
     ii_metrics_updated = 0
     non_ii_metrics = 0
 
+    # 构建 node_id 到节点键的映射（支持节点键为整数或字符串的情况）
+    node_id_to_key = {}
+    for node_key, node_attrs in base_graph.nodes(data=True):
+        nid = node_attrs.get("node_id")
+        if nid:
+            node_id_to_key[nid] = node_key
+
     # 更新节点属性（只更新II类节点）
     for node in topo_dict["data"]["topo"]["node"]:
         total_nodes += 1
         node_id = node.get("node_id")
         
-        # 如果节点不在基础图中，说明它不是II类节点
-        if not node_id or node_id not in base_graph.nodes:
+        # 通过 node_id 属性查找节点
+        if not node_id or node_id not in node_id_to_key:
             non_ii_nodes += 1
             continue
         
-        # 更新节点状态
-        base_graph.nodes[node_id]["node_status"] = node.get("node_status", 1)
+        # 获取节点的真实键（可能是整数或字符串）
+        node_key = node_id_to_key[node_id]
+        
+        # 更新节点状态 (1=在线, 0=故障/离线，默认离线)
+        base_graph.nodes[node_key]["node_status"] = node.get("node_status", 0)
         
         # 更新节点位置
         node_location = node.get("node_location", "")
-        base_graph.nodes[node_id]["node_location"] = node_location
+        base_graph.nodes[node_key]["node_location"] = node_location
         
         # 解析并更新经纬度
         coords = _parse_location(node_location)
         if coords:
-            base_graph.nodes[node_id]["longitude"], base_graph.nodes[node_id]["latitude"] = coords
+            base_graph.nodes[node_key]["longitude"], base_graph.nodes[node_key]["latitude"] = coords
         else:
-            base_graph.nodes[node_id]["longitude"] = None
-            base_graph.nodes[node_id]["latitude"] = None
+            base_graph.nodes[node_key]["longitude"] = None
+            base_graph.nodes[node_key]["latitude"] = None
         
         # 更新端口信息
-        base_graph.nodes[node_id]["node_ports"] = node.get("node_ports", [])
+        base_graph.nodes[node_key]["node_ports"] = node.get("node_ports", [])
         ii_nodes_updated += 1
 
     # 更新链路属性（从拓扑数据，只更新II类节点之间的链路）
@@ -1058,7 +1100,7 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
             non_ii_links += 1
             continue
         
-        # 解析 link_id 获取源节点和目标节点
+        # 解析 link_id 获取源节点和目标节点的 node_id
         # 格式: "节点1:端口1_节点2:端口2"
         if ":" not in link_id or "_" not in link_id:
             non_ii_links += 1
@@ -1072,19 +1114,22 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
         src_node_id = parts[0].split(':')[0]
         dst_node_id = parts[1].split(':')[0]
         
-        # 如果节点不在基础图中，说明不是II类节点间的链路
-        if src_node_id not in base_graph.nodes or dst_node_id not in base_graph.nodes:
+        # 通过 node_id 查找节点键
+        if src_node_id not in node_id_to_key or dst_node_id not in node_id_to_key:
             non_ii_links += 1
             continue
+        
+        src_key = node_id_to_key[src_node_id]
+        dst_key = node_id_to_key[dst_node_id]
         
         # 如果边不存在，说明这条链路在基础图中未定义
-        if not base_graph.has_edge(src_node_id, dst_node_id):
+        if not base_graph.has_edge(src_key, dst_key):
             non_ii_links += 1
             continue
         
-        # 更新边属性
-        edge_data = base_graph[src_node_id][dst_node_id]
-        edge_data["link_status"] = link.get("link_status", 1)
+        # 更新边属性 (link_status: 1=在线, 0=故障/离线，默认离线)
+        edge_data = base_graph[src_key][dst_key]
+        edge_data["link_status"] = link.get("link_status", 0)
         edge_data["link_type"] = link.get("link_type", 1)
         edge_data["link_bandwidth"] = link.get("link_bandwidth", 0.0)
         edge_data["link_latency"] = link.get("link_latency", 0.0)
@@ -1106,7 +1151,7 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
             non_ii_metrics += 1
             continue
         
-        # 解析 link_id
+        # 解析 link_id 获取源节点和目标节点的 node_id
         if ":" not in link_id or "_" not in link_id:
             non_ii_metrics += 1
             continue
@@ -1119,18 +1164,21 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
         src_node_id = parts[0].split(':')[0]
         dst_node_id = parts[1].split(':')[0]
         
-        # 如果节点不在基础图中，说明不是II类节点间的链路
-        if src_node_id not in base_graph.nodes or dst_node_id not in base_graph.nodes:
+        # 通过 node_id 查找节点键
+        if src_node_id not in node_id_to_key or dst_node_id not in node_id_to_key:
             non_ii_metrics += 1
             continue
         
+        src_key = node_id_to_key[src_node_id]
+        dst_key = node_id_to_key[dst_node_id]
+        
         # 如果边不存在，跳过
-        if not base_graph.has_edge(src_node_id, dst_node_id):
+        if not base_graph.has_edge(src_key, dst_key):
             non_ii_metrics += 1
             continue
         
         # 更新边的指标属性
-        edge_data = base_graph[src_node_id][dst_node_id]
+        edge_data = base_graph[src_key][dst_key]
         edge_data["link_latency"] = metric.get("link_latency", edge_data.get("link_latency", 0.0))
         edge_data["link_utilization"] = metric.get("link_utilization", 0.0)
         
@@ -1148,6 +1196,45 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
     print(f"  链路: 总计 {total_links} 条, II类已更新 {ii_links_updated} 条, 非II类已忽略 {non_ii_links} 条")
     print(f"  指标: 总计 {total_metrics} 条, II类已更新 {ii_metrics_updated} 条, 非II类已忽略 {non_ii_metrics} 条")
 
+    # 检查并打印离线/故障状态的节点和边 (status=0)
+    offline_nodes = []
+    for node_key, attrs in base_graph.nodes(data=True):
+        if attrs.get("node_status", 0) == 0:
+            node_id = attrs.get("node_id", str(node_key))
+            node_ip = attrs.get("node_manage_ip_addr", "")
+            offline_nodes.append({
+                "idx": node_key,
+                "node_id": node_id,
+                "ip": node_ip,
+            })
+    
+    offline_edges = []
+    for u, v, data in base_graph.edges(data=True):
+        if data.get("link_status", 0) == 0:
+            link_id = data.get("link_id", f"{u}-{v}")
+            offline_edges.append({
+                "src_idx": u,
+                "dst_idx": v,
+                "link_id": link_id,
+                "src_port": data.get("src_port", ""),
+                "dst_port": data.get("dst_port", ""),
+            })
+    
+    # 打印离线状态信息
+    if offline_nodes:
+        print(f"\n警告: 发现 {len(offline_nodes)} 个离线/故障节点 (node_status=0):")
+        for node in offline_nodes:
+            print(f"  - 节点 idx={node['idx']}, node_id={node['node_id']}, ip={node['ip']}")
+    else:
+        print(f"\n所有 {base_graph.number_of_nodes()} 个节点状态正常 (node_status=1)")
+    
+    if offline_edges:
+        print(f"\n警告: 发现 {len(offline_edges)} 条离线/故障链路 (link_status=0):")
+        for edge in offline_edges:
+            print(f"  - 链路 ({edge['src_idx']}, {edge['dst_idx']}), link_id={edge['link_id']}")
+    else:
+        print(f"\n所有 {base_graph.number_of_edges()} 条链路状态正常 (link_status=1)")
+
     return base_graph
 
 
@@ -1158,7 +1245,7 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
 
 if __name__ == "__main__":
     # 示例：解析 + 更新链路属性 + 可视化 + 保存GraphML
-    json_file = Path(__file__).parent.parent / "jsondata/faliure1node_topo.json"
+    json_file = Path(__file__).parent.parent / "jsondata/topo.json"
     link_metric_file = Path(__file__).parent.parent / "jsondata/link_metric.json"
 
     if json_file.exists():
@@ -1179,19 +1266,19 @@ if __name__ == "__main__":
         # 4. 计算最短路径
         # results = compute_ii_shortest_paths(G, print_result=True)
         
-        # 5. 可视化
-        vis_pic = Path(__file__).parent / "vis_pic"
-        vis_pic.mkdir(parents=True, exist_ok=True)
-        visualize(G, vis_pic / "topo_II_class2.png", title="II类网络拓扑图")
+        # # 5. 可视化
+        # vis_pic = Path(__file__).parent / "vis_pic"
+        # vis_pic.mkdir(parents=True, exist_ok=True)
+        # visualize(G, vis_pic / "topo_II_class2.png", title="II类网络拓扑图")
 
         
         # 7. 保存为 GraphML 格式        
         print("\n保存为 GraphML 格式...")
-        save_to_graphml(G, "latest_II_class2.graphml")
+        save_to_graphml(G, "latest_II_class.graphml")
         # 将graphml文件复制到graph_data/II_class_history目录下，添加日期时间戳，不要图片
-        history_dir = Path(__file__).parent.parent / "graph_data" / "II_class_history"
-        history_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy(history_dir / "../latest_II_class.graphml", history_dir / f"topo_II_class_{time.strftime('%Y%m%d_%H%M%S')}.graphml")
+        # history_dir = Path(__file__).parent.parent / "graph_data" / "II_class_history"
+        # history_dir.mkdir(parents=True, exist_ok=True)
+        # shutil.copy(history_dir / "../latest_II_class.graphml", history_dir / f"topo_II_class_{time.strftime('%Y%m%d_%H%M%S')}.graphml")
 
     else:
         print(f"找不到文件: {json_file}")

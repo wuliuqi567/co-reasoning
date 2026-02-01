@@ -20,7 +20,7 @@ def parse_args():
     parser.add_argument("--test", type=int, default=1)
     parser.add_argument("--benchmark", type=int, default=0)
     parser.add_argument("--src", type=int, default=10)
-    parser.add_argument("--dst", type=int, default=14)
+    parser.add_argument("--dst", type=int, default=12)
 
     return parser.parse_args()
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     configs.test_episode = 1
     configs.parallels = 1
     configs.vectorize = "DummyVecEnv"
-    configs.execute_reroute = True
+
 
     set_seed(configs.seed)
     envs = make_envs(configs)
@@ -85,13 +85,18 @@ if __name__ == "__main__":
     Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0130_103220")
 
     
-    paths, path_ip_ports, shortest_path_ip_ports = Agent.run_reroute(configs.test_episode, envs)
+    reroute_result = Agent.run_reroute(configs.test_episode, envs)
     time4 = time.time()
     content4 = "推理生成全局重路由策略"
-    print(f"paths: {paths}")
-    print(f"path_ip_ports: {path_ip_ports}")
-    print(f"shortest_path_ip_ports: {shortest_path_ip_ports}")
-
+    print(f"paths: {reroute_result['paths']}")
+    print(f"path_ip_ports: {reroute_result['path_ip_ports']}")
+    print(f"shortest_path_ip_ports: {reroute_result['shortest_path_ip_ports']}")
+    print(f"path_delay: {reroute_result['path_delay']}")
+    print(f"path_bandwidth: {reroute_result['path_bandwidth']}")
+    print(f"path_loss_rate: {reroute_result['path_loss_rate']}")
+    print(f"shortest_path_delay: {reroute_result['shortest_path_delay']}")
+    print(f"shortest_path_bandwidth: {reroute_result['shortest_path_bandwidth']}")
+    print(f"shortest_path_loss_rate: {reroute_result['shortest_path_loss_rate']}")
     result = [] # 性能指标，分别是本地重路由和全局重路由的时延（ms）、本地里路由和全局重路由的跳数、本地重路由和全局重路由的可用带宽（MHz）、本
 #地重路由和全局重路由的响应时间（ms）
 

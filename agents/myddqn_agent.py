@@ -392,6 +392,14 @@ class MyDDQNAgent(OffPolicyAgent):
         paths = []
         path_ip_ports = []
         shortest_path_ip_ports = []
+        path_delay = []
+        path_bandwidth = []
+        path_loss_rate = []
+        shortest_path_delay = []
+        shortest_path_bandwidth = []
+        shortest_path_loss_rate = []
+        dead_nodes_detail = []
+        dead_edges_detail = []
 
         obs, infos = test_envs.reset()
         self._update_action_masks_from_infos(infos, is_test=True)
@@ -409,6 +417,27 @@ class MyDDQNAgent(OffPolicyAgent):
                         paths.append(infos[i]["path"])
                         path_ip_ports.append(infos[i]["path_ip_port"])
                         shortest_path_ip_ports.append(infos[i]["shortest_path_ip_port"])
+                        path_delay.append(infos[i]["path_delay"])
+                        path_bandwidth.append(infos[i]["path_bandwidth"])
+                        path_loss_rate.append(infos[i]["path_loss_rate"])
+                        shortest_path_delay.append(infos[i]["shortest_path_delay"])
+                        shortest_path_bandwidth.append(infos[i]["shortest_path_bandwidth"])
+                        shortest_path_loss_rate.append(infos[i]["shortest_path_loss_rate"])
+                        dead_nodes_detail.append(infos[i].get("dead_nodes_detail", []))
+                        dead_edges_detail.append(infos[i].get("dead_edges_detail", []))
+
                     if episode >= test_episodes:
                         break
-        return paths, path_ip_ports, shortest_path_ip_ports
+        return {
+            "paths": paths,
+            "path_ip_ports": path_ip_ports,
+            "shortest_path_ip_ports": shortest_path_ip_ports,
+            "path_delay": path_delay,
+            "path_bandwidth": path_bandwidth,
+            "path_loss_rate": path_loss_rate,
+            "shortest_path_delay": shortest_path_delay,
+            "shortest_path_bandwidth": shortest_path_bandwidth,
+            "shortest_path_loss_rate": shortest_path_loss_rate,
+            "dead_nodes_detail": dead_nodes_detail,
+            "dead_edges_detail": dead_edges_detail,
+        } 

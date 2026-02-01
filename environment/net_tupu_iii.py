@@ -35,61 +35,23 @@ import networkx as nx
 from gymnasium.spaces import Box, Discrete
 
 from xuance.environment import RawEnvironment
-from kg_sdk import KGClient
+# from kg_sdk import KGClient
 import json
-from topo_parse.topo_parser import update_graph_with_latest_metric
+from .topo_parse.topo_parser import update_graph_with_latest_metric
 
+# 从 tools.py 导入辅助函数
+from environment.tools import (
+    _coerce_float,
+    _coerce_int,
+    _get_edge_latency,
+    _get_edge_bandwidth,
+    _get_edge_utilization,
+    _get_edge_loss_rate,
+    _is_failed_status,
+)
 
-# ============================================================================
-# 辅助函数
-# ============================================================================
-
-def _coerce_float(value: Any, default: float = 0.0) -> float:
-    """将输入值转换为浮点数。"""
-    if value is None or value == "":
-        return float(default)
-    try:
-        return float(value)
-    except (TypeError, ValueError):
-        return float(default)
-
-
-def _coerce_int(value: Any, default: int = 0) -> int:
-    """将输入值转换为整数。"""
-    if value is None or value == "":
-        return int(default)
-    try:
-        return int(float(value))
-    except (TypeError, ValueError):
-        return int(default)
-
-
-def _get_edge_latency(edge_data: Dict[str, Any]) -> float:
-    """从边属性获取链路时延 (优先 link_latency, 其次 delay)。"""
-    return _coerce_float(edge_data.get("link_latency", edge_data.get("delay", 0.0)))
-
-
-def _get_edge_bandwidth(edge_data: Dict[str, Any]) -> float:
-    """从边属性获取链路带宽 (优先 link_bandwidth, 其次 bandwidth)。"""
-    return _coerce_float(edge_data.get("link_bandwidth", edge_data.get("bandwidth", 0.0)))
-
-
-def _get_edge_utilization(edge_data: Dict[str, Any]) -> float:
-    """从边属性获取链路利用率。"""
-    return _coerce_float(edge_data.get("link_utilization", 0.0))
-
-
-def _get_edge_loss_rate(edge_data: Dict[str, Any]) -> float:
-    """从边属性获取链路丢包率。"""
-    return _coerce_float(edge_data.get("link_loss_rate", 0.0))
-
-
-def _is_failed_status(value: Any) -> bool:
-    """判断状态值是否为故障标记 (-1)。"""
-    try:
-        return int(float(value)) == -1
-    except (TypeError, ValueError):
-        return False
+# 从 failure_injector.py 导入故障注入相关类
+from environment.failure_injector import FailureConfig, FailureInjector
 
 
 # ============================================================================
@@ -109,34 +71,6 @@ class ObservationConfig:
             obs_type=getattr(env_config, "obs_type", "state"),
             normalize_delay=getattr(env_config, "normalize_delay", True),
             normalize_bandwidth=getattr(env_config, "normalize_bandwidth", True),
-        )
-
-
-@dataclass
-class FailureConfig:
-    """故障注入配置"""
-    enable_failure: bool = False
-    failure_mode: str = "edge"  # "edge" | "node"
-    fail_num: int = 2
-    fail_step: int = -1  # -1: reset时注入; >=0: 指定步数时注入
-    failure_prob: float = 0.2  # 故障发生概率 (0.0-1.0)，1.0 表示每次都发生
-    ensure_reachable: bool = True
-    max_failure_tries: int = 30
-    utilization_threshold: float = 0.85  # 链路利用率阈值
-    loss_rate_threshold: float = 0.1  # 链路丢包率阈值 (默认10%)
-
-    @classmethod
-    def from_env_config(cls, env_config) -> "FailureConfig":
-        return cls(
-            enable_failure=bool(getattr(env_config, "enable_failure", False)),
-            failure_mode=getattr(env_config, "failure_mode", "edge"),
-            fail_num=int(getattr(env_config, "fail_num", 2)),
-            fail_step=int(getattr(env_config, "fail_step", -1)),
-            failure_prob=float(getattr(env_config, "failure_prob", 0.2)),
-            ensure_reachable=bool(getattr(env_config, "ensure_reachable", True)),
-            max_failure_tries=int(getattr(env_config, "max_failure_tries", 30)),
-            utilization_threshold=float(getattr(env_config, "utilization_threshold", 0.85)),
-            loss_rate_threshold=float(getattr(env_config, "loss_rate_threshold", 0.1)),
         )
 
 
@@ -309,7 +243,7 @@ class ObservationBuilder:
         node_online = np.zeros(n, dtype=np.float32)
         for i in range(n):
             if graph.has_node(i):
-                status = graph.nodes[i].get("node_status", 1)
+                status = graph.nodes[i].get("node_status", -1)
                 node_online[i] = 0.0 if _is_failed_status(status) else 1.0
 
         # 已访问标记
@@ -364,107 +298,6 @@ class ObservationBuilder:
         if max_val - min_val > 1e-6:
             return float(np.clip((value - min_val) / (max_val - min_val), 0.0, 1.0))
         return 0.0
-
-
-# ============================================================================
-# 故障注入器
-# ============================================================================
-
-class FailureInjector:
-    """故障注入器 - 通过修改状态标记模拟故障"""
-
-    def __init__(self, config: FailureConfig, rng: np.random.Generator):
-        self.config = config
-        self.rng = rng
-
-    def inject(
-        self,
-        base_graph: nx.Graph,
-        src: int,
-        dst: int
-    ) -> Tuple[nx.Graph, List[Tuple[int, int]], List[int]]:
-        """
-        注入故障 (仅修改状态值, 不删除节点/边)。
-
-        返回: (damaged_graph, dead_edges, dead_nodes)
-        """
-        if not self.config.enable_failure or self.config.fail_num <= 0:
-            return base_graph.copy(), [], []
-
-        for _ in range(max(1, self.config.max_failure_tries)):
-            g = base_graph.copy()
-            dead_edges, dead_nodes, node_affected_edges = [], [], []
-
-            if self.config.failure_mode == "edge":
-                dead_edges = self._fail_random_edges(g, self.config.fail_num)
-            elif self.config.failure_mode == "node":
-                dead_nodes, node_affected_edges = self._fail_random_nodes(g, self.config.fail_num, exclude={src, dst})
-                # 将节点故障导致的边故障也添加到 dead_edges
-                dead_edges.extend(node_affected_edges)
-            else:
-                raise ValueError(f"Unknown failure_mode: {self.config.failure_mode}")
-
-            if not self.config.ensure_reachable:
-                return g, dead_edges, dead_nodes
-
-            if self._has_path_without_failed(g, src, dst):
-                return g, dead_edges, dead_nodes
-
-        return g, dead_edges, dead_nodes
-
-    def _fail_random_edges(self, g: nx.Graph, k: int) -> List[Tuple[int, int]]:
-        """随机标记 k 条边为故障 (link_status = -1)。"""
-        edges = [(u, v) for u, v in g.edges() if not _is_failed_status(g[u][v].get("link_status"))]
-        if not edges or k <= 0:
-            return []
-        self.rng.shuffle(edges)
-        removed = []
-        for u, v in edges[:k]:
-            g[u][v]["link_status"] = -1
-            removed.append((int(u), int(v)))
-        return removed
-
-    def _fail_random_nodes(self, g: nx.Graph, k: int, exclude: Set[int] = None) -> Tuple[List[int], List[Tuple[int, int]]]:
-        """随机标记 k 个节点为故障 (node_status = -1)，并同时标记相连的边为故障。
-        
-        返回: (故障节点列表, 受影响的边列表)
-        """
-        exclude = exclude or set()
-        nodes = [n for n in g.nodes() if n not in exclude and not _is_failed_status(g.nodes[n].get("node_status"))]
-        if not nodes or k <= 0:
-            return [], []
-        self.rng.shuffle(nodes)
-        removed_nodes = []
-        affected_edges = []
-        for n in nodes[:k]:
-            g.nodes[n]["node_status"] = -1
-            # 标记与该节点相连的所有边为故障
-            for neighbor in list(g.neighbors(n)):
-                if not _is_failed_status(g[n][neighbor].get("link_status")):
-                    g[n][neighbor]["link_status"] = -1
-                    affected_edges.append((int(n), int(neighbor)))
-            removed_nodes.append(int(n))
-        return removed_nodes, affected_edges
-
-    def _has_path_without_failed(self, g: nx.Graph, src: int, dst: int) -> bool:
-        """判断在过滤故障后是否可达（同时检查利用率和丢包率阈值）。"""
-        util_threshold = self.config.utilization_threshold
-        loss_threshold = self.config.loss_rate_threshold
-
-        def _node_ok(n):
-            return not _is_failed_status(g.nodes[n].get("node_status"))
-
-        def _edge_ok(u, v):
-            if _is_failed_status(g[u][v].get("link_status")):
-                return False
-            if _get_edge_utilization(g[u][v]) > util_threshold:
-                return False
-            if _get_edge_loss_rate(g[u][v]) > loss_threshold:
-                return False
-            return True
-
-        view = nx.subgraph_view(g, filter_node=_node_ok, filter_edge=_edge_ok)
-        return view.has_node(src) and view.has_node(dst) and nx.has_path(view, src, dst)
 
 
 # ============================================================================
@@ -584,27 +417,47 @@ class NetTupu(RawEnvironment):
 
         # env_id = "NetTupu"
         # graph_source = "random_example"  # 使用固定图
-        # graph_source = "history"       # 从history随机选择
-        # graph_source = "random"        # 从random随机选择
-        # graph_source = "/path/to/custom.graphml"  # 自定义路径
+        # graph_source = "latest_II_class_base" # 使用最新的II类网络拓扑图, 但是假设所有节点的状态都为-1
+        # graph_source = "latest_II_class" # 使用最新的II类网络拓扑图, 但是网络时延带宽只是某个时间的
+        # graph_source = "II_class_history_random" # 从II类网络拓扑图历史随机选择一个图
+         # env_config.test=0/1 模式下train逻辑
+        # 加载的图：II_class_histoty下随机的图，或者latest_II_class.graphml图
+
+        # test_or_train==True 时，为模型实际部署，不需要在加载历史图，需要加载 latest_II_class.base.graphml图，然后根据update_graph_with_latest_metric判断从kg中更新属性
+        # 因为latest_II_class.base.graphml图中的节点默认全部时不在线，通过加载kg获取图得到的是当前系统正在运行的图，然后更新节点状态，有些节点可能不在线，就是会有故障的节点
+        # 但是我还想在部署时候，保存一个节点全部在线的图作为未故障前的图，也就是更新完属性后，🈶一个根据从kg中更新节点状态后的图（可能有故障节点）以及假设故障节点也在线的全图作为对比图
+        # 此外，在部署阶段，不会开启故障，而是检测更新完图后故障节点和边做标记，然后最短路径的计算也要根据故障情况更新
         
-        self.graph_source = getattr(env_config, "graph_source", "latest_II_class_base")
+        self.test_or_train = getattr(env_config, "test", False) and getattr(env_config, "execute_reroute", False)
+
+        self.graph_source = getattr(env_config, "graph_source", "latest_II_class")
         self.graph_data_dir = Path(os.path.dirname(__file__)) / "graph_data"
+        self.base_online_graph = self._load_graph_by_source(self.graph_source)
 
-        self.base_url = getattr(env_config, "base_url", "http://192.168.2.101:5000")
-        
-        graph = self._load_graph_by_source(self.graph_source)
-        if env_config.get("update_graph_with_latest_metric", False):
+        if self.test_or_train:
+            # 部署模式：加载 base 图（默认全离线），从 KG 更新得到当前运行状态（含故障标记）
+            self.graph_source = getattr(env_config, "graph_source", "latest_II_class_base")
+            self.graph_data_dir = Path(os.path.dirname(__file__)) / "graph_data"
+            self.latest_online_graph = self._load_graph_by_source(self.graph_source)
+            self.base_url = getattr(env_config, "base_url", "http://192.168.2.101:5000")
+
             NM_topo, link_metric, e2e_flow_data = self.get_latest_metric_from_kg()
-            graph = update_graph_with_latest_metric(graph, NM_topo, link_metric, e2e_flow_data)
+            self.latest_online_graph = update_graph_with_latest_metric(self.latest_online_graph, NM_topo, link_metric, e2e_flow_data)
 
-        if graph is not None:
-            self._normalize_graph_attributes(graph)
-            graph, self.status_dead_edges, self.status_dead_nodes = self._apply_status_failures(graph)
-            self._sync_graph_attributes(graph)
+            self.latest_online_graph, self.status_dead_edges, self.status_dead_nodes = self._apply_status_failures(self.latest_online_graph)
+            self._sync_graph_attributes(self.latest_online_graph)
 
+            # 工作图：从 KG 更新后的图（可能有故障节点/边），用于路由与最短路径计算
+            self.base_graph = self.latest_online_graph.copy()
+            # 对比图：假设故障节点/边也在线的全图，用于对比（如故障前最短路径等）
+            self.base_graph_all_online = self._graph_all_online(self.latest_online_graph)
+        else:
+            # 训练模式：使用历史或最新图，不开启故障注入时仅做状态标记
+            self.base_online_graph, self.status_dead_edges, self.status_dead_nodes = self._apply_status_failures(self.base_online_graph)
+            self._sync_graph_attributes(self.base_online_graph)
+            self.base_graph = self.base_online_graph.copy()
+            self.base_graph_all_online = None  # 训练模式不需要
 
-        self.base_graph = graph
         self.active_graph = self.base_graph.copy()
 
         # 初始化组件
@@ -619,7 +472,6 @@ class NetTupu(RawEnvironment):
         self.reward_calculator = RewardCalculator(config=self.reward_config)
 
         # Episode 状态
-        self.test_or_train = getattr(env_config, "test", False) and getattr(env_config, "execute_reroute", False)
         if self.test_or_train:
             self.src = env_config.src
             self.dst = env_config.dst
@@ -647,15 +499,14 @@ class NetTupu(RawEnvironment):
         """重置环境。"""
         self._current_step = 0
         self.path, self.path_delay = [], 0.0
+        # 始终从 base_graph 恢复（部署时 base_graph 为 KG 更新图含故障，训练时为加载图）
         self.active_graph = self.base_graph.copy()
+        # 仅重置本局“注入”的故障；图内已有故障由 status_dead_edges/status_dead_nodes 保留，
+        # info 中 dead_edges/dead_nodes = status_dead_* + self.dead_*，观测来自 active_graph，故首次 reset 后观测与故障信息一致
         self.failure_happened, self.dead_edges, self.dead_nodes = False, [], []
         self.path_before_failure = None
         self.shortest_path_before_failure = None
 
-        if kwargs.get("regenerate_graph", False):
-            self.regenerate_topology()
-
-        
         if self.test_or_train:
             if self.src is None or self.dst is None:
                 raise ValueError("test_or_train=True 需要传入 src 和 dst")
@@ -755,26 +606,6 @@ class NetTupu(RawEnvironment):
     # Topology Operations
     # =========================================================================
 
-    def visualize(self, **kwargs):
-        visualize_fn = self._resolve_visualize()
-        return visualize_fn(self.active_graph, **kwargs)
-
-    def regenerate_topology(self):
-        """重新生成拓扑。"""
-        self.base_graph = self._generate_graph()
-        self._normalize_graph_attributes(self.base_graph)
-        self.status_dead_edges, self.status_dead_nodes = [], []
-        self.active_graph = self.base_graph.copy()
-        self._sync_graph_attributes(self.base_graph)
-        self.obs_builder = ObservationBuilder(
-            num_nodes=self.num_nodes,
-            max_degree=self.max_degree,
-            delay_range=self.delay_range,
-            bandwidth_range=self.bandwidth_range,
-            config=self.obs_config
-        )
-        self.observation_space = self.obs_builder.get_observation_space()
-
     def get_latest_metric_from_kg(self):
         api = KGClient(base_url=self.base_url)  # 知识库ip
         NM_topo = api.get_data_attribute("NM_topo")  # 网络拓扑
@@ -831,13 +662,30 @@ class NetTupu(RawEnvironment):
 
     def _path_to_ip_port(self, path: List[int], graph: Optional[nx.Graph] = None) -> List[Dict[str, str]]:
         """
-        将节点路径转换为 IP:port 格式。
+        将节点路径转换为 IP:port 格式，包含端口 IP 信息。
         
         返回格式: [
-            {"node_idx": 0, "ip": "192.168.1.1", "out_port": "node_id:1"},
-            {"node_idx": 1, "ip": "192.168.1.2", "in_port": "node_id:2", "out_port": "node_id:3"},
+            {
+                "node_idx": 0, 
+                "ip": "192.168.1.1",  # 节点管理 IP
+                "out_port": "node_id:1",
+                "out_port_ip": "192.168.10.1"  # 出端口 IP
+            },
+            {
+                "node_idx": 1, 
+                "ip": "192.168.1.2",
+                "in_port": "node_id:2", 
+                "in_port_ip": "192.168.10.2",  # 入端口 IP
+                "out_port": "node_id:3",
+                "out_port_ip": "192.168.11.1"
+            },
             ...
-            {"node_idx": n, "ip": "192.168.1.n", "in_port": "node_id:x"}
+            {
+                "node_idx": n, 
+                "ip": "192.168.1.n", 
+                "in_port": "node_id:x",
+                "in_port_ip": "192.168.x.x"
+            }
         ]
         """
         g = graph or self.active_graph
@@ -850,6 +698,7 @@ class NetTupu(RawEnvironment):
         for i, node_idx in enumerate(path):
             node_attrs = g.nodes.get(node_idx, {})
             ip = idx_to_ip.get(node_idx, node_attrs.get("node_manage_ip_addr", ""))
+            port_info = node_attrs.get("port_info", {})
             
             entry = {
                 "node_idx": node_idx,
@@ -862,14 +711,26 @@ class NetTupu(RawEnvironment):
                 if g.has_edge(prev_node, node_idx):
                     edge_data = g[prev_node][node_idx]
                     # 对于无向图，需要判断方向
-                    entry["in_port"] = edge_data.get("dst_port", "")
+                    in_port = edge_data.get("dst_port", "")
+                    entry["in_port"] = in_port
+                    # 获取入端口 IP（优先从边属性获取，其次从节点 port_info 获取）
+                    in_port_ip = edge_data.get("dst_port_ip", "")
+                    if not in_port_ip and in_port:
+                        in_port_ip = port_info.get(in_port, {}).get("ip_address", "")
+                    entry["in_port_ip"] = in_port_ip
 
             # 获取出端口 (到下一跳)
             if i < len(path) - 1:
                 next_node = path[i + 1]
                 if g.has_edge(node_idx, next_node):
                     edge_data = g[node_idx][next_node]
-                    entry["out_port"] = edge_data.get("src_port", "")
+                    out_port = edge_data.get("src_port", "")
+                    entry["out_port"] = out_port
+                    # 获取出端口 IP（优先从边属性获取，其次从节点 port_info 获取）
+                    out_port_ip = edge_data.get("src_port_ip", "")
+                    if not out_port_ip and out_port:
+                        out_port_ip = port_info.get(out_port, {}).get("ip_address", "")
+                    entry["out_port_ip"] = out_port_ip
 
             result.append(entry)
 
@@ -1032,6 +893,31 @@ class NetTupu(RawEnvironment):
                 affected = self._is_path_affected_by_failure(self.shortest_path_before_failure)
                 info["failure_affected_original_path"] = affected
 
+        # 部署模式：若有故障节点/边，将明细放入 info 供上层使用
+        if getattr(self, "test_or_train", False):
+            dead_edges_all = self.status_dead_edges + self.dead_edges
+            dead_nodes_all = self.status_dead_nodes + self.dead_nodes
+            if dead_nodes_all or dead_edges_all:
+                info["dead_nodes_detail"] = [
+                    {
+                        "idx": int(n),
+                        "node_id": self.active_graph.nodes.get(n, {}).get("node_id", str(n)),
+                        "ip": self.active_graph.nodes.get(n, {}).get("node_manage_ip_addr", ""),
+                    }
+                    for n in dead_nodes_all
+                ]
+                info["dead_edges_detail"] = [
+                    {
+                        "src_idx": int(u),
+                        "dst_idx": int(v),
+                        "link_id": (self.active_graph.get_edge_data(u, v) or {}).get("link_id", f"{u}-{v}"),
+                    }
+                    for u, v in dead_edges_all
+                ]
+            else:
+                info["dead_nodes_detail"] = []
+                info["dead_edges_detail"] = []
+
         if extra:
             info.update(extra)
         return info
@@ -1076,19 +962,6 @@ class NetTupu(RawEnvironment):
             seed=seed,
         )
 
-    @staticmethod
-    def _resolve_visualize():
-        """延迟导入可视化函数，兼容脚本/包两种运行方式。"""
-        try:
-            from environment.topo_parse.topo_parser import visualize  # type: ignore
-            return visualize
-        except (ModuleNotFoundError, ImportError):
-            try:
-                from topo_parse.topo_parser import visualize  # type: ignore
-                return visualize
-            except (ModuleNotFoundError, ImportError):
-                from .topo_parse.topo_parser import visualize  # type: ignore
-                return visualize
 
     @staticmethod
     def _resolve_generate_random_topology():
@@ -1215,14 +1088,19 @@ class NetTupu(RawEnvironment):
         return new_graph
 
     def _normalize_graph_attributes(self, graph: nx.Graph) -> None:
-        """规范化图属性，确保所有必需字段存在。"""
+        """规范化图属性，确保所有必需字段存在。
+        
+        状态值约定: 1=在线, 0=故障/离线
+        """
         for node, attrs in graph.nodes(data=True):
             # 确保 idx 属性存在
             if "idx" not in attrs:
                 attrs["idx"] = int(node)
-            attrs["node_status"] = _coerce_int(attrs.get("node_status", 1), 1)
+            # node_status: 1=在线, 0=故障/离线，默认离线
+            attrs["node_status"] = _coerce_int(attrs.get("node_status", 0), 0)
         for _, _, data in graph.edges(data=True):
-            data["link_status"] = _coerce_int(data.get("link_status", 1), 1)
+            # link_status: 1=在线, 0=故障/离线，默认离线
+            data["link_status"] = _coerce_int(data.get("link_status", 0), 0)
             latency = _coerce_float(data.get("link_latency", data.get("delay", 0.0)))
             data["link_latency"] = latency
             data["delay"] = latency
@@ -1235,15 +1113,35 @@ class NetTupu(RawEnvironment):
         dead_edges = [(int(u), int(v)) for u, v, data in graph.edges(data=True) if _is_failed_status(data.get("link_status"))]
         return graph, dead_edges, dead_nodes
 
+    def _graph_all_online(self, graph: nx.Graph) -> nx.Graph:
+        """返回图的副本，并将所有 node_status、link_status 置为 1（在线），用于部署时的对比图。"""
+        g = graph.copy()
+        for n in g.nodes():
+            g.nodes[n]["node_status"] = 1
+        for u, v in g.edges():
+            g[u][v]["link_status"] = 1
+        return g
+
     def _sync_graph_attributes(self, graph: nx.Graph):
+        """同步图相关属性；统计时仅考虑在线节点和边，不包含故障节点和边的时延、带宽与度数。"""
         self.num_nodes = graph.number_of_nodes()
-        degrees = [d for _, d in graph.degree()]
-        self.min_degree = min(degrees) if degrees else 0
-        self.max_degree = max(degrees) if degrees else 0
-        delays = [_get_edge_latency(data) for _, _, data in graph.edges(data=True)]
-        bandwidths = [_get_edge_bandwidth(data) for _, _, data in graph.edges(data=True)]
+        # 仅统计在线边上的时延、带宽
+        online_edges = [(u, v, data) for u, v, data in graph.edges(data=True) if not _is_failed_status(data.get("link_status"))]
+        delays = [_get_edge_latency(data) for _, _, data in online_edges]
+        bandwidths = [_get_edge_bandwidth(data) for _, _, data in online_edges]
         self.delay_range = (min(delays) if delays else 0.0, max(delays) if delays else 0.0)
         self.bandwidth_range = (min(bandwidths) if bandwidths else 0.0, max(bandwidths) if bandwidths else 0.0)
+        # 度数仅统计在线边：每个节点的度 = 与其相连且 link_status=1 的边数，且对端节点在线
+        online_node = set(n for n, attrs in graph.nodes(data=True) if not _is_failed_status(attrs.get("node_status")))
+        degrees = []
+        for n in graph.nodes():
+            d = 0
+            for neighbor in graph.neighbors(n):
+                if neighbor in online_node and graph.has_edge(n, neighbor) and not _is_failed_status(graph[n][neighbor].get("link_status")):
+                    d += 1
+            degrees.append(d)
+        self.min_degree = min(degrees) if degrees else 0
+        self.max_degree = max(degrees) if degrees else 0
 
     def _calculate_path_delay(self, path: List[int]) -> float:
         if not path or len(path) < 2:
@@ -1314,18 +1212,19 @@ class NetTupu(RawEnvironment):
 if __name__ == "__main__":
     class _Config:
         env_id = "NetTupu-Debug"
-        obs_type = "state"
+        obs_type = "state" # test, state, neighbor   加一个test模式，主要是为了测试各种细节，比如指定节点故障后的路径更新，不涉及模型的运行，只是最短路径算法
         enable_failure = False
         failure_mode = "edge"
         fail_num = 2
         fail_step = -1
+        graph_source = "latest_II_class"
 
     env = NetTupu(env_config=_Config())
     obs, info = env.reset()
 
     # pring node idx and ip
-    for node in env.active_graph.nodes():
-        print(f"node {node}: idx={env.active_graph.nodes[node]['idx']}, ip={env.active_graph.nodes[node]['node_manage_ip_addr']}, uuid={env.active_graph.nodes[node]['node_id']}")
+    # for node in env.active_graph.nodes():
+    #     print(f"node {node}: idx={env.active_graph.nodes[node]['idx']}, ip={env.active_graph.nodes[node]['node_manage_ip_addr']}, uuid={env.active_graph.nodes[node]['node_id']}")
 
 
     # 结构化输出，便于核对维度与取值
