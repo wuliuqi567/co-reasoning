@@ -22,6 +22,15 @@
             "program": "./net_tupu_iii.py",
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "rl_reroute",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/",
+            "program": "./rl_reroute.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
         }
     ]
 }

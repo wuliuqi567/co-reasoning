@@ -35,7 +35,8 @@ import networkx as nx
 from gymnasium.spaces import Box, Discrete
 
 from xuance.environment import RawEnvironment
-# from kg_sdk import KGClient
+from kg_sdk import KGClient
+import ast
 import json
 import ipaddress
 from .topo_parse.topo_parser import update_graph_with_latest_metric
@@ -478,6 +479,8 @@ class NetTupu(RawEnvironment):
             self.dst_dev_ip = env_config.dst_dev_ip  # 192.168.40.2/24
             self.src, self.src_port_info = self.resolve_dev_ip_to_ii_port(self.src_dev_ip)
             self.dst, self.dst_port_info = self.resolve_dev_ip_to_ii_port(self.dst_dev_ip)
+            print(f"src: {self.src}, src_port_info: {self.src_port_info}")
+            print(f"dst: {self.dst}, dst_port_info: {self.dst_port_info}")
             
         else:
             self.src, self.dst, self.current_node = None, None, None
@@ -677,8 +680,19 @@ class NetTupu(RawEnvironment):
         dev_network = iface.network
 
         for node_key, attrs in g.nodes(data=True):
-            port_info_map = attrs.get("port_info") or {}
-            if not port_info_map:
+            raw_port_info = attrs.get("port_info") or {}
+            # port_info 可能是字符串形式的 dict（如从 GraphML 读入）
+            if isinstance(raw_port_info, str):
+                raw_port_info = raw_port_info.strip()
+                if not raw_port_info:
+                    continue
+                try:
+                    port_info_map = ast.literal_eval(raw_port_info)
+                except (ValueError, SyntaxError):
+                    continue
+            else:
+                port_info_map = raw_port_info
+            if not isinstance(port_info_map, dict) or not port_info_map:
                 continue
             for port_id, port_data in port_info_map.items():
                 port_ip_str = (port_data or {}).get("ip_address", "").strip()
@@ -719,7 +733,7 @@ class NetTupu(RawEnvironment):
             mapping[int(idx)] = str(ip_addr)
         return mapping
 
-    def _path_to_ip_port(self, path: List[int], graph: Optional[nx.Graph] = None) -> List[Dict[str, Any]]:
+    def _path_to_ip_port(self, path: Optional[List[int]], graph: Optional[nx.Graph] = None) -> List[Dict[str, Any]]:
         """
         将节点路径转换为 IP:port 格式，包含端口 IP 信息。
 
@@ -731,9 +745,10 @@ class NetTupu(RawEnvironment):
                 "in_port": "node_id:3",        # 首节点为接入设备入端口 (src_port)
                 "in_port_ip": "192.168.10.2",  # 入端口 IP
                 "out_port": "node_id:1",
-                "out_port_ip": "192.168.10.1"  # 出端口 IP
+                "out_port_ip": "192.168.10.1", # 出端口 IP
+                "next_node_ip": "192.168.20.1" # 下一跳节点的入端口 IP
             },
-            {"node_idx": 1, "ip": "...", "in_port": "...", "in_port_ip": "...", "out_port": "...", "out_port_ip": "..."},
+            {"node_idx": 1, "ip": "...", "in_port": "...", "in_port_ip": "...", "out_port": "...", "out_port_ip": "...", "next_node_ip": "..."},
             ...
             {
                 "node_idx": n,
@@ -741,12 +756,13 @@ class NetTupu(RawEnvironment):
                 "in_port": "node_id:x",
                 "in_port_ip": "192.168.x.x",
                 "out_port": "node_id:3",       # 末节点为输出设备出端口 (dst_port)
-                "out_port_ip": "192.168.11.1"  # 输出设备出端口 IP
+                "out_port_ip": "192.168.11.1", # 输出设备出端口 IP
+                "next_node_ip": ""             # 末节点无下一跳，为空或目的设备 IP
             }
         ]
         """
         g = graph or self.active_graph
-        if g is None or len(path) == 0:
+        if g is None or not path:
             return []
 
         result: List[Dict[str, Any]] = []
@@ -755,17 +771,30 @@ class NetTupu(RawEnvironment):
         for i, node_idx in enumerate(path):
             node_attrs = g.nodes.get(node_idx, {})
             ip = idx_to_ip.get(node_idx, node_attrs.get("node_manage_ip_addr", ""))
-            port_info = node_attrs.get("port_info", {})
+            raw_port_info = node_attrs.get("port_info", {})
+            # port_info 可能是字符串形式的 dict（如从 GraphML 读入）
+            if isinstance(raw_port_info, str):
+                try:
+                    port_info = ast.literal_eval(raw_port_info.strip()) if raw_port_info.strip() else {}
+                except (ValueError, SyntaxError):
+                    port_info = {}
+            else:
+                port_info = raw_port_info if isinstance(raw_port_info, dict) else {}
 
             entry: Dict[str, Any] = {
                 "node_idx": node_idx,
                 "ip": ip,
+                "in_port": "",
+                "in_port_ip": "",
+                "out_port": "",
+                "out_port_ip": "",
+                "next_node_ip": "",
             }
 
-            # 入端口：首节点用接入设备入端口 (src_port)，否则用上一跳边上的 dst_port
-            if i == 0 and getattr(self, "src_port", None):
-                entry["in_port"] = self.src_port.get("port_id", "")
-                entry["in_port_ip"] = self.src_port.get("ip_address", "")
+            # 入端口：首节点用接入设备入端口 (src_port_info)，否则用上一跳边上的 dst_port
+            if i == 0 and getattr(self, "src_port_info", None):
+                entry["in_port"] = self.src_port_info.get("port_id", "")
+                entry["in_port_ip"] = self.src_port_info.get("ip_address", "")
             elif i > 0:
                 prev_node = path[i - 1]
                 if g.has_edge(prev_node, node_idx):
@@ -774,13 +803,17 @@ class NetTupu(RawEnvironment):
                     entry["in_port"] = in_port
                     in_port_ip = edge_data.get("dst_port_ip", "")
                     if not in_port_ip and in_port:
-                        in_port_ip = port_info.get(in_port, {}).get("ip_address", "")
+                        in_port_ip = (port_info.get(in_port) or {}).get("ip_address", "")
                     entry["in_port_ip"] = in_port_ip
 
-            # 出端口：末节点用输出设备出端口 (dst_port)，否则用下一跳边上的 src_port
-            if i == len(path) - 1 and getattr(self, "dst_port", None):
-                entry["out_port"] = self.dst_port.get("port_id", "")
-                entry["out_port_ip"] = self.dst_port.get("ip_address", "")
+            # 出端口：末节点用输出设备出端口 (dst_port_info)，否则用下一跳边上的 src_port
+            if i == len(path) - 1 and getattr(self, "dst_port_info", None):
+                entry["out_port"] = self.dst_port_info.get("port_id", "")
+                entry["out_port_ip"] = self.dst_port_info.get("ip_address", "")
+                # 末节点的 next_node_ip 为目的设备 IP（去掉掩码）
+                if getattr(self, "dst_dev_ip", None):
+                    dst_ip = self.dst_dev_ip.split("/")[0] if "/" in self.dst_dev_ip else self.dst_dev_ip
+                    entry["next_node_ip"] = dst_ip
             elif i < len(path) - 1:
                 next_node = path[i + 1]
                 if g.has_edge(node_idx, next_node):
@@ -789,8 +822,26 @@ class NetTupu(RawEnvironment):
                     entry["out_port"] = out_port
                     out_port_ip = edge_data.get("src_port_ip", "")
                     if not out_port_ip and out_port:
-                        out_port_ip = port_info.get(out_port, {}).get("ip_address", "")
+                        out_port_ip = (port_info.get(out_port) or {}).get("ip_address", "")
                     entry["out_port_ip"] = out_port_ip
+                    
+                    # next_node_ip：下一跳节点的入端口 IP（边的 dst_port_ip）
+                    next_node_ip = edge_data.get("dst_port_ip", "")
+                    if not next_node_ip:
+                        # 从下一跳节点的 port_info 中获取
+                        dst_port = edge_data.get("dst_port", "")
+                        if dst_port:
+                            next_node_attrs = g.nodes.get(next_node, {})
+                            raw_next_port_info = next_node_attrs.get("port_info", {})
+                            if isinstance(raw_next_port_info, str):
+                                try:
+                                    next_port_info = ast.literal_eval(raw_next_port_info.strip()) if raw_next_port_info.strip() else {}
+                                except (ValueError, SyntaxError):
+                                    next_port_info = {}
+                            else:
+                                next_port_info = raw_next_port_info if isinstance(raw_next_port_info, dict) else {}
+                            next_node_ip = (next_port_info.get(dst_port) or {}).get("ip_address", "")
+                    entry["next_node_ip"] = next_node_ip
 
             result.append(entry)
 
