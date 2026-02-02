@@ -390,6 +390,7 @@ class MyDDQNAgent(OffPolicyAgent):
         num_envs = test_envs.num_envs
         episode = 0
         paths = []
+        shortest_paths = []
         path_ip_ports = []
         shortest_path_ip_ports = []
         path_delay = []
@@ -416,6 +417,7 @@ class MyDDQNAgent(OffPolicyAgent):
                     episode += 1
                     if isinstance(infos[i], dict) and "path" in infos[i]:
                         paths.append(infos[i]["path"])
+                        shortest_paths.append(infos[i].get("shortest_path", []))
                         path_ip_ports.append(infos[i]["path_ip_port"])
                         shortest_path_ip_ports.append(infos[i]["shortest_path_ip_port"])
                         path_delay.append(infos[i]["path_delay"])
@@ -432,6 +434,7 @@ class MyDDQNAgent(OffPolicyAgent):
                         break
         return {
             "paths": paths,
+            "shortest_paths": shortest_paths,
             "path_ip_ports": path_ip_ports,
             "shortest_path_ip_ports": shortest_path_ip_ports,
             "path_delay": path_delay,

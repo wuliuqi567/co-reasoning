@@ -27,7 +27,7 @@ def parse_args():
 
 if __name__ == "__main__":
 
-    OUTPUT_DIR = "./log/access.log"
+    OUTPUT_DIR = "./log/access.log"  #这里需要先改成自己本地的一个路径，后续再替换成样机这边的路径
     # 确保日志目录存在
     log_dir = os.path.dirname(OUTPUT_DIR)
     if log_dir:
@@ -125,9 +125,9 @@ if __name__ == "__main__":
 
     # 提取全局重路由结果
     print(f"paths: {reroute_result['paths'][0]}")
-    print(f"shortest_path: {reroute_result['shortest_path'][0]}")
+    print(f"shortest_paths: {reroute_result['shortest_paths'][0]}")
     global_hop_num = len(reroute_result['paths'][0])
-    shortest_path_hop_num = len(reroute_result['shortest_path'][0])
+    shortest_path_hop_num = len(reroute_result['shortest_paths'][0]) if reroute_result['shortest_paths'][0] else 0
     print(f"path_ip_ports: {reroute_result['path_ip_ports'][0]}\n")
     print(f"shortest_path_ip_ports: {reroute_result['shortest_path_ip_ports'][0]}\n")
     print(f"path_delay: {reroute_result['path_delay'][0]}")

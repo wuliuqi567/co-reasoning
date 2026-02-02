@@ -35,7 +35,7 @@ import networkx as nx
 from gymnasium.spaces import Box, Discrete
 
 from xuance.environment import RawEnvironment
-from kg_sdk import KGClient
+# from kg_sdk import KGClient
 import ast
 import json
 import ipaddress
