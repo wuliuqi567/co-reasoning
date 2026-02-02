@@ -400,6 +400,7 @@ class MyDDQNAgent(OffPolicyAgent):
         shortest_path_loss_rate = []
         dead_nodes_detail = []
         dead_edges_detail = []
+        is_connected_src_dst_list = []
 
         obs, infos = test_envs.reset()
         self._update_action_masks_from_infos(infos, is_test=True)
@@ -425,6 +426,7 @@ class MyDDQNAgent(OffPolicyAgent):
                         shortest_path_loss_rate.append(infos[i]["shortest_path_loss_rate"])
                         dead_nodes_detail.append(infos[i].get("dead_nodes_detail", []))
                         dead_edges_detail.append(infos[i].get("dead_edges_detail", []))
+                        is_connected_src_dst_list.append(infos[i].get("is_connected_src_dst", False))
 
                     if episode >= test_episodes:
                         break
@@ -440,4 +442,5 @@ class MyDDQNAgent(OffPolicyAgent):
             "shortest_path_loss_rate": shortest_path_loss_rate,
             "dead_nodes_detail": dead_nodes_detail,
             "dead_edges_detail": dead_edges_detail,
+            "is_connected_src_dst": is_connected_src_dst_list,
         } 

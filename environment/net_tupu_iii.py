@@ -37,6 +37,7 @@ from gymnasium.spaces import Box, Discrete
 from xuance.environment import RawEnvironment
 # from kg_sdk import KGClient
 import json
+import ipaddress
 from .topo_parse.topo_parser import update_graph_with_latest_metric
 
 # 从 tools.py 导入辅助函数
@@ -473,8 +474,11 @@ class NetTupu(RawEnvironment):
 
         # Episode 状态
         if self.test_or_train:
-            self.src = env_config.src
-            self.dst = env_config.dst
+            self.src_dev_ip = env_config.src_dev_ip  # 192.168.10.2/24
+            self.dst_dev_ip = env_config.dst_dev_ip  # 192.168.40.2/24
+            self.src, self.src_port_info = self.resolve_dev_ip_to_ii_port(self.src_dev_ip)
+            self.dst, self.dst_port_info = self.resolve_dev_ip_to_ii_port(self.dst_dev_ip)
+            
         else:
             self.src, self.dst, self.current_node = None, None, None
         self.path, self.path_delay = [], 0.0
@@ -635,6 +639,61 @@ class NetTupu(RawEnvironment):
         self.src = map[src]
         self.dst = map[dst]
 
+    def resolve_dev_ip_to_ii_port(
+        self, dev_ip: str, graph: Optional[nx.Graph] = None
+    ) -> Tuple[Any, Dict[str, Any]]:
+        """
+        根据设备 IP（带 /24 掩码）解析该设备所连接的 II 类节点及其端口信息。
+
+        当前图为 II 类拓扑：每个 II 类节点有 node_manage_ip_addr 和 idx，
+        其下有多端口，每端口有 ip_address，对应一个 /24 网段。本函数根据
+        输入的 dev_ip 判断设备属于哪个 II 的哪个端口的网段，并返回该节点键与端口信息。
+
+        参数:
+            dev_ip: 设备 IP，支持 "192.168.10.2/24" 或 "192.168.10.2"（缺省按 /24 处理）
+            graph: 使用的图，默认 self.base_graph
+
+        返回:
+            (node_key, port_info): 图上的节点键（与图节点 key 一致）及该端口的完整信息
+                port_info 至少包含 port_id、ip_address 等
+
+        异常:
+            ValueError: 未找到匹配的 II 类端口时抛出
+        """
+        g = graph or self.base_graph
+        if g is None:
+            raise ValueError("resolve_dev_ip_to_ii_port: graph 为空")
+        # 解析 dev_ip，得到 /24 网段
+        dev_ip = dev_ip.strip()
+        if "/" not in dev_ip:
+            dev_ip = f"{dev_ip}/24"
+        try:
+            iface = ipaddress.ip_interface(dev_ip)
+        except ValueError as e:
+            raise ValueError(f"resolve_dev_ip_to_ii_port: 无效的 dev_ip '{dev_ip}'") from e
+        prefix_len = iface.network.prefixlen
+        if prefix_len != 24:
+            iface = ipaddress.ip_interface(f"{iface.ip}/24")
+        dev_network = iface.network
+
+        for node_key, attrs in g.nodes(data=True):
+            port_info_map = attrs.get("port_info") or {}
+            if not port_info_map:
+                continue
+            for port_id, port_data in port_info_map.items():
+                port_ip_str = (port_data or {}).get("ip_address", "").strip()
+                if not port_ip_str:
+                    continue
+                try:
+                    port_ip = ipaddress.ip_address(port_ip_str)
+                except ValueError:
+                    continue
+                if port_ip in dev_network:
+                    return (node_key, dict(port_data))
+        raise ValueError(
+            f"resolve_dev_ip_to_ii_port: 未找到与 dev_ip '{dev_ip}' 同网段(/24)的 II 类端口"
+        )
+
     def get_manage_ip_to_node_id_map(self, graph: Optional[nx.Graph] = None) -> Dict[str, str]:
         """构建节点 node_manage_ip_addr -> node_id 映射。"""
         g = graph or self.base_graph
@@ -660,31 +719,29 @@ class NetTupu(RawEnvironment):
             mapping[int(idx)] = str(ip_addr)
         return mapping
 
-    def _path_to_ip_port(self, path: List[int], graph: Optional[nx.Graph] = None) -> List[Dict[str, str]]:
+    def _path_to_ip_port(self, path: List[int], graph: Optional[nx.Graph] = None) -> List[Dict[str, Any]]:
         """
         将节点路径转换为 IP:port 格式，包含端口 IP 信息。
-        
+
         返回格式: [
+            {"src_dev_ip": "...", "dst_dev_ip": "..."},   # 首项，仅 test_or_train 时存在
             {
-                "node_idx": 0, 
-                "ip": "192.168.1.1",  # 节点管理 IP
+                "node_idx": 0,
+                "ip": "192.168.1.1",           # 节点管理 IP
+                "in_port": "node_id:3",        # 首节点为接入设备入端口 (src_port)
+                "in_port_ip": "192.168.10.2",  # 入端口 IP
                 "out_port": "node_id:1",
                 "out_port_ip": "192.168.10.1"  # 出端口 IP
             },
-            {
-                "node_idx": 1, 
-                "ip": "192.168.1.2",
-                "in_port": "node_id:2", 
-                "in_port_ip": "192.168.10.2",  # 入端口 IP
-                "out_port": "node_id:3",
-                "out_port_ip": "192.168.11.1"
-            },
+            {"node_idx": 1, "ip": "...", "in_port": "...", "in_port_ip": "...", "out_port": "...", "out_port_ip": "..."},
             ...
             {
-                "node_idx": n, 
-                "ip": "192.168.1.n", 
+                "node_idx": n,
+                "ip": "192.168.1.n",
                 "in_port": "node_id:x",
-                "in_port_ip": "192.168.x.x"
+                "in_port_ip": "192.168.x.x",
+                "out_port": "node_id:3",       # 末节点为输出设备出端口 (dst_port)
+                "out_port_ip": "192.168.11.1"  # 输出设备出端口 IP
             }
         ]
         """
@@ -692,47 +749,54 @@ class NetTupu(RawEnvironment):
         if g is None or len(path) == 0:
             return []
 
-        result = []
+        result: List[Dict[str, Any]] = []
         idx_to_ip = self.get_idx_to_ip_map(g)
 
         for i, node_idx in enumerate(path):
             node_attrs = g.nodes.get(node_idx, {})
             ip = idx_to_ip.get(node_idx, node_attrs.get("node_manage_ip_addr", ""))
             port_info = node_attrs.get("port_info", {})
-            
-            entry = {
+
+            entry: Dict[str, Any] = {
                 "node_idx": node_idx,
                 "ip": ip,
             }
 
-            # 获取入端口 (来自前一跳)
-            if i > 0:
+            # 入端口：首节点用接入设备入端口 (src_port)，否则用上一跳边上的 dst_port
+            if i == 0 and getattr(self, "src_port", None):
+                entry["in_port"] = self.src_port.get("port_id", "")
+                entry["in_port_ip"] = self.src_port.get("ip_address", "")
+            elif i > 0:
                 prev_node = path[i - 1]
                 if g.has_edge(prev_node, node_idx):
                     edge_data = g[prev_node][node_idx]
-                    # 对于无向图，需要判断方向
                     in_port = edge_data.get("dst_port", "")
                     entry["in_port"] = in_port
-                    # 获取入端口 IP（优先从边属性获取，其次从节点 port_info 获取）
                     in_port_ip = edge_data.get("dst_port_ip", "")
                     if not in_port_ip and in_port:
                         in_port_ip = port_info.get(in_port, {}).get("ip_address", "")
                     entry["in_port_ip"] = in_port_ip
 
-            # 获取出端口 (到下一跳)
-            if i < len(path) - 1:
+            # 出端口：末节点用输出设备出端口 (dst_port)，否则用下一跳边上的 src_port
+            if i == len(path) - 1 and getattr(self, "dst_port", None):
+                entry["out_port"] = self.dst_port.get("port_id", "")
+                entry["out_port_ip"] = self.dst_port.get("ip_address", "")
+            elif i < len(path) - 1:
                 next_node = path[i + 1]
                 if g.has_edge(node_idx, next_node):
                     edge_data = g[node_idx][next_node]
                     out_port = edge_data.get("src_port", "")
                     entry["out_port"] = out_port
-                    # 获取出端口 IP（优先从边属性获取，其次从节点 port_info 获取）
                     out_port_ip = edge_data.get("src_port_ip", "")
                     if not out_port_ip and out_port:
                         out_port_ip = port_info.get(out_port, {}).get("ip_address", "")
                     entry["out_port_ip"] = out_port_ip
 
             result.append(entry)
+
+        # 首项插入 src_dev_ip / dst_dev_ip（仅 test_or_train 且有配置时）
+        if getattr(self, "test_or_train", False) and getattr(self, "src_dev_ip", None) is not None and getattr(self, "dst_dev_ip", None) is not None:
+            result.insert(0, {"src_dev_ip": self.src_dev_ip, "dst_dev_ip": self.dst_dev_ip})
 
         return result
 
@@ -911,6 +975,8 @@ class NetTupu(RawEnvironment):
                         "src_idx": int(u),
                         "dst_idx": int(v),
                         "link_id": (self.active_graph.get_edge_data(u, v) or {}).get("link_id", f"{u}-{v}"),
+                        "src_port_ip" : (self.active_graph.get_edge_data(u, v) or {}).get("src_port_ip", f"{u}-{v}"),
+                        "dst_port_ip" : (self.active_graph.get_edge_data(u, v) or {}).get("dst_port_ip", f"{u}-{v}")
                     }
                     for u, v in dead_edges_all
                 ]

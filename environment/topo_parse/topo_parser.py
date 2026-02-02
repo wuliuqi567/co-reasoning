@@ -1218,6 +1218,8 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
                 "link_id": link_id,
                 "src_port": data.get("src_port", ""),
                 "dst_port": data.get("dst_port", ""),
+                "src_port_ip": data.get("src_port_ip", ""),
+                "dst_port_ip": data.get("dst_port_ip", ""),
             })
     
     # 打印离线状态信息
@@ -1231,7 +1233,7 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
     if offline_edges:
         print(f"\n警告: 发现 {len(offline_edges)} 条离线/故障链路 (link_status=0):")
         for edge in offline_edges:
-            print(f"  - 链路 ({edge['src_idx']}, {edge['dst_idx']}), link_id={edge['link_id']}")
+            print(f"  - 链路 ({edge['src_idx']}, {edge['dst_idx']}), link_id={edge['link_id']}, src_port_ip={edge.get('src_port_ip', '')}, dst_port_ip={edge.get('dst_port_ip', '')}")
     else:
         print(f"\n所有 {base_graph.number_of_edges()} 条链路状态正常 (link_status=1)")
 

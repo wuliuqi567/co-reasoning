@@ -19,8 +19,10 @@ def parse_args():
     parser.add_argument("--env-id", type=str, default="NetEnv-Net30-v0")
     parser.add_argument("--test", type=int, default=1)
     parser.add_argument("--benchmark", type=int, default=0)
-    parser.add_argument("--src", type=int, default=10)
-    parser.add_argument("--dst", type=int, default=12)
+    # parser.add_argument("--src", type=int, default=10)
+    # parser.add_argument("--dst", type=int, default=12)
+    parser.add_argument("--src_dev_ip", type=str, default="192.168.10.2/24")
+    parser.add_argument("--dst_dev_ip", type=str, default="192.168.40.2/24")
 
     return parser.parse_args()
 
@@ -67,7 +69,8 @@ if __name__ == "__main__":
     # NetTupu.load_net_tupo_info(content2) # 这里要实现调用知识库接口解析图然后加载图
     # 获取当前网络中的流量信息, 得到流的src，dst，然后调用全局重路由模型
 
-    print(f"src: {configs.src}, dst: {configs.dst}")
+    # print(f"src: {configs.src}, dst: {configs.dst}")
+    print(f"src_dev_ip: {configs.src_dev_ip}, dst_dev_ip: {configs.dst_dev_ip}")
 
     configs.logger = "tensorboard"
     configs.test_episode = 1
@@ -88,9 +91,13 @@ if __name__ == "__main__":
     reroute_result = Agent.run_reroute(configs.test_episode, envs)
     time4 = time.time()
     content4 = "推理生成全局重路由策略"
+    # 若过滤故障后 src 与 dst 不连通，则无最短路径，path 可能仅含起点
+    is_connected_list = reroute_result.get("is_connected_src_dst", [True])
+    if not all(is_connected_list):
+        print("[警告] 当前图中 src 与 dst 不连通（过滤故障/拥塞后无可用路径），无法计算最短路径，请检查故障节点/链路或更换 src/dst。")
     print(f"paths: {reroute_result['paths']}")
-    print(f"path_ip_ports: {reroute_result['path_ip_ports']}")
-    print(f"shortest_path_ip_ports: {reroute_result['shortest_path_ip_ports']}")
+    print(f"path_ip_ports: {reroute_result['path_ip_ports']}\n")
+    print(f"shortest_path_ip_ports: {reroute_result['shortest_path_ip_ports']}\n")
     print(f"path_delay: {reroute_result['path_delay']}")
     print(f"path_bandwidth: {reroute_result['path_bandwidth']}")
     print(f"path_loss_rate: {reroute_result['path_loss_rate']}")
