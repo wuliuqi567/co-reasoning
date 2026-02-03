@@ -173,47 +173,103 @@ flow_table = [
 
 
 def policy_compare(global_policy: dict, local_policy: dict):
-    global_path = global_policy['path']
-    local_path = local_policy['path']
-    global_hop_num = len(global_path)
-    local_hop_num = len(local_path)
-    global_delay = global_policy['delay']
-    local_delay = local_policy['delay']
-    global_bandwidth = global_policy['bandwidth']
-    local_bandwidth = local_policy['bandwidth']
-    global_response_time = global_policy['response_time']
-    local_response_time = local_policy['response_time']
+    def _to_float(value):
+        if value is None:
+            return None
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            return None
 
+    global_path = global_policy.get('path')
+    local_path = local_policy.get('path')
+    global_hop_num = len(global_path) if isinstance(global_path, list) else None
+    local_hop_num = len(local_path) if isinstance(local_path, list) else None
+    global_delay = _to_float(global_policy.get('delay'))
+    local_delay = _to_float(local_policy.get('delay'))
+    global_bandwidth = _to_float(global_policy.get('bandwidth'))
+    local_bandwidth = _to_float(local_policy.get('bandwidth'))
+    global_response_time = _to_float(global_policy.get('response_time'))
+    local_response_time = _to_float(local_policy.get('response_time'))
+
+    # 时延差异阈值：当差异在此范围内时，优先选择跳数少的
+    DELAY_THRESHOLD_MS = 50  # 时延差异阈值（ms）
+    DELAY_THRESHOLD_RATIO = 0.2  # 时延差异比例阈值（20%）
+    
     global_final_policy = None
-    if global_delay <= local_delay:
-        print(f"[INFO] 全局重路由时延：{global_delay}ms，本地重路由时延：{local_delay}ms")
-        print(f"[INFO] 全局重路由时延更短")
+    if global_delay is not None and local_delay is not None:
+        delay_diff = abs(global_delay - local_delay)
+        min_delay = min(global_delay, local_delay)
+        # 计算相对差异（避免除零）
+        relative_diff = delay_diff / min_delay if min_delay > 0 else float('inf')
+        
+        print(f"[INFO] 全局重路由时延：{global_delay}ms，本地重路由时延：{local_delay}ms，差异：{delay_diff}ms ({relative_diff*100:.1f}%)")
+        
+        # 当时延差异较小时，优先选择跳数少的
+        if delay_diff <= DELAY_THRESHOLD_MS or relative_diff <= DELAY_THRESHOLD_RATIO:
+            print(f"[INFO] 时延差异较小（<={DELAY_THRESHOLD_MS}ms 或 <={DELAY_THRESHOLD_RATIO*100}%），优先比较跳数")
+            if global_hop_num is not None and local_hop_num is not None:
+                if global_hop_num <= local_hop_num:
+                    print(f"[INFO] 全局跳数 {global_hop_num} <= 本地跳数 {local_hop_num}，选择全局策略")
+                    global_final_policy = global_policy
+                else:
+                    print(f"[INFO] 本地跳数 {local_hop_num} < 全局跳数 {global_hop_num}，选择本地策略")
+                    global_final_policy = local_policy
+            else:
+                # 跳数信息缺失，回退到时延比较
+                print("[WARN] 跳数信息不完整，回退到时延比较")
+                global_final_policy = global_policy if global_delay <= local_delay else local_policy
+        else:
+            # 时延差异较大，选择时延更短的
+            if global_delay <= local_delay:
+                print("[INFO] 全局重路由时延更短，选择全局策略")
+                global_final_policy = global_policy
+            else:
+                print("[INFO] 本地重路由时延更短，选择本地策略")
+                global_final_policy = local_policy
+    elif global_delay is not None:
+        print("[WARN] 本地重路由时延缺失，选择全局重路由策略")
         global_final_policy = global_policy
-    elif global_delay > local_delay:
-        print(f"[INFO] 全局重路由时延：{global_delay}ms，本地重路由时延：{local_delay}ms")
-        print(f"[INFO] 本地重路由时延更短")
+    elif local_delay is not None:
+        print("[WARN] 全局重路由时延缺失，选择本地重路由策略")
         global_final_policy = local_policy
+    else:
+        print("[WARN] 全局/本地重路由时延均缺失，改用跳数进行选择")
+        if global_hop_num is not None and local_hop_num is not None:
+            global_final_policy = global_policy if global_hop_num <= local_hop_num else local_policy
+        else:
+            print("[WARN] 跳数信息也缺失，默认选择全局重路由策略")
+            global_final_policy = global_policy
 
-    if global_bandwidth <= local_bandwidth:
-        print(f"[INFO] 全局重路由带宽：{global_bandwidth}MHz，本地重路由带宽：{local_bandwidth}MHz")
-        print(f"[INFO] 全局重路由带宽更窄")
-    elif global_bandwidth > local_bandwidth:
-        print(f"[INFO] 全局重路由带宽：{global_bandwidth}MHz，本地重路由带宽：{local_bandwidth}MHz")
-        print(f"[INFO] 本地重路由带宽更窄")
+    if global_bandwidth is not None and local_bandwidth is not None:
+        if global_bandwidth <= local_bandwidth:
+            print(f"[INFO] 全局重路由带宽：{global_bandwidth}MHz，本地重路由带宽：{local_bandwidth}MHz")
+            print("[INFO] 全局重路由带宽更窄")
+        else:
+            print(f"[INFO] 全局重路由带宽：{global_bandwidth}MHz，本地重路由带宽：{local_bandwidth}MHz")
+            print("[INFO] 本地重路由带宽更窄")
+    else:
+        print("[WARN] 带宽信息不完整，跳过带宽比较")
 
-    if global_response_time <= local_response_time:
-        print(f"[INFO] 全局重路由响应时间：{global_response_time}ms，本地重路由响应时间：{local_response_time}ms")
-        print(f"[INFO] 全局重路由响应时间更短")
-    elif global_response_time > local_response_time:
-        print(f"[INFO] 全局重路由响应时间：{global_response_time}ms，本地重路由响应时间：{local_response_time}ms")
-        print(f"[INFO] 本地重路由响应时间更短")
+    if global_response_time is not None and local_response_time is not None:
+        if global_response_time <= local_response_time:
+            print(f"[INFO] 全局重路由响应时间：{global_response_time}ms，本地重路由响应时间：{local_response_time}ms")
+            print("[INFO] 全局重路由响应时间更短")
+        else:
+            print(f"[INFO] 全局重路由响应时间：{global_response_time}ms，本地重路由响应时间：{local_response_time}ms")
+            print("[INFO] 本地重路由响应时间更短")
+    else:
+        print("[WARN] 响应时间信息不完整，跳过响应时间比较")
 
-    if global_hop_num <= local_hop_num:
-        print(f"[INFO] 全局重路由跳数：{global_hop_num}，本地重路由跳数：{local_hop_num}")
-        print(f"[INFO] 全局重路由跳数更短")
-    elif global_hop_num > local_hop_num:
-        print(f"[INFO] 全局重路由跳数：{global_hop_num}，本地重路由跳数：{local_hop_num}")
-        print(f"[INFO] 本地重路由跳数更短")
+    if global_hop_num is not None and local_hop_num is not None:
+        if global_hop_num <= local_hop_num:
+            print(f"[INFO] 全局重路由跳数：{global_hop_num}，本地重路由跳数：{local_hop_num}")
+            print("[INFO] 全局重路由跳数更短")
+        else:
+            print(f"[INFO] 全局重路由跳数：{global_hop_num}，本地重路由跳数：{local_hop_num}")
+            print("[INFO] 本地重路由跳数更短")
+    else:
+        print("[WARN] 跳数信息不完整，跳过跳数比较")
 
     return global_final_policy
 

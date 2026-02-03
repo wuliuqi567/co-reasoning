@@ -9,7 +9,7 @@ api_II = KGClient(base_url="http://192.168.2.11:5001")
 
 
 logic_knowledge = {
-    "name": "co_reasoning_II",
+    "name": "co_reasoning_II_1_policy",
     "domain": "网络状态域",
     "input_data": [""],
     "output_data": [""],
@@ -38,7 +38,7 @@ def post_II_info(local_policy: Dict[str, Any]):
     print("II类属性知识创建逻辑决策型结果:", result)
 
     result = api_II.add_relational_calc_relation(
-        logic_knowledge.get("name"), "co_reasoning"
+        logic_knowledge.get("name"), "co_reasoning_II"
     )
 
     print("II类知识创建关系结果:", result)

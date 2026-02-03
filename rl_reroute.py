@@ -14,7 +14,8 @@ from xuance.environment import REGISTRY_ENV
 import logging
 from datetime import datetime
 
-from .post_table_flow import send_flow_table, policy_compare
+from post_table_flow import send_flow_table, policy_compare
+from post_II_info import get_II_info
 
 def parse_args():
     parser = argparse.ArgumentParser("Double DQN for NetEnv.")
@@ -62,13 +63,11 @@ if __name__ == "__main__":
     content1 = "II类运行本地重路由模型"
     content2 = "生成本地重路由策略，并下发给II类智能体执行"
     content3 = "将本地重路由策略更新到本地知识单元，并通过上报给III类知识单元"
-    content4 = "III类检测到某II类节点II_node_3失效，III类触发协同推理功能"
+    content4 = "III类检测到某II类节点/链路失效，III类触发协同推理功能"
     content5 = "查询网络状态知识（网络拓扑知识、节点资源知识等）"
     content6 = "运行全局重路由模型"
     content7 = "推理生成全局重路由策略"
-    content8 = "获取本地重路由策略并执行协同优化机制，全局重路由策略评分XX，本地重路由策略评分XX"
-    content9 = "下发全局重路由策略,并交由II类智能体执行"
-    content10 = "协同推理结束"
+
 
     # ========== 阶段1-3: II类本地重路由（模拟） ==========
     time1 = _get_time_str()
@@ -116,7 +115,7 @@ if __name__ == "__main__":
     # ========== 阶段6: 运行全局重路由模型 ==========
     time6 = _get_time_str()
     global_start_time = time.time()
-    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0130_103220")
+    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0202_204220")
 
     # ========== 阶段7: 推理生成全局重路由策略 ==========
     reroute_result = Agent.run_reroute(configs.test_episode, envs)
@@ -127,6 +126,8 @@ if __name__ == "__main__":
     is_connected_list = reroute_result.get("is_connected_src_dst", [True])
     if not all(is_connected_list):
         print("[警告] 当前图中 src 与 dst 不连通（过滤故障/拥塞后无可用路径），无法计算最短路径。")
+        Agent.finish()
+        exit()
 
     # 提取全局重路由结果
     print(f"paths: {reroute_result['paths'][0]}")
@@ -142,19 +143,24 @@ if __name__ == "__main__":
     print(f"shortest_path_bandwidth: {reroute_result['shortest_path_bandwidth'][0]}")
     print(f"shortest_path_loss_rate: {reroute_result['shortest_path_loss_rate'][0]}")
 
-    local_delay = reroute_result['path_delay'][0]  # 本地重路由时延（ms）
-    local_bandwidth = reroute_result['path_bandwidth'][0]  # 本地重路由带宽（MHz）
-    local_response_time = int((global_end_time - global_start_time) * 1000)  # 本地重路由响应时间（ms）
+    # local_delay = reroute_result['path_delay'][0]  # 本地重路由时延（ms）
+    # local_bandwidth = reroute_result['path_bandwidth'][0]  # 本地重路由带宽（MHz）
+    # local_response_time = int((global_end_time - global_start_time) * 1000)  # 本地重路由响应时间（ms）
 
     global_hop_num = shortest_path_hop_num  # 全局重路由跳数（最短路径）
     global_delay = reroute_result['shortest_path_delay'][0]  # 全局重路由时延（ms）
     global_bandwidth = reroute_result['shortest_path_bandwidth'][0]  # 全局重路由带宽（MHz）
     global_response_time = int((global_end_time - global_start_time) * 1000)  # 全局重路由响应时间（ms）
     global_policy = {"path":reroute_result['shortest_path_ip_ports'][0], "delay": global_delay, "bandwidth": global_bandwidth, "response_time": global_response_time}
-    local_policy = {"path":reroute_result['path_ip_ports'][0], "delay": local_delay, "bandwidth": local_bandwidth, "response_time": local_response_time}
+    # local_policy = {"path":reroute_result['path_ip_ports'][0], "delay": local_delay, "bandwidth": local_bandwidth, "response_time": local_response_time}
     
+    local_policy = get_II_info("co_reasoning_II_1_policy")
+    print("local_policy", local_policy)
     final_policy = policy_compare(global_policy, local_policy)
-    post_table_flow = final_policy['path']
+    if final_policy is None:
+        print("[WARN] policy_compare 返回 None，使用全局策略")
+        final_policy = global_policy
+    post_table_flow = final_policy.get('path', [])
     # ========== 阶段8: 协同优化机制 ==========
     time8 = _get_time_str()
     
@@ -175,13 +181,20 @@ if __name__ == "__main__":
     # result2: 跳数，[本地重路由, 全局重路由]
     # result3: 可用带宽（MHz），[本地重路由, 全局重路由]
     # result4: 响应时间（ms），[本地重路由, 全局重路由]
-    result1 = f"[{local_delay} {global_delay}]"
-    result2 = f"[{local_hop_num} {global_hop_num}]"
-    result3 = f"[{local_bandwidth} {global_bandwidth}]"
-    result4 = f"[{local_response_time} {global_response_time}]"
+    result1 = f"[{local_policy.get('delay', 'N/A')} {global_policy.get('delay', 'N/A')}]"
+    local_path = local_policy.get('path', [])
+    global_path = global_policy.get('path', [])
+    result2 = f"[{len(local_path) if isinstance(local_path, list) else 'N/A'} {len(global_path) if isinstance(global_path, list) else 'N/A'}]"
+    result3 = f"[{local_policy.get('bandwidth', 'N/A')} {global_policy.get('bandwidth', 'N/A')}]"
+    result4 = f"[{local_policy.get('response_time', 'N/A')} {global_policy.get('response_time', 'N/A')}]"
+
 
     status = "1"  # 协同推理状态：1=成功
-    cor_node = "II_node_2 III_node_1"  # 协同节点名称
+    cor_node = "II_node_192.168.2.10, III_node_192.168.2.101"  # 协同节点名称
+
+    content8 = f"获取本地重路由策略并执行协同优化机制，全局重路由策略结果: {global_policy}, 本地重路由策略结果: {local_policy}"
+    content9 = "下发全局重路由策略,并交由II类智能体执行"
+    content10 = "协同推理结束"
 
     # ========== 输出协同推理日志 ==========
     logging.info(

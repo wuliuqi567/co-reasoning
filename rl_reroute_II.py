@@ -14,7 +14,7 @@ from xuance.environment import REGISTRY_ENV
 import logging
 from datetime import datetime
 
-from post_table_flow import send_flow_table, policy_compare
+# from post_table_flow import send_flow_table  # 暂未使用
 from post_II_info import post_II_info, get_II_info
 
 def parse_args():
@@ -79,6 +79,8 @@ if __name__ == "__main__":
     is_connected_list = reroute_result.get("is_connected_src_dst", [True])
     if not all(is_connected_list):
         print("[警告] 当前图中 src 与 dst 不连通（过滤故障/拥塞后无可用路径），无法计算最短路径。")
+        Agent.finish()
+        exit()
 
     # 提取全局重路由结果
     print(f"paths: {reroute_result['paths'][0]}")
@@ -95,7 +97,21 @@ if __name__ == "__main__":
     print(f"shortest_path_loss_rate: {reroute_result['shortest_path_loss_rate'][0]}\n")
 
     
-    local_policy = {"path":reroute_result['path_ip_ports'][0], "delay": reroute_result['path_delay'][0], "bandwidth": reroute_result['path_bandwidth'][0], "response_time": local_response_time}
+    # 当路径过长或时延为0时，设置一个较大的惩罚值
+    MAX_HOP_COUNT = 15  # 最大跳数阈值
+    PENALTY_DELAY = 99999  # 惩罚时延值（ms）
+    
+    path_delay = reroute_result['shortest_path_delay'][0]
+    path_bandwidth = reroute_result['shortest_path_bandwidth'][0]
+    path = reroute_result['shortest_path_ip_ports'][0]
+    # 如果时延为0/None或路径超过最大跳数，使用惩罚值
+    if path_delay is None or path_delay == 0 or local_hop_num > MAX_HOP_COUNT:
+        print(f"[WARN] 路径时延异常或跳数过大 (delay={path_delay}, hop_num={local_hop_num})，使用惩罚时延: {PENALTY_DELAY}ms")
+        path_delay = PENALTY_DELAY
+    
+    # local_policy = {"path":reroute_result['path_ip_ports'][0], "delay": path_delay, "bandwidth": path_bandwidth, "response_time": local_response_time}
+    local_policy = {"path": path, "delay": path_delay, "bandwidth": path_bandwidth, "response_time": local_response_time}
+
     time3 = _get_time_str()
     # 将本地重路由策略更新到本地知识单元，并通过上报给III类知识单元
     
