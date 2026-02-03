@@ -14,8 +14,8 @@ from xuance.environment import REGISTRY_ENV
 import logging
 from datetime import datetime
 
-from .post_table_flow import send_flow_table, policy_compare
-from .post_II_info import post_II_info, get_II_info
+from post_table_flow import send_flow_table, policy_compare
+from post_II_info import post_II_info, get_II_info
 
 def parse_args():
     parser = argparse.ArgumentParser("Double DQN for NetEnv.")
@@ -44,6 +44,7 @@ if __name__ == "__main__":
     content3 = "将本地重路由策略更新到本地知识单元，并通过上报给III类知识单元"
 
     time1 = _get_time_str()
+    local_start_time = time.time()
     # 开始本地重路由
 
     config_path = Path(__file__).resolve().parent / "config" / "ex_ddqn_II.yaml"
@@ -66,12 +67,13 @@ if __name__ == "__main__":
     set_seed(configs.seed)
     envs = make_envs(configs)
     Agent = MyDDQNAgent(config=configs, envs=envs)
-    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0130_103220")
+    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0203_104026")
     reroute_result = Agent.run_reroute(configs.test_episode, envs)
     
     time2 = _get_time_str()
+    local_end_time = time.time()
     # 生成本地重路由策略，并下发给II类智能体执行
-    local_response_time = int(time2 - time1)
+    local_response_time = int((local_end_time - local_start_time) * 1000)
 
     # 若过滤故障后 src 与 dst 不连通，则无最短路径
     is_connected_list = reroute_result.get("is_connected_src_dst", [True])
@@ -90,13 +92,19 @@ if __name__ == "__main__":
     print(f"path_loss_rate: {reroute_result['path_loss_rate'][0]}")
     print(f"shortest_path_delay: {reroute_result['shortest_path_delay'][0]}")
     print(f"shortest_path_bandwidth: {reroute_result['shortest_path_bandwidth'][0]}")
-    print(f"shortest_path_loss_rate: {reroute_result['shortest_path_loss_rate'][0]}")
+    print(f"shortest_path_loss_rate: {reroute_result['shortest_path_loss_rate'][0]}\n")
 
     
     local_policy = {"path":reroute_result['path_ip_ports'][0], "delay": reroute_result['path_delay'][0], "bandwidth": reroute_result['path_bandwidth'][0], "response_time": local_response_time}
     time3 = _get_time_str()
     # 将本地重路由策略更新到本地知识单元，并通过上报给III类知识单元
-
+    
+    print('\n')
+    print("policy post to II class")
     post_II_info(local_policy)
+    print("policy post to II class success")
+    # result = get_II_info("co_reasoning_II")
+    # print('\n')
+    # print("result_policy", result)
 
     Agent.finish()

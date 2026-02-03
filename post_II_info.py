@@ -11,8 +11,8 @@ api_II = KGClient(base_url="http://192.168.2.11:5001")
 logic_knowledge = {
     "name": "co_reasoning_II",
     "domain": "网络状态域",
-    "input_data": [],
-    "output_data": [],
+    "input_data": [""],
+    "output_data": [""],
     "algorithm_filename": "co_reasoning",
     "title": "II类协同推理策略",
     "is_preset": "1",
@@ -32,7 +32,7 @@ def post_II_info(local_policy: Dict[str, Any]):
     print("-----II类知识存储与上报测试开始-----")
     # 将local_policy转为json字符串
     local_policy_json = json.dumps(local_policy)
-    logic_knowledge['output_decision'] = local_policy
+    logic_knowledge['output_decision'] = local_policy_json
 
     result = api_II.create_logical_decision_model(logic_knowledge)
     print("II类属性知识创建逻辑决策型结果:", result)
@@ -46,5 +46,6 @@ def post_II_info(local_policy: Dict[str, Any]):
 # 获取 
 def get_II_info(name: str):
     result = api_II.get_logical_decision_model(name)
-    local_policy = json.loads(result['output_decision'])
+
+    local_policy = json.loads(result[0]['output_decision'])
     return local_policy
