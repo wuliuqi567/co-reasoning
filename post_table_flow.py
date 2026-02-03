@@ -5,54 +5,66 @@ import argparse
 import json
 import sys
 import time
+from urllib.parse import urlsplit, urlunsplit
 
 import requests
 
 DEFAULT_URL = "http://192.168.2.26:12590/api/flow/sflowtblCfg"
 
 
-def build_payload() -> dict:
+def build_payload(nw_src: str, nw_dst: str, nextHop: str) -> dict:
     return {
-    "flowtable": [
-        {
-            "op_cmd": "upsert",
-            "id": "flow-00012500166530323400004400000000-00012500166530323400004400000000:192.168.20.100:8554_00012500163431326600004400000000:192.168.40.100:8000-00012500163431326600004400000000",
-            "idle_timeout": 30,
-            "hard_timeout": 3600,
-            "table_id": 0,
-            "priority": 5000,
-            "match": {
-                "nw_src": "192.168.10.2/24",
-                "nw_dst": "192.168.40.2/24",
+        "flowtable": [
+            {
+                "op_cmd": "upsert",
+                "id": "flow-00012500166530323400004400000000-00012500166530323400004400000000:192.168.20.100:8554_00012500163431326600004400000000:192.168.40.100:8000-00012500163431326600004400000000",
+                "idle_timeout": 30,
+                "hard_timeout": 3600,
+                "table_id": 0,
+                "priority": 5000,
+                "match": {
+                    "nw_src": nw_src,
+                    "nw_dst": nw_dst,
                     "ethernet_match": {
-                    "ethernet_type": {
-                        "type": 2048
-                    }
-                }
-            },
-            "instructions": {
-                "instruction": [
-                    {
-                        "order": 1,
-                        "apply_actions": {
-                            "action": [
-                                {
-                                    "order": 0,
-                                    "output": "8000",
-                                    "next_hop": "192.168.22.2"
-                                }
-                            ]
+                        "ethernet_type": {
+                            "type": 2048
                         }
                     }
-                ]
+                },
+                "instructions": {
+                    "instruction": [
+                        {
+                            "order": 1,
+                            "apply_actions": {
+                                "action": [
+                                    {
+                                        "order": 0,
+                                        "output": "8000",
+                                        "nextHop": nextHop
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
             }
-        }
-    ],
-    "origin": 2
-}
+        ],
+        "origin": 2
+    }
 
-def send(url: str, timeout: float, retries: int, verbose: bool) -> int:
-    payload = build_payload()
+
+def _replace_url_ip(base_url: str, target_ip: str) -> str:
+    parts = urlsplit(base_url)
+    host = parts.hostname or ""
+    port = parts.port
+
+    if host == "":
+        return base_url
+
+    netloc = f"{target_ip}:{port}" if port else target_ip
+    return urlunsplit((parts.scheme, netloc, parts.path, parts.query, parts.fragment))
+
+def _send_payload(url: str, payload: dict, timeout: float, retries: int, verbose: bool) -> int:
     headers = {"Content-Type": "application/json"}
 
     if verbose:
@@ -96,15 +108,116 @@ def send(url: str, timeout: float, retries: int, verbose: bool) -> int:
     return 1
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser(description="POST flow table JSON to 192.168.2.12")
-    ap.add_argument("--url", default=DEFAULT_URL, help="目标 URL")
-    ap.add_argument("--timeout", type=float, default=10.0, help="超时（秒）")
-    ap.add_argument("--retries", type=int, default=2, help="失败重试次数")
-    ap.add_argument("--verbose", action="store_true", help="打印下发 JSON")
-    args = ap.parse_args()
-    return send(args.url, args.timeout, args.retries, args.verbose)
+def send(url: str, timeout: float, retries: int, verbose: bool) -> int:
+    payload = build_payload(
+        nw_src="192.168.20.100/29",
+        nw_dst="192.168.40.100/29",
+        nextHop="192.168.22.2",
+    )
+    return _send_payload(url, payload, timeout, retries, verbose)
+
+
+def send_flow_table(flow_table: list, timeout: float, retries: int, verbose: bool) -> int:
+    if not flow_table:
+        print("[ERR] flow_table 为空", file=sys.stderr)
+        return 1
+
+    base = flow_table[0]
+    nw_src = base.get("src_dev_ip")
+    nw_dst = base.get("dst_dev_ip")
+    if not nw_src or not nw_dst:
+        print("[ERR] flow_table[0] 缺少 src_dev_ip 或 dst_dev_ip", file=sys.stderr)
+        return 1
+
+    results = []
+    for item in flow_table[1:]:
+        target_ip = item.get("ip")
+        nextHop = item.get("next_node_ip")
+        if not target_ip or not nextHop:
+            print(f"[WARN] 跳过缺失字段的项：{item}", file=sys.stderr)
+            continue
+
+        url = _replace_url_ip(DEFAULT_URL, target_ip)
+        payload = build_payload(nw_src=nw_src, nw_dst=nw_dst, nextHop=nextHop)
+        results.append(_send_payload(url, payload, timeout, retries, verbose))
+
+    for code in results:
+        if code != 0:
+            return code
+    return 0
+
+flow_table = [
+  {
+    "src_dev_ip": "192.168.10.2/24",
+    "dst_dev_ip": "192.168.40.2/24"
+  },
+  {
+    "node_idx": 15,
+    "ip": "192.168.2.10",
+    "in_port": "00012500163030653a00004400000000:1",
+    "in_port_ip": "192.168.10.1",
+    "out_port": "00012500163030653a00004400000000:4",
+    "out_port_ip": "192.168.13.1",
+    "next_node_ip": "192.168.13.2"
+  },
+  {
+    "node_idx": 16,
+    "ip": "192.168.2.26",
+    "in_port": "00012500163431326600004400000000:2",
+    "in_port_ip": "192.168.13.2",
+    "out_port": "00012500163431326600004400000000:1",
+    "out_port_ip": "192.168.40.1",
+    "next_node_ip": "192.168.40.2"
+  }
+]
+
+
+def policy_compare(global_policy: dict, local_policy: dict):
+    global_path = global_policy['path']
+    local_path = local_policy['path']
+    global_hop_num = len(global_path)
+    local_hop_num = len(local_path)
+    global_delay = global_policy['delay']
+    local_delay = local_policy['delay']
+    global_bandwidth = global_policy['bandwidth']
+    local_bandwidth = local_policy['bandwidth']
+    global_response_time = global_policy['response_time']
+    local_response_time = local_policy['response_time']
+
+    global_final_policy = None
+    if global_delay <= local_delay:
+        print(f"[INFO] 全局重路由时延：{global_delay}ms，本地重路由时延：{local_delay}ms")
+        print(f"[INFO] 全局重路由时延更短")
+        global_final_policy = global_policy
+    elif global_delay > local_delay:
+        print(f"[INFO] 全局重路由时延：{global_delay}ms，本地重路由时延：{local_delay}ms")
+        print(f"[INFO] 本地重路由时延更短")
+        global_final_policy = local_policy
+
+    if global_bandwidth <= local_bandwidth:
+        print(f"[INFO] 全局重路由带宽：{global_bandwidth}MHz，本地重路由带宽：{local_bandwidth}MHz")
+        print(f"[INFO] 全局重路由带宽更窄")
+    elif global_bandwidth > local_bandwidth:
+        print(f"[INFO] 全局重路由带宽：{global_bandwidth}MHz，本地重路由带宽：{local_bandwidth}MHz")
+        print(f"[INFO] 本地重路由带宽更窄")
+
+    if global_response_time <= local_response_time:
+        print(f"[INFO] 全局重路由响应时间：{global_response_time}ms，本地重路由响应时间：{local_response_time}ms")
+        print(f"[INFO] 全局重路由响应时间更短")
+    elif global_response_time > local_response_time:
+        print(f"[INFO] 全局重路由响应时间：{global_response_time}ms，本地重路由响应时间：{local_response_time}ms")
+        print(f"[INFO] 本地重路由响应时间更短")
+
+    if global_hop_num <= local_hop_num:
+        print(f"[INFO] 全局重路由跳数：{global_hop_num}，本地重路由跳数：{local_hop_num}")
+        print(f"[INFO] 全局重路由跳数更短")
+    elif global_hop_num > local_hop_num:
+        print(f"[INFO] 全局重路由跳数：{global_hop_num}，本地重路由跳数：{local_hop_num}")
+        print(f"[INFO] 本地重路由跳数更短")
+
+    return global_final_policy
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    
+    send_flow_table(flow_table, timeout=10.0, retries=2, verbose=True)

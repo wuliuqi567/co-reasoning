@@ -6,11 +6,286 @@
           "node_id": "49cfd799e19ecc76df4eb8a8c69f9b74",
           "node_type": 8,
           "node_status": 1,
-          "node_location": "113.057677,28.663463",
+          "node_location": "113.057477,28.663463",
           "node_cluster_ip": null,
           "node_manage_ip_addr": "192.168.2.1",
           "node_ports": null,
           "node_up_time": null
+        },
+        {
+          "node_id": "5a7532dcedfd35bf4a87c06389da0cf7",
+          "node_type": 8,
+          "node_status": 1,
+          "node_location": "113.057638,28.663654",
+          "node_cluster_ip": null,
+          "node_manage_ip_addr": "192.168.2.2",
+          "node_ports": null,
+          "node_up_time": null
+        },
+        {
+          "node_id": "2ddb40e6057aae20ae04f5c65d685d48",
+          "node_type": 8,
+          "node_status": 1,
+          "node_location": "113.057652,28.663515",
+          "node_cluster_ip": null,
+          "node_manage_ip_addr": "192.168.2.3",
+          "node_ports": null,
+          "node_up_time": null
+        },
+        {
+          "node_id": "00024600163030316300004400000000",
+          "node_type": 6,
+          "node_status": 1,
+          "node_location": "112.991309,28.222978",
+          "node_cluster_ip": "172.16.6.74",
+          "node_manage_ip_addr": "192.168.70.252",
+          "node_ports": [
+            {
+              "port_id": "00024600163030316300004400000000:1",
+              "status": 1,
+              "nid": 1027,
+              "teid": 1,
+              "ip_address": "192.168.70.10",
+              "mac_address": "00:16:30:30:31:63"
+            },
+            {
+              "port_id": "00024600163030316300004400000000:2",
+              "status": 1,
+              "nid": 4099,
+              "teid": 254,
+              "ip_address": "172.16.9.254",
+              "mac_address": "00:16:30:30:31:64"
+            },
+            {
+              "port_id": "00024600163030316300004400000000:3",
+              "status": 1,
+              "nid": 12,
+              "teid": 254,
+              "ip_address": "192.168.152.1",
+              "mac_address": "00:16:30:30:31:65"
+            },
+            {
+              "port_id": "00024600163030316300004400000000:4",
+              "status": 1,
+              "nid": 13,
+              "teid": 254,
+              "ip_address": "192.168.153.1",
+              "mac_address": "00:16:30:30:31:66"
+            },
+            {
+              "port_id": "00024600163030316300004400000000:5",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00024600163030316300004400000000:6",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00024600163030316300004400000000:7",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00024600163030316300004400000000:8",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            }
+          ],
+          "node_up_time": 0
+        },
+        {
+          "node_id": "00024600163030316300004400000000#81",
+          "node_type": 1,
+          "node_status": 1,
+          "node_location": "0.000000,0.000000",
+          "node_cluster_ip": "172.16.6.81",
+          "node_manage_ip_addr": null,
+          "node_ports": null,
+          "node_up_time": 20300
+        },
+        {
+          "node_id": "00012400163764666600004400000000",
+          "node_type": 4,
+          "node_status": 1,
+          "node_location": "113.057487,28.663708",
+          "node_cluster_ip": null,
+          "node_manage_ip_addr": "192.168.2.16",
+          "node_ports": [
+            {
+              "port_id": "00012400163764666600004400000000:1",
+              "status": 1,
+              "nid": 267,
+              "teid": 1,
+              "ip_address": "192.168.15.2",
+              "mac_address": "00:16:37:64:66:66"
+            },
+            {
+              "port_id": "00012400163764666600004400000000:2",
+              "status": 1,
+              "nid": 260,
+              "teid": 253,
+              "ip_address": "192.168.14.3",
+              "mac_address": "00:16:37:64:66:67"
+            },
+            {
+              "port_id": "00012400163764666600004400000000:3",
+              "status": 1,
+              "nid": 262,
+              "teid": 254,
+              "ip_address": "192.168.17.1",
+              "mac_address": "00:16:37:64:66:68"
+            },
+            {
+              "port_id": "00012400163764666600004400000000:4",
+              "status": 1,
+              "nid": 258,
+              "teid": 253,
+              "ip_address": "192.168.166.2",
+              "mac_address": "00:16:37:64:66:69"
+            },
+            {
+              "port_id": "00012400163764666600004400000000:5",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00012400163764666600004400000000:6",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00012400163764666600004400000000:7",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00012400163764666600004400000000:8",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            }
+          ],
+          "node_up_time": 131
+        },
+        {
+          "node_id": "00024600163964623200004400000000",
+          "node_type": 6,
+          "node_status": 1,
+          "node_location": "113.057426,28.663824",
+          "node_cluster_ip": "172.16.6.1",
+          "node_manage_ip_addr": "172.16.6.252",
+          "node_ports": [
+            {
+              "port_id": "00024600163964623200004400000000:1",
+              "status": 1,
+              "nid": 1026,
+              "teid": 1,
+              "ip_address": "192.168.60.10",
+              "mac_address": "00:16:39:64:62:32"
+            },
+            {
+              "port_id": "00024600163964623200004400000000:2",
+              "status": 1,
+              "nid": 4098,
+              "teid": 254,
+              "ip_address": "172.16.6.254",
+              "mac_address": "00:16:39:64:62:33"
+            },
+            {
+              "port_id": "00024600163964623200004400000000:3",
+              "status": 1,
+              "nid": 12,
+              "teid": 254,
+              "ip_address": "192.168.121.1",
+              "mac_address": "00:16:39:64:62:34"
+            },
+            {
+              "port_id": "00024600163964623200004400000000:4",
+              "status": 1,
+              "nid": 13,
+              "teid": 254,
+              "ip_address": "192.168.131.1",
+              "mac_address": "00:16:39:64:62:35"
+            },
+            {
+              "port_id": "00024600163964623200004400000000:5",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00024600163964623200004400000000:6",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00024600163964623200004400000000:7",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00024600163964623200004400000000:8",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            }
+          ],
+          "node_up_time": 0
+        },
+        {
+          "node_id": "00024600163964623200004400000000#2",
+          "node_type": 1,
+          "node_status": 1,
+          "node_location": "0.000000,0.000000",
+          "node_cluster_ip": "172.16.6.2",
+          "node_manage_ip_addr": null,
+          "node_ports": null,
+          "node_up_time": 24800
+        },
+        {
+          "node_id": "00024600163964623200004400000000#3",
+          "node_type": 1,
+          "node_status": 1,
+          "node_location": "0.116667,0.116667",
+          "node_cluster_ip": "172.16.6.3",
+          "node_manage_ip_addr": null,
+          "node_ports": null,
+          "node_up_time": 2200
         },
         {
           "node_id": "00012400163635386700004400000000",
@@ -85,50 +360,50 @@
               "mac_address": "00:16:36:35:38:6e"
             }
           ],
-          "node_up_time": 131
+          "node_up_time": 122
         },
         {
-          "node_id": "00012400163764666600004400000000",
-          "node_type": 4,
+          "node_id": "0001236891d06fd10d00004400000000",
+          "node_type": 3,
           "node_status": 1,
-          "node_location": "113.057568,28.663696",
+          "node_location": "113.057845,28.663879",
           "node_cluster_ip": null,
-          "node_manage_ip_addr": "192.168.2.16",
+          "node_manage_ip_addr": "192.168.166.220",
           "node_ports": [
             {
-              "port_id": "00012400163764666600004400000000:1",
-              "status": 1,
-              "nid": 267,
-              "teid": 1,
-              "ip_address": "192.168.15.2",
-              "mac_address": "00:16:37:64:66:66"
-            },
-            {
-              "port_id": "00012400163764666600004400000000:2",
-              "status": 1,
-              "nid": 261,
-              "teid": 253,
-              "ip_address": "192.168.16.2",
-              "mac_address": "00:16:37:64:66:67"
-            },
-            {
-              "port_id": "00012400163764666600004400000000:3",
-              "status": 1,
-              "nid": 262,
-              "teid": 254,
-              "ip_address": "192.168.17.1",
-              "mac_address": "00:16:37:64:66:68"
-            },
-            {
-              "port_id": "00012400163764666600004400000000:4",
+              "port_id": "0001236891d06fd10d00004400000000:1",
               "status": 1,
               "nid": 258,
-              "teid": 253,
-              "ip_address": "192.168.166.2",
-              "mac_address": "00:16:37:64:66:69"
+              "teid": 2,
+              "ip_address": "192.168.166.101",
+              "mac_address": "68:91:d0:6f:d1:0d"
             },
             {
-              "port_id": "00012400163764666600004400000000:5",
+              "port_id": "0001236891d06fd10d00004400000000:2",
+              "status": 1,
+              "nid": 1026,
+              "teid": 254,
+              "ip_address": "192.168.60.1",
+              "mac_address": "68:91:d0:6f:d1:0e"
+            },
+            {
+              "port_id": "0001236891d06fd10d00004400000000:3",
+              "status": 1,
+              "nid": 30,
+              "teid": 1,
+              "ip_address": "172.17.6.200",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d06fd10d00004400000000:4",
+              "status": 1,
+              "nid": 40,
+              "teid": 1,
+              "ip_address": "172.18.6.200",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d06fd10d00004400000000:5",
               "status": 0,
               "nid": 0,
               "teid": 0,
@@ -136,7 +411,7 @@
               "mac_address": ""
             },
             {
-              "port_id": "00012400163764666600004400000000:6",
+              "port_id": "0001236891d06fd10d00004400000000:6",
               "status": 0,
               "nid": 0,
               "teid": 0,
@@ -144,7 +419,7 @@
               "mac_address": ""
             },
             {
-              "port_id": "00012400163764666600004400000000:7",
+              "port_id": "0001236891d06fd10d00004400000000:7",
               "status": 0,
               "nid": 0,
               "teid": 0,
@@ -152,7 +427,7 @@
               "mac_address": ""
             },
             {
-              "port_id": "00012400163764666600004400000000:8",
+              "port_id": "0001236891d06fd10d00004400000000:8",
               "status": 0,
               "nid": 0,
               "teid": 0,
@@ -160,232 +435,307 @@
               "mac_address": ""
             }
           ],
-          "node_up_time": 131
+          "node_up_time": 110
         },
         {
           "node_id": "00012400163632633800004400000000",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.057527,28.663647",
+          "node_location": "113.057511,28.663533",
           "node_cluster_ip": null,
           "node_manage_ip_addr": "192.168.2.12",
           "node_ports": [
             {
               "port_id": "00012400163632633800004400000000:1",
               "status": 1,
-              "nid": 260,
+              "nid": 255,
               "teid": 1,
-              "ip_address": "192.168.14.2",
+              "ip_address": "192.168.20.1",
               "mac_address": "00:16:36:32:63:38"
             },
             {
               "port_id": "00012400163632633800004400000000:2",
               "status": 1,
-              "nid": 261,
-              "teid": 254,
-              "ip_address": "192.168.16.1",
+              "nid": 11,
+              "teid": 1,
+              "ip_address": "192.168.11.2",
               "mac_address": "00:16:36:32:63:39"
             },
             {
               "port_id": "00012400163632633800004400000000:3",
               "status": 1,
-              "nid": 268,
+              "nid": 256,
               "teid": 254,
-              "ip_address": "192.168.26.1",
+              "ip_address": "192.168.21.1",
               "mac_address": "00:16:36:32:63:3a"
             },
             {
               "port_id": "00012400163632633800004400000000:4",
               "status": 1,
-              "nid": 269,
+              "nid": 257,
               "teid": 254,
-              "ip_address": "192.168.27.1",
+              "ip_address": "192.168.22.1",
               "mac_address": "00:16:36:32:63:3b"
             },
             {
               "port_id": "00012400163632633800004400000000:5",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
+              "status": 1,
+              "nid": 267,
+              "teid": 254,
+              "ip_address": "192.168.15.1",
+              "mac_address": "00:16:36:32:63:3c"
             },
             {
               "port_id": "00012400163632633800004400000000:6",
               "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
+              "nid": 260,
+              "teid": 254,
+              "ip_address": "192.168.14.1",
+              "mac_address": "00:16:36:32:63:3d"
             },
             {
               "port_id": "00012400163632633800004400000000:7",
               "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
+              "nid": 70,
+              "teid": 1,
+              "ip_address": "172.21.6.200",
+              "mac_address": "00:16:36:32:63:3e"
             },
             {
               "port_id": "00012400163632633800004400000000:8",
               "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            }
-          ],
-          "node_up_time": 133
-        },
-        {
-          "node_id": "00012500163030653a00004400000000",
-          "node_type": 5,
-          "node_status": 1,
-          "node_location": "113.057577,28.663563",
-          "node_cluster_ip": null,
-          "node_manage_ip_addr": "192.168.2.10",
-          "node_ports": [
-            {
-              "port_id": "00012500163030653a00004400000000:1",
-              "status": 1,
-              "nid": 10,
-              "teid": 254,
-              "ip_address": "192.168.10.1",
-              "mac_address": "00:16:30:30:65:3a"
-            },
-            {
-              "port_id": "00012500163030653a00004400000000:2",
-              "status": 1,
-              "nid": 11,
-              "teid": 254,
-              "ip_address": "192.168.11.1",
-              "mac_address": "00:16:30:30:65:3b"
-            },
-            {
-              "port_id": "00012500163030653a00004400000000:3",
-              "status": 1,
-              "nid": 12,
-              "teid": 254,
-              "ip_address": "192.168.12.1",
-              "mac_address": "00:16:30:30:65:3c"
-            },
-            {
-              "port_id": "00012500163030653a00004400000000:4",
-              "status": 1,
-              "nid": 13,
-              "teid": 254,
-              "ip_address": "192.168.13.1",
-              "mac_address": "00:16:30:30:65:3d"
-            },
-            {
-              "port_id": "00012500163030653a00004400000000:5",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "00012500163030653a00004400000000:6",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "00012500163030653a00004400000000:7",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "00012500163030653a00004400000000:8",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
+              "nid": 80,
+              "teid": 1,
+              "ip_address": "172.22.6.200",
+              "mac_address": "00:16:36:32:63:3f"
             }
           ],
           "node_up_time": 132
         },
         {
-          "node_id": "00012500163431326600004400000000",
-          "node_type": 5,
+          "node_id": "0001236891d06fd11100004400000000",
+          "node_type": 3,
           "node_status": 1,
-          "node_location": "113.057538,28.663554",
+          "node_location": "113.057845,28.663806",
           "node_cluster_ip": null,
-          "node_manage_ip_addr": "192.168.2.26",
+          "node_manage_ip_addr": "192.168.166.218",
           "node_ports": [
             {
-              "port_id": "00012500163431326600004400000000:1",
+              "port_id": "0001236891d06fd11100004400000000:1",
+              "status": 1,
+              "nid": 258,
+              "teid": 1,
+              "ip_address": "192.168.166.100",
+              "mac_address": "68:91:d0:6f:d1:11"
+            },
+            {
+              "port_id": "0001236891d06fd11100004400000000:2",
+              "status": 1,
+              "nid": 1025,
+              "teid": 254,
+              "ip_address": "192.168.50.1",
+              "mac_address": "68:91:d0:6f:d1:12"
+            },
+            {
+              "port_id": "0001236891d06fd11100004400000000:3",
+              "status": 1,
+              "nid": 30,
+              "teid": 1,
+              "ip_address": "172.17.6.200",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d06fd11100004400000000:4",
+              "status": 1,
+              "nid": 40,
+              "teid": 1,
+              "ip_address": "172.18.6.200",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d06fd11100004400000000:5",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d06fd11100004400000000:6",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d06fd11100004400000000:7",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d06fd11100004400000000:8",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            }
+          ],
+          "node_up_time": 22
+        },
+        {
+          "node_id": "0001236891d06fd10f00004400000000",
+          "node_type": 3,
+          "node_status": 1,
+          "node_location": "113.057845,28.663029",
+          "node_cluster_ip": null,
+          "node_manage_ip_addr": "192.168.166.222",
+          "node_ports": [
+            {
+              "port_id": "0001236891d06fd10f00004400000000:1",
+              "status": 1,
+              "nid": 258,
+              "teid": 3,
+              "ip_address": "192.168.166.102",
+              "mac_address": "68:91:d0:6f:d1:0f"
+            },
+            {
+              "port_id": "0001236891d06fd10f00004400000000:2",
+              "status": 1,
+              "nid": 1027,
+              "teid": 254,
+              "ip_address": "192.168.70.1",
+              "mac_address": "68:91:d0:6f:d1:10"
+            },
+            {
+              "port_id": "0001236891d06fd10f00004400000000:3",
+              "status": 1,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "0.0.0.0",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d06fd10f00004400000000:4",
+              "status": 1,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "0.0.0.0",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d06fd10f00004400000000:5",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d06fd10f00004400000000:6",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d06fd10f00004400000000:7",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d06fd10f00004400000000:8",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            }
+          ],
+          "node_up_time": 109
+        },
+        {
+          "node_id": "00012500166530323400004400000000",
+          "node_type": 5,
+          "node_status": 1,
+          "node_location": "113.057511,28.663533",
+          "node_cluster_ip": null,
+          "node_manage_ip_addr": "192.168.2.24",
+          "node_ports": [
+            {
+              "port_id": "00012500166530323400004400000000:1",
               "status": 1,
               "nid": 260,
+              "teid": 1,
+              "ip_address": "192.168.14.2",
+              "mac_address": "00:16:65:30:32:34"
+            },
+            {
+              "port_id": "00012500166530323400004400000000:2",
+              "status": 1,
+              "nid": 261,
               "teid": 254,
-              "ip_address": "192.168.40.1",
-              "mac_address": "00:16:34:31:32:66"
+              "ip_address": "192.168.16.1",
+              "mac_address": "00:16:65:30:32:35"
             },
             {
-              "port_id": "00012500163431326600004400000000:2",
-              "status": 1,
-              "nid": 13,
-              "teid": 2,
-              "ip_address": "192.168.13.2",
-              "mac_address": "00:16:34:31:32:67"
+              "port_id": "00012500166530323400004400000000:3",
+              "status": 0,
+              "nid": 256,
+              "teid": 254,
+              "ip_address": "192.168.21.1",
+              "mac_address": "00:16:65:30:32:36"
             },
             {
-              "port_id": "00012500163431326600004400000000:3",
-              "status": 1,
+              "port_id": "00012500166530323400004400000000:4",
+              "status": 0,
               "nid": 257,
-              "teid": 253,
-              "ip_address": "192.168.22.2",
-              "mac_address": "00:16:34:31:32:68"
-            },
-            {
-              "port_id": "00012500163431326600004400000000:4",
-              "status": 1,
-              "nid": 259,
-              "teid": 253,
-              "ip_address": "192.168.23.2",
-              "mac_address": "00:16:34:31:32:69"
-            },
-            {
-              "port_id": "00012500163431326600004400000000:5",
-              "status": 1,
-              "nid": 265,
               "teid": 254,
-              "ip_address": "192.168.24.1",
-              "mac_address": "00:16:34:31:32:6a"
+              "ip_address": "192.168.22.1",
+              "mac_address": "00:16:65:30:32:37"
             },
             {
-              "port_id": "00012500163431326600004400000000:6",
-              "status": 1,
-              "nid": 266,
+              "port_id": "00012500166530323400004400000000:5",
+              "status": 0,
+              "nid": 267,
               "teid": 254,
-              "ip_address": "192.168.19.1",
-              "mac_address": "00:16:34:31:32:6b"
+              "ip_address": "192.168.15.1",
+              "mac_address": "00:16:65:30:32:38"
             },
             {
-              "port_id": "00012500163431326600004400000000:7",
+              "port_id": "00012500166530323400004400000000:6",
+              "status": 0,
+              "nid": 260,
+              "teid": 254,
+              "ip_address": "192.168.14.1",
+              "mac_address": "00:16:65:30:32:39"
+            },
+            {
+              "port_id": "00012500166530323400004400000000:7",
               "status": 0,
               "nid": 70,
               "teid": 1,
               "ip_address": "172.21.6.200",
-              "mac_address": "00:16:34:31:32:6c"
+              "mac_address": "00:16:65:30:32:3a"
             },
             {
-              "port_id": "00012500163431326600004400000000:8",
+              "port_id": "00012500166530323400004400000000:8",
               "status": 0,
               "nid": 80,
               "teid": 1,
               "ip_address": "172.22.6.200",
-              "mac_address": "00:16:34:31:32:6d"
+              "mac_address": "00:16:65:30:32:3b"
             }
           ],
-          "node_up_time": 133
+          "node_up_time": 147
         },
         {
           "node_id": "00012400166636363500004400000000",
@@ -466,7 +816,7 @@
           "node_id": "00012400163734383900004400000000",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.057543,28.663666",
+          "node_location": "113.057552,28.663615",
           "node_cluster_ip": null,
           "node_manage_ip_addr": "192.168.2.28",
           "node_ports": [
@@ -538,10 +888,160 @@
           "node_up_time": 120
         },
         {
+          "node_id": "0001236891d070e0e400004400000000",
+          "node_type": 3,
+          "node_status": 1,
+          "node_location": "113.05752,28.663643",
+          "node_cluster_ip": null,
+          "node_manage_ip_addr": "192.168.166.200",
+          "node_ports": [
+            {
+              "port_id": "0001236891d070e0e400004400000000:1",
+              "status": 1,
+              "nid": 258,
+              "teid": 4,
+              "ip_address": "192.168.166.103",
+              "mac_address": "68:91:d0:70:e0:e4"
+            },
+            {
+              "port_id": "0001236891d070e0e400004400000000:2",
+              "status": 1,
+              "nid": 1028,
+              "teid": 254,
+              "ip_address": "192.168.80.1",
+              "mac_address": "68:91:d0:70:e0:e5"
+            },
+            {
+              "port_id": "0001236891d070e0e400004400000000:3",
+              "status": 1,
+              "nid": 30,
+              "teid": 1,
+              "ip_address": "172.17.6.200",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d070e0e400004400000000:4",
+              "status": 1,
+              "nid": 40,
+              "teid": 1,
+              "ip_address": "172.18.6.200",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d070e0e400004400000000:5",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d070e0e400004400000000:6",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d070e0e400004400000000:7",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d070e0e400004400000000:8",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            }
+          ],
+          "node_up_time": 120
+        },
+        {
+          "node_id": "0001236891d070e0d400004400000000",
+          "node_type": 3,
+          "node_status": 1,
+          "node_location": "113.057552,28.6637",
+          "node_cluster_ip": null,
+          "node_manage_ip_addr": "192.168.166.202",
+          "node_ports": [
+            {
+              "port_id": "0001236891d070e0d400004400000000:1",
+              "status": 1,
+              "nid": 258,
+              "teid": 5,
+              "ip_address": "192.168.166.104",
+              "mac_address": "68:91:d0:70:e0:d4"
+            },
+            {
+              "port_id": "0001236891d070e0d400004400000000:2",
+              "status": 1,
+              "nid": 1029,
+              "teid": 254,
+              "ip_address": "192.168.90.1",
+              "mac_address": "68:91:d0:70:e0:d5"
+            },
+            {
+              "port_id": "0001236891d070e0d400004400000000:3",
+              "status": 1,
+              "nid": 30,
+              "teid": 1,
+              "ip_address": "172.17.6.200",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d070e0d400004400000000:4",
+              "status": 1,
+              "nid": 40,
+              "teid": 1,
+              "ip_address": "172.18.6.200",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d070e0d400004400000000:5",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d070e0d400004400000000:6",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d070e0d400004400000000:7",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d070e0d400004400000000:8",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            }
+          ],
+          "node_up_time": 120
+        },
+        {
           "node_id": "0001236891d070e0d600004400000000",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.057552,28.663708",
+          "node_location": "113.057536,28.6637",
           "node_cluster_ip": null,
           "node_manage_ip_addr": "192.168.166.204",
           "node_ports": [
@@ -613,10 +1113,85 @@
           "node_up_time": 120
         },
         {
+          "node_id": "0001236891d070e0de00004400000000",
+          "node_type": 3,
+          "node_status": 1,
+          "node_location": "113.057601,28.66366",
+          "node_cluster_ip": null,
+          "node_manage_ip_addr": "192.168.166.206",
+          "node_ports": [
+            {
+              "port_id": "0001236891d070e0de00004400000000:1",
+              "status": 1,
+              "nid": 258,
+              "teid": 7,
+              "ip_address": "192.168.166.106",
+              "mac_address": "68:91:d0:70:e0:de"
+            },
+            {
+              "port_id": "0001236891d070e0de00004400000000:2",
+              "status": 1,
+              "nid": 1031,
+              "teid": 254,
+              "ip_address": "192.168.110.1",
+              "mac_address": "68:91:d0:70:e0:df"
+            },
+            {
+              "port_id": "0001236891d070e0de00004400000000:3",
+              "status": 1,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "192.168.26.1",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d070e0de00004400000000:4",
+              "status": 1,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "0.0.0.0",
+              "mac_address": "000000000000"
+            },
+            {
+              "port_id": "0001236891d070e0de00004400000000:5",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d070e0de00004400000000:6",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d070e0de00004400000000:7",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "0001236891d070e0de00004400000000:8",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            }
+          ],
+          "node_up_time": 120
+        },
+        {
           "node_id": "0001236891d070e0e000004400000000",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.057454,28.663985",
+          "node_location": "113.057471,28.663664",
           "node_cluster_ip": null,
           "node_manage_ip_addr": "192.168.166.208",
           "node_ports": [
@@ -691,7 +1266,7 @@
           "node_id": "0001236891d070e0d800004400000000",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.057544,28.663562",
+          "node_location": "113.05752,28.663635",
           "node_cluster_ip": null,
           "node_manage_ip_addr": "192.168.166.210",
           "node_ports": [
@@ -766,7 +1341,7 @@
           "node_id": "0001236891d070e0e200004400000000",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.057593,28.663545",
+          "node_location": "113.057536,28.663643",
           "node_cluster_ip": null,
           "node_manage_ip_addr": "192.168.166.212",
           "node_ports": [
@@ -838,542 +1413,172 @@
           "node_up_time": 120
         },
         {
-          "node_id": "0001236891d06fd10d00004400000000",
-          "node_type": 3,
+          "node_id": "00012500163030653a00004400000000",
+          "node_type": 5,
           "node_status": 1,
-          "node_location": "113.057845,28.663879",
+          "node_location": "113.057577,28.663563",
           "node_cluster_ip": null,
-          "node_manage_ip_addr": "192.168.166.220",
+          "node_manage_ip_addr": "192.168.2.10",
           "node_ports": [
             {
-              "port_id": "0001236891d06fd10d00004400000000:1",
+              "port_id": "00012500163030653a00004400000000:1",
               "status": 1,
-              "nid": 258,
+              "nid": 10,
+              "teid": 254,
+              "ip_address": "192.168.10.1",
+              "mac_address": "00:16:30:30:65:3a"
+            },
+            {
+              "port_id": "00012500163030653a00004400000000:2",
+              "status": 1,
+              "nid": 11,
+              "teid": 254,
+              "ip_address": "192.168.11.1",
+              "mac_address": "00:16:30:30:65:3b"
+            },
+            {
+              "port_id": "00012500163030653a00004400000000:3",
+              "status": 1,
+              "nid": 12,
+              "teid": 254,
+              "ip_address": "192.168.12.1",
+              "mac_address": "00:16:30:30:65:3c"
+            },
+            {
+              "port_id": "00012500163030653a00004400000000:4",
+              "status": 1,
+              "nid": 13,
+              "teid": 254,
+              "ip_address": "192.168.13.1",
+              "mac_address": "00:16:30:30:65:3d"
+            },
+            {
+              "port_id": "00012500163030653a00004400000000:5",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00012500163030653a00004400000000:6",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00012500163030653a00004400000000:7",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            },
+            {
+              "port_id": "00012500163030653a00004400000000:8",
+              "status": 0,
+              "nid": 0,
+              "teid": 0,
+              "ip_address": "",
+              "mac_address": ""
+            }
+          ],
+          "node_up_time": 144
+        },
+        {
+          "node_id": "00012500163431326600004400000000",
+          "node_type": 5,
+          "node_status": 1,
+          "node_location": "113.057538,28.663554",
+          "node_cluster_ip": null,
+          "node_manage_ip_addr": "192.168.2.26",
+          "node_ports": [
+            {
+              "port_id": "00012500163431326600004400000000:1",
+              "status": 1,
+              "nid": 260,
+              "teid": 254,
+              "ip_address": "192.168.40.1",
+              "mac_address": "00:16:34:31:32:66"
+            },
+            {
+              "port_id": "00012500163431326600004400000000:2",
+              "status": 1,
+              "nid": 13,
               "teid": 2,
-              "ip_address": "192.168.166.101",
-              "mac_address": "68:91:d0:6f:d1:0d"
+              "ip_address": "192.168.13.2",
+              "mac_address": "00:16:34:31:32:67"
             },
             {
-              "port_id": "0001236891d06fd10d00004400000000:2",
+              "port_id": "00012500163431326600004400000000:3",
               "status": 1,
-              "nid": 1026,
+              "nid": 257,
+              "teid": 253,
+              "ip_address": "192.168.22.2",
+              "mac_address": "00:16:34:31:32:68"
+            },
+            {
+              "port_id": "00012500163431326600004400000000:4",
+              "status": 1,
+              "nid": 259,
+              "teid": 253,
+              "ip_address": "192.168.23.2",
+              "mac_address": "00:16:34:31:32:69"
+            },
+            {
+              "port_id": "00012500163431326600004400000000:5",
+              "status": 1,
+              "nid": 265,
               "teid": 254,
-              "ip_address": "192.168.60.1",
-              "mac_address": "68:91:d0:6f:d1:0e"
+              "ip_address": "192.168.24.1",
+              "mac_address": "00:16:34:31:32:6a"
             },
             {
-              "port_id": "0001236891d06fd10d00004400000000:3",
+              "port_id": "00012500163431326600004400000000:6",
               "status": 1,
-              "nid": 30,
+              "nid": 266,
+              "teid": 254,
+              "ip_address": "192.168.19.1",
+              "mac_address": "00:16:34:31:32:6b"
+            },
+            {
+              "port_id": "00012500163431326600004400000000:7",
+              "status": 0,
+              "nid": 70,
               "teid": 1,
-              "ip_address": "172.17.6.200",
-              "mac_address": "000000000000"
+              "ip_address": "172.21.6.200",
+              "mac_address": "00:16:34:31:32:6c"
             },
             {
-              "port_id": "0001236891d06fd10d00004400000000:4",
-              "status": 1,
-              "nid": 40,
+              "port_id": "00012500163431326600004400000000:8",
+              "status": 0,
+              "nid": 80,
               "teid": 1,
-              "ip_address": "172.18.6.200",
-              "mac_address": "000000000000"
-            },
-            {
-              "port_id": "0001236891d06fd10d00004400000000:5",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d06fd10d00004400000000:6",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d06fd10d00004400000000:7",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d06fd10d00004400000000:8",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
+              "ip_address": "172.22.6.200",
+              "mac_address": "00:16:34:31:32:6d"
             }
           ],
-          "node_up_time": 110
-        },
-        {
-          "node_id": "0001236891d070e0d400004400000000",
-          "node_type": 3,
-          "node_status": 1,
-          "node_location": "113.057873,28.663628",
-          "node_cluster_ip": null,
-          "node_manage_ip_addr": "192.168.166.202",
-          "node_ports": [
-            {
-              "port_id": "0001236891d070e0d400004400000000:1",
-              "status": 1,
-              "nid": 258,
-              "teid": 5,
-              "ip_address": "192.168.166.104",
-              "mac_address": "68:91:d0:70:e0:d4"
-            },
-            {
-              "port_id": "0001236891d070e0d400004400000000:2",
-              "status": 1,
-              "nid": 1029,
-              "teid": 254,
-              "ip_address": "192.168.90.1",
-              "mac_address": "68:91:d0:70:e0:d5"
-            },
-            {
-              "port_id": "0001236891d070e0d400004400000000:3",
-              "status": 1,
-              "nid": 30,
-              "teid": 1,
-              "ip_address": "172.17.6.200",
-              "mac_address": "000000000000"
-            },
-            {
-              "port_id": "0001236891d070e0d400004400000000:4",
-              "status": 1,
-              "nid": 40,
-              "teid": 1,
-              "ip_address": "172.18.6.200",
-              "mac_address": "000000000000"
-            },
-            {
-              "port_id": "0001236891d070e0d400004400000000:5",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d070e0d400004400000000:6",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d070e0d400004400000000:7",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d070e0d400004400000000:8",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            }
-          ],
-          "node_up_time": 120
-        },
-        {
-          "node_id": "0001236891d070e0e400004400000000",
-          "node_type": 3,
-          "node_status": 1,
-          "node_location": "113.057568,28.663652",
-          "node_cluster_ip": null,
-          "node_manage_ip_addr": "192.168.166.200",
-          "node_ports": [
-            {
-              "port_id": "0001236891d070e0e400004400000000:1",
-              "status": 1,
-              "nid": 258,
-              "teid": 4,
-              "ip_address": "192.168.166.103",
-              "mac_address": "68:91:d0:70:e0:e4"
-            },
-            {
-              "port_id": "0001236891d070e0e400004400000000:2",
-              "status": 1,
-              "nid": 1028,
-              "teid": 254,
-              "ip_address": "192.168.80.1",
-              "mac_address": "68:91:d0:70:e0:e5"
-            },
-            {
-              "port_id": "0001236891d070e0e400004400000000:3",
-              "status": 1,
-              "nid": 30,
-              "teid": 1,
-              "ip_address": "172.17.6.200",
-              "mac_address": "000000000000"
-            },
-            {
-              "port_id": "0001236891d070e0e400004400000000:4",
-              "status": 1,
-              "nid": 40,
-              "teid": 1,
-              "ip_address": "172.18.6.200",
-              "mac_address": "000000000000"
-            },
-            {
-              "port_id": "0001236891d070e0e400004400000000:5",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d070e0e400004400000000:6",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d070e0e400004400000000:7",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d070e0e400004400000000:8",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            }
-          ],
-          "node_up_time": 120
-        },
-        {
-          "node_id": "0001236891d06fd10f00004400000000",
-          "node_type": 3,
-          "node_status": 1,
-          "node_location": "113.057666,28.663765",
-          "node_cluster_ip": null,
-          "node_manage_ip_addr": "192.168.166.222",
-          "node_ports": [
-            {
-              "port_id": "0001236891d06fd10f00004400000000:1",
-              "status": 1,
-              "nid": 258,
-              "teid": 3,
-              "ip_address": "192.168.166.102",
-              "mac_address": "68:91:d0:6f:d1:0f"
-            },
-            {
-              "port_id": "0001236891d06fd10f00004400000000:2",
-              "status": 1,
-              "nid": 1027,
-              "teid": 254,
-              "ip_address": "192.168.70.1",
-              "mac_address": "68:91:d0:6f:d1:10"
-            },
-            {
-              "port_id": "0001236891d06fd10f00004400000000:3",
-              "status": 1,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "0.0.0.0",
-              "mac_address": "000000000000"
-            },
-            {
-              "port_id": "0001236891d06fd10f00004400000000:4",
-              "status": 1,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "0.0.0.0",
-              "mac_address": "000000000000"
-            },
-            {
-              "port_id": "0001236891d06fd10f00004400000000:5",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d06fd10f00004400000000:6",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d06fd10f00004400000000:7",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d06fd10f00004400000000:8",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            }
-          ],
-          "node_up_time": 109
-        },
-        {
-          "node_id": "00024600163030316300004400000000",
-          "node_type": 6,
-          "node_status": 1,
-          "node_location": "112.991309,28.222978",
-          "node_cluster_ip": "172.16.6.74",
-          "node_manage_ip_addr": "192.168.70.252",
-          "node_ports": [
-            {
-              "port_id": "00024600163030316300004400000000:1",
-              "status": 1,
-              "nid": 1027,
-              "teid": 1,
-              "ip_address": "192.168.70.10",
-              "mac_address": "00:16:30:30:31:63"
-            },
-            {
-              "port_id": "00024600163030316300004400000000:2",
-              "status": 1,
-              "nid": 4099,
-              "teid": 254,
-              "ip_address": "172.16.9.254",
-              "mac_address": "00:16:30:30:31:64"
-            },
-            {
-              "port_id": "00024600163030316300004400000000:3",
-              "status": 1,
-              "nid": 12,
-              "teid": 254,
-              "ip_address": "192.168.152.1",
-              "mac_address": "00:16:30:30:31:65"
-            },
-            {
-              "port_id": "00024600163030316300004400000000:4",
-              "status": 1,
-              "nid": 13,
-              "teid": 254,
-              "ip_address": "192.168.153.1",
-              "mac_address": "00:16:30:30:31:66"
-            },
-            {
-              "port_id": "00024600163030316300004400000000:5",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "00024600163030316300004400000000:6",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "00024600163030316300004400000000:7",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "00024600163030316300004400000000:8",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            }
-          ],
-          "node_up_time": 0
-        },
-        {
-          "node_id": "00024600163964623200004400000000",
-          "node_type": 6,
-          "node_status": 1,
-          "node_location": "113.057442,28.663855",
-          "node_cluster_ip": "172.16.6.1",
-          "node_manage_ip_addr": "172.16.6.252",
-          "node_ports": [
-            {
-              "port_id": "00024600163964623200004400000000:1",
-              "status": 1,
-              "nid": 1026,
-              "teid": 1,
-              "ip_address": "192.168.60.10",
-              "mac_address": "00:16:39:64:62:32"
-            },
-            {
-              "port_id": "00024600163964623200004400000000:2",
-              "status": 1,
-              "nid": 4098,
-              "teid": 254,
-              "ip_address": "172.16.6.254",
-              "mac_address": "00:16:39:64:62:33"
-            },
-            {
-              "port_id": "00024600163964623200004400000000:3",
-              "status": 1,
-              "nid": 12,
-              "teid": 254,
-              "ip_address": "192.168.121.1",
-              "mac_address": "00:16:39:64:62:34"
-            },
-            {
-              "port_id": "00024600163964623200004400000000:4",
-              "status": 1,
-              "nid": 13,
-              "teid": 254,
-              "ip_address": "192.168.131.1",
-              "mac_address": "00:16:39:64:62:35"
-            },
-            {
-              "port_id": "00024600163964623200004400000000:5",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "00024600163964623200004400000000:6",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "00024600163964623200004400000000:7",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "00024600163964623200004400000000:8",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            }
-          ],
-          "node_up_time": 0
-        },
-        {
-          "node_id": "00024600163964623200004400000000#2",
-          "node_type": 1,
-          "node_status": 1,
-          "node_location": "0.000000,0.000000",
-          "node_cluster_ip": "172.16.6.2",
-          "node_manage_ip_addr": null,
-          "node_ports": null,
-          "node_up_time": 2400
-        },
-        {
-          "node_id": "0001236891d070e0de00004400000000",
-          "node_type": 3,
-          "node_status": 1,
-          "node_location": "113.057511,28.66369",
-          "node_cluster_ip": null,
-          "node_manage_ip_addr": "192.168.166.206",
-          "node_ports": [
-            {
-              "port_id": "0001236891d070e0de00004400000000:1",
-              "status": 1,
-              "nid": 258,
-              "teid": 7,
-              "ip_address": "192.168.166.106",
-              "mac_address": "68:91:d0:70:e0:de"
-            },
-            {
-              "port_id": "0001236891d070e0de00004400000000:2",
-              "status": 1,
-              "nid": 1031,
-              "teid": 254,
-              "ip_address": "192.168.110.1",
-              "mac_address": "68:91:d0:70:e0:df"
-            },
-            {
-              "port_id": "0001236891d070e0de00004400000000:3",
-              "status": 1,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "192.168.26.1",
-              "mac_address": "000000000000"
-            },
-            {
-              "port_id": "0001236891d070e0de00004400000000:4",
-              "status": 1,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "0.0.0.0",
-              "mac_address": "000000000000"
-            },
-            {
-              "port_id": "0001236891d070e0de00004400000000:5",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d070e0de00004400000000:6",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d070e0de00004400000000:7",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            },
-            {
-              "port_id": "0001236891d070e0de00004400000000:8",
-              "status": 0,
-              "nid": 0,
-              "teid": 0,
-              "ip_address": "",
-              "mac_address": ""
-            }
-          ],
-          "node_up_time": 120
+          "node_up_time": 127
         }
       ],
       "link": [
+        {
+          "link_id": "00012400163734383900004400000000:0_2ddb40e6057aae20ae04f5c65d685d48:0",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": -1,
+          "link_latency": -1,
+          "src": {
+            "src_node": "00012400163734383900004400000000",
+            "src_port": "00012400163734383900004400000000:0"
+          },
+          "dst": {
+            "dst_node": "2ddb40e6057aae20ae04f5c65d685d48",
+            "dst_port": "2ddb40e6057aae20ae04f5c65d685d48:0"
+          }
+        },
         {
           "link_id": "00012500163030653a00004400000000:0_49cfd799e19ecc76df4eb8a8c69f9b74:0",
           "link_status": 1,
@@ -1390,29 +1595,29 @@
           }
         },
         {
-          "link_id": "00012400163635386700004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_id": "00024600163030316300004400000000_00024600163030316300004400000000#81",
           "link_status": 1,
           "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 17.759,
+          "link_bandwidth": -1,
+          "link_latency": -1,
           "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:1"
+            "src_node": "00024600163030316300004400000000",
+            "src_port": ""
           },
           "dst": {
-            "dst_node": "0001236891d070e0d800004400000000",
-            "dst_port": "0001236891d070e0d800004400000000:1"
+            "dst_node": "00024600163030316300004400000000#81",
+            "dst_port": ""
           }
         },
         {
-          "link_id": "00012400163635386700004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0d600004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 14.222,
+          "link_latency": 6.008,
           "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:1"
+            "src_node": "0001236891d06fd10f00004400000000",
+            "src_port": "0001236891d06fd10f00004400000000:1"
           },
           "dst": {
             "dst_node": "0001236891d070e0d600004400000000",
@@ -1420,479 +1625,29 @@
           }
         },
         {
-          "link_id": "00012400163635386700004400000000:3_00012500163030653a00004400000000:3",
+          "link_id": "0001236891d06fd10f00004400000000:2_00024600163030316300004400000000:1",
           "link_status": 1,
           "link_type": 1,
           "link_bandwidth": 1000,
-          "link_latency": 0.083,
+          "link_latency": 0.237,
           "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:3"
+            "src_node": "0001236891d06fd10f00004400000000",
+            "src_port": "0001236891d06fd10f00004400000000:2"
           },
           "dst": {
-            "dst_node": "00012500163030653a00004400000000",
-            "dst_port": "00012500163030653a00004400000000:3"
+            "dst_node": "00024600163030316300004400000000",
+            "dst_port": "00024600163030316300004400000000:1"
           }
         },
         {
-          "link_id": "00012400163635386700004400000000:4_00012500163431326600004400000000:4",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.1,
-          "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:4"
-          },
-          "dst": {
-            "dst_node": "00012500163431326600004400000000",
-            "dst_port": "00012500163431326600004400000000:4"
-          }
-        },
-        {
-          "link_id": "00012400163635386700004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e400004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 18.11,
+          "link_latency": 10.651,
           "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e000004400000000",
-            "dst_port": "0001236891d070e0e000004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163635386700004400000000:1_00012400163764666600004400000000:4",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 17.351,
-          "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:1"
-          },
-          "dst": {
-            "dst_node": "00012400163764666600004400000000",
-            "dst_port": "00012400163764666600004400000000:4"
-          }
-        },
-        {
-          "link_id": "00012400163635386700004400000000:6_00012400163734383900004400000000:2",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.098,
-          "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:6"
-          },
-          "dst": {
-            "dst_node": "00012400163734383900004400000000",
-            "dst_port": "00012400163734383900004400000000:2"
-          }
-        },
-        {
-          "link_id": "00012400163635386700004400000000:5_00012400163764666600004400000000:3",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.171,
-          "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:5"
-          },
-          "dst": {
-            "dst_node": "00012400163764666600004400000000",
-            "dst_port": "00012400163764666600004400000000:3"
-          }
-        },
-        {
-          "link_id": "00012400163635386700004400000000:1_0001236891d070e0e200004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 3.163,
-          "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e200004400000000",
-            "dst_port": "0001236891d070e0e200004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163764666600004400000000:4_0001236891d070e0d800004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 0.686,
-          "src": {
-            "src_node": "00012400163764666600004400000000",
-            "src_port": "00012400163764666600004400000000:4"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d800004400000000",
-            "dst_port": "0001236891d070e0d800004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163764666600004400000000:2_00012400163632633800004400000000:2",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.911,
-          "src": {
-            "src_node": "00012400163764666600004400000000",
-            "src_port": "00012400163764666600004400000000:2"
-          },
-          "dst": {
-            "dst_node": "00012400163632633800004400000000",
-            "dst_port": "00012400163632633800004400000000:2"
-          }
-        },
-        {
-          "link_id": "00012400163764666600004400000000:4_0001236891d070e0d600004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 2.168,
-          "src": {
-            "src_node": "00012400163764666600004400000000",
-            "src_port": "00012400163764666600004400000000:4"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d600004400000000",
-            "dst_port": "0001236891d070e0d600004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163764666600004400000000:4_0001236891d070e0e000004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 0.729,
-          "src": {
-            "src_node": "00012400163764666600004400000000",
-            "src_port": "00012400163764666600004400000000:4"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e000004400000000",
-            "dst_port": "0001236891d070e0e000004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163764666600004400000000:4_0001236891d070e0e200004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 0.714,
-          "src": {
-            "src_node": "00012400163764666600004400000000",
-            "src_port": "00012400163764666600004400000000:4"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e200004400000000",
-            "dst_port": "0001236891d070e0e200004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012500163030653a00004400000000:4_00012500163431326600004400000000:2",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.076,
-          "src": {
-            "src_node": "00012500163030653a00004400000000",
-            "src_port": "00012500163030653a00004400000000:4"
-          },
-          "dst": {
-            "dst_node": "00012500163431326600004400000000",
-            "dst_port": "00012500163431326600004400000000:2"
-          }
-        },
-        {
-          "link_id": "00012500163431326600004400000000:5_00012400166636363500004400000000:1",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.07,
-          "src": {
-            "src_node": "00012500163431326600004400000000",
-            "src_port": "00012500163431326600004400000000:5"
-          },
-          "dst": {
-            "dst_node": "00012400166636363500004400000000",
-            "dst_port": "00012400166636363500004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012500163431326600004400000000:6_00012400163734383900004400000000:1",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.059,
-          "src": {
-            "src_node": "00012500163431326600004400000000",
-            "src_port": "00012500163431326600004400000000:6"
-          },
-          "dst": {
-            "dst_node": "00012400163734383900004400000000",
-            "dst_port": "00012400163734383900004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400166636363500004400000000:2_00012400163734383900004400000000:3",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.062,
-          "src": {
-            "src_node": "00012400166636363500004400000000",
-            "src_port": "00012400166636363500004400000000:2"
-          },
-          "dst": {
-            "dst_node": "00012400163734383900004400000000",
-            "dst_port": "00012400163734383900004400000000:3"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0d800004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 4.299,
-          "src": {
-            "src_node": "0001236891d070e0d600004400000000",
-            "src_port": "0001236891d070e0d600004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d800004400000000",
-            "dst_port": "0001236891d070e0d800004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0e000004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 18.578,
-          "src": {
-            "src_node": "0001236891d070e0d600004400000000",
-            "src_port": "0001236891d070e0d600004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e000004400000000",
-            "dst_port": "0001236891d070e0e000004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0e200004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 3.053,
-          "src": {
-            "src_node": "0001236891d070e0d600004400000000",
-            "src_port": "0001236891d070e0d600004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e200004400000000",
-            "dst_port": "0001236891d070e0e200004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0e000004400000000:1_0001236891d070e0d800004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 0.652,
-          "src": {
-            "src_node": "0001236891d070e0e000004400000000",
-            "src_port": "0001236891d070e0e000004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d800004400000000",
-            "dst_port": "0001236891d070e0d800004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0e000004400000000:1_0001236891d070e0e200004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 0.251,
-          "src": {
-            "src_node": "0001236891d070e0e000004400000000",
-            "src_port": "0001236891d070e0e000004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e200004400000000",
-            "dst_port": "0001236891d070e0e200004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d800004400000000:1_0001236891d070e0e200004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 0.272,
-          "src": {
-            "src_node": "0001236891d070e0d800004400000000",
-            "src_port": "0001236891d070e0d800004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e200004400000000",
-            "dst_port": "0001236891d070e0e200004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163635386700004400000000:1_0001236891d070e0d400004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 14.772,
-          "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d400004400000000",
-            "dst_port": "0001236891d070e0d400004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163764666600004400000000:4_0001236891d070e0d400004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 2.62,
-          "src": {
-            "src_node": "00012400163764666600004400000000",
-            "src_port": "00012400163764666600004400000000:4"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d400004400000000",
-            "dst_port": "0001236891d070e0d400004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d800004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 1.117,
-          "src": {
-            "src_node": "0001236891d06fd10d00004400000000",
-            "src_port": "0001236891d06fd10d00004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d800004400000000",
-            "dst_port": "0001236891d070e0d800004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d600004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 1.747,
-          "src": {
-            "src_node": "0001236891d06fd10d00004400000000",
-            "src_port": "0001236891d06fd10d00004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d600004400000000",
-            "dst_port": "0001236891d070e0d600004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d400004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 6.682,
-          "src": {
-            "src_node": "0001236891d06fd10d00004400000000",
-            "src_port": "0001236891d06fd10d00004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d400004400000000",
-            "dst_port": "0001236891d070e0d400004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0d800004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 1.92,
-          "src": {
-            "src_node": "0001236891d070e0d400004400000000",
-            "src_port": "0001236891d070e0d400004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d800004400000000",
-            "dst_port": "0001236891d070e0d800004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0d600004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 3.494,
-          "src": {
-            "src_node": "0001236891d070e0d400004400000000",
-            "src_port": "0001236891d070e0d400004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0d600004400000000",
-            "dst_port": "0001236891d070e0d600004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0e000004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 7.848,
-          "src": {
-            "src_node": "0001236891d070e0d400004400000000",
-            "src_port": "0001236891d070e0d400004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e000004400000000",
-            "dst_port": "0001236891d070e0e000004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0e200004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 3.626,
-          "src": {
-            "src_node": "0001236891d070e0d400004400000000",
-            "src_port": "0001236891d070e0d400004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e200004400000000",
-            "dst_port": "0001236891d070e0e200004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163635386700004400000000:1_0001236891d070e0e400004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 18.115,
-          "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:1"
+            "src_node": "0001236891d06fd10f00004400000000",
+            "src_port": "0001236891d06fd10f00004400000000:1"
           },
           "dst": {
             "dst_node": "0001236891d070e0e400004400000000",
@@ -1900,18 +1655,18 @@
           }
         },
         {
-          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0de00004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 0.188,
+          "link_latency": 1.652,
           "src": {
             "src_node": "0001236891d070e0e400004400000000",
             "src_port": "0001236891d070e0e400004400000000:1"
           },
           "dst": {
-            "dst_node": "0001236891d070e0d800004400000000",
-            "dst_port": "0001236891d070e0d800004400000000:1"
+            "dst_node": "0001236891d070e0de00004400000000",
+            "dst_port": "0001236891d070e0de00004400000000:1"
           }
         },
         {
@@ -1919,7 +1674,7 @@
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 8.059,
+          "link_latency": 7.685,
           "src": {
             "src_node": "0001236891d070e0e400004400000000",
             "src_port": "0001236891d070e0e400004400000000:1"
@@ -1934,7 +1689,7 @@
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 0.176,
+          "link_latency": 0.319,
           "src": {
             "src_node": "0001236891d070e0e400004400000000",
             "src_port": "0001236891d070e0e400004400000000:1"
@@ -1949,7 +1704,7 @@
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 2134.186,
+          "link_latency": 7.595,
           "src": {
             "src_node": "0001236891d070e0e400004400000000",
             "src_port": "0001236891d070e0e400004400000000:1"
@@ -1960,44 +1715,44 @@
           }
         },
         {
-          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0d800004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 0.271,
+          "link_latency": 2.756,
           "src": {
-            "src_node": "0001236891d070e0e400004400000000",
-            "src_port": "0001236891d070e0e400004400000000:1"
+            "src_node": "0001236891d070e0d400004400000000",
+            "src_port": "0001236891d070e0d400004400000000:1"
           },
           "dst": {
-            "dst_node": "0001236891d070e0e200004400000000",
-            "dst_port": "0001236891d070e0e200004400000000:1"
+            "dst_node": "0001236891d070e0d800004400000000",
+            "dst_port": "0001236891d070e0d800004400000000:1"
           }
         },
         {
-          "link_id": "00012400163764666600004400000000:4_0001236891d070e0e400004400000000:1",
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0de00004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 0.144,
+          "link_latency": 2.447,
           "src": {
-            "src_node": "00012400163764666600004400000000",
-            "src_port": "00012400163764666600004400000000:4"
+            "src_node": "0001236891d070e0d400004400000000",
+            "src_port": "0001236891d070e0d400004400000000:1"
           },
           "dst": {
-            "dst_node": "0001236891d070e0e400004400000000",
-            "dst_port": "0001236891d070e0e400004400000000:1"
+            "dst_node": "0001236891d070e0de00004400000000",
+            "dst_port": "0001236891d070e0de00004400000000:1"
           }
         },
         {
-          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0d600004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 2.048,
+          "link_latency": 14.372,
           "src": {
-            "src_node": "0001236891d06fd10f00004400000000",
-            "src_port": "0001236891d06fd10f00004400000000:1"
+            "src_node": "0001236891d070e0d400004400000000",
+            "src_port": "0001236891d070e0d400004400000000:1"
           },
           "dst": {
             "dst_node": "0001236891d070e0d600004400000000",
@@ -2005,11 +1760,236 @@
           }
         },
         {
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 20.371,
+          "src": {
+            "src_node": "0001236891d070e0d400004400000000",
+            "src_port": "0001236891d070e0d400004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e000004400000000",
+            "dst_port": "0001236891d070e0e000004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 11.2,
+          "src": {
+            "src_node": "0001236891d070e0d400004400000000",
+            "src_port": "0001236891d070e0d400004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e200004400000000",
+            "dst_port": "0001236891d070e0e200004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 3.218,
+          "src": {
+            "src_node": "0001236891d070e0d600004400000000",
+            "src_port": "0001236891d070e0d600004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0de00004400000000",
+            "dst_port": "0001236891d070e0de00004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 12.269,
+          "src": {
+            "src_node": "0001236891d070e0d600004400000000",
+            "src_port": "0001236891d070e0d600004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e000004400000000",
+            "dst_port": "0001236891d070e0e000004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 18.629,
+          "src": {
+            "src_node": "0001236891d070e0d600004400000000",
+            "src_port": "0001236891d070e0d600004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e200004400000000",
+            "dst_port": "0001236891d070e0e200004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 4.159,
+          "src": {
+            "src_node": "0001236891d070e0de00004400000000",
+            "src_port": "0001236891d070e0de00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d800004400000000",
+            "dst_port": "0001236891d070e0d800004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 13.514,
+          "src": {
+            "src_node": "0001236891d070e0de00004400000000",
+            "src_port": "0001236891d070e0de00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e000004400000000",
+            "dst_port": "0001236891d070e0e000004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 21.899,
+          "src": {
+            "src_node": "0001236891d070e0de00004400000000",
+            "src_port": "0001236891d070e0de00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e200004400000000",
+            "dst_port": "0001236891d070e0e200004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0e000004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 0.169,
+          "src": {
+            "src_node": "0001236891d070e0e000004400000000",
+            "src_port": "0001236891d070e0e000004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d800004400000000",
+            "dst_port": "0001236891d070e0d800004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0e000004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 0.32,
+          "src": {
+            "src_node": "0001236891d070e0e000004400000000",
+            "src_port": "0001236891d070e0e000004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e200004400000000",
+            "dst_port": "0001236891d070e0e200004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0d800004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 0.287,
+          "src": {
+            "src_node": "0001236891d070e0d800004400000000",
+            "src_port": "0001236891d070e0d800004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e200004400000000",
+            "dst_port": "0001236891d070e0e200004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163764666600004400000000:2_00012400163632633800004400000000:3",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0,
+          "src": {
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:2"
+          },
+          "dst": {
+            "dst_node": "00012400163632633800004400000000",
+            "dst_port": "00012400163632633800004400000000:3"
+          }
+        },
+        {
+          "link_id": "00012400163632633800004400000000:2_00012500166530323400004400000000:1",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0,
+          "src": {
+            "src_node": "00012400163632633800004400000000",
+            "src_port": "00012400163632633800004400000000:2"
+          },
+          "dst": {
+            "dst_node": "00012500166530323400004400000000",
+            "dst_port": "00012500166530323400004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012500163431326600004400000000:0_5a7532dcedfd35bf4a87c06389da0cf7:0",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": -1,
+          "link_latency": -1,
+          "src": {
+            "src_node": "00012500163431326600004400000000",
+            "src_port": "00012500163431326600004400000000:0"
+          },
+          "dst": {
+            "dst_node": "5a7532dcedfd35bf4a87c06389da0cf7",
+            "dst_port": "5a7532dcedfd35bf4a87c06389da0cf7:0"
+          }
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0d400004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 11.525,
+          "src": {
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:4"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d400004400000000",
+            "dst_port": "0001236891d070e0d400004400000000:1"
+          }
+        },
+        {
           "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0d400004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 2.738,
+          "link_latency": 10.156,
           "src": {
             "src_node": "0001236891d06fd10f00004400000000",
             "src_port": "0001236891d06fd10f00004400000000:1"
@@ -2017,6 +1997,396 @@
           "dst": {
             "dst_node": "0001236891d070e0d400004400000000",
             "dst_port": "0001236891d070e0d400004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 2.739,
+          "src": {
+            "src_node": "0001236891d070e0d600004400000000",
+            "src_port": "0001236891d070e0d600004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d800004400000000",
+            "dst_port": "0001236891d070e0d800004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012500163431326600004400000000:5_00012400166636363500004400000000:1",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.094,
+          "src": {
+            "src_node": "00012500163431326600004400000000",
+            "src_port": "00012500163431326600004400000000:5"
+          },
+          "dst": {
+            "dst_node": "00012400166636363500004400000000",
+            "dst_port": "00012400166636363500004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400166636363500004400000000:2_00012400163734383900004400000000:3",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.07,
+          "src": {
+            "src_node": "00012400166636363500004400000000",
+            "src_port": "00012400166636363500004400000000:2"
+          },
+          "dst": {
+            "dst_node": "00012400163734383900004400000000",
+            "dst_port": "00012400163734383900004400000000:3"
+          }
+        },
+        {
+          "link_id": "00012500163431326600004400000000:6_00012400163734383900004400000000:1",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.096,
+          "src": {
+            "src_node": "00012500163431326600004400000000",
+            "src_port": "00012500163431326600004400000000:6"
+          },
+          "dst": {
+            "dst_node": "00012400163734383900004400000000",
+            "dst_port": "00012400163734383900004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 4.837,
+          "src": {
+            "src_node": "0001236891d06fd10d00004400000000",
+            "src_port": "0001236891d06fd10d00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0de00004400000000",
+            "dst_port": "0001236891d070e0de00004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d06fd10f00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 5.321,
+          "src": {
+            "src_node": "0001236891d06fd10d00004400000000",
+            "src_port": "0001236891d06fd10d00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d06fd10f00004400000000",
+            "dst_port": "0001236891d06fd10f00004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 6.786,
+          "src": {
+            "src_node": "0001236891d06fd10d00004400000000",
+            "src_port": "0001236891d06fd10d00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d600004400000000",
+            "dst_port": "0001236891d070e0d600004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 9.314,
+          "src": {
+            "src_node": "0001236891d06fd10d00004400000000",
+            "src_port": "0001236891d06fd10d00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e000004400000000",
+            "dst_port": "0001236891d070e0e000004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d400004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 18.401,
+          "src": {
+            "src_node": "0001236891d06fd10d00004400000000",
+            "src_port": "0001236891d06fd10d00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d400004400000000",
+            "dst_port": "0001236891d070e0d400004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e400004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 16.371,
+          "src": {
+            "src_node": "0001236891d06fd10d00004400000000",
+            "src_port": "0001236891d06fd10d00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e400004400000000",
+            "dst_port": "0001236891d070e0e400004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 3.825,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d800004400000000",
+            "dst_port": "0001236891d070e0d800004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d06fd11100004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 1.731,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d06fd11100004400000000",
+            "dst_port": "0001236891d06fd11100004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 7.69,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d600004400000000",
+            "dst_port": "0001236891d070e0d600004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:2_00012400163632633800004400000000:3",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.126,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:2"
+          },
+          "dst": {
+            "dst_node": "00012400163632633800004400000000",
+            "dst_port": "00012400163632633800004400000000:3"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 8.325,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e000004400000000",
+            "dst_port": "0001236891d070e0e000004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0d400004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 6.676,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d400004400000000",
+            "dst_port": "0001236891d070e0d400004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:6_00012400163734383900004400000000:2",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.116,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:6"
+          },
+          "dst": {
+            "dst_node": "00012400163734383900004400000000",
+            "dst_port": "00012400163734383900004400000000:2"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0e400004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 9.497,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e400004400000000",
+            "dst_port": "0001236891d070e0e400004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:2_00012400163764666600004400000000:2",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:2"
+          },
+          "dst": {
+            "dst_node": "00012400163764666600004400000000",
+            "dst_port": "00012400163764666600004400000000:2"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 11.298,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0de00004400000000",
+            "dst_port": "0001236891d070e0de00004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d06fd10f00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 9.143,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d06fd10f00004400000000",
+            "dst_port": "0001236891d06fd10f00004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d06fd10d00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 8.796,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d06fd10d00004400000000",
+            "dst_port": "0001236891d06fd10d00004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:5_00012400163764666600004400000000:3",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.101,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:5"
+          },
+          "dst": {
+            "dst_node": "00012400163764666600004400000000",
+            "dst_port": "00012400163764666600004400000000:3"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 9.517,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e200004400000000",
+            "dst_port": "0001236891d070e0e200004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163635386700004400000000:4_00012500163431326600004400000000:4",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.21,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:4"
+          },
+          "dst": {
+            "dst_node": "00012500163431326600004400000000",
+            "dst_port": "00012500163431326600004400000000:4"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:2_00024600163964623200004400000000:1",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.232,
+          "src": {
+            "src_node": "0001236891d06fd10d00004400000000",
+            "src_port": "0001236891d06fd10d00004400000000:2"
+          },
+          "dst": {
+            "dst_node": "00024600163964623200004400000000",
+            "dst_port": "00024600163964623200004400000000:1"
           }
         },
         {
@@ -2035,63 +2405,63 @@
           }
         },
         {
-          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_id": "00024600163964623200004400000000#2_00024600163964623200004400000000#3",
           "link_status": 1,
           "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 2.802,
+          "link_bandwidth": -1,
+          "link_latency": -1,
           "src": {
-            "src_node": "0001236891d06fd10d00004400000000",
-            "src_port": "0001236891d06fd10d00004400000000:1"
+            "src_node": "00024600163964623200004400000000#2",
+            "src_port": ""
           },
           "dst": {
-            "dst_node": "0001236891d070e0e000004400000000",
-            "dst_port": "0001236891d070e0e000004400000000:1"
+            "dst_node": "00024600163964623200004400000000#3",
+            "dst_port": ""
           }
         },
         {
-          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e400004400000000:1",
+          "link_id": "00024600163964623200004400000000_00024600163964623200004400000000#3",
           "link_status": 1,
           "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 6.876,
+          "link_bandwidth": -1,
+          "link_latency": -1,
           "src": {
-            "src_node": "0001236891d06fd10d00004400000000",
-            "src_port": "0001236891d06fd10d00004400000000:1"
+            "src_node": "00024600163964623200004400000000",
+            "src_port": ""
           },
           "dst": {
-            "dst_node": "0001236891d070e0e400004400000000",
-            "dst_port": "0001236891d070e0e400004400000000:1"
+            "dst_node": "00024600163964623200004400000000#3",
+            "dst_port": ""
           }
         },
         {
-          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_id": "00012400163632633800004400000000:4_00012500163431326600004400000000:3",
           "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 6.918,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.091,
           "src": {
-            "src_node": "0001236891d06fd10d00004400000000",
-            "src_port": "0001236891d06fd10d00004400000000:1"
+            "src_node": "00012400163632633800004400000000",
+            "src_port": "00012400163632633800004400000000:4"
           },
           "dst": {
-            "dst_node": "0001236891d070e0e200004400000000",
-            "dst_port": "0001236891d070e0e200004400000000:1"
+            "dst_node": "00012500163431326600004400000000",
+            "dst_port": "00012500163431326600004400000000:3"
           }
         },
         {
-          "link_id": "00012400163635386700004400000000:1_0001236891d06fd10f00004400000000:1",
+          "link_id": "00012400163635386700004400000000:1_00012400163764666600004400000000:4",
           "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 16.498,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 5.634,
           "src": {
             "src_node": "00012400163635386700004400000000",
             "src_port": "00012400163635386700004400000000:1"
           },
           "dst": {
-            "dst_node": "0001236891d06fd10f00004400000000",
-            "dst_port": "0001236891d06fd10f00004400000000:1"
+            "dst_node": "00012400163764666600004400000000",
+            "dst_port": "00012400163764666600004400000000:4"
           }
         },
         {
@@ -2099,7 +2469,7 @@
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 3.458,
+          "link_latency": 4.375,
           "src": {
             "src_node": "00012400163764666600004400000000",
             "src_port": "00012400163764666600004400000000:4"
@@ -2110,18 +2480,48 @@
           }
         },
         {
-          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d06fd10f00004400000000:1",
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0e400004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 8.172,
+          "link_latency": 0.115,
+          "src": {
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:4"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e400004400000000",
+            "dst_port": "0001236891d070e0e400004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 2.528,
           "src": {
             "src_node": "0001236891d06fd10d00004400000000",
             "src_port": "0001236891d06fd10d00004400000000:1"
           },
           "dst": {
-            "dst_node": "0001236891d06fd10f00004400000000",
-            "dst_port": "0001236891d06fd10f00004400000000:1"
+            "dst_node": "0001236891d070e0d800004400000000",
+            "dst_port": "0001236891d070e0d800004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 16.389,
+          "src": {
+            "src_node": "0001236891d06fd10d00004400000000",
+            "src_port": "0001236891d06fd10d00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e200004400000000",
+            "dst_port": "0001236891d070e0e200004400000000:1"
           }
         },
         {
@@ -2129,7 +2529,7 @@
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 1.519,
+          "link_latency": 9.064,
           "src": {
             "src_node": "0001236891d06fd10f00004400000000",
             "src_port": "0001236891d06fd10f00004400000000:1"
@@ -2140,11 +2540,41 @@
           }
         },
         {
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 7.559,
+          "src": {
+            "src_node": "0001236891d06fd10f00004400000000",
+            "src_port": "0001236891d06fd10f00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0de00004400000000",
+            "dst_port": "0001236891d070e0de00004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 5.066,
+          "src": {
+            "src_node": "0001236891d06fd10f00004400000000",
+            "src_port": "0001236891d06fd10f00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e000004400000000",
+            "dst_port": "0001236891d070e0e000004400000000:1"
+          }
+        },
+        {
           "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e200004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 3.581,
+          "link_latency": 13.39,
           "src": {
             "src_node": "0001236891d06fd10f00004400000000",
             "src_port": "0001236891d06fd10f00004400000000:1"
@@ -2155,209 +2585,14 @@
           }
         },
         {
-          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0d800004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 3.836,
-          "src": {
-            "src_node": "0001236891d06fd10f00004400000000",
-            "src_port": "0001236891d06fd10f00004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e000004400000000",
-            "dst_port": "0001236891d070e0e000004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d06fd10f00004400000000:2_00024600163030316300004400000000:1",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.224,
-          "src": {
-            "src_node": "0001236891d06fd10f00004400000000",
-            "src_port": "0001236891d06fd10f00004400000000:2"
-          },
-          "dst": {
-            "dst_node": "00024600163030316300004400000000",
-            "dst_port": "00024600163030316300004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e400004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 3.781,
-          "src": {
-            "src_node": "0001236891d06fd10f00004400000000",
-            "src_port": "0001236891d06fd10f00004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0e400004400000000",
-            "dst_port": "0001236891d070e0e400004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163635386700004400000000:1_0001236891d06fd10d00004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 11.26,
-          "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d06fd10d00004400000000",
-            "dst_port": "0001236891d06fd10d00004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163764666600004400000000:4_0001236891d06fd10d00004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 2.384,
-          "src": {
-            "src_node": "00012400163764666600004400000000",
-            "src_port": "00012400163764666600004400000000:4"
-          },
-          "dst": {
-            "dst_node": "0001236891d06fd10d00004400000000",
-            "dst_port": "0001236891d06fd10d00004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d06fd10d00004400000000:2_00024600163964623200004400000000:1",
-          "link_status": 1,
-          "link_type": 1,
-          "link_bandwidth": 1000,
-          "link_latency": 0.178,
-          "src": {
-            "src_node": "0001236891d06fd10d00004400000000",
-            "src_port": "0001236891d06fd10d00004400000000:2"
-          },
-          "dst": {
-            "dst_node": "00024600163964623200004400000000",
-            "dst_port": "00024600163964623200004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163635386700004400000000:1_0001236891d070e0de00004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 41.346,
-          "src": {
-            "src_node": "00012400163635386700004400000000",
-            "src_port": "00012400163635386700004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0de00004400000000",
-            "dst_port": "0001236891d070e0de00004400000000:1"
-          }
-        },
-        {
-          "link_id": "00012400163764666600004400000000:4_0001236891d070e0de00004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 3.809,
-          "src": {
-            "src_node": "00012400163764666600004400000000",
-            "src_port": "00012400163764666600004400000000:4"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0de00004400000000",
-            "dst_port": "0001236891d070e0de00004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0de00004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 9.38,
-          "src": {
-            "src_node": "0001236891d06fd10d00004400000000",
-            "src_port": "0001236891d06fd10d00004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0de00004400000000",
-            "dst_port": "0001236891d070e0de00004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0de00004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 1.771,
-          "src": {
-            "src_node": "0001236891d06fd10f00004400000000",
-            "src_port": "0001236891d06fd10f00004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0de00004400000000",
-            "dst_port": "0001236891d070e0de00004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0de00004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 104.993,
+          "link_latency": 0.16,
           "src": {
             "src_node": "0001236891d070e0e400004400000000",
             "src_port": "0001236891d070e0e400004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0de00004400000000",
-            "dst_port": "0001236891d070e0de00004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0de00004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 8.293,
-          "src": {
-            "src_node": "0001236891d070e0d400004400000000",
-            "src_port": "0001236891d070e0d400004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0de00004400000000",
-            "dst_port": "0001236891d070e0de00004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0de00004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 43.344,
-          "src": {
-            "src_node": "0001236891d070e0d600004400000000",
-            "src_port": "0001236891d070e0d600004400000000:1"
-          },
-          "dst": {
-            "dst_node": "0001236891d070e0de00004400000000",
-            "dst_port": "0001236891d070e0de00004400000000:1"
-          }
-        },
-        {
-          "link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0d800004400000000:1",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 60,
-          "link_latency": 3.467,
-          "src": {
-            "src_node": "0001236891d070e0de00004400000000",
-            "src_port": "0001236891d070e0de00004400000000:1"
           },
           "dst": {
             "dst_node": "0001236891d070e0d800004400000000",
@@ -2365,14 +2600,149 @@
           }
         },
         {
-          "link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_id": "00012400163635386700004400000000:3_00012500163030653a00004400000000:3",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.119,
+          "src": {
+            "src_node": "00012400163635386700004400000000",
+            "src_port": "00012400163635386700004400000000:3"
+          },
+          "dst": {
+            "dst_node": "00012500163030653a00004400000000",
+            "dst_port": "00012500163030653a00004400000000:3"
+          }
+        },
+        {
+          "link_id": "00012400163632633800004400000000:2_00012500163030653a00004400000000:2",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.098,
+          "src": {
+            "src_node": "00012400163632633800004400000000",
+            "src_port": "00012400163632633800004400000000:2"
+          },
+          "dst": {
+            "dst_node": "00012500163030653a00004400000000",
+            "dst_port": "00012500163030653a00004400000000:2"
+          }
+        },
+        {
+          "link_id": "00012500163030653a00004400000000:2_00012500166530323400004400000000:1",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0,
+          "src": {
+            "src_node": "00012500163030653a00004400000000",
+            "src_port": "00012500163030653a00004400000000:2"
+          },
+          "dst": {
+            "dst_node": "00012500166530323400004400000000",
+            "dst_port": "00012500166530323400004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012500163030653a00004400000000:4_00012500163431326600004400000000:2",
+          "link_status": 1,
+          "link_type": 1,
+          "link_bandwidth": 1000,
+          "link_latency": 0.171,
+          "src": {
+            "src_node": "00012500163030653a00004400000000",
+            "src_port": "00012500163030653a00004400000000:4"
+          },
+          "dst": {
+            "dst_node": "00012500163431326600004400000000",
+            "dst_port": "00012500163431326600004400000000:2"
+          }
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0d800004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 11.37,
+          "link_latency": 0.086,
           "src": {
-            "src_node": "0001236891d070e0de00004400000000",
-            "src_port": "0001236891d070e0de00004400000000:1"
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:4"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d800004400000000",
+            "dst_port": "0001236891d070e0d800004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0de00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 1.809,
+          "src": {
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:4"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0de00004400000000",
+            "dst_port": "0001236891d070e0de00004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d06fd11100004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 4.719,
+          "src": {
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:4"
+          },
+          "dst": {
+            "dst_node": "0001236891d06fd11100004400000000",
+            "dst_port": "0001236891d06fd11100004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0d600004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 6.283,
+          "src": {
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:4"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d600004400000000",
+            "dst_port": "0001236891d070e0d600004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d06fd10d00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 7.637,
+          "src": {
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:4"
+          },
+          "dst": {
+            "dst_node": "0001236891d06fd10d00004400000000",
+            "dst_port": "0001236891d06fd10d00004400000000:1"
+          }
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0e000004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 0.144,
+          "src": {
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:4"
           },
           "dst": {
             "dst_node": "0001236891d070e0e000004400000000",
@@ -2380,14 +2750,164 @@
           }
         },
         {
-          "link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0e200004400000000:1",
           "link_status": 1,
           "link_type": 2,
           "link_bandwidth": 60,
-          "link_latency": 10.411,
+          "link_latency": 0.147,
           "src": {
-            "src_node": "0001236891d070e0de00004400000000",
-            "src_port": "0001236891d070e0de00004400000000:1"
+            "src_node": "00012400163764666600004400000000",
+            "src_port": "00012400163764666600004400000000:4"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e200004400000000",
+            "dst_port": "0001236891d070e0e200004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d06fd11100004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 3.82,
+          "src": {
+            "src_node": "0001236891d06fd10d00004400000000",
+            "src_port": "0001236891d06fd10d00004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d06fd11100004400000000",
+            "dst_port": "0001236891d06fd11100004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 4.695,
+          "src": {
+            "src_node": "0001236891d06fd11100004400000000",
+            "src_port": "0001236891d06fd11100004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d800004400000000",
+            "dst_port": "0001236891d070e0d800004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 6.134,
+          "src": {
+            "src_node": "0001236891d06fd11100004400000000",
+            "src_port": "0001236891d06fd11100004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0de00004400000000",
+            "dst_port": "0001236891d070e0de00004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d06fd10f00004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 3.914,
+          "src": {
+            "src_node": "0001236891d06fd11100004400000000",
+            "src_port": "0001236891d06fd11100004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d06fd10f00004400000000",
+            "dst_port": "0001236891d06fd10f00004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 8.933,
+          "src": {
+            "src_node": "0001236891d06fd11100004400000000",
+            "src_port": "0001236891d06fd11100004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d600004400000000",
+            "dst_port": "0001236891d070e0d600004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 16.073,
+          "src": {
+            "src_node": "0001236891d06fd11100004400000000",
+            "src_port": "0001236891d06fd11100004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e000004400000000",
+            "dst_port": "0001236891d070e0e000004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0d400004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 17.479,
+          "src": {
+            "src_node": "0001236891d06fd11100004400000000",
+            "src_port": "0001236891d06fd11100004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0d400004400000000",
+            "dst_port": "0001236891d070e0d400004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0e400004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 13.702,
+          "src": {
+            "src_node": "0001236891d06fd11100004400000000",
+            "src_port": "0001236891d06fd11100004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e400004400000000",
+            "dst_port": "0001236891d070e0e400004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 38.413,
+          "src": {
+            "src_node": "0001236891d06fd11100004400000000",
+            "src_port": "0001236891d06fd11100004400000000:1"
+          },
+          "dst": {
+            "dst_node": "0001236891d070e0e200004400000000",
+            "dst_port": "0001236891d070e0e200004400000000:1"
+          }
+        },
+        {
+          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 60,
+          "link_latency": 0.656,
+          "src": {
+            "src_node": "0001236891d070e0e400004400000000",
+            "src_port": "0001236891d070e0e400004400000000:1"
           },
           "dst": {
             "dst_node": "0001236891d070e0e200004400000000",

@@ -1,1 +1,726 @@
-{"data": {"link_metrics": [{"link_id": "00012500163030653a00004400000000:0_49cfd799e19ecc76df4eb8a8c69f9b74:0", "link_latency": -1.0, "link_utilization": null, "bandwidth_capacity_available": null, "link_loss_rate": null, "flow_table_status": null}, {"link_id": "00012400163635386700004400000000:1_0001236891d070e0d800004400000000:1", "link_latency": 17.759, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:1_0001236891d070e0d600004400000000:1", "link_latency": 14.222, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:3_00012500163030653a00004400000000:3", "link_latency": 0.083, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0005617977528089887, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:4_00012500163431326600004400000000:4", "link_latency": 0.1, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:1_0001236891d070e0e000004400000000:1", "link_latency": 18.11, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:1_00012400163764666600004400000000:4", "link_latency": 17.351, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:6_00012400163734383900004400000000:2", "link_latency": 0.098, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:5_00012400163764666600004400000000:3", "link_latency": 0.171, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0005708245243128964, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:1_0001236891d070e0e200004400000000:1", "link_latency": 3.163, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:4_0001236891d070e0d800004400000000:1", "link_latency": 0.686, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 9.512937595129377e-06, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:2_00012400163632633800004400000000:2", "link_latency": 0.911, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:4_0001236891d070e0d600004400000000:1", "link_latency": 2.168, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 9.512937595129377e-06, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:4_0001236891d070e0e000004400000000:1", "link_latency": 0.729, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 9.512937595129377e-06, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:4_0001236891d070e0e200004400000000:1", "link_latency": 0.714, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 9.512937595129377e-06, "flow_table_status": 1}, {"link_id": "00012500163030653a00004400000000:4_00012500163431326600004400000000:2", "link_latency": 0.076, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012500163431326600004400000000:5_00012400166636363500004400000000:1", "link_latency": 0.07, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012500163431326600004400000000:6_00012400163734383900004400000000:1", "link_latency": 0.059, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400166636363500004400000000:2_00012400163734383900004400000000:3", "link_latency": 0.062, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0d800004400000000:1", "link_latency": 4.299, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0e000004400000000:1", "link_latency": 18.578, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0e200004400000000:1", "link_latency": 3.053, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0e000004400000000:1_0001236891d070e0d800004400000000:1", "link_latency": 0.652, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0e000004400000000:1_0001236891d070e0e200004400000000:1", "link_latency": 0.251, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d800004400000000:1_0001236891d070e0e200004400000000:1", "link_latency": 0.272, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:1_0001236891d070e0d400004400000000:1", "link_latency": 14.772, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:4_0001236891d070e0d400004400000000:1", "link_latency": 2.62, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 9.512937595129377e-06, "flow_table_status": 1}, {"link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d800004400000000:1", "link_latency": 1.117, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d600004400000000:1", "link_latency": 1.747, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d400004400000000:1", "link_latency": 6.682, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0d800004400000000:1", "link_latency": 1.92, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0d600004400000000:1", "link_latency": 3.494, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0e000004400000000:1", "link_latency": 7.848, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0e200004400000000:1", "link_latency": 3.626, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:1_0001236891d070e0e400004400000000:1", "link_latency": 18.115, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0d800004400000000:1", "link_latency": 0.188, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0d600004400000000:1", "link_latency": 8.059, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0e000004400000000:1", "link_latency": 0.176, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0d400004400000000:1", "link_latency": 2134.186, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0e200004400000000:1", "link_latency": 0.271, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:4_0001236891d070e0e400004400000000:1", "link_latency": 0.144, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 9.512937595129377e-06, "flow_table_status": 1}, {"link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0d600004400000000:1", "link_latency": 2.048, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0d400004400000000:1", "link_latency": 2.738, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00024600163964623200004400000000_00024600163964623200004400000000#2", "link_latency": -1.0, "link_utilization": null, "bandwidth_capacity_available": null, "link_loss_rate": null, "flow_table_status": null}, {"link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e000004400000000:1", "link_latency": 2.802, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e400004400000000:1", "link_latency": 6.876, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e200004400000000:1", "link_latency": 6.918, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:1_0001236891d06fd10f00004400000000:1", "link_latency": 16.498, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:4_0001236891d06fd10f00004400000000:1", "link_latency": 3.458, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10d00004400000000:1_0001236891d06fd10f00004400000000:1", "link_latency": 8.172, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0d800004400000000:1", "link_latency": 1.519, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e200004400000000:1", "link_latency": 3.581, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e000004400000000:1", "link_latency": 3.836, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10f00004400000000:2_00024600163030316300004400000000:1", "link_latency": 0.224, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.004977168949771689, "flow_table_status": 1}, {"link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e400004400000000:1", "link_latency": 3.781, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:1_0001236891d06fd10d00004400000000:1", "link_latency": 11.26, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:4_0001236891d06fd10d00004400000000:1", "link_latency": 2.384, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10d00004400000000:2_00024600163964623200004400000000:1", "link_latency": 0.178, "link_utilization": 0.0, "bandwidth_capacity_available": 1000.0, "link_loss_rate": 0.0001539448364336113, "flow_table_status": 1}, {"link_id": "00012400163635386700004400000000:1_0001236891d070e0de00004400000000:1", "link_latency": 41.346, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "00012400163764666600004400000000:4_0001236891d070e0de00004400000000:1", "link_latency": 3.809, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 9.512937595129377e-06, "flow_table_status": 1}, {"link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0de00004400000000:1", "link_latency": 9.38, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0de00004400000000:1", "link_latency": 1.771, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0de00004400000000:1", "link_latency": 104.993, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0de00004400000000:1", "link_latency": 8.293, "link_utilization": 0.0, "bandwidth_capacity_available": 60.0, "link_loss_rate": 0.0, "flow_table_status": 1}, {"link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0de00004400000000:1", "link_latency": 43.344, "link_utilization": null, "bandwidth_capacity_available": null, "link_loss_rate": null, "flow_table_status": null}, {"link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0d800004400000000:1", "link_latency": 3.467, "link_utilization": null, "bandwidth_capacity_available": null, "link_loss_rate": null, "flow_table_status": null}, {"link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0e000004400000000:1", "link_latency": 11.37, "link_utilization": null, "bandwidth_capacity_available": null, "link_loss_rate": null, "flow_table_status": null}, {"link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0e200004400000000:1", "link_latency": 10.411, "link_utilization": null, "bandwidth_capacity_available": null, "link_loss_rate": null, "flow_table_status": null}]}}
+{
+    "data": {
+      "link_metrics": [
+        {
+          "link_id": "00012400163734383900004400000000:0_2ddb40e6057aae20ae04f5c65d685d48:0",
+          "link_latency": -1,
+          "link_utilization": null,
+          "bandwidth_capacity_available": null,
+          "link_loss_rate": null,
+          "flow_table_status": null
+        },
+        {
+          "link_id": "00012500163030653a00004400000000:0_49cfd799e19ecc76df4eb8a8c69f9b74:0",
+          "link_latency": -1,
+          "link_utilization": null,
+          "bandwidth_capacity_available": null,
+          "link_loss_rate": null,
+          "flow_table_status": null
+        },
+        {
+          "link_id": "00024600163030316300004400000000_00024600163030316300004400000000#81",
+          "link_latency": -1,
+          "link_utilization": null,
+          "bandwidth_capacity_available": null,
+          "link_loss_rate": null,
+          "flow_table_status": null
+        },
+        {
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_latency": 6.008,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10f00004400000000:2_00024600163030316300004400000000:1",
+          "link_latency": 0.237,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 1000,
+          "link_loss_rate": 0.00011104256631708822,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e400004400000000:1",
+          "link_latency": 10.651,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_latency": 1.652,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_latency": 7.685,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_latency": 0.319,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0d400004400000000:1",
+          "link_latency": 7.595,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_latency": 2.756,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_latency": 2.447,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_latency": 14.372,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_latency": 20.371,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d400004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 11.2,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_latency": 3.218,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_latency": 12.269,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 18.629,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_latency": 4.159,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_latency": 13.514,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0de00004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 21.899,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0e000004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_latency": 0.169,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0e000004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 0.32,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d800004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 0.287,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:2_00012400163632633800004400000000:3",
+          "link_latency": 0,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 1000,
+          "link_loss_rate": 0.00999990618039575,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163632633800004400000000:2_00012500166530323400004400000000:1",
+          "link_latency": 0,
+          "link_utilization": 0.301,
+          "bandwidth_capacity_available": 699,
+          "link_loss_rate": 0.009999968123324482,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012500163431326600004400000000:0_5a7532dcedfd35bf4a87c06389da0cf7:0",
+          "link_latency": -1,
+          "link_utilization": null,
+          "bandwidth_capacity_available": null,
+          "link_loss_rate": null,
+          "flow_table_status": null
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0d400004400000000:1",
+          "link_latency": 11.525,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0d400004400000000:1",
+          "link_latency": 10.156,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0d600004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_latency": 2.739,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012500163431326600004400000000:5_00012400166636363500004400000000:1",
+          "link_latency": 0.094,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 1000,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400166636363500004400000000:2_00012400163734383900004400000000:3",
+          "link_latency": 0.07,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 1000,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012500163431326600004400000000:6_00012400163734383900004400000000:1",
+          "link_latency": 0.096,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 1000,
+          "link_loss_rate": 0.0005,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_latency": 4.837,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.004400802273107136,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d06fd10f00004400000000:1",
+          "link_latency": 5.321,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.0008896852602056715,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_latency": 6.786,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.004451894066376132,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_latency": 9.314,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.004417785234899329,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d400004400000000:1",
+          "link_latency": 18.401,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.004418721690991444,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e400004400000000:1",
+          "link_latency": 16.371,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.004434928631402183,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_latency": 3.825,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d06fd11100004400000000:1",
+          "link_latency": 1.731,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_latency": 7.69,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:2_00012400163632633800004400000000:3",
+          "link_latency": 0.126,
+          "link_utilization": 0.296,
+          "bandwidth_capacity_available": 704,
+          "link_loss_rate": 0.0005846994615624803,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_latency": 8.325,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0d400004400000000:1",
+          "link_latency": 6.676,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:6_00012400163734383900004400000000:2",
+          "link_latency": 0.116,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 1000,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0e400004400000000:1",
+          "link_latency": 9.497,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:2_00012400163764666600004400000000:2",
+          "link_latency": 0,
+          "link_utilization": 0.296,
+          "bandwidth_capacity_available": 704,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_latency": 11.298,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d06fd10f00004400000000:1",
+          "link_latency": 9.143,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d06fd10d00004400000000:1",
+          "link_latency": 8.796,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.00088618802318094,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:5_00012400163764666600004400000000:3",
+          "link_latency": 0.101,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 1000,
+          "link_loss_rate": 0.00017857142857142857,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 9.517,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:4_00012500163431326600004400000000:4",
+          "link_latency": 0.21,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 1000,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:2_00024600163964623200004400000000:1",
+          "link_latency": 0.232,
+          "link_utilization": 0.001,
+          "bandwidth_capacity_available": 999,
+          "link_loss_rate": 0.0000141559513979002,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00024600163964623200004400000000_00024600163964623200004400000000#2",
+          "link_latency": -1,
+          "link_utilization": null,
+          "bandwidth_capacity_available": null,
+          "link_loss_rate": null,
+          "flow_table_status": null
+        },
+        {
+          "link_id": "00024600163964623200004400000000#2_00024600163964623200004400000000#3",
+          "link_latency": -1,
+          "link_utilization": null,
+          "bandwidth_capacity_available": null,
+          "link_loss_rate": null,
+          "flow_table_status": null
+        },
+        {
+          "link_id": "00024600163964623200004400000000_00024600163964623200004400000000#3",
+          "link_latency": -1,
+          "link_utilization": null,
+          "bandwidth_capacity_available": null,
+          "link_loss_rate": null,
+          "flow_table_status": null
+        },
+        {
+          "link_id": "00012400163632633800004400000000:4_00012500163431326600004400000000:3",
+          "link_latency": 0.091,
+          "link_utilization": 0.238,
+          "bandwidth_capacity_available": 762,
+          "link_loss_rate": 0.0016159839652306702,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:1_00012400163764666600004400000000:4",
+          "link_latency": 5.634,
+          "link_utilization": 0.001,
+          "bandwidth_capacity_available": 999,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d06fd10f00004400000000:1",
+          "link_latency": 4.375,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0e400004400000000:1",
+          "link_latency": 0.115,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_latency": 2.528,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.004397731064397731,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 16.389,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.004449479691171534,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_latency": 9.064,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_latency": 7.559,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_latency": 5.066,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10f00004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 13.39,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_latency": 0.16,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163635386700004400000000:3_00012500163030653a00004400000000:3",
+          "link_latency": 0.119,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 1000,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163632633800004400000000:2_00012500163030653a00004400000000:2",
+          "link_latency": 0.098,
+          "link_utilization": 0.301,
+          "bandwidth_capacity_available": 699,
+          "link_loss_rate": 0.0007115722718933444,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012500163030653a00004400000000:2_00012500166530323400004400000000:1",
+          "link_latency": 0,
+          "link_utilization": 0.296,
+          "bandwidth_capacity_available": 704,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012500163030653a00004400000000:4_00012500163431326600004400000000:2",
+          "link_latency": 0.171,
+          "link_utilization": 0.302,
+          "bandwidth_capacity_available": 698,
+          "link_loss_rate": 0.0001063301577710475,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0d800004400000000:1",
+          "link_latency": 0.086,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0de00004400000000:1",
+          "link_latency": 1.809,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d06fd11100004400000000:1",
+          "link_latency": 4.719,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0d600004400000000:1",
+          "link_latency": 6.283,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d06fd10d00004400000000:1",
+          "link_latency": 7.637,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0.003374985928177418,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0e000004400000000:1",
+          "link_latency": 0.144,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "00012400163764666600004400000000:4_0001236891d070e0e200004400000000:1",
+          "link_latency": 0.147,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd10d00004400000000:1_0001236891d06fd11100004400000000:1",
+          "link_latency": 3.82,
+          "link_utilization": 0.016666666666666666,
+          "bandwidth_capacity_available": 59,
+          "link_loss_rate": 0.004483391754298114,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0d800004400000000:1",
+          "link_latency": 4.695,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0de00004400000000:1",
+          "link_latency": 6.134,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d06fd10f00004400000000:1",
+          "link_latency": 3.914,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0d600004400000000:1",
+          "link_latency": 8.933,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0e000004400000000:1",
+          "link_latency": 16.073,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0d400004400000000:1",
+          "link_latency": 17.479,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0e400004400000000:1",
+          "link_latency": 13.702,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d06fd11100004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 38.413,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        },
+        {
+          "link_id": "0001236891d070e0e400004400000000:1_0001236891d070e0e200004400000000:1",
+          "link_latency": 0.656,
+          "link_utilization": 0,
+          "bandwidth_capacity_available": 60,
+          "link_loss_rate": 0,
+          "flow_table_status": 1
+        }
+      ]
+    }
+  }

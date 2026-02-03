@@ -1,5 +1,5 @@
 dl_toolbox: "torch"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorlayer"
-project_name: "netenv_ddqn_reroute_II_class_state" # netenv_ddqn_resilience_v2 | netenv_ddqn_resilience_fail_v2
+project_name: "netenv_ddqn_reroute_II_class_neighbor" # netenv_ddqn_resilience_v2 | netenv_ddqn_resilience_fail_v2
 logger: "wandb"  # Choices: tensorboard, wandb.
 wandb_user_name: "wmqbit"
 render: False
@@ -22,6 +22,7 @@ policy: "Basic_Q_network"
 representation: "Basic_MLP"
 runner: "DRL"
 
+obs_type: "neighbor" # "state" | "neighbor"
 max_episode_steps: 64
 execute_reroute: False # 模型训练完后，封装时候开启，
 enable_failure: False
@@ -34,9 +35,7 @@ max_failure_tries: 30 # 最大重试次数
 utilization_threshold: 0.85 # 利用率阈值，超过此值链路不可用
 loss_rate_threshold: 0.1 # 丢包率阈值，超过此值链路不可用
 
-# representation_hidden_size: [128, 64]
-# q_hidden_size: [128, 64]
-representation_hidden_size: [1024, 256]
+representation_hidden_size: [128, 64]
 q_hidden_size: [128, 64, 32]
 activation: 'relu'
 
@@ -44,7 +43,7 @@ seed: 1
 parallels: 50
 buffer_size: 400000
 batch_size: 128
-learning_rate: 0.00001 # states模式下学习率范围 0.0005< lr <=0.001, 不加衰减了
+learning_rate: 0.0004 # states模式下学习率范围 0.0005< lr <=0.001, 不加衰减了
 gamma: 0.99
 n_epochs: 4
 
@@ -70,6 +69,6 @@ rewnorm_range: 5
 test_steps: 10000
 eval_interval: 50_000
 test_episode: 20
-log_dir: "../logs/latest_II_class_ddqn_iii/"
-model_dir: "../models/latest_II_class_ddqn_iii/"
+log_dir: "../logs/latest_II_class_ddqn_ii/"
+model_dir: "../models/latest_II_class_ddqn_ii/"
 graph_source: "latest_II_class" # "random_example" | "latest_II_class" | "II_class_history_random"

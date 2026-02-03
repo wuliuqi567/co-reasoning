@@ -1247,8 +1247,8 @@ def update_graph_with_latest_metric(base_graph:nx.Graph, NM_topo:Dict, link_metr
 
 if __name__ == "__main__":
     # 示例：解析 + 更新链路属性 + 可视化 + 保存GraphML
-    json_file = Path(__file__).parent.parent / "jsondata/topo.json"
-    link_metric_file = Path(__file__).parent.parent / "jsondata/link_metric.json"
+    json_file = Path(__file__).parent.parent / "jsondata/failure1node_topo.json"
+    link_metric_file = Path(__file__).parent.parent / "jsondata/failure_link_metric.json"
 
     if json_file.exists():
         # 1. 解析拓扑

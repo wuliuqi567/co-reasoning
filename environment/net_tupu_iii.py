@@ -495,7 +495,7 @@ class NetTupu(RawEnvironment):
         # 空间定义
         self.observation_space = self.obs_builder.get_observation_space()
         self.action_space = Discrete(n=self.max_degree)
-        self.max_episode_steps = int(getattr(env_config, "max_episode_steps", 64))
+        self.max_episode_steps = int(getattr(env_config, "max_episode_steps", 20))
         self._current_step = 0
 
     # =========================================================================
