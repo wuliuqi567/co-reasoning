@@ -13,11 +13,12 @@ DEFAULT_URL = "http://192.168.2.26:12590/api/flow/sflowtblCfg"
 
 
 def build_payload(nw_src: str, nw_dst: str, nextHop: str) -> dict:
+    flow_id = f"flow-{nw_src.replace('/', '_')}-{nw_dst.replace('/', '_')}-{nextHop}"
     return {
         "flowtable": [
             {
                 "op_cmd": "upsert",
-                "id": "flow-00012500166530323400004400000000-00012500166530323400004400000000:192.168.20.100:8554_00012500163431326600004400000000:192.168.40.100:8000-00012500163431326600004400000000",
+                "id": flow_id,
                 "idle_timeout": 30,
                 "hard_timeout": 3600,
                 "table_id": 0,
@@ -64,12 +65,17 @@ def _replace_url_ip(base_url: str, target_ip: str) -> str:
     netloc = f"{target_ip}:{port}" if port else target_ip
     return urlunsplit((parts.scheme, netloc, parts.path, parts.query, parts.fragment))
 
-def _send_payload(url: str, payload: dict, timeout: float, retries: int, verbose: bool) -> int:
+def _send_payload(url: str, payload: dict, timeout: float, retries: int, verbose: bool, dry_run: bool = False) -> int:
     headers = {"Content-Type": "application/json"}
 
     if verbose:
         print("[INFO] Payload JSON:")
         print(json.dumps(payload, ensure_ascii=False, indent=2))
+
+    if dry_run:
+        print(f"[DRY-RUN] POST {url}")
+        print("[DRY-RUN] 已跳过真实下发")
+        return 0
 
     last_exc = None
     for attempt in range(retries + 1):
@@ -108,16 +114,16 @@ def _send_payload(url: str, payload: dict, timeout: float, retries: int, verbose
     return 1
 
 
-def send(url: str, timeout: float, retries: int, verbose: bool) -> int:
+def send(url: str, timeout: float, retries: int, verbose: bool, dry_run: bool = False) -> int:
     payload = build_payload(
         nw_src="192.168.20.100/29",
         nw_dst="192.168.40.100/29",
         nextHop="192.168.22.2",
     )
-    return _send_payload(url, payload, timeout, retries, verbose)
+    return _send_payload(url, payload, timeout, retries, verbose, dry_run)
 
 
-def send_flow_table(flow_table: list, timeout: float, retries: int, verbose: bool) -> int:
+def send_flow_table(flow_table: list, timeout: float, retries: int, verbose: bool, dry_run: bool = False) -> int:
     if not flow_table:
         print("[ERR] flow_table 为空", file=sys.stderr)
         return 1
@@ -132,14 +138,32 @@ def send_flow_table(flow_table: list, timeout: float, retries: int, verbose: boo
     results = []
     for item in flow_table[1:]:
         target_ip = item.get("ip")
-        nextHop = item.get("next_node_ip")
-        if not target_ip or not nextHop:
+        next_hop_forward = item.get("next_node_ip")
+        next_hop_reverse = item.get("in_port_ip")
+        if not target_ip or not next_hop_forward:
             print(f"[WARN] 跳过缺失字段的项：{item}", file=sys.stderr)
             continue
 
         url = _replace_url_ip(DEFAULT_URL, target_ip)
-        payload = build_payload(nw_src=nw_src, nw_dst=nw_dst, nextHop=nextHop)
-        results.append(_send_payload(url, payload, timeout, retries, verbose))
+        # 正向流表：src -> dst
+        forward_payload = build_payload(
+            nw_src=nw_src,
+            nw_dst=nw_dst,
+            nextHop=next_hop_forward,
+        )
+        results.append(_send_payload(url, forward_payload, timeout, retries, verbose, dry_run))
+
+        # 反向流表：dst -> src
+        if not next_hop_reverse:
+            print(f"[WARN] 无法下发反向流表（缺少 in_port_ip）：{item}", file=sys.stderr)
+            continue
+
+        reverse_payload = build_payload(
+            nw_src=nw_dst,
+            nw_dst=nw_src,
+            nextHop=next_hop_reverse,
+        )
+        results.append(_send_payload(url, reverse_payload, timeout, retries, verbose, dry_run))
 
     for code in results:
         if code != 0:
@@ -275,5 +299,19 @@ def policy_compare(global_policy: dict, local_policy: dict):
 
 
 if __name__ == "__main__":
-    
-    send_flow_table(flow_table, timeout=10.0, retries=2, verbose=True)
+    # python post_table_flow.py --dry-run --verbose --retries 0 --timeout 1
+    # 
+    parser = argparse.ArgumentParser(description="双向流表下发工具")
+    parser.add_argument("--timeout", type=float, default=10.0, help="HTTP 超时时间（秒）")
+    parser.add_argument("--retries", type=int, default=2, help="请求重试次数")
+    parser.add_argument("--verbose", action="store_true", help="打印 payload 与响应详情")
+    parser.add_argument("--dry-run", action="store_true", help="仅打印将要下发的数据，不发送 HTTP 请求")
+    args = parser.parse_args()
+
+    send_flow_table(
+        flow_table,
+        timeout=args.timeout,
+        retries=args.retries,
+        verbose=args.verbose,
+        dry_run=args.dry_run,
+    )

@@ -57,7 +57,12 @@ if __name__ == "__main__":
         now = datetime.now()
         # %f provides 6 digits (microseconds). 
         # To get HH:MM:SS:ms:us, we slice the %f part.
-        return now.strftime("%H:%M:%S") + f":{now.microsecond // 1000:03d}:{now.microsecond % 1000:03d}"
+        return now.strftime("%H:%M:%S") #+ f":{now.microsecond // 1000:03d}:{now.microsecond % 1000:03d}"
+    
+    # def _get_time_str_hms() -> str:
+    #     """获取当前时间字符串 (时:分:秒)"""
+    #     now = datetime.now()
+    #     return now.strftime("%H:%M:%S")
 
     # ========== 定义10个阶段的内容描述 ==========
     content1 = "II类运行本地重路由模型"
@@ -132,28 +137,42 @@ if __name__ == "__main__":
     # 提取全局重路由结果
     print(f"paths: {reroute_result['paths'][0]}")
     print(f"shortest_paths: {reroute_result['shortest_paths'][0]}")
-    local_hop_num = len(reroute_result['paths'][0])
-    shortest_path_hop_num = len(reroute_result['shortest_paths'][0]) if reroute_result['shortest_paths'][0] else 0
+
+
+    # 输出路径节点信息
     print(f"path_ip_ports: {reroute_result['path_ip_ports'][0]}\n")
     print(f"shortest_path_ip_ports: {reroute_result['shortest_path_ip_ports'][0]}\n")
+
+    # 输出路径性能指标
     print(f"path_delay: {reroute_result['path_delay'][0]}")
     print(f"path_bandwidth: {reroute_result['path_bandwidth'][0]}")
     print(f"path_loss_rate: {reroute_result['path_loss_rate'][0]}")
+
     print(f"shortest_path_delay: {reroute_result['shortest_path_delay'][0]}")
     print(f"shortest_path_bandwidth: {reroute_result['shortest_path_bandwidth'][0]}")
     print(f"shortest_path_loss_rate: {reroute_result['shortest_path_loss_rate'][0]}")
 
-    # local_delay = reroute_result['path_delay'][0]  # 本地重路由时延（ms）
-    # local_bandwidth = reroute_result['path_bandwidth'][0]  # 本地重路由带宽（MHz）
-    # local_response_time = int((global_end_time - global_start_time) * 1000)  # 本地重路由响应时间（ms）
+    
+    # 路径跳数信息
+    hop_num = len(reroute_result['paths'][0])
+    shortest_path_hop_num = len(reroute_result['shortest_paths'][0]) if reroute_result['shortest_paths'][0] else 0
 
-    global_hop_num = shortest_path_hop_num  # 全局重路由跳数（最短路径）
-    global_delay = reroute_result['shortest_path_delay'][0]  # 全局重路由时延（ms）
-    global_bandwidth = reroute_result['shortest_path_bandwidth'][0]  # 全局重路由带宽（MHz）
-    global_response_time = int((global_end_time - global_start_time) * 1000)  # 全局重路由响应时间（ms）
-    global_policy = {"path":reroute_result['shortest_path_ip_ports'][0], "delay": global_delay, "bandwidth": global_bandwidth, "response_time": global_response_time}
+    # 最短路径版本
+    # global_hop_num = shortest_path_hop_num  # 全局重路由跳数（最短路径）
+    # global_delay = reroute_result['shortest_path_delay'][0]  # 全局重路由时延（ms）
+    # global_bandwidth = reroute_result['shortest_path_bandwidth'][0]  # 全局重路由带宽（MHz）
+    # global_response_time = int((global_end_time - global_start_time) * 1000)  # 全局重路由响应时间（ms）
+    # global_policy = {"path":reroute_result['shortest_path_ip_ports'][0], "delay": global_delay, "bandwidth": global_bandwidth, "response_time": global_response_time}
     # local_policy = {"path":reroute_result['path_ip_ports'][0], "delay": local_delay, "bandwidth": local_bandwidth, "response_time": local_response_time}
     
+    # rl模型版本
+    global_hop_num = hop_num  # 全局重路由跳数（最短路径）
+    global_delay = reroute_result['path_delay'][0]  # 全局重路由时延（ms）
+    global_bandwidth = reroute_result['path_bandwidth'][0]  # 全局重路由带宽（MHz）
+    global_response_time = int((global_end_time - global_start_time) * 1000)  # 全局重路由响应时间（ms）
+    global_policy = {"path":reroute_result['path_ip_ports'][0], "delay": global_delay, "bandwidth": global_bandwidth, "response_time": global_response_time}
+
+
     local_policy = get_II_info("co_reasoning_II_1_policy")
     print("local_policy", local_policy)
     final_policy = policy_compare(global_policy, local_policy)
@@ -170,7 +189,7 @@ if __name__ == "__main__":
     time9 = _get_time_str()
     # 下发全局重路由策略,并交由II类智能体执行
 
-    send_flow_table(post_table_flow, timeout=10.0, retries=2, verbose=True)
+    # send_flow_table(post_table_flow, timeout=10.0, retries=2, verbose=True)
 
     # ========== 阶段10: 协同推理结束 ==========
     time10 = _get_time_str()

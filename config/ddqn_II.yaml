@@ -43,7 +43,7 @@ seed: 1
 parallels: 50
 buffer_size: 400000
 batch_size: 128
-learning_rate: 0.0005 # states模式下学习率范围 0.0005< lr <=0.001, 不加衰减了
+learning_rate: 0.00008 # states模式下学习率范围 0.0005< lr <=0.001, 不加衰减了
 gamma: 0.99
 n_epochs: 4
 
