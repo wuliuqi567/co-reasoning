@@ -29,13 +29,13 @@ import pickle
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Optional, Tuple, List, Set, Dict, Any
-
+from kg_sdk import KGClient  # 知识库客户端，仅在部署模式下导入
 import numpy as np
 import networkx as nx
 from gymnasium.spaces import Box, Discrete
 
 from xuance.environment import RawEnvironment
-# from kg_sdk import KGClient
+
 import ast
 import json
 import ipaddress
@@ -436,7 +436,8 @@ class NetTupu(RawEnvironment):
         self.graph_data_dir = Path(os.path.dirname(__file__)) / "graph_data"
         self.base_online_graph = self._load_graph_by_source(self.graph_source)
 
-        if self.test_or_train:
+        if self.test_or_train and self.graph_source == "latest_II_class_base":
+            
             # 部署模式：加载 base 图（默认全离线），从 KG 更新得到当前运行状态（含故障标记）
             self.graph_source = getattr(env_config, "graph_source", "latest_II_class_base")
             self.graph_data_dir = Path(os.path.dirname(__file__)) / "graph_data"
@@ -453,6 +454,13 @@ class NetTupu(RawEnvironment):
             self.base_graph = self.latest_online_graph.copy()
             # 对比图：假设故障节点/边也在线的全图，用于对比（如故障前最短路径等）
             self.base_graph_all_online = self._graph_all_online(self.latest_online_graph)
+        elif self.graph_source == "latest_II_class":
+            # 测试模式：直接使用最新的II类图（可能有故障节点/边），不从KG更新，且不开启故障注入，用于测试环境和调试
+            self.base_online_graph, self.status_dead_edges, self.status_dead_nodes = self._apply_status_failures(self.base_online_graph)
+            self._sync_graph_attributes(self.base_online_graph)
+            self.base_graph = self.base_online_graph.copy()
+            self.base_graph_all_online = None  # 测试模式不需要全在线图
+
         else:
             # 训练模式：使用历史或最新图，不开启故障注入时仅做状态标记
             self.base_online_graph, self.status_dead_edges, self.status_dead_nodes = self._apply_status_failures(self.base_online_graph)

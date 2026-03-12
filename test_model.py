@@ -14,8 +14,8 @@ from xuance.environment import REGISTRY_ENV
 import logging
 from datetime import datetime
 
-from post_table_flow import send_flow_table, policy_compare
-from post_II_info import get_II_info
+# from post_table_flow import send_flow_table, policy_compare
+# from post_II_info import get_II_info
 
 def parse_args():
     parser = argparse.ArgumentParser("Double DQN for NetEnv.")
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     time5 = _get_time_str()
     # 查询网络状态知识（网络拓扑知识、节点资源知识等）
 
-    config_path = Path(__file__).resolve().parent / "config" / "ex_ddqn.yaml"
+    config_path = Path(__file__).resolve().parent / "config" / "ex_ddqn_test.yaml"
     if not config_path.exists():
         raise FileNotFoundError(f"配置文件不存在: {config_path}")
     parser = parse_args()
@@ -162,102 +162,103 @@ if __name__ == "__main__":
     global_policy = {"path":reroute_result['path_ip_ports'][0], "delay": global_delay, "bandwidth": global_bandwidth, "response_time": global_response_time}
 
     print("-------------------------------全局重路由策略---------------------------------\n")
+    print(f"global_paths: {reroute_result['paths'][0]}")
     print("global_policy", global_policy)
     print("\n")
 
-    local_policy = get_II_info("co_reasoning_II_1")
-    print("-------------------------------II policy---------------------------------\n")
-    print("local_policy", local_policy)
-    print("\n")
+    # local_policy = get_II_info("co_reasoning_II_1")
+    # print("-------------------------------II policy---------------------------------\n")
+    # print("local_policy", local_policy)
+    # print("\n")
 
-    final_policy = policy_compare(global_policy, local_policy)
-    if final_policy is None:
-        print("[WARN] policy_compare 返回 None，使用全局策略")
-        final_policy = global_policy
-    post_table_flow = final_policy.get('path', [])
-    # ========== 阶段8: 协同优化机制 ==========
-    time8 = _get_time_str()
+    # final_policy = policy_compare(global_policy, local_policy)
+    # if final_policy is None:
+    #     print("[WARN] policy_compare 返回 None，使用全局策略")
+    #     final_policy = global_policy
+    # post_table_flow = final_policy.get('path', [])
+    # # ========== 阶段8: 协同优化机制 ==========
+    # time8 = _get_time_str()
     
-    # 获取本地重路由策略并执行协同优化机制
+    # # 获取本地重路由策略并执行协同优化机制
 
-    # ========== 阶段9: 下发全局重路由策略 ==========
-    time9 = _get_time_str()
-    # 下发全局重路由策略,并交由II类智能体执行
+    # # ========== 阶段9: 下发全局重路由策略 ==========
+    # time9 = _get_time_str()
+    # # 下发全局重路由策略,并交由II类智能体执行
 
-    # send_flow_table(post_table_flow, timeout=10.0, retries=2, verbose=True)
+    # # send_flow_table(post_table_flow, timeout=10.0, retries=2, verbose=True)
 
-    # ========== 阶段10: 协同推理结束 ==========
-    time10 = _get_time_str()
-    # 协同推理结束
+    # # ========== 阶段10: 协同推理结束 ==========
+    # time10 = _get_time_str()
+    # # 协同推理结束
 
-    # ========== 构建性能指标结果 ==========
-    # result1: 时延（ms），[本地重路由, 全局重路由]
-    # result2: 跳数，[本地重路由, 全局重路由]
-    # result3: 可用带宽（MHz），[本地重路由, 全局重路由]
-    # result4: 响应时间（ms），[本地重路由, 全局重路由]
-    result1 = f"[{local_policy.get('delay', 'N/A')} {global_policy.get('delay', 'N/A')}"
-    local_path = local_policy.get('path', [])
-    global_path = global_policy.get('path', [])
-    result2 = f"{len(local_path) if isinstance(local_path, list) else '0'} {len(global_path) if isinstance(global_path, list) else '0'}"
-    result3 = f"{local_policy.get('bandwidth', '0')} {global_policy.get('bandwidth', '0')}"
-    result4 = f"{local_policy.get('response_time', '0')} {global_policy.get('response_time', '0')}]"
-    result = result1 + " " + result2 + " " + result3 + " " + result4
-    print(f"性能指标结果: {result}")
+    # # ========== 构建性能指标结果 ==========
+    # # result1: 时延（ms），[本地重路由, 全局重路由]
+    # # result2: 跳数，[本地重路由, 全局重路由]
+    # # result3: 可用带宽（MHz），[本地重路由, 全局重路由]
+    # # result4: 响应时间（ms），[本地重路由, 全局重路由]
+    # result1 = f"[{local_policy.get('delay', 'N/A')} {global_policy.get('delay', 'N/A')}"
+    # local_path = local_policy.get('path', [])
+    # global_path = global_policy.get('path', [])
+    # result2 = f"{len(local_path) if isinstance(local_path, list) else '0'} {len(global_path) if isinstance(global_path, list) else '0'}"
+    # result3 = f"{local_policy.get('bandwidth', '0')} {global_policy.get('bandwidth', '0')}"
+    # result4 = f"{local_policy.get('response_time', '0')} {global_policy.get('response_time', '0')}]"
+    # result = result1 + " " + result2 + " " + result3 + " " + result4
+    # print(f"性能指标结果: {result}")
 
-    status = "1"  # 协同推理状态：1=成功
-    cor_node = "II_node_2 III_node_1"  # 协同节点名称
+    # status = "1"  # 协同推理状态：1=成功
+    # cor_node = "II_node_2 III_node_1"  # 协同节点名称
 
 
-    # ========== 定义10个阶段的内容描述 ==========
-    content1 = "II类运行本地重路由模型"
-    content2 = "生成本地重路由策略，并下发给II类智能体执行"
-    content3 = "将本地重路由策略更新到本地知识单元，并通过上报给III类知识单元"
-    content4 = "III类检测到某II类节点/链路失效，III类触发协同推理功能"
-    content5 = "查询网络状态知识"
-    content6 = "运行全局重路由模型"
-    content7 = "推理生成全局重路由策略"
-    content8 = "获取本地重路由策略并执行协同优化机制"
-    content9 = "下发全局重路由策略,并交由II类智能体执行"
-    content10 = "协同推理结束"
+    # # ========== 定义10个阶段的内容描述 ==========
+    # content1 = "II类运行本地重路由模型"
+    # content2 = "生成本地重路由策略，并下发给II类智能体执行"
+    # content3 = "将本地重路由策略更新到本地知识单元，并通过上报给III类知识单元"
+    # content4 = "III类检测到某II类节点/链路失效，III类触发协同推理功能"
+    # content5 = "查询网络状态知识"
+    # content6 = "运行全局重路由模型"
+    # content7 = "推理生成全局重路由策略"
+    # content8 = "获取本地重路由策略并执行协同优化机制"
+    # content9 = "下发全局重路由策略,并交由II类智能体执行"
+    # content10 = "协同推理结束"
 
-    local_policy_log = local_policy["log_II_info"] if "log_II_info" in local_policy else "N/A"
-    if local_policy_log == "N/A":
-        print("[警告] local_policy 中缺少 'log_II_info' 字段，使用默认日志格式")
-        local_policy_log = (
-            f"time1={time1}, content1={content1}; "
-            f"time2={time2}, content2={content2}; "
-            f"time3={time3}, content3={content3}"
-        )
+    # local_policy_log = local_policy["log_II_info"] if "log_II_info" in local_policy else "N/A"
+    # if local_policy_log == "N/A":
+    #     print("[警告] local_policy 中缺少 'log_II_info' 字段，使用默认日志格式")
+    #     local_policy_log = (
+    #         f"time1={time1}, content1={content1}; "
+    #         f"time2={time2}, content2={content2}; "
+    #         f"time3={time3}, content3={content3}"
+    #     )
 
-    local_policy_log = str(local_policy_log).strip()
-    log_prefix = f"[collaborative_reasoning] {local_policy_log}"
+    # local_policy_log = str(local_policy_log).strip()
+    # log_prefix = f"[collaborative_reasoning] {local_policy_log}"
 
-    full_log = (
-        f"{log_prefix}; "
-        f"time4={time4}, content4={content4}; "
-        f"time5={time5}, content5={content5}; "
-        f"time6={time6}, content6={content6}; "
-        f"time7={time7}, content7={content7}; "
-        f"time8={time8}, content8={content8}; "
-        f"time9={time9}, content9={content9}; "
-        f"time10={time10}, content10={content10}; "
-        f"result={result}; status={status}; cor_node={cor_node}"
-    )
-
-    # ========== 输出协同推理日志 ==========
-    logging.info("%s", full_log)
-    # logging.info(
-    #     "[collaborative_reasoning] "
-    #     "time1=%s, content1=%s; time2=%s, content2=%s; time3=%s, content3=%s; "
-    #     "time4=%s, content4=%s; time5=%s, content5=%s; time6=%s, content6=%s; "
-    #     "time7=%s, content7=%s; time8=%s, content8=%s; time9=%s, content9=%s; "
-    #     "time10=%s, content10=%s; result=%s; "
-    #     "status=%s; cor_node=%s",
-    #     time1, content1, time2, content2, time3, content3,
-    #     time4, content4, time5, content5, time6, content6,
-    #     time7, content7, time8, content8, time9, content9,
-    #     time10, content10, result,
-    #     status, cor_node
+    # full_log = (
+    #     f"{log_prefix}; "
+    #     f"time4={time4}, content4={content4}; "
+    #     f"time5={time5}, content5={content5}; "
+    #     f"time6={time6}, content6={content6}; "
+    #     f"time7={time7}, content7={content7}; "
+    #     f"time8={time8}, content8={content8}; "
+    #     f"time9={time9}, content9={content9}; "
+    #     f"time10={time10}, content10={content10}; "
+    #     f"result={result}; status={status}; cor_node={cor_node}"
     # )
 
-    Agent.finish()
+    # # ========== 输出协同推理日志 ==========
+    # logging.info("%s", full_log)
+    # # logging.info(
+    # #     "[collaborative_reasoning] "
+    # #     "time1=%s, content1=%s; time2=%s, content2=%s; time3=%s, content3=%s; "
+    # #     "time4=%s, content4=%s; time5=%s, content5=%s; time6=%s, content6=%s; "
+    # #     "time7=%s, content7=%s; time8=%s, content8=%s; time9=%s, content9=%s; "
+    # #     "time10=%s, content10=%s; result=%s; "
+    # #     "status=%s; cor_node=%s",
+    # #     time1, content1, time2, content2, time3, content3,
+    # #     time4, content4, time5, content5, time6, content6,
+    # #     time7, content7, time8, content8, time9, content9,
+    # #     time10, content10, result,
+    # #     status, cor_node
+    # # )
+
+    # Agent.finish()
