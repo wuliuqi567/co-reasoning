@@ -22,6 +22,7 @@ policy: "Basic_Q_network"
 representation: "Basic_MLP"
 runner: "DRL"
 
+dynamic_topo_prob: 0.5  # 30% 概率加载不同时期的网络状态
 max_episode_steps: 64
 execute_reroute: False # 模型训练完后，封装时候开启，
 enable_failure: False

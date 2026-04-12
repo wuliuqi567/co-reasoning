@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # ========== 阶段6: 运行全局重路由模型 ==========
     time6 = _get_time_str()
     global_start_time = time.time()
-    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0311_205726")
+    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0312_213702")
 
     # ========== 阶段7: 推理生成全局重路由策略 ==========
     reroute_result = Agent.run_reroute(configs.test_episode, envs)

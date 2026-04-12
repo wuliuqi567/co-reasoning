@@ -29,7 +29,7 @@ import pickle
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Optional, Tuple, List, Set, Dict, Any
-from kg_sdk import KGClient  # 知识库客户端，仅在部署模式下导入
+# from kg_sdk import KGClient  # 知识库客户端，仅在部署模式下导入
 import numpy as np
 import networkx as nx
 from gymnasium.spaces import Box, Discrete
@@ -414,6 +414,13 @@ class NetTupu(RawEnvironment):
         self.failure_config = FailureConfig.from_env_config(env_config)
         self.reward_config = RewardConfig.from_env_config(env_config)
 
+        # 动态拓扑加载配置：训练时以一定概率从历史链路状态数据中加载不同时期的网络状态
+        self.dynamic_topo_prob = float(getattr(env_config, "dynamic_topo_prob", 0.0))
+        self._dynamic_topo_timestamps: List[str] = []  # 可用的时间戳列表
+        self._dynamic_topo_dir = Path(os.path.dirname(__file__)) / "jsondata" / "data_topo_link_info"
+        if self.dynamic_topo_prob > 0.0:
+            self._dynamic_topo_timestamps = self._scan_dynamic_topo_pairs()
+
         # 加载/生成拓扑
         # graph_source: "random_example" | "history" | "random" | 自定义路径
 
@@ -530,10 +537,9 @@ class NetTupu(RawEnvironment):
         else:
             self._sample_src_dst()
 
-        # 根据概率决定是否注入故障
-        if self.failure_config.enable_failure and self.failure_config.fail_step < 0:
-            if self.rng.random() < self.failure_config.failure_prob:
-                self._inject_failure()
+        # 按一定概率加载不同时期的网络链路状态，增加环境动态性，提升智能体泛化能力
+        if not self.test_or_train:
+            self._maybe_load_dynamic_topo()
 
         self.current_node = self.src
         self.path.append(self.current_node)
@@ -1070,6 +1076,112 @@ class NetTupu(RawEnvironment):
                 return True
         
         return False
+
+    # =========================================================================
+    # Dynamic Topology Loading (训练时动态加载不同时期的网络状态)
+    # =========================================================================
+
+    def _scan_dynamic_topo_pairs(self) -> List[str]:
+        """扫描 jsondata/data_topo_link_info/ 目录，找出所有成对的 link/topo 文件时间戳。
+
+        文件名格式:
+            link_II_class_HH:MM:SS:mmm:uuu.json
+            topo_II_class_HH:MM:SS:mmm:uuu.json
+
+        返回:
+            可用的时间戳列表（即同时存在 link 和 topo 文件的时间戳）
+        """
+        if not self._dynamic_topo_dir.exists():
+            print(f"Warning: dynamic topo directory not found: {self._dynamic_topo_dir}")
+            return []
+
+        import re
+        link_timestamps: Set[str] = set()
+        topo_timestamps: Set[str] = set()
+        pattern = re.compile(r'^(link|topo)_II_class_(.+)\.json$')
+
+        for f in self._dynamic_topo_dir.iterdir():
+            if not f.is_file():
+                continue
+            m = pattern.match(f.name)
+            if m:
+                prefix, ts = m.group(1), m.group(2)
+                if prefix == "link":
+                    link_timestamps.add(ts)
+                else:
+                    topo_timestamps.add(ts)
+
+        # 只保留同时存在 link 和 topo 文件的时间戳
+        valid = sorted(link_timestamps & topo_timestamps)
+        print(f"Dynamic topo: found {len(valid)} valid topo/link pairs in {self._dynamic_topo_dir}")
+        return valid
+
+    def _maybe_load_dynamic_topo(self):
+        """按 dynamic_topo_prob 概率从历史链路状态数据中加载新的网络状态。
+
+        流程:
+            1. 以 dynamic_topo_prob 概率触发（0 表示不触发）
+            2. 从已缓存的时间戳列表中随机选择一个
+            3. 读取对应的 topo + link JSON 文件
+            4. 用 update_graph_with_latest_metric 更新 base_online_graph 副本的属性
+            5. 重新应用故障标记、同步图属性、更新 base_graph 和 active_graph
+
+        注意:
+            - 不改变图的拓扑结构（节点/边集合不变），只更新属性
+            - 观测/动作空间维度不变（num_nodes, max_degree 由拓扑结构决定）
+            - 仅在训练模式下调用（test_or_train=False）
+        """
+        if self.dynamic_topo_prob <= 0.0 or not self._dynamic_topo_timestamps:
+            return
+
+        if self.rng.random() >= self.dynamic_topo_prob:
+            return
+
+        # 随机选择一个时间戳
+        ts = self._dynamic_topo_timestamps[int(self.rng.integers(0, len(self._dynamic_topo_timestamps)))]
+        link_file = self._dynamic_topo_dir / f"link_II_class_{ts}.json"
+        topo_file = self._dynamic_topo_dir / f"topo_II_class_{ts}.json"
+
+        try:
+            with open(topo_file, "r", encoding="utf-8") as f:
+                topo_data = json.load(f)
+            with open(link_file, "r", encoding="utf-8") as f:
+                link_data = json.load(f)
+        except Exception as e:
+            print(f"Warning: failed to load dynamic topo files for ts={ts}: {e}")
+            return
+
+        # 包装为 update_graph_with_latest_metric 所需的格式:
+        # NM_topo = [{"preset_value": json_string}], link_metric = [{"preset_value": json_string}]
+        NM_topo = [{"preset_value": json.dumps(topo_data)}]
+        link_metric = [{"preset_value": json.dumps(link_data)}]
+
+        # 从 base_online_graph 重新生成一份图，应用新的网络状态
+        updated_graph = self.base_online_graph.copy()
+        try:
+            updated_graph = update_graph_with_latest_metric(updated_graph, NM_topo, link_metric)
+        except Exception as e:
+            print(f"Warning: failed to update graph with dynamic topo ts={ts}: {e}")
+            return
+
+        # 重新应用故障标记
+        updated_graph, self.status_dead_edges, self.status_dead_nodes = self._apply_status_failures(updated_graph)
+        # 同步延迟/带宽范围（不改变 num_nodes / max_degree）
+        self._sync_delay_bandwidth_range(updated_graph)
+        # 更新观测构建器的归一化范围
+        self.obs_builder.delay_range = self.delay_range
+        self.obs_builder.bandwidth_range = self.bandwidth_range
+
+        self.base_graph = updated_graph.copy()
+        self.active_graph = self.base_graph.copy()
+
+    def _sync_delay_bandwidth_range(self, graph: nx.Graph):
+        """仅更新延迟/带宽范围，不改变 num_nodes / max_degree（保持空间维度不变）。"""
+        online_edges = [(u, v, data) for u, v, data in graph.edges(data=True) if not _is_failed_status(data.get("link_status"))]
+        delays = [_get_edge_latency(data) for _, _, data in online_edges]
+        bandwidths = [_get_edge_bandwidth(data) for _, _, data in online_edges]
+        self.delay_range = (min(delays) if delays else 0.0, max(delays) if delays else 0.0)
+        self.bandwidth_range = (min(bandwidths) if bandwidths else 0.0, max(bandwidths) if bandwidths else 0.0)
 
     # =========================================================================
     # Graph Helpers
