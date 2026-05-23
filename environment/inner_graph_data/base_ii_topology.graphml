@@ -1,0 +1,1637 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d33" for="edge" attr.name="dst_port_ip" attr.type="string" />
+  <key id="d32" for="edge" attr.name="src_port_ip" attr.type="string" />
+  <key id="d31" for="edge" attr.name="dst_port" attr.type="string" />
+  <key id="d30" for="edge" attr.name="dst_node" attr.type="string" />
+  <key id="d29" for="edge" attr.name="src_port" attr.type="string" />
+  <key id="d28" for="edge" attr.name="src_node" attr.type="string" />
+  <key id="d27" for="edge" attr.name="link_latency" attr.type="double" />
+  <key id="d26" for="edge" attr.name="link_bandwidth" attr.type="double" />
+  <key id="d25" for="edge" attr.name="link_status" attr.type="long" />
+  <key id="d24" for="edge" attr.name="link_id" attr.type="string" />
+  <key id="d23" for="edge" attr.name="idx" attr.type="long" />
+  <key id="d22" for="node" attr.name="port_info" attr.type="string" />
+  <key id="d21" for="node" attr.name="port_ips" attr.type="string" />
+  <key id="d20" for="node" attr.name="port_ids" attr.type="string" />
+  <key id="d19" for="node" attr.name="port_count" attr.type="long" />
+  <key id="d18" for="node" attr.name="node_ports" attr.type="string" />
+  <key id="d17" for="node" attr.name="node_manage_ip_addr" attr.type="string" />
+  <key id="d16" for="node" attr.name="latitude" attr.type="double" />
+  <key id="d15" for="node" attr.name="longitude" attr.type="double" />
+  <key id="d14" for="node" attr.name="node_location" attr.type="string" />
+  <key id="d13" for="node" attr.name="node_status" attr.type="long" />
+  <key id="d12" for="node" attr.name="node_type_name" attr.type="string" />
+  <key id="d11" for="node" attr.name="node_type" attr.type="long" />
+  <key id="d10" for="node" attr.name="node_id" attr.type="string" />
+  <key id="d9" for="node" attr.name="idx" attr.type="long" />
+  <key id="d8" for="graph" attr.name="status_semantics" attr.type="string" />
+  <key id="d7" for="graph" attr.name="is_base_graph" attr.type="boolean" />
+  <key id="d6" for="graph" attr.name="skipped_link_count" attr.type="long" />
+  <key id="d5" for="graph" attr.name="raw_link_count" attr.type="long" />
+  <key id="d4" for="graph" attr.name="raw_node_count" attr.type="long" />
+  <key id="d3" for="graph" attr.name="api_msg" attr.type="string" />
+  <key id="d2" for="graph" attr.name="api_code" attr.type="long" />
+  <key id="d1" for="graph" attr.name="summary" attr.type="string" />
+  <key id="d0" for="graph" attr.name="source" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="bsu0n0">
+      <data key="d9">12</data>
+      <data key="d10">bsu0n0</data>
+      <data key="d11">5</data>
+      <data key="d12">II类骨干</data>
+      <data key="d13">0</data>
+      <data key="d14">113.05923647,28.66398337</data>
+      <data key="d15">113.05923647</data>
+      <data key="d16">28.66398337</data>
+      <data key="d17">10.105.0.254</data>
+      <data key="d18">[{"port_id": "bsu0n0:1", "status": 0, "nid": 50101012, "teid": 50101030, "ip_address": "172.25.0.1", "mac_address": "02:05:00:00:01:01"}, {"port_id": "bsu0n0:2", "status": 0, "nid": 50101013, "teid": 50101031, "ip_address": "172.25.0.2", "mac_address": "02:05:00:00:02:01"}, {"port_id": "bsu0n0:3", "status": 0, "nid": 50101014, "teid": 50101032, "ip_address": "172.25.0.3", "mac_address": "02:05:00:00:03:01"}, {"port_id": "bsu0n0:4", "status": 0, "nid": 50101015, "teid": 50101033, "ip_address": "172.25.0.4", "mac_address": "02:05:00:00:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["bsu0n0:1", "bsu0n0:2", "bsu0n0:3", "bsu0n0:4"]</data>
+      <data key="d21">["172.25.0.1", "172.25.0.2", "172.25.0.3", "172.25.0.4"]</data>
+      <data key="d22">{"bsu0n0:1": {"port_id": "bsu0n0:1", "status": 0, "nid": 50101012, "teid": 50101030, "ip_address": "172.25.0.1", "mac_address": "02:05:00:00:01:01"}, "bsu0n0:2": {"port_id": "bsu0n0:2", "status": 0, "nid": 50101013, "teid": 50101031, "ip_address": "172.25.0.2", "mac_address": "02:05:00:00:02:01"}, "bsu0n0:3": {"port_id": "bsu0n0:3", "status": 0, "nid": 50101014, "teid": 50101032, "ip_address": "172.25.0.3", "mac_address": "02:05:00:00:03:01"}, "bsu0n0:4": {"port_id": "bsu0n0:4", "status": 0, "nid": 50101015, "teid": 50101033, "ip_address": "172.25.0.4", "mac_address": "02:05:00:00:04:01"}}</data>
+    </node>
+    <node id="bsu0n1">
+      <data key="d9">13</data>
+      <data key="d10">bsu0n1</data>
+      <data key="d11">5</data>
+      <data key="d12">II类骨干</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06060464,28.66343282</data>
+      <data key="d15">113.06060464</data>
+      <data key="d16">28.66343282</data>
+      <data key="d17">10.105.1.254</data>
+      <data key="d18">[{"port_id": "bsu0n1:1", "status": 0, "nid": 50102012, "teid": 50102030, "ip_address": "172.25.1.1", "mac_address": "02:05:00:01:01:01"}, {"port_id": "bsu0n1:2", "status": 0, "nid": 50102013, "teid": 50102031, "ip_address": "172.25.1.2", "mac_address": "02:05:00:01:02:01"}, {"port_id": "bsu0n1:3", "status": 0, "nid": 50102014, "teid": 50102032, "ip_address": "172.25.1.3", "mac_address": "02:05:00:01:03:01"}, {"port_id": "bsu0n1:4", "status": 0, "nid": 50102015, "teid": 50102033, "ip_address": "172.25.1.4", "mac_address": "02:05:00:01:04:01"}, {"port_id": "bsu0n1:5", "status": 0, "nid": 50102016, "teid": 50102034, "ip_address": "172.25.1.5", "mac_address": "02:05:00:01:05:01"}, {"port_id": "bsu0n1:6", "status": 0, "nid": 50102017, "teid": 50102035, "ip_address": "172.25.1.6", "mac_address": "02:05:00:01:06:01"}]</data>
+      <data key="d19">6</data>
+      <data key="d20">["bsu0n1:1", "bsu0n1:2", "bsu0n1:3", "bsu0n1:4", "bsu0n1:5", "bsu0n1:6"]</data>
+      <data key="d21">["172.25.1.1", "172.25.1.2", "172.25.1.3", "172.25.1.4", "172.25.1.5", "172.25.1.6"]</data>
+      <data key="d22">{"bsu0n1:1": {"port_id": "bsu0n1:1", "status": 0, "nid": 50102012, "teid": 50102030, "ip_address": "172.25.1.1", "mac_address": "02:05:00:01:01:01"}, "bsu0n1:2": {"port_id": "bsu0n1:2", "status": 0, "nid": 50102013, "teid": 50102031, "ip_address": "172.25.1.2", "mac_address": "02:05:00:01:02:01"}, "bsu0n1:3": {"port_id": "bsu0n1:3", "status": 0, "nid": 50102014, "teid": 50102032, "ip_address": "172.25.1.3", "mac_address": "02:05:00:01:03:01"}, "bsu0n1:4": {"port_id": "bsu0n1:4", "status": 0, "nid": 50102015, "teid": 50102033, "ip_address": "172.25.1.4", "mac_address": "02:05:00:01:04:01"}, "bsu0n1:5": {"port_id": "bsu0n1:5", "status": 0, "nid": 50102016, "teid": 50102034, "ip_address": "172.25.1.5", "mac_address": "02:05:00:01:05:01"}, "bsu0n1:6": {"port_id": "bsu0n1:6", "status": 0, "nid": 50102017, "teid": 50102035, "ip_address": "172.25.1.6", "mac_address": "02:05:00:01:06:01"}}</data>
+    </node>
+    <node id="bsu0n2">
+      <data key="d9">14</data>
+      <data key="d10">bsu0n2</data>
+      <data key="d11">5</data>
+      <data key="d12">II类骨干</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06067589,28.66503079</data>
+      <data key="d15">113.06067589</data>
+      <data key="d16">28.66503079</data>
+      <data key="d17">10.105.2.254</data>
+      <data key="d18">[{"port_id": "bsu0n2:1", "status": 0, "nid": 50103012, "teid": 50103030, "ip_address": "172.25.2.1", "mac_address": "02:05:00:02:01:01"}, {"port_id": "bsu0n2:2", "status": 0, "nid": 50103013, "teid": 50103031, "ip_address": "172.25.2.2", "mac_address": "02:05:00:02:02:01"}, {"port_id": "bsu0n2:3", "status": 0, "nid": 50103014, "teid": 50103032, "ip_address": "172.25.2.3", "mac_address": "02:05:00:02:03:01"}, {"port_id": "bsu0n2:4", "status": 0, "nid": 50103015, "teid": 50103033, "ip_address": "172.25.2.4", "mac_address": "02:05:00:02:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["bsu0n2:1", "bsu0n2:2", "bsu0n2:3", "bsu0n2:4"]</data>
+      <data key="d21">["172.25.2.1", "172.25.2.2", "172.25.2.3", "172.25.2.4"]</data>
+      <data key="d22">{"bsu0n2:1": {"port_id": "bsu0n2:1", "status": 0, "nid": 50103012, "teid": 50103030, "ip_address": "172.25.2.1", "mac_address": "02:05:00:02:01:01"}, "bsu0n2:2": {"port_id": "bsu0n2:2", "status": 0, "nid": 50103013, "teid": 50103031, "ip_address": "172.25.2.2", "mac_address": "02:05:00:02:02:01"}, "bsu0n2:3": {"port_id": "bsu0n2:3", "status": 0, "nid": 50103014, "teid": 50103032, "ip_address": "172.25.2.3", "mac_address": "02:05:00:02:03:01"}, "bsu0n2:4": {"port_id": "bsu0n2:4", "status": 0, "nid": 50103015, "teid": 50103033, "ip_address": "172.25.2.4", "mac_address": "02:05:00:02:04:01"}}</data>
+    </node>
+    <node id="asu0n0">
+      <data key="d9">15</data>
+      <data key="d10">asu0n0</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06112810,28.66458576</data>
+      <data key="d15">113.0611281</data>
+      <data key="d16">28.66458576</data>
+      <data key="d17">10.104.0.254</data>
+      <data key="d18">[{"port_id": "asu0n0:1", "status": 0, "nid": 40101012, "teid": 40101030, "ip_address": "172.24.0.1", "mac_address": "02:04:00:00:01:01"}, {"port_id": "asu0n0:2", "status": 0, "nid": 40101013, "teid": 40101031, "ip_address": "172.24.0.2", "mac_address": "02:04:00:00:02:01"}, {"port_id": "asu0n0:3", "status": 0, "nid": 40101014, "teid": 40101032, "ip_address": "172.24.0.3", "mac_address": "02:04:00:00:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["asu0n0:1", "asu0n0:2", "asu0n0:3"]</data>
+      <data key="d21">["172.24.0.1", "172.24.0.2", "172.24.0.3"]</data>
+      <data key="d22">{"asu0n0:1": {"port_id": "asu0n0:1", "status": 0, "nid": 40101012, "teid": 40101030, "ip_address": "172.24.0.1", "mac_address": "02:04:00:00:01:01"}, "asu0n0:2": {"port_id": "asu0n0:2", "status": 0, "nid": 40101013, "teid": 40101031, "ip_address": "172.24.0.2", "mac_address": "02:04:00:00:02:01"}, "asu0n0:3": {"port_id": "asu0n0:3", "status": 0, "nid": 40101014, "teid": 40101032, "ip_address": "172.24.0.3", "mac_address": "02:04:00:00:03:01"}}</data>
+    </node>
+    <node id="asu0n1">
+      <data key="d9">16</data>
+      <data key="d10">asu0n1</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.05939496,28.66369074</data>
+      <data key="d15">113.05939496</data>
+      <data key="d16">28.66369074</data>
+      <data key="d17">10.104.1.254</data>
+      <data key="d18">[{"port_id": "asu0n1:1", "status": 0, "nid": 40102012, "teid": 40102030, "ip_address": "172.24.1.1", "mac_address": "02:04:00:01:01:01"}, {"port_id": "asu0n1:2", "status": 0, "nid": 40102013, "teid": 40102031, "ip_address": "172.24.1.2", "mac_address": "02:04:00:01:02:01"}, {"port_id": "asu0n1:3", "status": 0, "nid": 40102014, "teid": 40102032, "ip_address": "172.24.1.3", "mac_address": "02:04:00:01:03:01"}, {"port_id": "asu0n1:4", "status": 0, "nid": 40102015, "teid": 40102033, "ip_address": "172.24.1.4", "mac_address": "02:04:00:01:04:01"}, {"port_id": "asu0n1:5", "status": 0, "nid": 40102016, "teid": 40102034, "ip_address": "172.24.1.5", "mac_address": "02:04:00:01:05:01"}]</data>
+      <data key="d19">5</data>
+      <data key="d20">["asu0n1:1", "asu0n1:2", "asu0n1:3", "asu0n1:4", "asu0n1:5"]</data>
+      <data key="d21">["172.24.1.1", "172.24.1.2", "172.24.1.3", "172.24.1.4", "172.24.1.5"]</data>
+      <data key="d22">{"asu0n1:1": {"port_id": "asu0n1:1", "status": 0, "nid": 40102012, "teid": 40102030, "ip_address": "172.24.1.1", "mac_address": "02:04:00:01:01:01"}, "asu0n1:2": {"port_id": "asu0n1:2", "status": 0, "nid": 40102013, "teid": 40102031, "ip_address": "172.24.1.2", "mac_address": "02:04:00:01:02:01"}, "asu0n1:3": {"port_id": "asu0n1:3", "status": 0, "nid": 40102014, "teid": 40102032, "ip_address": "172.24.1.3", "mac_address": "02:04:00:01:03:01"}, "asu0n1:4": {"port_id": "asu0n1:4", "status": 0, "nid": 40102015, "teid": 40102033, "ip_address": "172.24.1.4", "mac_address": "02:04:00:01:04:01"}, "asu0n1:5": {"port_id": "asu0n1:5", "status": 0, "nid": 40102016, "teid": 40102034, "ip_address": "172.24.1.5", "mac_address": "02:04:00:01:05:01"}}</data>
+    </node>
+    <node id="asu0n2">
+      <data key="d9">17</data>
+      <data key="d10">asu0n2</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06102881,28.66416810</data>
+      <data key="d15">113.06102881</data>
+      <data key="d16">28.6641681</data>
+      <data key="d17">10.104.2.254</data>
+      <data key="d18">[{"port_id": "asu0n2:1", "status": 0, "nid": 40103012, "teid": 40103030, "ip_address": "172.24.2.1", "mac_address": "02:04:00:02:01:01"}, {"port_id": "asu0n2:2", "status": 0, "nid": 40103013, "teid": 40103031, "ip_address": "172.24.2.2", "mac_address": "02:04:00:02:02:01"}, {"port_id": "asu0n2:3", "status": 0, "nid": 40103014, "teid": 40103032, "ip_address": "172.24.2.3", "mac_address": "02:04:00:02:03:01"}, {"port_id": "asu0n2:4", "status": 0, "nid": 40103015, "teid": 40103033, "ip_address": "172.24.2.4", "mac_address": "02:04:00:02:04:01"}, {"port_id": "asu0n2:5", "status": 0, "nid": 40103016, "teid": 40103034, "ip_address": "172.24.2.5", "mac_address": "02:04:00:02:05:01"}]</data>
+      <data key="d19">5</data>
+      <data key="d20">["asu0n2:1", "asu0n2:2", "asu0n2:3", "asu0n2:4", "asu0n2:5"]</data>
+      <data key="d21">["172.24.2.1", "172.24.2.2", "172.24.2.3", "172.24.2.4", "172.24.2.5"]</data>
+      <data key="d22">{"asu0n2:1": {"port_id": "asu0n2:1", "status": 0, "nid": 40103012, "teid": 40103030, "ip_address": "172.24.2.1", "mac_address": "02:04:00:02:01:01"}, "asu0n2:2": {"port_id": "asu0n2:2", "status": 0, "nid": 40103013, "teid": 40103031, "ip_address": "172.24.2.2", "mac_address": "02:04:00:02:02:01"}, "asu0n2:3": {"port_id": "asu0n2:3", "status": 0, "nid": 40103014, "teid": 40103032, "ip_address": "172.24.2.3", "mac_address": "02:04:00:02:03:01"}, "asu0n2:4": {"port_id": "asu0n2:4", "status": 0, "nid": 40103015, "teid": 40103033, "ip_address": "172.24.2.4", "mac_address": "02:04:00:02:04:01"}, "asu0n2:5": {"port_id": "asu0n2:5", "status": 0, "nid": 40103016, "teid": 40103034, "ip_address": "172.24.2.5", "mac_address": "02:04:00:02:05:01"}}</data>
+    </node>
+    <node id="asu0n3">
+      <data key="d9">18</data>
+      <data key="d10">asu0n3</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.05830105,28.66561750</data>
+      <data key="d15">113.05830105</data>
+      <data key="d16">28.6656175</data>
+      <data key="d17">10.104.3.254</data>
+      <data key="d18">[{"port_id": "asu0n3:1", "status": 0, "nid": 40104012, "teid": 40104030, "ip_address": "172.24.3.1", "mac_address": "02:04:00:03:01:01"}, {"port_id": "asu0n3:2", "status": 0, "nid": 40104013, "teid": 40104031, "ip_address": "172.24.3.2", "mac_address": "02:04:00:03:02:01"}, {"port_id": "asu0n3:3", "status": 0, "nid": 40104014, "teid": 40104032, "ip_address": "172.24.3.3", "mac_address": "02:04:00:03:03:01"}, {"port_id": "asu0n3:4", "status": 0, "nid": 40104015, "teid": 40104033, "ip_address": "172.24.3.4", "mac_address": "02:04:00:03:04:01"}, {"port_id": "asu0n3:5", "status": 0, "nid": 40104016, "teid": 40104034, "ip_address": "172.24.3.5", "mac_address": "02:04:00:03:05:01"}]</data>
+      <data key="d19">5</data>
+      <data key="d20">["asu0n3:1", "asu0n3:2", "asu0n3:3", "asu0n3:4", "asu0n3:5"]</data>
+      <data key="d21">["172.24.3.1", "172.24.3.2", "172.24.3.3", "172.24.3.4", "172.24.3.5"]</data>
+      <data key="d22">{"asu0n3:1": {"port_id": "asu0n3:1", "status": 0, "nid": 40104012, "teid": 40104030, "ip_address": "172.24.3.1", "mac_address": "02:04:00:03:01:01"}, "asu0n3:2": {"port_id": "asu0n3:2", "status": 0, "nid": 40104013, "teid": 40104031, "ip_address": "172.24.3.2", "mac_address": "02:04:00:03:02:01"}, "asu0n3:3": {"port_id": "asu0n3:3", "status": 0, "nid": 40104014, "teid": 40104032, "ip_address": "172.24.3.3", "mac_address": "02:04:00:03:03:01"}, "asu0n3:4": {"port_id": "asu0n3:4", "status": 0, "nid": 40104015, "teid": 40104033, "ip_address": "172.24.3.4", "mac_address": "02:04:00:03:04:01"}, "asu0n3:5": {"port_id": "asu0n3:5", "status": 0, "nid": 40104016, "teid": 40104034, "ip_address": "172.24.3.5", "mac_address": "02:04:00:03:05:01"}}</data>
+    </node>
+    <node id="asu0n4">
+      <data key="d9">19</data>
+      <data key="d10">asu0n4</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06175033,28.66601763</data>
+      <data key="d15">113.06175033</data>
+      <data key="d16">28.66601763</data>
+      <data key="d17">10.104.4.254</data>
+      <data key="d18">[{"port_id": "asu0n4:1", "status": 0, "nid": 40105012, "teid": 40105030, "ip_address": "172.24.4.1", "mac_address": "02:04:00:04:01:01"}, {"port_id": "asu0n4:2", "status": 0, "nid": 40105013, "teid": 40105031, "ip_address": "172.24.4.2", "mac_address": "02:04:00:04:02:01"}, {"port_id": "asu0n4:3", "status": 0, "nid": 40105014, "teid": 40105032, "ip_address": "172.24.4.3", "mac_address": "02:04:00:04:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["asu0n4:1", "asu0n4:2", "asu0n4:3"]</data>
+      <data key="d21">["172.24.4.1", "172.24.4.2", "172.24.4.3"]</data>
+      <data key="d22">{"asu0n4:1": {"port_id": "asu0n4:1", "status": 0, "nid": 40105012, "teid": 40105030, "ip_address": "172.24.4.1", "mac_address": "02:04:00:04:01:01"}, "asu0n4:2": {"port_id": "asu0n4:2", "status": 0, "nid": 40105013, "teid": 40105031, "ip_address": "172.24.4.2", "mac_address": "02:04:00:04:02:01"}, "asu0n4:3": {"port_id": "asu0n4:3", "status": 0, "nid": 40105014, "teid": 40105032, "ip_address": "172.24.4.3", "mac_address": "02:04:00:04:03:01"}}</data>
+    </node>
+    <node id="eru0n0">
+      <data key="d9">20</data>
+      <data key="d10">eru0n0</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.05988499,28.66376463</data>
+      <data key="d15">113.05988499</data>
+      <data key="d16">28.66376463</data>
+      <data key="d17">10.103.0.254</data>
+      <data key="d18">[{"port_id": "eru0n0:1", "status": 0, "nid": 30101012, "teid": 30101030, "ip_address": "172.23.0.1", "mac_address": "02:03:00:00:01:01"}, {"port_id": "eru0n0:2", "status": 0, "nid": 30101013, "teid": 30101031, "ip_address": "172.23.0.2", "mac_address": "02:03:00:00:02:01"}, {"port_id": "eru0n0:3", "status": 0, "nid": 30101014, "teid": 30101032, "ip_address": "172.23.0.3", "mac_address": "02:03:00:00:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["eru0n0:1", "eru0n0:2", "eru0n0:3"]</data>
+      <data key="d21">["172.23.0.1", "172.23.0.2", "172.23.0.3"]</data>
+      <data key="d22">{"eru0n0:1": {"port_id": "eru0n0:1", "status": 0, "nid": 30101012, "teid": 30101030, "ip_address": "172.23.0.1", "mac_address": "02:03:00:00:01:01"}, "eru0n0:2": {"port_id": "eru0n0:2", "status": 0, "nid": 30101013, "teid": 30101031, "ip_address": "172.23.0.2", "mac_address": "02:03:00:00:02:01"}, "eru0n0:3": {"port_id": "eru0n0:3", "status": 0, "nid": 30101014, "teid": 30101032, "ip_address": "172.23.0.3", "mac_address": "02:03:00:00:03:01"}}</data>
+    </node>
+    <node id="eru0n1">
+      <data key="d9">21</data>
+      <data key="d10">eru0n1</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06031466,28.66451991</data>
+      <data key="d15">113.06031466</data>
+      <data key="d16">28.66451991</data>
+      <data key="d17">10.103.1.254</data>
+      <data key="d18">[{"port_id": "eru0n1:1", "status": 0, "nid": 30102012, "teid": 30102030, "ip_address": "172.23.1.1", "mac_address": "02:03:00:01:01:01"}, {"port_id": "eru0n1:2", "status": 0, "nid": 30102013, "teid": 30102031, "ip_address": "172.23.1.2", "mac_address": "02:03:00:01:02:01"}, {"port_id": "eru0n1:3", "status": 0, "nid": 30102014, "teid": 30102032, "ip_address": "172.23.1.3", "mac_address": "02:03:00:01:03:01"}, {"port_id": "eru0n1:4", "status": 0, "nid": 30102015, "teid": 30102033, "ip_address": "172.23.1.4", "mac_address": "02:03:00:01:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["eru0n1:1", "eru0n1:2", "eru0n1:3", "eru0n1:4"]</data>
+      <data key="d21">["172.23.1.1", "172.23.1.2", "172.23.1.3", "172.23.1.4"]</data>
+      <data key="d22">{"eru0n1:1": {"port_id": "eru0n1:1", "status": 0, "nid": 30102012, "teid": 30102030, "ip_address": "172.23.1.1", "mac_address": "02:03:00:01:01:01"}, "eru0n1:2": {"port_id": "eru0n1:2", "status": 0, "nid": 30102013, "teid": 30102031, "ip_address": "172.23.1.2", "mac_address": "02:03:00:01:02:01"}, "eru0n1:3": {"port_id": "eru0n1:3", "status": 0, "nid": 30102014, "teid": 30102032, "ip_address": "172.23.1.3", "mac_address": "02:03:00:01:03:01"}, "eru0n1:4": {"port_id": "eru0n1:4", "status": 0, "nid": 30102015, "teid": 30102033, "ip_address": "172.23.1.4", "mac_address": "02:03:00:01:04:01"}}</data>
+    </node>
+    <node id="eru0n2">
+      <data key="d9">22</data>
+      <data key="d10">eru0n2</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.05960730,28.66240998</data>
+      <data key="d15">113.0596073</data>
+      <data key="d16">28.66240998</data>
+      <data key="d17">10.103.2.254</data>
+      <data key="d18">[{"port_id": "eru0n2:1", "status": 0, "nid": 30103012, "teid": 30103030, "ip_address": "172.23.2.1", "mac_address": "02:03:00:02:01:01"}, {"port_id": "eru0n2:2", "status": 0, "nid": 30103013, "teid": 30103031, "ip_address": "172.23.2.2", "mac_address": "02:03:00:02:02:01"}, {"port_id": "eru0n2:3", "status": 0, "nid": 30103014, "teid": 30103032, "ip_address": "172.23.2.3", "mac_address": "02:03:00:02:03:01"}, {"port_id": "eru0n2:4", "status": 0, "nid": 30103015, "teid": 30103033, "ip_address": "172.23.2.4", "mac_address": "02:03:00:02:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["eru0n2:1", "eru0n2:2", "eru0n2:3", "eru0n2:4"]</data>
+      <data key="d21">["172.23.2.1", "172.23.2.2", "172.23.2.3", "172.23.2.4"]</data>
+      <data key="d22">{"eru0n2:1": {"port_id": "eru0n2:1", "status": 0, "nid": 30103012, "teid": 30103030, "ip_address": "172.23.2.1", "mac_address": "02:03:00:02:01:01"}, "eru0n2:2": {"port_id": "eru0n2:2", "status": 0, "nid": 30103013, "teid": 30103031, "ip_address": "172.23.2.2", "mac_address": "02:03:00:02:02:01"}, "eru0n2:3": {"port_id": "eru0n2:3", "status": 0, "nid": 30103014, "teid": 30103032, "ip_address": "172.23.2.3", "mac_address": "02:03:00:02:03:01"}, "eru0n2:4": {"port_id": "eru0n2:4", "status": 0, "nid": 30103015, "teid": 30103033, "ip_address": "172.23.2.4", "mac_address": "02:03:00:02:04:01"}}</data>
+    </node>
+    <node id="eru0n3">
+      <data key="d9">23</data>
+      <data key="d10">eru0n3</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06019327,28.66576980</data>
+      <data key="d15">113.06019327</data>
+      <data key="d16">28.6657698</data>
+      <data key="d17">10.103.3.254</data>
+      <data key="d18">[{"port_id": "eru0n3:1", "status": 0, "nid": 30104012, "teid": 30104030, "ip_address": "172.23.3.1", "mac_address": "02:03:00:03:01:01"}, {"port_id": "eru0n3:2", "status": 0, "nid": 30104013, "teid": 30104031, "ip_address": "172.23.3.2", "mac_address": "02:03:00:03:02:01"}, {"port_id": "eru0n3:3", "status": 0, "nid": 30104014, "teid": 30104032, "ip_address": "172.23.3.3", "mac_address": "02:03:00:03:03:01"}, {"port_id": "eru0n3:4", "status": 0, "nid": 30104015, "teid": 30104033, "ip_address": "172.23.3.4", "mac_address": "02:03:00:03:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["eru0n3:1", "eru0n3:2", "eru0n3:3", "eru0n3:4"]</data>
+      <data key="d21">["172.23.3.1", "172.23.3.2", "172.23.3.3", "172.23.3.4"]</data>
+      <data key="d22">{"eru0n3:1": {"port_id": "eru0n3:1", "status": 0, "nid": 30104012, "teid": 30104030, "ip_address": "172.23.3.1", "mac_address": "02:03:00:03:01:01"}, "eru0n3:2": {"port_id": "eru0n3:2", "status": 0, "nid": 30104013, "teid": 30104031, "ip_address": "172.23.3.2", "mac_address": "02:03:00:03:02:01"}, "eru0n3:3": {"port_id": "eru0n3:3", "status": 0, "nid": 30104014, "teid": 30104032, "ip_address": "172.23.3.3", "mac_address": "02:03:00:03:03:01"}, "eru0n3:4": {"port_id": "eru0n3:4", "status": 0, "nid": 30104015, "teid": 30104033, "ip_address": "172.23.3.4", "mac_address": "02:03:00:03:04:01"}}</data>
+    </node>
+    <node id="eru0n4">
+      <data key="d9">24</data>
+      <data key="d10">eru0n4</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.05997313,28.66693816</data>
+      <data key="d15">113.05997313</data>
+      <data key="d16">28.66693816</data>
+      <data key="d17">10.103.4.254</data>
+      <data key="d18">[{"port_id": "eru0n4:1", "status": 0, "nid": 30105012, "teid": 30105030, "ip_address": "172.23.4.1", "mac_address": "02:03:00:04:01:01"}, {"port_id": "eru0n4:2", "status": 0, "nid": 30105013, "teid": 30105031, "ip_address": "172.23.4.2", "mac_address": "02:03:00:04:02:01"}, {"port_id": "eru0n4:3", "status": 0, "nid": 30105014, "teid": 30105032, "ip_address": "172.23.4.3", "mac_address": "02:03:00:04:03:01"}, {"port_id": "eru0n4:4", "status": 0, "nid": 30105015, "teid": 30105033, "ip_address": "172.23.4.4", "mac_address": "02:03:00:04:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["eru0n4:1", "eru0n4:2", "eru0n4:3", "eru0n4:4"]</data>
+      <data key="d21">["172.23.4.1", "172.23.4.2", "172.23.4.3", "172.23.4.4"]</data>
+      <data key="d22">{"eru0n4:1": {"port_id": "eru0n4:1", "status": 0, "nid": 30105012, "teid": 30105030, "ip_address": "172.23.4.1", "mac_address": "02:03:00:04:01:01"}, "eru0n4:2": {"port_id": "eru0n4:2", "status": 0, "nid": 30105013, "teid": 30105031, "ip_address": "172.23.4.2", "mac_address": "02:03:00:04:02:01"}, "eru0n4:3": {"port_id": "eru0n4:3", "status": 0, "nid": 30105014, "teid": 30105032, "ip_address": "172.23.4.3", "mac_address": "02:03:00:04:03:01"}, "eru0n4:4": {"port_id": "eru0n4:4", "status": 0, "nid": 30105015, "teid": 30105033, "ip_address": "172.23.4.4", "mac_address": "02:03:00:04:04:01"}}</data>
+    </node>
+    <node id="eru0n5">
+      <data key="d9">25</data>
+      <data key="d10">eru0n5</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.05999814,28.66458470</data>
+      <data key="d15">113.05999814</data>
+      <data key="d16">28.6645847</data>
+      <data key="d17">10.103.5.254</data>
+      <data key="d18">[{"port_id": "eru0n5:1", "status": 0, "nid": 30106012, "teid": 30106030, "ip_address": "172.23.5.1", "mac_address": "02:03:00:05:01:01"}, {"port_id": "eru0n5:2", "status": 0, "nid": 30106013, "teid": 30106031, "ip_address": "172.23.5.2", "mac_address": "02:03:00:05:02:01"}, {"port_id": "eru0n5:3", "status": 0, "nid": 30106014, "teid": 30106032, "ip_address": "172.23.5.3", "mac_address": "02:03:00:05:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["eru0n5:1", "eru0n5:2", "eru0n5:3"]</data>
+      <data key="d21">["172.23.5.1", "172.23.5.2", "172.23.5.3"]</data>
+      <data key="d22">{"eru0n5:1": {"port_id": "eru0n5:1", "status": 0, "nid": 30106012, "teid": 30106030, "ip_address": "172.23.5.1", "mac_address": "02:03:00:05:01:01"}, "eru0n5:2": {"port_id": "eru0n5:2", "status": 0, "nid": 30106013, "teid": 30106031, "ip_address": "172.23.5.2", "mac_address": "02:03:00:05:02:01"}, "eru0n5:3": {"port_id": "eru0n5:3", "status": 0, "nid": 30106014, "teid": 30106032, "ip_address": "172.23.5.3", "mac_address": "02:03:00:05:03:01"}}</data>
+    </node>
+    <node id="cnu0n0">
+      <data key="d9">26</data>
+      <data key="d10">cnu0n0</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.05916715,28.66549483</data>
+      <data key="d15">113.05916715</data>
+      <data key="d16">28.66549483</data>
+      <data key="d17">10.106.0.254</data>
+      <data key="d18">[{"port_id": "cnu0n0:1", "status": 0, "nid": 60101012, "teid": 60101030, "ip_address": "172.26.0.1", "mac_address": "02:06:00:00:01:01"}, {"port_id": "cnu0n0:2", "status": 0, "nid": 60101013, "teid": 60101031, "ip_address": "172.26.0.2", "mac_address": "02:06:00:00:02:01"}, {"port_id": "cnu0n0:3", "status": 0, "nid": 60101014, "teid": 60101032, "ip_address": "172.26.0.3", "mac_address": "02:06:00:00:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["cnu0n0:1", "cnu0n0:2", "cnu0n0:3"]</data>
+      <data key="d21">["172.26.0.1", "172.26.0.2", "172.26.0.3"]</data>
+      <data key="d22">{"cnu0n0:1": {"port_id": "cnu0n0:1", "status": 0, "nid": 60101012, "teid": 60101030, "ip_address": "172.26.0.1", "mac_address": "02:06:00:00:01:01"}, "cnu0n0:2": {"port_id": "cnu0n0:2", "status": 0, "nid": 60101013, "teid": 60101031, "ip_address": "172.26.0.2", "mac_address": "02:06:00:00:02:01"}, "cnu0n0:3": {"port_id": "cnu0n0:3", "status": 0, "nid": 60101014, "teid": 60101032, "ip_address": "172.26.0.3", "mac_address": "02:06:00:00:03:01"}}</data>
+    </node>
+    <node id="cnu0n1">
+      <data key="d9">27</data>
+      <data key="d10">cnu0n1</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06066740,28.66634302</data>
+      <data key="d15">113.0606674</data>
+      <data key="d16">28.66634302</data>
+      <data key="d17">10.106.1.254</data>
+      <data key="d18">[{"port_id": "cnu0n1:1", "status": 0, "nid": 60102012, "teid": 60102030, "ip_address": "172.26.1.1", "mac_address": "02:06:00:01:01:01"}, {"port_id": "cnu0n1:2", "status": 0, "nid": 60102013, "teid": 60102031, "ip_address": "172.26.1.2", "mac_address": "02:06:00:01:02:01"}, {"port_id": "cnu0n1:3", "status": 0, "nid": 60102014, "teid": 60102032, "ip_address": "172.26.1.3", "mac_address": "02:06:00:01:03:01"}, {"port_id": "cnu0n1:4", "status": 0, "nid": 60102015, "teid": 60102033, "ip_address": "172.26.1.4", "mac_address": "02:06:00:01:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["cnu0n1:1", "cnu0n1:2", "cnu0n1:3", "cnu0n1:4"]</data>
+      <data key="d21">["172.26.1.1", "172.26.1.2", "172.26.1.3", "172.26.1.4"]</data>
+      <data key="d22">{"cnu0n1:1": {"port_id": "cnu0n1:1", "status": 0, "nid": 60102012, "teid": 60102030, "ip_address": "172.26.1.1", "mac_address": "02:06:00:01:01:01"}, "cnu0n1:2": {"port_id": "cnu0n1:2", "status": 0, "nid": 60102013, "teid": 60102031, "ip_address": "172.26.1.2", "mac_address": "02:06:00:01:02:01"}, "cnu0n1:3": {"port_id": "cnu0n1:3", "status": 0, "nid": 60102014, "teid": 60102032, "ip_address": "172.26.1.3", "mac_address": "02:06:00:01:03:01"}, "cnu0n1:4": {"port_id": "cnu0n1:4", "status": 0, "nid": 60102015, "teid": 60102033, "ip_address": "172.26.1.4", "mac_address": "02:06:00:01:04:01"}}</data>
+    </node>
+    <node id="cnu0n2">
+      <data key="d9">28</data>
+      <data key="d10">cnu0n2</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06012671,28.66505493</data>
+      <data key="d15">113.06012671</data>
+      <data key="d16">28.66505493</data>
+      <data key="d17">10.106.2.254</data>
+      <data key="d18">[{"port_id": "cnu0n2:1", "status": 0, "nid": 60103012, "teid": 60103030, "ip_address": "172.26.2.1", "mac_address": "02:06:00:02:01:01"}, {"port_id": "cnu0n2:2", "status": 0, "nid": 60103013, "teid": 60103031, "ip_address": "172.26.2.2", "mac_address": "02:06:00:02:02:01"}, {"port_id": "cnu0n2:3", "status": 0, "nid": 60103014, "teid": 60103032, "ip_address": "172.26.2.3", "mac_address": "02:06:00:02:03:01"}, {"port_id": "cnu0n2:4", "status": 0, "nid": 60103015, "teid": 60103033, "ip_address": "172.26.2.4", "mac_address": "02:06:00:02:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["cnu0n2:1", "cnu0n2:2", "cnu0n2:3", "cnu0n2:4"]</data>
+      <data key="d21">["172.26.2.1", "172.26.2.2", "172.26.2.3", "172.26.2.4"]</data>
+      <data key="d22">{"cnu0n2:1": {"port_id": "cnu0n2:1", "status": 0, "nid": 60103012, "teid": 60103030, "ip_address": "172.26.2.1", "mac_address": "02:06:00:02:01:01"}, "cnu0n2:2": {"port_id": "cnu0n2:2", "status": 0, "nid": 60103013, "teid": 60103031, "ip_address": "172.26.2.2", "mac_address": "02:06:00:02:02:01"}, "cnu0n2:3": {"port_id": "cnu0n2:3", "status": 0, "nid": 60103014, "teid": 60103032, "ip_address": "172.26.2.3", "mac_address": "02:06:00:02:03:01"}, "cnu0n2:4": {"port_id": "cnu0n2:4", "status": 0, "nid": 60103015, "teid": 60103033, "ip_address": "172.26.2.4", "mac_address": "02:06:00:02:04:01"}}</data>
+    </node>
+    <node id="cnu0n3">
+      <data key="d9">29</data>
+      <data key="d10">cnu0n3</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06114633,28.66601941</data>
+      <data key="d15">113.06114633</data>
+      <data key="d16">28.66601941</data>
+      <data key="d17">10.106.3.254</data>
+      <data key="d18">[{"port_id": "cnu0n3:1", "status": 0, "nid": 60104012, "teid": 60104030, "ip_address": "172.26.3.1", "mac_address": "02:06:00:03:01:01"}, {"port_id": "cnu0n3:2", "status": 0, "nid": 60104013, "teid": 60104031, "ip_address": "172.26.3.2", "mac_address": "02:06:00:03:02:01"}, {"port_id": "cnu0n3:3", "status": 0, "nid": 60104014, "teid": 60104032, "ip_address": "172.26.3.3", "mac_address": "02:06:00:03:03:01"}, {"port_id": "cnu0n3:4", "status": 0, "nid": 60104015, "teid": 60104033, "ip_address": "172.26.3.4", "mac_address": "02:06:00:03:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["cnu0n3:1", "cnu0n3:2", "cnu0n3:3", "cnu0n3:4"]</data>
+      <data key="d21">["172.26.3.1", "172.26.3.2", "172.26.3.3", "172.26.3.4"]</data>
+      <data key="d22">{"cnu0n3:1": {"port_id": "cnu0n3:1", "status": 0, "nid": 60104012, "teid": 60104030, "ip_address": "172.26.3.1", "mac_address": "02:06:00:03:01:01"}, "cnu0n3:2": {"port_id": "cnu0n3:2", "status": 0, "nid": 60104013, "teid": 60104031, "ip_address": "172.26.3.2", "mac_address": "02:06:00:03:02:01"}, "cnu0n3:3": {"port_id": "cnu0n3:3", "status": 0, "nid": 60104014, "teid": 60104032, "ip_address": "172.26.3.3", "mac_address": "02:06:00:03:03:01"}, "cnu0n3:4": {"port_id": "cnu0n3:4", "status": 0, "nid": 60104015, "teid": 60104033, "ip_address": "172.26.3.4", "mac_address": "02:06:00:03:04:01"}}</data>
+    </node>
+    <node id="cnu0n4">
+      <data key="d9">30</data>
+      <data key="d10">cnu0n4</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.05999967,28.66448329</data>
+      <data key="d15">113.05999967</data>
+      <data key="d16">28.66448329</data>
+      <data key="d17">10.106.4.254</data>
+      <data key="d18">[{"port_id": "cnu0n4:1", "status": 0, "nid": 60105012, "teid": 60105030, "ip_address": "172.26.4.1", "mac_address": "02:06:00:04:01:01"}, {"port_id": "cnu0n4:2", "status": 0, "nid": 60105013, "teid": 60105031, "ip_address": "172.26.4.2", "mac_address": "02:06:00:04:02:01"}, {"port_id": "cnu0n4:3", "status": 0, "nid": 60105014, "teid": 60105032, "ip_address": "172.26.4.3", "mac_address": "02:06:00:04:03:01"}, {"port_id": "cnu0n4:4", "status": 0, "nid": 60105015, "teid": 60105033, "ip_address": "172.26.4.4", "mac_address": "02:06:00:04:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["cnu0n4:1", "cnu0n4:2", "cnu0n4:3", "cnu0n4:4"]</data>
+      <data key="d21">["172.26.4.1", "172.26.4.2", "172.26.4.3", "172.26.4.4"]</data>
+      <data key="d22">{"cnu0n4:1": {"port_id": "cnu0n4:1", "status": 0, "nid": 60105012, "teid": 60105030, "ip_address": "172.26.4.1", "mac_address": "02:06:00:04:01:01"}, "cnu0n4:2": {"port_id": "cnu0n4:2", "status": 0, "nid": 60105013, "teid": 60105031, "ip_address": "172.26.4.2", "mac_address": "02:06:00:04:02:01"}, "cnu0n4:3": {"port_id": "cnu0n4:3", "status": 0, "nid": 60105014, "teid": 60105032, "ip_address": "172.26.4.3", "mac_address": "02:06:00:04:03:01"}, "cnu0n4:4": {"port_id": "cnu0n4:4", "status": 0, "nid": 60105015, "teid": 60105033, "ip_address": "172.26.4.4", "mac_address": "02:06:00:04:04:01"}}</data>
+    </node>
+    <node id="cnu0n5">
+      <data key="d9">31</data>
+      <data key="d10">cnu0n5</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06037982,28.66641463</data>
+      <data key="d15">113.06037982</data>
+      <data key="d16">28.66641463</data>
+      <data key="d17">10.106.5.254</data>
+      <data key="d18">[{"port_id": "cnu0n5:1", "status": 0, "nid": 60106012, "teid": 60106030, "ip_address": "172.26.5.1", "mac_address": "02:06:00:05:01:01"}, {"port_id": "cnu0n5:2", "status": 0, "nid": 60106013, "teid": 60106031, "ip_address": "172.26.5.2", "mac_address": "02:06:00:05:02:01"}, {"port_id": "cnu0n5:3", "status": 0, "nid": 60106014, "teid": 60106032, "ip_address": "172.26.5.3", "mac_address": "02:06:00:05:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["cnu0n5:1", "cnu0n5:2", "cnu0n5:3"]</data>
+      <data key="d21">["172.26.5.1", "172.26.5.2", "172.26.5.3"]</data>
+      <data key="d22">{"cnu0n5:1": {"port_id": "cnu0n5:1", "status": 0, "nid": 60106012, "teid": 60106030, "ip_address": "172.26.5.1", "mac_address": "02:06:00:05:01:01"}, "cnu0n5:2": {"port_id": "cnu0n5:2", "status": 0, "nid": 60106013, "teid": 60106031, "ip_address": "172.26.5.2", "mac_address": "02:06:00:05:02:01"}, "cnu0n5:3": {"port_id": "cnu0n5:3", "status": 0, "nid": 60106014, "teid": 60106032, "ip_address": "172.26.5.3", "mac_address": "02:06:00:05:03:01"}}</data>
+    </node>
+    <node id="bsu1n0">
+      <data key="d9">32</data>
+      <data key="d10">bsu1n0</data>
+      <data key="d11">5</data>
+      <data key="d12">II类骨干</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06211237,28.66430222</data>
+      <data key="d15">113.06211237</data>
+      <data key="d16">28.66430222</data>
+      <data key="d17">10.105.16.254</data>
+      <data key="d18">[{"port_id": "bsu1n0:1", "status": 0, "nid": 50201012, "teid": 50201030, "ip_address": "172.25.16.1", "mac_address": "02:05:01:00:01:01"}, {"port_id": "bsu1n0:2", "status": 0, "nid": 50201013, "teid": 50201031, "ip_address": "172.25.16.2", "mac_address": "02:05:01:00:02:01"}, {"port_id": "bsu1n0:3", "status": 0, "nid": 50201014, "teid": 50201032, "ip_address": "172.25.16.3", "mac_address": "02:05:01:00:03:01"}, {"port_id": "bsu1n0:4", "status": 0, "nid": 50201015, "teid": 50201033, "ip_address": "172.25.16.4", "mac_address": "02:05:01:00:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["bsu1n0:1", "bsu1n0:2", "bsu1n0:3", "bsu1n0:4"]</data>
+      <data key="d21">["172.25.16.1", "172.25.16.2", "172.25.16.3", "172.25.16.4"]</data>
+      <data key="d22">{"bsu1n0:1": {"port_id": "bsu1n0:1", "status": 0, "nid": 50201012, "teid": 50201030, "ip_address": "172.25.16.1", "mac_address": "02:05:01:00:01:01"}, "bsu1n0:2": {"port_id": "bsu1n0:2", "status": 0, "nid": 50201013, "teid": 50201031, "ip_address": "172.25.16.2", "mac_address": "02:05:01:00:02:01"}, "bsu1n0:3": {"port_id": "bsu1n0:3", "status": 0, "nid": 50201014, "teid": 50201032, "ip_address": "172.25.16.3", "mac_address": "02:05:01:00:03:01"}, "bsu1n0:4": {"port_id": "bsu1n0:4", "status": 0, "nid": 50201015, "teid": 50201033, "ip_address": "172.25.16.4", "mac_address": "02:05:01:00:04:01"}}</data>
+    </node>
+    <node id="bsu1n1">
+      <data key="d9">33</data>
+      <data key="d10">bsu1n1</data>
+      <data key="d11">5</data>
+      <data key="d12">II类骨干</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06285619,28.66617387</data>
+      <data key="d15">113.06285619</data>
+      <data key="d16">28.66617387</data>
+      <data key="d17">10.105.17.254</data>
+      <data key="d18">[{"port_id": "bsu1n1:1", "status": 0, "nid": 50202012, "teid": 50202030, "ip_address": "172.25.17.1", "mac_address": "02:05:01:01:01:01"}, {"port_id": "bsu1n1:2", "status": 0, "nid": 50202013, "teid": 50202031, "ip_address": "172.25.17.2", "mac_address": "02:05:01:01:02:01"}, {"port_id": "bsu1n1:3", "status": 0, "nid": 50202014, "teid": 50202032, "ip_address": "172.25.17.3", "mac_address": "02:05:01:01:03:01"}, {"port_id": "bsu1n1:4", "status": 0, "nid": 50202015, "teid": 50202033, "ip_address": "172.25.17.4", "mac_address": "02:05:01:01:04:01"}, {"port_id": "bsu1n1:5", "status": 0, "nid": 50202016, "teid": 50202034, "ip_address": "172.25.17.5", "mac_address": "02:05:01:01:05:01"}, {"port_id": "bsu1n1:6", "status": 0, "nid": 50202017, "teid": 50202035, "ip_address": "172.25.17.6", "mac_address": "02:05:01:01:06:01"}]</data>
+      <data key="d19">6</data>
+      <data key="d20">["bsu1n1:1", "bsu1n1:2", "bsu1n1:3", "bsu1n1:4", "bsu1n1:5", "bsu1n1:6"]</data>
+      <data key="d21">["172.25.17.1", "172.25.17.2", "172.25.17.3", "172.25.17.4", "172.25.17.5", "172.25.17.6"]</data>
+      <data key="d22">{"bsu1n1:1": {"port_id": "bsu1n1:1", "status": 0, "nid": 50202012, "teid": 50202030, "ip_address": "172.25.17.1", "mac_address": "02:05:01:01:01:01"}, "bsu1n1:2": {"port_id": "bsu1n1:2", "status": 0, "nid": 50202013, "teid": 50202031, "ip_address": "172.25.17.2", "mac_address": "02:05:01:01:02:01"}, "bsu1n1:3": {"port_id": "bsu1n1:3", "status": 0, "nid": 50202014, "teid": 50202032, "ip_address": "172.25.17.3", "mac_address": "02:05:01:01:03:01"}, "bsu1n1:4": {"port_id": "bsu1n1:4", "status": 0, "nid": 50202015, "teid": 50202033, "ip_address": "172.25.17.4", "mac_address": "02:05:01:01:04:01"}, "bsu1n1:5": {"port_id": "bsu1n1:5", "status": 0, "nid": 50202016, "teid": 50202034, "ip_address": "172.25.17.5", "mac_address": "02:05:01:01:05:01"}, "bsu1n1:6": {"port_id": "bsu1n1:6", "status": 0, "nid": 50202017, "teid": 50202035, "ip_address": "172.25.17.6", "mac_address": "02:05:01:01:06:01"}}</data>
+    </node>
+    <node id="bsu1n2">
+      <data key="d9">34</data>
+      <data key="d10">bsu1n2</data>
+      <data key="d11">5</data>
+      <data key="d12">II类骨干</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06273978,28.66566568</data>
+      <data key="d15">113.06273978</data>
+      <data key="d16">28.66566568</data>
+      <data key="d17">10.105.18.254</data>
+      <data key="d18">[{"port_id": "bsu1n2:1", "status": 0, "nid": 50203012, "teid": 50203030, "ip_address": "172.25.18.1", "mac_address": "02:05:01:02:01:01"}, {"port_id": "bsu1n2:2", "status": 0, "nid": 50203013, "teid": 50203031, "ip_address": "172.25.18.2", "mac_address": "02:05:01:02:02:01"}, {"port_id": "bsu1n2:3", "status": 0, "nid": 50203014, "teid": 50203032, "ip_address": "172.25.18.3", "mac_address": "02:05:01:02:03:01"}, {"port_id": "bsu1n2:4", "status": 0, "nid": 50203015, "teid": 50203033, "ip_address": "172.25.18.4", "mac_address": "02:05:01:02:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["bsu1n2:1", "bsu1n2:2", "bsu1n2:3", "bsu1n2:4"]</data>
+      <data key="d21">["172.25.18.1", "172.25.18.2", "172.25.18.3", "172.25.18.4"]</data>
+      <data key="d22">{"bsu1n2:1": {"port_id": "bsu1n2:1", "status": 0, "nid": 50203012, "teid": 50203030, "ip_address": "172.25.18.1", "mac_address": "02:05:01:02:01:01"}, "bsu1n2:2": {"port_id": "bsu1n2:2", "status": 0, "nid": 50203013, "teid": 50203031, "ip_address": "172.25.18.2", "mac_address": "02:05:01:02:02:01"}, "bsu1n2:3": {"port_id": "bsu1n2:3", "status": 0, "nid": 50203014, "teid": 50203032, "ip_address": "172.25.18.3", "mac_address": "02:05:01:02:03:01"}, "bsu1n2:4": {"port_id": "bsu1n2:4", "status": 0, "nid": 50203015, "teid": 50203033, "ip_address": "172.25.18.4", "mac_address": "02:05:01:02:04:01"}}</data>
+    </node>
+    <node id="asu1n0">
+      <data key="d9">35</data>
+      <data key="d10">asu1n0</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06172020,28.66589138</data>
+      <data key="d15">113.0617202</data>
+      <data key="d16">28.66589138</data>
+      <data key="d17">10.104.16.254</data>
+      <data key="d18">[{"port_id": "asu1n0:1", "status": 0, "nid": 40201012, "teid": 40201030, "ip_address": "172.24.16.1", "mac_address": "02:04:01:00:01:01"}, {"port_id": "asu1n0:2", "status": 0, "nid": 40201013, "teid": 40201031, "ip_address": "172.24.16.2", "mac_address": "02:04:01:00:02:01"}, {"port_id": "asu1n0:3", "status": 0, "nid": 40201014, "teid": 40201032, "ip_address": "172.24.16.3", "mac_address": "02:04:01:00:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["asu1n0:1", "asu1n0:2", "asu1n0:3"]</data>
+      <data key="d21">["172.24.16.1", "172.24.16.2", "172.24.16.3"]</data>
+      <data key="d22">{"asu1n0:1": {"port_id": "asu1n0:1", "status": 0, "nid": 40201012, "teid": 40201030, "ip_address": "172.24.16.1", "mac_address": "02:04:01:00:01:01"}, "asu1n0:2": {"port_id": "asu1n0:2", "status": 0, "nid": 40201013, "teid": 40201031, "ip_address": "172.24.16.2", "mac_address": "02:04:01:00:02:01"}, "asu1n0:3": {"port_id": "asu1n0:3", "status": 0, "nid": 40201014, "teid": 40201032, "ip_address": "172.24.16.3", "mac_address": "02:04:01:00:03:01"}}</data>
+    </node>
+    <node id="asu1n1">
+      <data key="d9">36</data>
+      <data key="d10">asu1n1</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06390846,28.66494628</data>
+      <data key="d15">113.06390846</data>
+      <data key="d16">28.66494628</data>
+      <data key="d17">10.104.17.254</data>
+      <data key="d18">[{"port_id": "asu1n1:1", "status": 0, "nid": 40202012, "teid": 40202030, "ip_address": "172.24.17.1", "mac_address": "02:04:01:01:01:01"}, {"port_id": "asu1n1:2", "status": 0, "nid": 40202013, "teid": 40202031, "ip_address": "172.24.17.2", "mac_address": "02:04:01:01:02:01"}, {"port_id": "asu1n1:3", "status": 0, "nid": 40202014, "teid": 40202032, "ip_address": "172.24.17.3", "mac_address": "02:04:01:01:03:01"}, {"port_id": "asu1n1:4", "status": 0, "nid": 40202015, "teid": 40202033, "ip_address": "172.24.17.4", "mac_address": "02:04:01:01:04:01"}, {"port_id": "asu1n1:5", "status": 0, "nid": 40202016, "teid": 40202034, "ip_address": "172.24.17.5", "mac_address": "02:04:01:01:05:01"}]</data>
+      <data key="d19">5</data>
+      <data key="d20">["asu1n1:1", "asu1n1:2", "asu1n1:3", "asu1n1:4", "asu1n1:5"]</data>
+      <data key="d21">["172.24.17.1", "172.24.17.2", "172.24.17.3", "172.24.17.4", "172.24.17.5"]</data>
+      <data key="d22">{"asu1n1:1": {"port_id": "asu1n1:1", "status": 0, "nid": 40202012, "teid": 40202030, "ip_address": "172.24.17.1", "mac_address": "02:04:01:01:01:01"}, "asu1n1:2": {"port_id": "asu1n1:2", "status": 0, "nid": 40202013, "teid": 40202031, "ip_address": "172.24.17.2", "mac_address": "02:04:01:01:02:01"}, "asu1n1:3": {"port_id": "asu1n1:3", "status": 0, "nid": 40202014, "teid": 40202032, "ip_address": "172.24.17.3", "mac_address": "02:04:01:01:03:01"}, "asu1n1:4": {"port_id": "asu1n1:4", "status": 0, "nid": 40202015, "teid": 40202033, "ip_address": "172.24.17.4", "mac_address": "02:04:01:01:04:01"}, "asu1n1:5": {"port_id": "asu1n1:5", "status": 0, "nid": 40202016, "teid": 40202034, "ip_address": "172.24.17.5", "mac_address": "02:04:01:01:05:01"}}</data>
+    </node>
+    <node id="asu1n2">
+      <data key="d9">37</data>
+      <data key="d10">asu1n2</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06359786,28.66488883</data>
+      <data key="d15">113.06359786</data>
+      <data key="d16">28.66488883</data>
+      <data key="d17">10.104.18.254</data>
+      <data key="d18">[{"port_id": "asu1n2:1", "status": 0, "nid": 40203012, "teid": 40203030, "ip_address": "172.24.18.1", "mac_address": "02:04:01:02:01:01"}, {"port_id": "asu1n2:2", "status": 0, "nid": 40203013, "teid": 40203031, "ip_address": "172.24.18.2", "mac_address": "02:04:01:02:02:01"}, {"port_id": "asu1n2:3", "status": 0, "nid": 40203014, "teid": 40203032, "ip_address": "172.24.18.3", "mac_address": "02:04:01:02:03:01"}, {"port_id": "asu1n2:4", "status": 0, "nid": 40203015, "teid": 40203033, "ip_address": "172.24.18.4", "mac_address": "02:04:01:02:04:01"}, {"port_id": "asu1n2:5", "status": 0, "nid": 40203016, "teid": 40203034, "ip_address": "172.24.18.5", "mac_address": "02:04:01:02:05:01"}]</data>
+      <data key="d19">5</data>
+      <data key="d20">["asu1n2:1", "asu1n2:2", "asu1n2:3", "asu1n2:4", "asu1n2:5"]</data>
+      <data key="d21">["172.24.18.1", "172.24.18.2", "172.24.18.3", "172.24.18.4", "172.24.18.5"]</data>
+      <data key="d22">{"asu1n2:1": {"port_id": "asu1n2:1", "status": 0, "nid": 40203012, "teid": 40203030, "ip_address": "172.24.18.1", "mac_address": "02:04:01:02:01:01"}, "asu1n2:2": {"port_id": "asu1n2:2", "status": 0, "nid": 40203013, "teid": 40203031, "ip_address": "172.24.18.2", "mac_address": "02:04:01:02:02:01"}, "asu1n2:3": {"port_id": "asu1n2:3", "status": 0, "nid": 40203014, "teid": 40203032, "ip_address": "172.24.18.3", "mac_address": "02:04:01:02:03:01"}, "asu1n2:4": {"port_id": "asu1n2:4", "status": 0, "nid": 40203015, "teid": 40203033, "ip_address": "172.24.18.4", "mac_address": "02:04:01:02:04:01"}, "asu1n2:5": {"port_id": "asu1n2:5", "status": 0, "nid": 40203016, "teid": 40203034, "ip_address": "172.24.18.5", "mac_address": "02:04:01:02:05:01"}}</data>
+    </node>
+    <node id="asu1n3">
+      <data key="d9">38</data>
+      <data key="d10">asu1n3</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06231281,28.66372186</data>
+      <data key="d15">113.06231281</data>
+      <data key="d16">28.66372186</data>
+      <data key="d17">10.104.19.254</data>
+      <data key="d18">[{"port_id": "asu1n3:1", "status": 0, "nid": 40204012, "teid": 40204030, "ip_address": "172.24.19.1", "mac_address": "02:04:01:03:01:01"}, {"port_id": "asu1n3:2", "status": 0, "nid": 40204013, "teid": 40204031, "ip_address": "172.24.19.2", "mac_address": "02:04:01:03:02:01"}, {"port_id": "asu1n3:3", "status": 0, "nid": 40204014, "teid": 40204032, "ip_address": "172.24.19.3", "mac_address": "02:04:01:03:03:01"}, {"port_id": "asu1n3:4", "status": 0, "nid": 40204015, "teid": 40204033, "ip_address": "172.24.19.4", "mac_address": "02:04:01:03:04:01"}, {"port_id": "asu1n3:5", "status": 0, "nid": 40204016, "teid": 40204034, "ip_address": "172.24.19.5", "mac_address": "02:04:01:03:05:01"}]</data>
+      <data key="d19">5</data>
+      <data key="d20">["asu1n3:1", "asu1n3:2", "asu1n3:3", "asu1n3:4", "asu1n3:5"]</data>
+      <data key="d21">["172.24.19.1", "172.24.19.2", "172.24.19.3", "172.24.19.4", "172.24.19.5"]</data>
+      <data key="d22">{"asu1n3:1": {"port_id": "asu1n3:1", "status": 0, "nid": 40204012, "teid": 40204030, "ip_address": "172.24.19.1", "mac_address": "02:04:01:03:01:01"}, "asu1n3:2": {"port_id": "asu1n3:2", "status": 0, "nid": 40204013, "teid": 40204031, "ip_address": "172.24.19.2", "mac_address": "02:04:01:03:02:01"}, "asu1n3:3": {"port_id": "asu1n3:3", "status": 0, "nid": 40204014, "teid": 40204032, "ip_address": "172.24.19.3", "mac_address": "02:04:01:03:03:01"}, "asu1n3:4": {"port_id": "asu1n3:4", "status": 0, "nid": 40204015, "teid": 40204033, "ip_address": "172.24.19.4", "mac_address": "02:04:01:03:04:01"}, "asu1n3:5": {"port_id": "asu1n3:5", "status": 0, "nid": 40204016, "teid": 40204034, "ip_address": "172.24.19.5", "mac_address": "02:04:01:03:05:01"}}</data>
+    </node>
+    <node id="asu1n4">
+      <data key="d9">39</data>
+      <data key="d10">asu1n4</data>
+      <data key="d11">4</data>
+      <data key="d12">II类接入</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06116515,28.66446608</data>
+      <data key="d15">113.06116515</data>
+      <data key="d16">28.66446608</data>
+      <data key="d17">10.104.20.254</data>
+      <data key="d18">[{"port_id": "asu1n4:1", "status": 0, "nid": 40205012, "teid": 40205030, "ip_address": "172.24.20.1", "mac_address": "02:04:01:04:01:01"}, {"port_id": "asu1n4:2", "status": 0, "nid": 40205013, "teid": 40205031, "ip_address": "172.24.20.2", "mac_address": "02:04:01:04:02:01"}, {"port_id": "asu1n4:3", "status": 0, "nid": 40205014, "teid": 40205032, "ip_address": "172.24.20.3", "mac_address": "02:04:01:04:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["asu1n4:1", "asu1n4:2", "asu1n4:3"]</data>
+      <data key="d21">["172.24.20.1", "172.24.20.2", "172.24.20.3"]</data>
+      <data key="d22">{"asu1n4:1": {"port_id": "asu1n4:1", "status": 0, "nid": 40205012, "teid": 40205030, "ip_address": "172.24.20.1", "mac_address": "02:04:01:04:01:01"}, "asu1n4:2": {"port_id": "asu1n4:2", "status": 0, "nid": 40205013, "teid": 40205031, "ip_address": "172.24.20.2", "mac_address": "02:04:01:04:02:01"}, "asu1n4:3": {"port_id": "asu1n4:3", "status": 0, "nid": 40205014, "teid": 40205032, "ip_address": "172.24.20.3", "mac_address": "02:04:01:04:03:01"}}</data>
+    </node>
+    <node id="eru1n0">
+      <data key="d9">40</data>
+      <data key="d10">eru1n0</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06132034,28.66528330</data>
+      <data key="d15">113.06132034</data>
+      <data key="d16">28.6652833</data>
+      <data key="d17">10.103.16.254</data>
+      <data key="d18">[{"port_id": "eru1n0:1", "status": 0, "nid": 30201012, "teid": 30201030, "ip_address": "172.23.16.1", "mac_address": "02:03:01:00:01:01"}, {"port_id": "eru1n0:2", "status": 0, "nid": 30201013, "teid": 30201031, "ip_address": "172.23.16.2", "mac_address": "02:03:01:00:02:01"}, {"port_id": "eru1n0:3", "status": 0, "nid": 30201014, "teid": 30201032, "ip_address": "172.23.16.3", "mac_address": "02:03:01:00:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["eru1n0:1", "eru1n0:2", "eru1n0:3"]</data>
+      <data key="d21">["172.23.16.1", "172.23.16.2", "172.23.16.3"]</data>
+      <data key="d22">{"eru1n0:1": {"port_id": "eru1n0:1", "status": 0, "nid": 30201012, "teid": 30201030, "ip_address": "172.23.16.1", "mac_address": "02:03:01:00:01:01"}, "eru1n0:2": {"port_id": "eru1n0:2", "status": 0, "nid": 30201013, "teid": 30201031, "ip_address": "172.23.16.2", "mac_address": "02:03:01:00:02:01"}, "eru1n0:3": {"port_id": "eru1n0:3", "status": 0, "nid": 30201014, "teid": 30201032, "ip_address": "172.23.16.3", "mac_address": "02:03:01:00:03:01"}}</data>
+    </node>
+    <node id="eru1n1">
+      <data key="d9">41</data>
+      <data key="d10">eru1n1</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06146532,28.66377647</data>
+      <data key="d15">113.06146532</data>
+      <data key="d16">28.66377647</data>
+      <data key="d17">10.103.17.254</data>
+      <data key="d18">[{"port_id": "eru1n1:1", "status": 0, "nid": 30202012, "teid": 30202030, "ip_address": "172.23.17.1", "mac_address": "02:03:01:01:01:01"}, {"port_id": "eru1n1:2", "status": 0, "nid": 30202013, "teid": 30202031, "ip_address": "172.23.17.2", "mac_address": "02:03:01:01:02:01"}, {"port_id": "eru1n1:3", "status": 0, "nid": 30202014, "teid": 30202032, "ip_address": "172.23.17.3", "mac_address": "02:03:01:01:03:01"}, {"port_id": "eru1n1:4", "status": 0, "nid": 30202015, "teid": 30202033, "ip_address": "172.23.17.4", "mac_address": "02:03:01:01:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["eru1n1:1", "eru1n1:2", "eru1n1:3", "eru1n1:4"]</data>
+      <data key="d21">["172.23.17.1", "172.23.17.2", "172.23.17.3", "172.23.17.4"]</data>
+      <data key="d22">{"eru1n1:1": {"port_id": "eru1n1:1", "status": 0, "nid": 30202012, "teid": 30202030, "ip_address": "172.23.17.1", "mac_address": "02:03:01:01:01:01"}, "eru1n1:2": {"port_id": "eru1n1:2", "status": 0, "nid": 30202013, "teid": 30202031, "ip_address": "172.23.17.2", "mac_address": "02:03:01:01:02:01"}, "eru1n1:3": {"port_id": "eru1n1:3", "status": 0, "nid": 30202014, "teid": 30202032, "ip_address": "172.23.17.3", "mac_address": "02:03:01:01:03:01"}, "eru1n1:4": {"port_id": "eru1n1:4", "status": 0, "nid": 30202015, "teid": 30202033, "ip_address": "172.23.17.4", "mac_address": "02:03:01:01:04:01"}}</data>
+    </node>
+    <node id="eru1n2">
+      <data key="d9">42</data>
+      <data key="d10">eru1n2</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06461964,28.66565669</data>
+      <data key="d15">113.06461964</data>
+      <data key="d16">28.66565669</data>
+      <data key="d17">10.103.18.254</data>
+      <data key="d18">[{"port_id": "eru1n2:1", "status": 0, "nid": 30203012, "teid": 30203030, "ip_address": "172.23.18.1", "mac_address": "02:03:01:02:01:01"}, {"port_id": "eru1n2:2", "status": 0, "nid": 30203013, "teid": 30203031, "ip_address": "172.23.18.2", "mac_address": "02:03:01:02:02:01"}, {"port_id": "eru1n2:3", "status": 0, "nid": 30203014, "teid": 30203032, "ip_address": "172.23.18.3", "mac_address": "02:03:01:02:03:01"}, {"port_id": "eru1n2:4", "status": 0, "nid": 30203015, "teid": 30203033, "ip_address": "172.23.18.4", "mac_address": "02:03:01:02:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["eru1n2:1", "eru1n2:2", "eru1n2:3", "eru1n2:4"]</data>
+      <data key="d21">["172.23.18.1", "172.23.18.2", "172.23.18.3", "172.23.18.4"]</data>
+      <data key="d22">{"eru1n2:1": {"port_id": "eru1n2:1", "status": 0, "nid": 30203012, "teid": 30203030, "ip_address": "172.23.18.1", "mac_address": "02:03:01:02:01:01"}, "eru1n2:2": {"port_id": "eru1n2:2", "status": 0, "nid": 30203013, "teid": 30203031, "ip_address": "172.23.18.2", "mac_address": "02:03:01:02:02:01"}, "eru1n2:3": {"port_id": "eru1n2:3", "status": 0, "nid": 30203014, "teid": 30203032, "ip_address": "172.23.18.3", "mac_address": "02:03:01:02:03:01"}, "eru1n2:4": {"port_id": "eru1n2:4", "status": 0, "nid": 30203015, "teid": 30203033, "ip_address": "172.23.18.4", "mac_address": "02:03:01:02:04:01"}}</data>
+    </node>
+    <node id="eru1n3">
+      <data key="d9">43</data>
+      <data key="d10">eru1n3</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06158240,28.66474867</data>
+      <data key="d15">113.0615824</data>
+      <data key="d16">28.66474867</data>
+      <data key="d17">10.103.19.254</data>
+      <data key="d18">[{"port_id": "eru1n3:1", "status": 0, "nid": 30204012, "teid": 30204030, "ip_address": "172.23.19.1", "mac_address": "02:03:01:03:01:01"}, {"port_id": "eru1n3:2", "status": 0, "nid": 30204013, "teid": 30204031, "ip_address": "172.23.19.2", "mac_address": "02:03:01:03:02:01"}, {"port_id": "eru1n3:3", "status": 0, "nid": 30204014, "teid": 30204032, "ip_address": "172.23.19.3", "mac_address": "02:03:01:03:03:01"}, {"port_id": "eru1n3:4", "status": 0, "nid": 30204015, "teid": 30204033, "ip_address": "172.23.19.4", "mac_address": "02:03:01:03:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["eru1n3:1", "eru1n3:2", "eru1n3:3", "eru1n3:4"]</data>
+      <data key="d21">["172.23.19.1", "172.23.19.2", "172.23.19.3", "172.23.19.4"]</data>
+      <data key="d22">{"eru1n3:1": {"port_id": "eru1n3:1", "status": 0, "nid": 30204012, "teid": 30204030, "ip_address": "172.23.19.1", "mac_address": "02:03:01:03:01:01"}, "eru1n3:2": {"port_id": "eru1n3:2", "status": 0, "nid": 30204013, "teid": 30204031, "ip_address": "172.23.19.2", "mac_address": "02:03:01:03:02:01"}, "eru1n3:3": {"port_id": "eru1n3:3", "status": 0, "nid": 30204014, "teid": 30204032, "ip_address": "172.23.19.3", "mac_address": "02:03:01:03:03:01"}, "eru1n3:4": {"port_id": "eru1n3:4", "status": 0, "nid": 30204015, "teid": 30204033, "ip_address": "172.23.19.4", "mac_address": "02:03:01:03:04:01"}}</data>
+    </node>
+    <node id="eru1n4">
+      <data key="d9">44</data>
+      <data key="d10">eru1n4</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06296109,28.66371853</data>
+      <data key="d15">113.06296109</data>
+      <data key="d16">28.66371853</data>
+      <data key="d17">10.103.20.254</data>
+      <data key="d18">[{"port_id": "eru1n4:1", "status": 0, "nid": 30205012, "teid": 30205030, "ip_address": "172.23.20.1", "mac_address": "02:03:01:04:01:01"}, {"port_id": "eru1n4:2", "status": 0, "nid": 30205013, "teid": 30205031, "ip_address": "172.23.20.2", "mac_address": "02:03:01:04:02:01"}, {"port_id": "eru1n4:3", "status": 0, "nid": 30205014, "teid": 30205032, "ip_address": "172.23.20.3", "mac_address": "02:03:01:04:03:01"}, {"port_id": "eru1n4:4", "status": 0, "nid": 30205015, "teid": 30205033, "ip_address": "172.23.20.4", "mac_address": "02:03:01:04:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["eru1n4:1", "eru1n4:2", "eru1n4:3", "eru1n4:4"]</data>
+      <data key="d21">["172.23.20.1", "172.23.20.2", "172.23.20.3", "172.23.20.4"]</data>
+      <data key="d22">{"eru1n4:1": {"port_id": "eru1n4:1", "status": 0, "nid": 30205012, "teid": 30205030, "ip_address": "172.23.20.1", "mac_address": "02:03:01:04:01:01"}, "eru1n4:2": {"port_id": "eru1n4:2", "status": 0, "nid": 30205013, "teid": 30205031, "ip_address": "172.23.20.2", "mac_address": "02:03:01:04:02:01"}, "eru1n4:3": {"port_id": "eru1n4:3", "status": 0, "nid": 30205014, "teid": 30205032, "ip_address": "172.23.20.3", "mac_address": "02:03:01:04:03:01"}, "eru1n4:4": {"port_id": "eru1n4:4", "status": 0, "nid": 30205015, "teid": 30205033, "ip_address": "172.23.20.4", "mac_address": "02:03:01:04:04:01"}}</data>
+    </node>
+    <node id="eru1n5">
+      <data key="d9">45</data>
+      <data key="d10">eru1n5</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06513778,28.66620815</data>
+      <data key="d15">113.06513778</data>
+      <data key="d16">28.66620815</data>
+      <data key="d17">10.103.21.254</data>
+      <data key="d18">[{"port_id": "eru1n5:1", "status": 0, "nid": 30206012, "teid": 30206030, "ip_address": "172.23.21.1", "mac_address": "02:03:01:05:01:01"}, {"port_id": "eru1n5:2", "status": 0, "nid": 30206013, "teid": 30206031, "ip_address": "172.23.21.2", "mac_address": "02:03:01:05:02:01"}, {"port_id": "eru1n5:3", "status": 0, "nid": 30206014, "teid": 30206032, "ip_address": "172.23.21.3", "mac_address": "02:03:01:05:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["eru1n5:1", "eru1n5:2", "eru1n5:3"]</data>
+      <data key="d21">["172.23.21.1", "172.23.21.2", "172.23.21.3"]</data>
+      <data key="d22">{"eru1n5:1": {"port_id": "eru1n5:1", "status": 0, "nid": 30206012, "teid": 30206030, "ip_address": "172.23.21.1", "mac_address": "02:03:01:05:01:01"}, "eru1n5:2": {"port_id": "eru1n5:2", "status": 0, "nid": 30206013, "teid": 30206031, "ip_address": "172.23.21.2", "mac_address": "02:03:01:05:02:01"}, "eru1n5:3": {"port_id": "eru1n5:3", "status": 0, "nid": 30206014, "teid": 30206032, "ip_address": "172.23.21.3", "mac_address": "02:03:01:05:03:01"}}</data>
+    </node>
+    <node id="cnu1n0">
+      <data key="d9">46</data>
+      <data key="d10">cnu1n0</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06201792,28.66534447</data>
+      <data key="d15">113.06201792</data>
+      <data key="d16">28.66534447</data>
+      <data key="d17">10.106.16.254</data>
+      <data key="d18">[{"port_id": "cnu1n0:1", "status": 0, "nid": 60201012, "teid": 60201030, "ip_address": "172.26.16.1", "mac_address": "02:06:01:00:01:01"}, {"port_id": "cnu1n0:2", "status": 0, "nid": 60201013, "teid": 60201031, "ip_address": "172.26.16.2", "mac_address": "02:06:01:00:02:01"}, {"port_id": "cnu1n0:3", "status": 0, "nid": 60201014, "teid": 60201032, "ip_address": "172.26.16.3", "mac_address": "02:06:01:00:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["cnu1n0:1", "cnu1n0:2", "cnu1n0:3"]</data>
+      <data key="d21">["172.26.16.1", "172.26.16.2", "172.26.16.3"]</data>
+      <data key="d22">{"cnu1n0:1": {"port_id": "cnu1n0:1", "status": 0, "nid": 60201012, "teid": 60201030, "ip_address": "172.26.16.1", "mac_address": "02:06:01:00:01:01"}, "cnu1n0:2": {"port_id": "cnu1n0:2", "status": 0, "nid": 60201013, "teid": 60201031, "ip_address": "172.26.16.2", "mac_address": "02:06:01:00:02:01"}, "cnu1n0:3": {"port_id": "cnu1n0:3", "status": 0, "nid": 60201014, "teid": 60201032, "ip_address": "172.26.16.3", "mac_address": "02:06:01:00:03:01"}}</data>
+    </node>
+    <node id="cnu1n1">
+      <data key="d9">47</data>
+      <data key="d10">cnu1n1</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06211873,28.66443746</data>
+      <data key="d15">113.06211873</data>
+      <data key="d16">28.66443746</data>
+      <data key="d17">10.106.17.254</data>
+      <data key="d18">[{"port_id": "cnu1n1:1", "status": 0, "nid": 60202012, "teid": 60202030, "ip_address": "172.26.17.1", "mac_address": "02:06:01:01:01:01"}, {"port_id": "cnu1n1:2", "status": 0, "nid": 60202013, "teid": 60202031, "ip_address": "172.26.17.2", "mac_address": "02:06:01:01:02:01"}, {"port_id": "cnu1n1:3", "status": 0, "nid": 60202014, "teid": 60202032, "ip_address": "172.26.17.3", "mac_address": "02:06:01:01:03:01"}, {"port_id": "cnu1n1:4", "status": 0, "nid": 60202015, "teid": 60202033, "ip_address": "172.26.17.4", "mac_address": "02:06:01:01:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["cnu1n1:1", "cnu1n1:2", "cnu1n1:3", "cnu1n1:4"]</data>
+      <data key="d21">["172.26.17.1", "172.26.17.2", "172.26.17.3", "172.26.17.4"]</data>
+      <data key="d22">{"cnu1n1:1": {"port_id": "cnu1n1:1", "status": 0, "nid": 60202012, "teid": 60202030, "ip_address": "172.26.17.1", "mac_address": "02:06:01:01:01:01"}, "cnu1n1:2": {"port_id": "cnu1n1:2", "status": 0, "nid": 60202013, "teid": 60202031, "ip_address": "172.26.17.2", "mac_address": "02:06:01:01:02:01"}, "cnu1n1:3": {"port_id": "cnu1n1:3", "status": 0, "nid": 60202014, "teid": 60202032, "ip_address": "172.26.17.3", "mac_address": "02:06:01:01:03:01"}, "cnu1n1:4": {"port_id": "cnu1n1:4", "status": 0, "nid": 60202015, "teid": 60202033, "ip_address": "172.26.17.4", "mac_address": "02:06:01:01:04:01"}}</data>
+    </node>
+    <node id="cnu1n2">
+      <data key="d9">48</data>
+      <data key="d10">cnu1n2</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06368885,28.66538999</data>
+      <data key="d15">113.06368885</data>
+      <data key="d16">28.66538999</data>
+      <data key="d17">10.106.18.254</data>
+      <data key="d18">[{"port_id": "cnu1n2:1", "status": 0, "nid": 60203012, "teid": 60203030, "ip_address": "172.26.18.1", "mac_address": "02:06:01:02:01:01"}, {"port_id": "cnu1n2:2", "status": 0, "nid": 60203013, "teid": 60203031, "ip_address": "172.26.18.2", "mac_address": "02:06:01:02:02:01"}, {"port_id": "cnu1n2:3", "status": 0, "nid": 60203014, "teid": 60203032, "ip_address": "172.26.18.3", "mac_address": "02:06:01:02:03:01"}, {"port_id": "cnu1n2:4", "status": 0, "nid": 60203015, "teid": 60203033, "ip_address": "172.26.18.4", "mac_address": "02:06:01:02:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["cnu1n2:1", "cnu1n2:2", "cnu1n2:3", "cnu1n2:4"]</data>
+      <data key="d21">["172.26.18.1", "172.26.18.2", "172.26.18.3", "172.26.18.4"]</data>
+      <data key="d22">{"cnu1n2:1": {"port_id": "cnu1n2:1", "status": 0, "nid": 60203012, "teid": 60203030, "ip_address": "172.26.18.1", "mac_address": "02:06:01:02:01:01"}, "cnu1n2:2": {"port_id": "cnu1n2:2", "status": 0, "nid": 60203013, "teid": 60203031, "ip_address": "172.26.18.2", "mac_address": "02:06:01:02:02:01"}, "cnu1n2:3": {"port_id": "cnu1n2:3", "status": 0, "nid": 60203014, "teid": 60203032, "ip_address": "172.26.18.3", "mac_address": "02:06:01:02:03:01"}, "cnu1n2:4": {"port_id": "cnu1n2:4", "status": 0, "nid": 60203015, "teid": 60203033, "ip_address": "172.26.18.4", "mac_address": "02:06:01:02:04:01"}}</data>
+    </node>
+    <node id="cnu1n3">
+      <data key="d9">49</data>
+      <data key="d10">cnu1n3</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06235899,28.66561153</data>
+      <data key="d15">113.06235899</data>
+      <data key="d16">28.66561153</data>
+      <data key="d17">10.106.19.254</data>
+      <data key="d18">[{"port_id": "cnu1n3:1", "status": 0, "nid": 60204012, "teid": 60204030, "ip_address": "172.26.19.1", "mac_address": "02:06:01:03:01:01"}, {"port_id": "cnu1n3:2", "status": 0, "nid": 60204013, "teid": 60204031, "ip_address": "172.26.19.2", "mac_address": "02:06:01:03:02:01"}, {"port_id": "cnu1n3:3", "status": 0, "nid": 60204014, "teid": 60204032, "ip_address": "172.26.19.3", "mac_address": "02:06:01:03:03:01"}, {"port_id": "cnu1n3:4", "status": 0, "nid": 60204015, "teid": 60204033, "ip_address": "172.26.19.4", "mac_address": "02:06:01:03:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["cnu1n3:1", "cnu1n3:2", "cnu1n3:3", "cnu1n3:4"]</data>
+      <data key="d21">["172.26.19.1", "172.26.19.2", "172.26.19.3", "172.26.19.4"]</data>
+      <data key="d22">{"cnu1n3:1": {"port_id": "cnu1n3:1", "status": 0, "nid": 60204012, "teid": 60204030, "ip_address": "172.26.19.1", "mac_address": "02:06:01:03:01:01"}, "cnu1n3:2": {"port_id": "cnu1n3:2", "status": 0, "nid": 60204013, "teid": 60204031, "ip_address": "172.26.19.2", "mac_address": "02:06:01:03:02:01"}, "cnu1n3:3": {"port_id": "cnu1n3:3", "status": 0, "nid": 60204014, "teid": 60204032, "ip_address": "172.26.19.3", "mac_address": "02:06:01:03:03:01"}, "cnu1n3:4": {"port_id": "cnu1n3:4", "status": 0, "nid": 60204015, "teid": 60204033, "ip_address": "172.26.19.4", "mac_address": "02:06:01:03:04:01"}}</data>
+    </node>
+    <node id="cnu1n4">
+      <data key="d9">50</data>
+      <data key="d10">cnu1n4</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06462054,28.66617811</data>
+      <data key="d15">113.06462054</data>
+      <data key="d16">28.66617811</data>
+      <data key="d17">10.106.20.254</data>
+      <data key="d18">[{"port_id": "cnu1n4:1", "status": 0, "nid": 60205012, "teid": 60205030, "ip_address": "172.26.20.1", "mac_address": "02:06:01:04:01:01"}, {"port_id": "cnu1n4:2", "status": 0, "nid": 60205013, "teid": 60205031, "ip_address": "172.26.20.2", "mac_address": "02:06:01:04:02:01"}, {"port_id": "cnu1n4:3", "status": 0, "nid": 60205014, "teid": 60205032, "ip_address": "172.26.20.3", "mac_address": "02:06:01:04:03:01"}, {"port_id": "cnu1n4:4", "status": 0, "nid": 60205015, "teid": 60205033, "ip_address": "172.26.20.4", "mac_address": "02:06:01:04:04:01"}]</data>
+      <data key="d19">4</data>
+      <data key="d20">["cnu1n4:1", "cnu1n4:2", "cnu1n4:3", "cnu1n4:4"]</data>
+      <data key="d21">["172.26.20.1", "172.26.20.2", "172.26.20.3", "172.26.20.4"]</data>
+      <data key="d22">{"cnu1n4:1": {"port_id": "cnu1n4:1", "status": 0, "nid": 60205012, "teid": 60205030, "ip_address": "172.26.20.1", "mac_address": "02:06:01:04:01:01"}, "cnu1n4:2": {"port_id": "cnu1n4:2", "status": 0, "nid": 60205013, "teid": 60205031, "ip_address": "172.26.20.2", "mac_address": "02:06:01:04:02:01"}, "cnu1n4:3": {"port_id": "cnu1n4:3", "status": 0, "nid": 60205014, "teid": 60205032, "ip_address": "172.26.20.3", "mac_address": "02:06:01:04:03:01"}, "cnu1n4:4": {"port_id": "cnu1n4:4", "status": 0, "nid": 60205015, "teid": 60205033, "ip_address": "172.26.20.4", "mac_address": "02:06:01:04:04:01"}}</data>
+    </node>
+    <node id="cnu1n5">
+      <data key="d9">51</data>
+      <data key="d10">cnu1n5</data>
+      <data key="d11">3</data>
+      <data key="d12">II类车载</data>
+      <data key="d13">0</data>
+      <data key="d14">113.06307376,28.66650736</data>
+      <data key="d15">113.06307376</data>
+      <data key="d16">28.66650736</data>
+      <data key="d17">10.106.21.254</data>
+      <data key="d18">[{"port_id": "cnu1n5:1", "status": 0, "nid": 60206012, "teid": 60206030, "ip_address": "172.26.21.1", "mac_address": "02:06:01:05:01:01"}, {"port_id": "cnu1n5:2", "status": 0, "nid": 60206013, "teid": 60206031, "ip_address": "172.26.21.2", "mac_address": "02:06:01:05:02:01"}, {"port_id": "cnu1n5:3", "status": 0, "nid": 60206014, "teid": 60206032, "ip_address": "172.26.21.3", "mac_address": "02:06:01:05:03:01"}]</data>
+      <data key="d19">3</data>
+      <data key="d20">["cnu1n5:1", "cnu1n5:2", "cnu1n5:3"]</data>
+      <data key="d21">["172.26.21.1", "172.26.21.2", "172.26.21.3"]</data>
+      <data key="d22">{"cnu1n5:1": {"port_id": "cnu1n5:1", "status": 0, "nid": 60206012, "teid": 60206030, "ip_address": "172.26.21.1", "mac_address": "02:06:01:05:01:01"}, "cnu1n5:2": {"port_id": "cnu1n5:2", "status": 0, "nid": 60206013, "teid": 60206031, "ip_address": "172.26.21.2", "mac_address": "02:06:01:05:02:01"}, "cnu1n5:3": {"port_id": "cnu1n5:3", "status": 0, "nid": 60206014, "teid": 60206032, "ip_address": "172.26.21.3", "mac_address": "02:06:01:05:03:01"}}</data>
+    </node>
+    <edge source="bsu0n0" target="asu0n0" id="asu0n0:3_bsu0n0:3">
+      <data key="d23">1</data>
+      <data key="d24">asu0n0:3_bsu0n0:3</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n0</data>
+      <data key="d29">asu0n0:3</data>
+      <data key="d30">bsu0n0</data>
+      <data key="d31">bsu0n0:3</data>
+      <data key="d32">172.24.0.3</data>
+      <data key="d33">172.25.0.3</data>
+    </edge>
+    <edge source="bsu0n0" target="asu0n1" id="asu0n1:4_bsu0n0:4">
+      <data key="d23">3</data>
+      <data key="d24">asu0n1:4_bsu0n0:4</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n1</data>
+      <data key="d29">asu0n1:4</data>
+      <data key="d30">bsu0n0</data>
+      <data key="d31">bsu0n0:4</data>
+      <data key="d32">172.24.1.4</data>
+      <data key="d33">172.25.0.4</data>
+    </edge>
+    <edge source="bsu0n0" target="bsu0n1" id="bsu0n0:1_bsu0n1:1">
+      <data key="d23">22</data>
+      <data key="d24">bsu0n0:1_bsu0n1:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">bsu0n0</data>
+      <data key="d29">bsu0n0:1</data>
+      <data key="d30">bsu0n1</data>
+      <data key="d31">bsu0n1:1</data>
+      <data key="d32">172.25.0.1</data>
+      <data key="d33">172.25.1.1</data>
+    </edge>
+    <edge source="bsu0n0" target="bsu0n2" id="bsu0n2:2_bsu0n0:2">
+      <data key="d23">25</data>
+      <data key="d24">bsu0n2:2_bsu0n0:2</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">bsu0n2</data>
+      <data key="d29">bsu0n2:2</data>
+      <data key="d30">bsu0n0</data>
+      <data key="d31">bsu0n0:2</data>
+      <data key="d32">172.25.2.2</data>
+      <data key="d33">172.25.0.2</data>
+    </edge>
+    <edge source="bsu0n1" target="asu0n1" id="asu0n1:5_bsu0n1:3">
+      <data key="d23">4</data>
+      <data key="d24">asu0n1:5_bsu0n1:3</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n1</data>
+      <data key="d29">asu0n1:5</data>
+      <data key="d30">bsu0n1</data>
+      <data key="d31">bsu0n1:3</data>
+      <data key="d32">172.24.1.5</data>
+      <data key="d33">172.25.1.3</data>
+    </edge>
+    <edge source="bsu0n1" target="asu0n2" id="asu0n2:5_bsu0n1:4">
+      <data key="d23">6</data>
+      <data key="d24">asu0n2:5_bsu0n1:4</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n2</data>
+      <data key="d29">asu0n2:5</data>
+      <data key="d30">bsu0n1</data>
+      <data key="d31">bsu0n1:4</data>
+      <data key="d32">172.24.2.5</data>
+      <data key="d33">172.25.1.4</data>
+    </edge>
+    <edge source="bsu0n1" target="asu0n3" id="asu0n3:4_bsu0n1:5">
+      <data key="d23">8</data>
+      <data key="d24">asu0n3:4_bsu0n1:5</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n3</data>
+      <data key="d29">asu0n3:4</data>
+      <data key="d30">bsu0n1</data>
+      <data key="d31">bsu0n1:5</data>
+      <data key="d32">172.24.3.4</data>
+      <data key="d33">172.25.1.5</data>
+    </edge>
+    <edge source="bsu0n1" target="bsu0n2" id="bsu0n1:2_bsu0n2:1">
+      <data key="d23">23</data>
+      <data key="d24">bsu0n1:2_bsu0n2:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">bsu0n1</data>
+      <data key="d29">bsu0n1:2</data>
+      <data key="d30">bsu0n2</data>
+      <data key="d31">bsu0n2:1</data>
+      <data key="d32">172.25.1.2</data>
+      <data key="d33">172.25.2.1</data>
+    </edge>
+    <edge source="bsu0n1" target="bsu1n1" id="bsu0n1:6_bsu1n1:6">
+      <data key="d23">24</data>
+      <data key="d24">bsu0n1:6_bsu1n1:6</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">bsu0n1</data>
+      <data key="d29">bsu0n1:6</data>
+      <data key="d30">bsu1n1</data>
+      <data key="d31">bsu1n1:6</data>
+      <data key="d32">172.25.1.6</data>
+      <data key="d33">172.25.17.6</data>
+    </edge>
+    <edge source="bsu0n2" target="asu0n3" id="asu0n3:5_bsu0n2:3">
+      <data key="d23">9</data>
+      <data key="d24">asu0n3:5_bsu0n2:3</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n3</data>
+      <data key="d29">asu0n3:5</data>
+      <data key="d30">bsu0n2</data>
+      <data key="d31">bsu0n2:3</data>
+      <data key="d32">172.24.3.5</data>
+      <data key="d33">172.25.2.3</data>
+    </edge>
+    <edge source="bsu0n2" target="asu0n4" id="asu0n4:3_bsu0n2:4">
+      <data key="d23">10</data>
+      <data key="d24">asu0n4:3_bsu0n2:4</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n4</data>
+      <data key="d29">asu0n4:3</data>
+      <data key="d30">bsu0n2</data>
+      <data key="d31">bsu0n2:4</data>
+      <data key="d32">172.24.4.3</data>
+      <data key="d33">172.25.2.4</data>
+    </edge>
+    <edge source="asu0n0" target="asu0n1" id="asu0n0:1_asu0n1:1">
+      <data key="d23">0</data>
+      <data key="d24">asu0n0:1_asu0n1:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n0</data>
+      <data key="d29">asu0n0:1</data>
+      <data key="d30">asu0n1</data>
+      <data key="d31">asu0n1:1</data>
+      <data key="d32">172.24.0.1</data>
+      <data key="d33">172.24.1.1</data>
+    </edge>
+    <edge source="asu0n0" target="eru0n0" id="eru0n0:3_asu0n0:2">
+      <data key="d23">52</data>
+      <data key="d24">eru0n0:3_asu0n0:2</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n0</data>
+      <data key="d29">eru0n0:3</data>
+      <data key="d30">asu0n0</data>
+      <data key="d31">asu0n0:2</data>
+      <data key="d32">172.23.0.3</data>
+      <data key="d33">172.24.0.2</data>
+    </edge>
+    <edge source="asu0n1" target="asu0n2" id="asu0n1:2_asu0n2:1">
+      <data key="d23">2</data>
+      <data key="d24">asu0n1:2_asu0n2:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n1</data>
+      <data key="d29">asu0n1:2</data>
+      <data key="d30">asu0n2</data>
+      <data key="d31">asu0n2:1</data>
+      <data key="d32">172.24.1.2</data>
+      <data key="d33">172.24.2.1</data>
+    </edge>
+    <edge source="asu0n1" target="eru0n1" id="eru0n1:4_asu0n1:3">
+      <data key="d23">54</data>
+      <data key="d24">eru0n1:4_asu0n1:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n1</data>
+      <data key="d29">eru0n1:4</data>
+      <data key="d30">asu0n1</data>
+      <data key="d31">asu0n1:3</data>
+      <data key="d32">172.23.1.4</data>
+      <data key="d33">172.24.1.3</data>
+    </edge>
+    <edge source="asu0n2" target="asu0n3" id="asu0n2:2_asu0n3:1">
+      <data key="d23">5</data>
+      <data key="d24">asu0n2:2_asu0n3:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n2</data>
+      <data key="d29">asu0n2:2</data>
+      <data key="d30">asu0n3</data>
+      <data key="d31">asu0n3:1</data>
+      <data key="d32">172.24.2.2</data>
+      <data key="d33">172.24.3.1</data>
+    </edge>
+    <edge source="asu0n2" target="eru0n2" id="eru0n2:4_asu0n2:3">
+      <data key="d23">56</data>
+      <data key="d24">eru0n2:4_asu0n2:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n2</data>
+      <data key="d29">eru0n2:4</data>
+      <data key="d30">asu0n2</data>
+      <data key="d31">asu0n2:3</data>
+      <data key="d32">172.23.2.4</data>
+      <data key="d33">172.24.2.3</data>
+    </edge>
+    <edge source="asu0n2" target="eru0n3" id="eru0n3:4_asu0n2:4">
+      <data key="d23">58</data>
+      <data key="d24">eru0n3:4_asu0n2:4</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n3</data>
+      <data key="d29">eru0n3:4</data>
+      <data key="d30">asu0n2</data>
+      <data key="d31">asu0n2:4</data>
+      <data key="d32">172.23.3.4</data>
+      <data key="d33">172.24.2.4</data>
+    </edge>
+    <edge source="asu0n3" target="asu0n4" id="asu0n3:2_asu0n4:1">
+      <data key="d23">7</data>
+      <data key="d24">asu0n3:2_asu0n4:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu0n3</data>
+      <data key="d29">asu0n3:2</data>
+      <data key="d30">asu0n4</data>
+      <data key="d31">asu0n4:1</data>
+      <data key="d32">172.24.3.2</data>
+      <data key="d33">172.24.4.1</data>
+    </edge>
+    <edge source="asu0n3" target="eru0n4" id="eru0n4:4_asu0n3:3">
+      <data key="d23">60</data>
+      <data key="d24">eru0n4:4_asu0n3:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n4</data>
+      <data key="d29">eru0n4:4</data>
+      <data key="d30">asu0n3</data>
+      <data key="d31">asu0n3:3</data>
+      <data key="d32">172.23.4.4</data>
+      <data key="d33">172.24.3.3</data>
+    </edge>
+    <edge source="asu0n4" target="eru0n5" id="eru0n5:3_asu0n4:2">
+      <data key="d23">61</data>
+      <data key="d24">eru0n5:3_asu0n4:2</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n5</data>
+      <data key="d29">eru0n5:3</data>
+      <data key="d30">asu0n4</data>
+      <data key="d31">asu0n4:2</data>
+      <data key="d32">172.23.5.3</data>
+      <data key="d33">172.24.4.2</data>
+    </edge>
+    <edge source="eru0n0" target="cnu0n0" id="cnu0n0:3_eru0n0:2">
+      <data key="d23">30</data>
+      <data key="d24">cnu0n0:3_eru0n0:2</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n0</data>
+      <data key="d29">cnu0n0:3</data>
+      <data key="d30">eru0n0</data>
+      <data key="d31">eru0n0:2</data>
+      <data key="d32">172.26.0.3</data>
+      <data key="d33">172.23.0.2</data>
+    </edge>
+    <edge source="eru0n0" target="eru0n1" id="eru0n0:1_eru0n1:1">
+      <data key="d23">51</data>
+      <data key="d24">eru0n0:1_eru0n1:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n0</data>
+      <data key="d29">eru0n0:1</data>
+      <data key="d30">eru0n1</data>
+      <data key="d31">eru0n1:1</data>
+      <data key="d32">172.23.0.1</data>
+      <data key="d33">172.23.1.1</data>
+    </edge>
+    <edge source="eru0n1" target="cnu0n1" id="cnu0n1:4_eru0n1:3">
+      <data key="d23">32</data>
+      <data key="d24">cnu0n1:4_eru0n1:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n1</data>
+      <data key="d29">cnu0n1:4</data>
+      <data key="d30">eru0n1</data>
+      <data key="d31">eru0n1:3</data>
+      <data key="d32">172.26.1.4</data>
+      <data key="d33">172.23.1.3</data>
+    </edge>
+    <edge source="eru0n1" target="eru0n2" id="eru0n1:2_eru0n2:1">
+      <data key="d23">53</data>
+      <data key="d24">eru0n1:2_eru0n2:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n1</data>
+      <data key="d29">eru0n1:2</data>
+      <data key="d30">eru0n2</data>
+      <data key="d31">eru0n2:1</data>
+      <data key="d32">172.23.1.2</data>
+      <data key="d33">172.23.2.1</data>
+    </edge>
+    <edge source="eru0n2" target="cnu0n2" id="cnu0n2:4_eru0n2:3">
+      <data key="d23">34</data>
+      <data key="d24">cnu0n2:4_eru0n2:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n2</data>
+      <data key="d29">cnu0n2:4</data>
+      <data key="d30">eru0n2</data>
+      <data key="d31">eru0n2:3</data>
+      <data key="d32">172.26.2.4</data>
+      <data key="d33">172.23.2.3</data>
+    </edge>
+    <edge source="eru0n2" target="eru0n3" id="eru0n2:2_eru0n3:1">
+      <data key="d23">55</data>
+      <data key="d24">eru0n2:2_eru0n3:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n2</data>
+      <data key="d29">eru0n2:2</data>
+      <data key="d30">eru0n3</data>
+      <data key="d31">eru0n3:1</data>
+      <data key="d32">172.23.2.2</data>
+      <data key="d33">172.23.3.1</data>
+    </edge>
+    <edge source="eru0n3" target="cnu0n3" id="cnu0n3:4_eru0n3:3">
+      <data key="d23">36</data>
+      <data key="d24">cnu0n3:4_eru0n3:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n3</data>
+      <data key="d29">cnu0n3:4</data>
+      <data key="d30">eru0n3</data>
+      <data key="d31">eru0n3:3</data>
+      <data key="d32">172.26.3.4</data>
+      <data key="d33">172.23.3.3</data>
+    </edge>
+    <edge source="eru0n3" target="eru0n4" id="eru0n3:2_eru0n4:1">
+      <data key="d23">57</data>
+      <data key="d24">eru0n3:2_eru0n4:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n3</data>
+      <data key="d29">eru0n3:2</data>
+      <data key="d30">eru0n4</data>
+      <data key="d31">eru0n4:1</data>
+      <data key="d32">172.23.3.2</data>
+      <data key="d33">172.23.4.1</data>
+    </edge>
+    <edge source="eru0n4" target="cnu0n4" id="cnu0n4:4_eru0n4:3">
+      <data key="d23">38</data>
+      <data key="d24">cnu0n4:4_eru0n4:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n4</data>
+      <data key="d29">cnu0n4:4</data>
+      <data key="d30">eru0n4</data>
+      <data key="d31">eru0n4:3</data>
+      <data key="d32">172.26.4.4</data>
+      <data key="d33">172.23.4.3</data>
+    </edge>
+    <edge source="eru0n4" target="eru0n5" id="eru0n4:2_eru0n5:1">
+      <data key="d23">59</data>
+      <data key="d24">eru0n4:2_eru0n5:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru0n4</data>
+      <data key="d29">eru0n4:2</data>
+      <data key="d30">eru0n5</data>
+      <data key="d31">eru0n5:1</data>
+      <data key="d32">172.23.4.2</data>
+      <data key="d33">172.23.5.1</data>
+    </edge>
+    <edge source="eru0n5" target="cnu0n5" id="cnu0n5:3_eru0n5:2">
+      <data key="d23">39</data>
+      <data key="d24">cnu0n5:3_eru0n5:2</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n5</data>
+      <data key="d29">cnu0n5:3</data>
+      <data key="d30">eru0n5</data>
+      <data key="d31">eru0n5:2</data>
+      <data key="d32">172.26.5.3</data>
+      <data key="d33">172.23.5.2</data>
+    </edge>
+    <edge source="cnu0n0" target="cnu0n1" id="cnu0n0:1_cnu0n1:1">
+      <data key="d23">29</data>
+      <data key="d24">cnu0n0:1_cnu0n1:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n0</data>
+      <data key="d29">cnu0n0:1</data>
+      <data key="d30">cnu0n1</data>
+      <data key="d31">cnu0n1:1</data>
+      <data key="d32">172.26.0.1</data>
+      <data key="d33">172.26.1.1</data>
+    </edge>
+    <edge source="cnu0n1" target="cnu0n2" id="cnu0n1:2_cnu0n2:1">
+      <data key="d23">31</data>
+      <data key="d24">cnu0n1:2_cnu0n2:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n1</data>
+      <data key="d29">cnu0n1:2</data>
+      <data key="d30">cnu0n2</data>
+      <data key="d31">cnu0n2:1</data>
+      <data key="d32">172.26.1.2</data>
+      <data key="d33">172.26.2.1</data>
+    </edge>
+    <edge source="cnu0n2" target="cnu0n3" id="cnu0n2:2_cnu0n3:1">
+      <data key="d23">33</data>
+      <data key="d24">cnu0n2:2_cnu0n3:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n2</data>
+      <data key="d29">cnu0n2:2</data>
+      <data key="d30">cnu0n3</data>
+      <data key="d31">cnu0n3:1</data>
+      <data key="d32">172.26.2.2</data>
+      <data key="d33">172.26.3.1</data>
+    </edge>
+    <edge source="cnu0n3" target="cnu0n4" id="cnu0n3:2_cnu0n4:1">
+      <data key="d23">35</data>
+      <data key="d24">cnu0n3:2_cnu0n4:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n3</data>
+      <data key="d29">cnu0n3:2</data>
+      <data key="d30">cnu0n4</data>
+      <data key="d31">cnu0n4:1</data>
+      <data key="d32">172.26.3.2</data>
+      <data key="d33">172.26.4.1</data>
+    </edge>
+    <edge source="cnu0n4" target="cnu0n5" id="cnu0n4:2_cnu0n5:1">
+      <data key="d23">37</data>
+      <data key="d24">cnu0n4:2_cnu0n5:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu0n4</data>
+      <data key="d29">cnu0n4:2</data>
+      <data key="d30">cnu0n5</data>
+      <data key="d31">cnu0n5:1</data>
+      <data key="d32">172.26.4.2</data>
+      <data key="d33">172.26.5.1</data>
+    </edge>
+    <edge source="bsu1n0" target="asu1n0" id="asu1n0:3_bsu1n0:3">
+      <data key="d23">12</data>
+      <data key="d24">asu1n0:3_bsu1n0:3</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n0</data>
+      <data key="d29">asu1n0:3</data>
+      <data key="d30">bsu1n0</data>
+      <data key="d31">bsu1n0:3</data>
+      <data key="d32">172.24.16.3</data>
+      <data key="d33">172.25.16.3</data>
+    </edge>
+    <edge source="bsu1n0" target="asu1n1" id="asu1n1:4_bsu1n0:4">
+      <data key="d23">14</data>
+      <data key="d24">asu1n1:4_bsu1n0:4</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n1</data>
+      <data key="d29">asu1n1:4</data>
+      <data key="d30">bsu1n0</data>
+      <data key="d31">bsu1n0:4</data>
+      <data key="d32">172.24.17.4</data>
+      <data key="d33">172.25.16.4</data>
+    </edge>
+    <edge source="bsu1n0" target="bsu1n1" id="bsu1n0:1_bsu1n1:1">
+      <data key="d23">26</data>
+      <data key="d24">bsu1n0:1_bsu1n1:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">bsu1n0</data>
+      <data key="d29">bsu1n0:1</data>
+      <data key="d30">bsu1n1</data>
+      <data key="d31">bsu1n1:1</data>
+      <data key="d32">172.25.16.1</data>
+      <data key="d33">172.25.17.1</data>
+    </edge>
+    <edge source="bsu1n0" target="bsu1n2" id="bsu1n2:2_bsu1n0:2">
+      <data key="d23">28</data>
+      <data key="d24">bsu1n2:2_bsu1n0:2</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">bsu1n2</data>
+      <data key="d29">bsu1n2:2</data>
+      <data key="d30">bsu1n0</data>
+      <data key="d31">bsu1n0:2</data>
+      <data key="d32">172.25.18.2</data>
+      <data key="d33">172.25.16.2</data>
+    </edge>
+    <edge source="bsu1n1" target="asu1n1" id="asu1n1:5_bsu1n1:3">
+      <data key="d23">15</data>
+      <data key="d24">asu1n1:5_bsu1n1:3</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n1</data>
+      <data key="d29">asu1n1:5</data>
+      <data key="d30">bsu1n1</data>
+      <data key="d31">bsu1n1:3</data>
+      <data key="d32">172.24.17.5</data>
+      <data key="d33">172.25.17.3</data>
+    </edge>
+    <edge source="bsu1n1" target="asu1n2" id="asu1n2:5_bsu1n1:4">
+      <data key="d23">17</data>
+      <data key="d24">asu1n2:5_bsu1n1:4</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n2</data>
+      <data key="d29">asu1n2:5</data>
+      <data key="d30">bsu1n1</data>
+      <data key="d31">bsu1n1:4</data>
+      <data key="d32">172.24.18.5</data>
+      <data key="d33">172.25.17.4</data>
+    </edge>
+    <edge source="bsu1n1" target="asu1n3" id="asu1n3:4_bsu1n1:5">
+      <data key="d23">19</data>
+      <data key="d24">asu1n3:4_bsu1n1:5</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n3</data>
+      <data key="d29">asu1n3:4</data>
+      <data key="d30">bsu1n1</data>
+      <data key="d31">bsu1n1:5</data>
+      <data key="d32">172.24.19.4</data>
+      <data key="d33">172.25.17.5</data>
+    </edge>
+    <edge source="bsu1n1" target="bsu1n2" id="bsu1n1:2_bsu1n2:1">
+      <data key="d23">27</data>
+      <data key="d24">bsu1n1:2_bsu1n2:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">bsu1n1</data>
+      <data key="d29">bsu1n1:2</data>
+      <data key="d30">bsu1n2</data>
+      <data key="d31">bsu1n2:1</data>
+      <data key="d32">172.25.17.2</data>
+      <data key="d33">172.25.18.1</data>
+    </edge>
+    <edge source="bsu1n2" target="asu1n3" id="asu1n3:5_bsu1n2:3">
+      <data key="d23">20</data>
+      <data key="d24">asu1n3:5_bsu1n2:3</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n3</data>
+      <data key="d29">asu1n3:5</data>
+      <data key="d30">bsu1n2</data>
+      <data key="d31">bsu1n2:3</data>
+      <data key="d32">172.24.19.5</data>
+      <data key="d33">172.25.18.3</data>
+    </edge>
+    <edge source="bsu1n2" target="asu1n4" id="asu1n4:3_bsu1n2:4">
+      <data key="d23">21</data>
+      <data key="d24">asu1n4:3_bsu1n2:4</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n4</data>
+      <data key="d29">asu1n4:3</data>
+      <data key="d30">bsu1n2</data>
+      <data key="d31">bsu1n2:4</data>
+      <data key="d32">172.24.20.3</data>
+      <data key="d33">172.25.18.4</data>
+    </edge>
+    <edge source="asu1n0" target="asu1n1" id="asu1n0:1_asu1n1:1">
+      <data key="d23">11</data>
+      <data key="d24">asu1n0:1_asu1n1:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n0</data>
+      <data key="d29">asu1n0:1</data>
+      <data key="d30">asu1n1</data>
+      <data key="d31">asu1n1:1</data>
+      <data key="d32">172.24.16.1</data>
+      <data key="d33">172.24.17.1</data>
+    </edge>
+    <edge source="asu1n0" target="eru1n0" id="eru1n0:3_asu1n0:2">
+      <data key="d23">63</data>
+      <data key="d24">eru1n0:3_asu1n0:2</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n0</data>
+      <data key="d29">eru1n0:3</data>
+      <data key="d30">asu1n0</data>
+      <data key="d31">asu1n0:2</data>
+      <data key="d32">172.23.16.3</data>
+      <data key="d33">172.24.16.2</data>
+    </edge>
+    <edge source="asu1n1" target="asu1n2" id="asu1n1:2_asu1n2:1">
+      <data key="d23">13</data>
+      <data key="d24">asu1n1:2_asu1n2:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n1</data>
+      <data key="d29">asu1n1:2</data>
+      <data key="d30">asu1n2</data>
+      <data key="d31">asu1n2:1</data>
+      <data key="d32">172.24.17.2</data>
+      <data key="d33">172.24.18.1</data>
+    </edge>
+    <edge source="asu1n1" target="eru1n1" id="eru1n1:4_asu1n1:3">
+      <data key="d23">65</data>
+      <data key="d24">eru1n1:4_asu1n1:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n1</data>
+      <data key="d29">eru1n1:4</data>
+      <data key="d30">asu1n1</data>
+      <data key="d31">asu1n1:3</data>
+      <data key="d32">172.23.17.4</data>
+      <data key="d33">172.24.17.3</data>
+    </edge>
+    <edge source="asu1n2" target="asu1n3" id="asu1n2:2_asu1n3:1">
+      <data key="d23">16</data>
+      <data key="d24">asu1n2:2_asu1n3:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n2</data>
+      <data key="d29">asu1n2:2</data>
+      <data key="d30">asu1n3</data>
+      <data key="d31">asu1n3:1</data>
+      <data key="d32">172.24.18.2</data>
+      <data key="d33">172.24.19.1</data>
+    </edge>
+    <edge source="asu1n2" target="eru1n2" id="eru1n2:4_asu1n2:3">
+      <data key="d23">67</data>
+      <data key="d24">eru1n2:4_asu1n2:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n2</data>
+      <data key="d29">eru1n2:4</data>
+      <data key="d30">asu1n2</data>
+      <data key="d31">asu1n2:3</data>
+      <data key="d32">172.23.18.4</data>
+      <data key="d33">172.24.18.3</data>
+    </edge>
+    <edge source="asu1n2" target="eru1n3" id="eru1n3:4_asu1n2:4">
+      <data key="d23">69</data>
+      <data key="d24">eru1n3:4_asu1n2:4</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n3</data>
+      <data key="d29">eru1n3:4</data>
+      <data key="d30">asu1n2</data>
+      <data key="d31">asu1n2:4</data>
+      <data key="d32">172.23.19.4</data>
+      <data key="d33">172.24.18.4</data>
+    </edge>
+    <edge source="asu1n3" target="asu1n4" id="asu1n3:2_asu1n4:1">
+      <data key="d23">18</data>
+      <data key="d24">asu1n3:2_asu1n4:1</data>
+      <data key="d25">0</data>
+      <data key="d26">500.0</data>
+      <data key="d27">10.0</data>
+      <data key="d28">asu1n3</data>
+      <data key="d29">asu1n3:2</data>
+      <data key="d30">asu1n4</data>
+      <data key="d31">asu1n4:1</data>
+      <data key="d32">172.24.19.2</data>
+      <data key="d33">172.24.20.1</data>
+    </edge>
+    <edge source="asu1n3" target="eru1n4" id="eru1n4:4_asu1n3:3">
+      <data key="d23">71</data>
+      <data key="d24">eru1n4:4_asu1n3:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n4</data>
+      <data key="d29">eru1n4:4</data>
+      <data key="d30">asu1n3</data>
+      <data key="d31">asu1n3:3</data>
+      <data key="d32">172.23.20.4</data>
+      <data key="d33">172.24.19.3</data>
+    </edge>
+    <edge source="asu1n4" target="eru1n5" id="eru1n5:3_asu1n4:2">
+      <data key="d23">72</data>
+      <data key="d24">eru1n5:3_asu1n4:2</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n5</data>
+      <data key="d29">eru1n5:3</data>
+      <data key="d30">asu1n4</data>
+      <data key="d31">asu1n4:2</data>
+      <data key="d32">172.23.21.3</data>
+      <data key="d33">172.24.20.2</data>
+    </edge>
+    <edge source="eru1n0" target="cnu1n0" id="cnu1n0:3_eru1n0:2">
+      <data key="d23">41</data>
+      <data key="d24">cnu1n0:3_eru1n0:2</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n0</data>
+      <data key="d29">cnu1n0:3</data>
+      <data key="d30">eru1n0</data>
+      <data key="d31">eru1n0:2</data>
+      <data key="d32">172.26.16.3</data>
+      <data key="d33">172.23.16.2</data>
+    </edge>
+    <edge source="eru1n0" target="eru1n1" id="eru1n0:1_eru1n1:1">
+      <data key="d23">62</data>
+      <data key="d24">eru1n0:1_eru1n1:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n0</data>
+      <data key="d29">eru1n0:1</data>
+      <data key="d30">eru1n1</data>
+      <data key="d31">eru1n1:1</data>
+      <data key="d32">172.23.16.1</data>
+      <data key="d33">172.23.17.1</data>
+    </edge>
+    <edge source="eru1n1" target="cnu1n1" id="cnu1n1:4_eru1n1:3">
+      <data key="d23">43</data>
+      <data key="d24">cnu1n1:4_eru1n1:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n1</data>
+      <data key="d29">cnu1n1:4</data>
+      <data key="d30">eru1n1</data>
+      <data key="d31">eru1n1:3</data>
+      <data key="d32">172.26.17.4</data>
+      <data key="d33">172.23.17.3</data>
+    </edge>
+    <edge source="eru1n1" target="eru1n2" id="eru1n1:2_eru1n2:1">
+      <data key="d23">64</data>
+      <data key="d24">eru1n1:2_eru1n2:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n1</data>
+      <data key="d29">eru1n1:2</data>
+      <data key="d30">eru1n2</data>
+      <data key="d31">eru1n2:1</data>
+      <data key="d32">172.23.17.2</data>
+      <data key="d33">172.23.18.1</data>
+    </edge>
+    <edge source="eru1n2" target="cnu1n2" id="cnu1n2:4_eru1n2:3">
+      <data key="d23">45</data>
+      <data key="d24">cnu1n2:4_eru1n2:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n2</data>
+      <data key="d29">cnu1n2:4</data>
+      <data key="d30">eru1n2</data>
+      <data key="d31">eru1n2:3</data>
+      <data key="d32">172.26.18.4</data>
+      <data key="d33">172.23.18.3</data>
+    </edge>
+    <edge source="eru1n2" target="eru1n3" id="eru1n2:2_eru1n3:1">
+      <data key="d23">66</data>
+      <data key="d24">eru1n2:2_eru1n3:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n2</data>
+      <data key="d29">eru1n2:2</data>
+      <data key="d30">eru1n3</data>
+      <data key="d31">eru1n3:1</data>
+      <data key="d32">172.23.18.2</data>
+      <data key="d33">172.23.19.1</data>
+    </edge>
+    <edge source="eru1n3" target="cnu1n3" id="cnu1n3:4_eru1n3:3">
+      <data key="d23">47</data>
+      <data key="d24">cnu1n3:4_eru1n3:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n3</data>
+      <data key="d29">cnu1n3:4</data>
+      <data key="d30">eru1n3</data>
+      <data key="d31">eru1n3:3</data>
+      <data key="d32">172.26.19.4</data>
+      <data key="d33">172.23.19.3</data>
+    </edge>
+    <edge source="eru1n3" target="eru1n4" id="eru1n3:2_eru1n4:1">
+      <data key="d23">68</data>
+      <data key="d24">eru1n3:2_eru1n4:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n3</data>
+      <data key="d29">eru1n3:2</data>
+      <data key="d30">eru1n4</data>
+      <data key="d31">eru1n4:1</data>
+      <data key="d32">172.23.19.2</data>
+      <data key="d33">172.23.20.1</data>
+    </edge>
+    <edge source="eru1n4" target="cnu1n4" id="cnu1n4:4_eru1n4:3">
+      <data key="d23">49</data>
+      <data key="d24">cnu1n4:4_eru1n4:3</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n4</data>
+      <data key="d29">cnu1n4:4</data>
+      <data key="d30">eru1n4</data>
+      <data key="d31">eru1n4:3</data>
+      <data key="d32">172.26.20.4</data>
+      <data key="d33">172.23.20.3</data>
+    </edge>
+    <edge source="eru1n4" target="eru1n5" id="eru1n4:2_eru1n5:1">
+      <data key="d23">70</data>
+      <data key="d24">eru1n4:2_eru1n5:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">eru1n4</data>
+      <data key="d29">eru1n4:2</data>
+      <data key="d30">eru1n5</data>
+      <data key="d31">eru1n5:1</data>
+      <data key="d32">172.23.20.2</data>
+      <data key="d33">172.23.21.1</data>
+    </edge>
+    <edge source="eru1n5" target="cnu1n5" id="cnu1n5:3_eru1n5:2">
+      <data key="d23">50</data>
+      <data key="d24">cnu1n5:3_eru1n5:2</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n5</data>
+      <data key="d29">cnu1n5:3</data>
+      <data key="d30">eru1n5</data>
+      <data key="d31">eru1n5:2</data>
+      <data key="d32">172.26.21.3</data>
+      <data key="d33">172.23.21.2</data>
+    </edge>
+    <edge source="cnu1n0" target="cnu1n1" id="cnu1n0:1_cnu1n1:1">
+      <data key="d23">40</data>
+      <data key="d24">cnu1n0:1_cnu1n1:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n0</data>
+      <data key="d29">cnu1n0:1</data>
+      <data key="d30">cnu1n1</data>
+      <data key="d31">cnu1n1:1</data>
+      <data key="d32">172.26.16.1</data>
+      <data key="d33">172.26.17.1</data>
+    </edge>
+    <edge source="cnu1n1" target="cnu1n2" id="cnu1n1:2_cnu1n2:1">
+      <data key="d23">42</data>
+      <data key="d24">cnu1n1:2_cnu1n2:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n1</data>
+      <data key="d29">cnu1n1:2</data>
+      <data key="d30">cnu1n2</data>
+      <data key="d31">cnu1n2:1</data>
+      <data key="d32">172.26.17.2</data>
+      <data key="d33">172.26.18.1</data>
+    </edge>
+    <edge source="cnu1n2" target="cnu1n3" id="cnu1n2:2_cnu1n3:1">
+      <data key="d23">44</data>
+      <data key="d24">cnu1n2:2_cnu1n3:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n2</data>
+      <data key="d29">cnu1n2:2</data>
+      <data key="d30">cnu1n3</data>
+      <data key="d31">cnu1n3:1</data>
+      <data key="d32">172.26.18.2</data>
+      <data key="d33">172.26.19.1</data>
+    </edge>
+    <edge source="cnu1n3" target="cnu1n4" id="cnu1n3:2_cnu1n4:1">
+      <data key="d23">46</data>
+      <data key="d24">cnu1n3:2_cnu1n4:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n3</data>
+      <data key="d29">cnu1n3:2</data>
+      <data key="d30">cnu1n4</data>
+      <data key="d31">cnu1n4:1</data>
+      <data key="d32">172.26.19.2</data>
+      <data key="d33">172.26.20.1</data>
+    </edge>
+    <edge source="cnu1n4" target="cnu1n5" id="cnu1n4:2_cnu1n5:1">
+      <data key="d23">48</data>
+      <data key="d24">cnu1n4:2_cnu1n5:1</data>
+      <data key="d25">0</data>
+      <data key="d26">200.0</data>
+      <data key="d27">50.0</data>
+      <data key="d28">cnu1n4</data>
+      <data key="d29">cnu1n4:2</data>
+      <data key="d30">cnu1n5</data>
+      <data key="d31">cnu1n5:1</data>
+      <data key="d32">172.26.20.2</data>
+      <data key="d33">172.26.21.1</data>
+    </edge>
+    <data key="d0">/Users/wmq/Documents/bit-code-work/co-reasoning/environment/inner_graph_data/json-data/network_topology_state.json</data>
+    <data key="d1">{"node_count": 52, "node_type_count": {"1": 0, "2": 0, "3": 24, "4": 10, "5": 6, "6": 12, "7": 0, "8": 0}, "link_count": 1921, "timestamp": "2026-05-23T17:21:12.406631+08:00"}</data>
+    <data key="d2">0</data>
+    <data key="d3">ok</data>
+    <data key="d4">52</data>
+    <data key="d5">1921</data>
+    <data key="d6">1848</data>
+    <data key="d7">True</data>
+    <data key="d8">0=offline/fault, 1=online</data>
+  </graph>
+</graphml>
