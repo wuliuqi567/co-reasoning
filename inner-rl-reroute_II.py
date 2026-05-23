@@ -20,7 +20,7 @@
 参数说明：
   --fetch-online：从拓扑接口获取最新拓扑；不加时使用本地 JSON。
   --fetch-link-metrics：从链路指标接口获取最新链路指标；不加时使用本地 JSON。
-  --src/--dst：按节点 ID 指定源宿，必须成对使用。
+  --src/--dst：按节点 ID 指定源宿，默认 asu0n0 -> eru1n5。
   --src-ip/--dst-ip：按管理 IP 或端口 IP 指定源宿，必须成对使用。
 
 固定默认值：
@@ -55,6 +55,8 @@ GRAPH_DIR = ROOT / "environment" / "inner_graph_data"
 TOPOLOGY_JSON = GRAPH_DIR / "json-data" / "network_topology_state.json"
 BASE_GRAPHML = GRAPH_DIR / "base_ii_topology.graphml"
 LINK_METRIC_JSON = GRAPH_DIR / "json-data" / "link_metric.json"
+DEFAULT_SRC = "asu0n0"
+DEFAULT_DST = "eru1n5"
 
 
 def node_label(graph: nx.Graph, node: str) -> str:
@@ -122,9 +124,6 @@ def resolve_node_by_ip(graph: nx.Graph, ip: str) -> str:
 
 
 def resolve_endpoints(args: argparse.Namespace, graph: nx.Graph) -> tuple[str, str]:
-    if (args.src or args.dst) and (args.src_ip or args.dst_ip):
-        raise ValueError("Use either --src/--dst or --src-ip/--dst-ip, not both.")
-
     if args.src_ip or args.dst_ip:
         if not args.src_ip or not args.dst_ip:
             raise ValueError("--src-ip and --dst-ip must be provided together.")
@@ -150,8 +149,8 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="从链路指标接口获取最新指标；默认使用本地 link_metric.json。",
     )
-    parser.add_argument("--src", help="源节点 ID，需与 --dst 成对使用。")
-    parser.add_argument("--dst", help="目的节点 ID，需与 --src 成对使用。")
+    parser.add_argument("--src", default=DEFAULT_SRC, help=f"源节点 ID，默认 {DEFAULT_SRC}。")
+    parser.add_argument("--dst", default=DEFAULT_DST, help=f"目的节点 ID，默认 {DEFAULT_DST}。")
     parser.add_argument("--src-ip", help="源节点管理 IP 或端口 IP，需与 --dst-ip 成对使用。")
     parser.add_argument("--dst-ip", help="目的节点管理 IP 或端口 IP，需与 --src-ip 成对使用。")
     return parser.parse_args()
@@ -202,7 +201,7 @@ def main() -> int:
     metrics = qos.path_metrics(routing_graph, path)
 
     print(f"[PATH] {src} -> {dst}")
-    print_path_details(routing_graph, path)
+    # print_path_details(routing_graph, path)
     print("[PATH] structured node IP info:")
     print(json.dumps(path_with_manage_ips(routing_graph, path), ensure_ascii=False, indent=2))
     print(
