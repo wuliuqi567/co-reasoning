@@ -2,9 +2,9 @@
 """协同重路由编排入口。
 
 流程：
-  1. 运行 inner-rl-reroute_II.py，获得 II 类本地最短路径策略。
+  1. 运行 inner_rl_reroute_II.py，获得 II 类本地最短路径策略。
   2. 参考 rl_reroute_II.py 的上报方式，将 II 策略写入知识库。
-  3. 运行 inner-rl-reroute_III.py，获得 III 类 QoS 重路由策略。
+  3. 运行 inner_rl_reroute_III.py，获得 III 类 QoS 重路由策略。
   4. 从知识库读取 II 策略。
   5. 参考 rl_reroute.py 的方式比较策略并组织协同推理日志。
 
@@ -34,8 +34,8 @@ from inner_post_table_flow import policy_compare
 
 
 ROOT = Path(__file__).resolve().parent
-II_SCRIPT = ROOT / "inner-rl-reroute_II.py"
-III_SCRIPT = ROOT / "inner-rl-reroute_III.py"
+II_SCRIPT = ROOT / "inner_rl_reroute_II.py"
+III_SCRIPT = ROOT / "inner_rl_reroute_III.py"
 DEFAULT_LOG_PATH = ROOT / "logs" / "access.log"
 DEFAULT_ONLINE_LOG_PATH = Path("/home/ict/projects/kg_network/semprotocol/log/access.log")
 DEFAULT_OFFLINE_KB_PATH = ROOT / "logs" / "offline_ii_policy.json"

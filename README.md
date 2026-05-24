@@ -6,8 +6,8 @@
 
 ```text
 inner_rl_reroute.py                 # 内场协同编排入口，默认在线知识库模式
-inner-rl-reroute_II.py              # 内场 II 类本地路径：按时延最短路径
-inner-rl-reroute_III.py             # 内场 III 类全局路径：QoS 约束路由
+inner_rl_reroute_II.py              # 内场 II 类本地路径：按时延最短路径
+inner_rl_reroute_III.py             # 内场 III 类全局路径：QoS 约束路由
 inner_post_II_info.py               # 内场专用知识库接口，目标 192.168.1.24
 inner_post_table_flow.py            # 内场专用流表接口，目标 192.168.1.24
 environment/inner_graph_data/       # 内场拓扑、指标、GraphML 与解析工具
@@ -98,15 +98,15 @@ python inner_rl_reroute.py --log-path /tmp/access.log
 II 脚本只做在线图过滤后的时延最短路径：
 
 ```bash
-python inner-rl-reroute_II.py
+python inner_rl_reroute_II.py
 ```
 
 常用参数：
 
 ```bash
-python inner-rl-reroute_II.py --src asu0n0 --dst eru1n5
-python inner-rl-reroute_II.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
-python inner-rl-reroute_II.py --fetch-online --fetch-link-metrics
+python inner_rl_reroute_II.py --src asu0n0 --dst eru1n5
+python inner_rl_reroute_II.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
+python inner_rl_reroute_II.py --fetch-online --fetch-link-metrics
 ```
 
 ### 单独运行 III 路由
@@ -114,7 +114,7 @@ python inner-rl-reroute_II.py --fetch-online --fetch-link-metrics
 III 脚本执行 QoS 路由：先按可用带宽过滤链路，再生成按时延排序的候选路径，返回第一条满足丢包率约束的路径。
 
 ```bash
-python inner-rl-reroute_III.py
+python inner_rl_reroute_III.py
 ```
 
 QoS 默认值：
@@ -128,18 +128,18 @@ QoS 默认值：
 常用参数：
 
 ```bash
-python inner-rl-reroute_III.py --src asu0n0 --dst eru1n5
-python inner-rl-reroute_III.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
-python inner-rl-reroute_III.py --fetch-online --fetch-link-metrics
+python inner_rl_reroute_III.py --src asu0n0 --dst eru1n5
+python inner_rl_reroute_III.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
+python inner_rl_reroute_III.py --fetch-online --fetch-link-metrics
 ```
 
 ## 内场协同流程
 
 `inner_rl_reroute.py` 的执行顺序：
 
-1. 运行 `inner-rl-reroute_II.py`，得到 II 本地路径。
+1. 运行 `inner_rl_reroute_II.py`，得到 II 本地路径。
 2. 将 II 策略上报知识库；离线模式写入 `logs/offline_ii_policy.json`。
-3. 运行 `inner-rl-reroute_III.py`，得到 III QoS 路径。
+3. 运行 `inner_rl_reroute_III.py`，得到 III QoS 路径。
 4. 从知识库读取 II 策略。
 5. 使用 `inner_post_table_flow.policy_compare()` 比较 II/III 策略。
 6. 参考 `rl_reroute.py` 的格式写协同推理日志。
