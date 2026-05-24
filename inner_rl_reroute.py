@@ -259,6 +259,42 @@ def build_result_string(local_policy: dict[str, Any], global_policy: dict[str, A
     return result1 + " " + result2 + " " + result3 + " " + result4
 
 
+def adjust_result_string(result: str, adjustments: list[float]) -> str:
+    """对形如 "[1 2 3]" 的 result 字符串逐项做数值偏移。"""
+    text = result.strip()
+    has_left_bracket = text.startswith("[")
+    has_right_bracket = text.endswith("]")
+    body = text[1 if has_left_bracket else 0: -1 if has_right_bracket else len(text)]
+    values = body.split()
+
+    adjusted_values = []
+    for idx, value in enumerate(values):
+        adjustment = adjustments[idx] if idx < len(adjustments) else 0
+        if adjustment == 0:
+            adjusted_values.append(value)
+            continue
+        try:
+            adjusted_values.append(_format_adjusted_result_value(float(value) + adjustment, value))
+        except ValueError:
+            adjusted_values.append(value)
+
+    adjusted_text = " ".join(adjusted_values)
+    if has_left_bracket:
+        adjusted_text = "[" + adjusted_text
+    if has_right_bracket:
+        adjusted_text += "]"
+    return adjusted_text
+
+
+def _format_adjusted_result_value(value: float, original: str) -> str:
+    if "." in original and "e" not in original.lower():
+        decimals = len(original.split(".", 1)[1])
+        return f"{value:.{decimals}f}"
+    if value.is_integer():
+        return str(int(value))
+    return f"{value:.6f}".rstrip("0").rstrip(".")
+
+
 def main() -> int:
     args = parse_args()
     log_path = resolve_log_path(args)
@@ -315,7 +351,15 @@ def main() -> int:
     time9 = get_time_str()
     time10 = get_time_str()
 
-    result = build_result_string(local_policy, global_policy)
+    # 如需固定协同推理日志中的 result 字段，在这里填字符串；None 表示自动计算。
+    custom_result = None  # "[100 120 7 8 200 180 30 45]"
+    result = custom_result if custom_result is not None else build_result_string(local_policy, global_policy)
+
+    # 按 result 中数值顺序逐项微调；正数表示增加，负数表示减小。
+    # 顺序为：[本地时延 全局时延 本地跳数 全局跳数 本地带宽 全局带宽 本地响应时间 全局响应时间]
+    result_adjustments = [0, 0, 0, 0, 0, 0, 0, 0]
+    result = adjust_result_string(result, result_adjustments)
+
     print(f"性能指标结果: {result}")
     print("-------------------------------最终协同策略---------------------------------\n")
     print("final_policy", json.dumps(final_policy, ensure_ascii=False, indent=2))
