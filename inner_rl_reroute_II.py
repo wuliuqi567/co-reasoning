@@ -2,7 +2,7 @@
 """II 类拓扑刷新与最短路径路由示例。
 
 运行方式：
-  # 离线模式：使用 environment/inner_graph_data/json-data 下已有的 JSON 数据。
+  # 默认在线模式：获取最新拓扑和链路指标。
   python inner_rl_reroute_II.py
 
   # 指定源宿节点 ID。
@@ -11,15 +11,11 @@
   # 指定源宿 IP，支持节点管理 IP 或端口 IP。
   python inner_rl_reroute_II.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
 
-  # 在线模式：先获取最新拓扑，再更新图。
-  python inner_rl_reroute_II.py --fetch-online
-
-  # 同时在线获取链路指标。
-  python inner_rl_reroute_II.py --fetch-online --fetch-link-metrics
+  # 网络数据离线：使用 environment/inner_graph_data/json-data 下已有的 JSON 数据。
+  python inner_rl_reroute_II.py --net_offline
 
 参数说明：
-  --fetch-online：从拓扑接口获取最新拓扑；不加时使用本地 JSON。
-  --fetch-link-metrics：从链路指标接口获取最新链路指标；不加时使用本地 JSON。
+  --net_offline：使用本地拓扑和链路指标 JSON；不加时在线获取两类数据。
   --src/--dst：按节点 ID 指定源宿，默认 asu0n0 -> eru1n5。
   --src-ip/--dst-ip：按管理 IP 或端口 IP 指定源宿，必须成对使用。
 
@@ -140,14 +136,9 @@ def resolve_endpoints(args: argparse.Namespace, graph: nx.Graph) -> tuple[str, s
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="刷新 II 类网络图并按时延计算最短路径。")
     parser.add_argument(
-        "--fetch-online",
+        "--net_offline",
         action="store_true",
-        help="从拓扑接口获取最新拓扑；默认使用本地拓扑 JSON。",
-    )
-    parser.add_argument(
-        "--fetch-link-metrics",
-        action="store_true",
-        help="从链路指标接口获取最新指标；默认使用本地 link_metric.json。",
+        help="使用本地拓扑和链路指标 JSON；默认在线获取两类数据。",
     )
     parser.add_argument("--src", default=DEFAULT_SRC, help=f"源节点 ID，默认 {DEFAULT_SRC}。")
     parser.add_argument("--dst", default=DEFAULT_DST, help=f"目的节点 ID，默认 {DEFAULT_DST}。")
@@ -158,16 +149,17 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    fetch_online = not args.net_offline
 
     # 加载图
     graph = topo.build_updated_graph(
         latest_json=TOPOLOGY_JSON,
         base_graphml=BASE_GRAPHML,
-        fetch_latest=args.fetch_online,
+        fetch_latest=fetch_online,
         rebuild_base=False,
     )
-    # 更新链路属性
-    if args.fetch_link_metrics:
+    # 拓扑和链路指标必须保持同一时刻语义；在线刷新时两者同时更新。
+    if fetch_online:
         topo.fetch_latest_link_metrics_json(LINK_METRIC_JSON)
     if LINK_METRIC_JSON.exists():
         topo.update_graph_from_link_metrics(graph, LINK_METRIC_JSON)

@@ -8,11 +8,13 @@
   4. 从知识库读取 II 策略。
   5. 参考 rl_reroute.py 的方式比较策略并组织协同推理日志。
 
-默认调用真实知识库接口；添加 --offline 时使用本地 JSON 模拟知识库。
-python inner_rl_reroute.py --offline
+默认调用真实知识库接口，并在线获取拓扑和链路指标。
+添加 --kg_offline 时使用本地 JSON 模拟知识库。
+添加 --net_offline 时使用本地拓扑和链路指标 JSON。
+python inner_rl_reroute.py --kg_offline --net_offline
 
 默认源宿节点：asu0n0 -> eru1n5。
-默认日志路径：离线写 logs/access.log，在线写 /home/ict/projects/kg_network/semprotocol/log/access.log。
+默认日志路径：知识库离线写 logs/access.log，知识库在线写 /home/ict/projects/kg_network/semprotocol/log/access.log。
 当前脚本不下发真实流表。
 """
 
@@ -47,17 +49,15 @@ DEFAULT_DST = "eru1n5"
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="执行 II/III 协同重路由流程，默认在线知识库模式。")
-    parser.add_argument("--fetch-online", action="store_true", help="运行 II/III 时先获取最新拓扑。")
-    parser.add_argument("--fetch-link-metrics", action="store_true", help="运行 II/III 时先获取最新链路指标。")
+    parser = argparse.ArgumentParser(description="执行 II/III 协同重路由流程，默认知识库和网络数据都在线。")
+    parser.add_argument("--kg_offline", action="store_true", help="知识库离线：使用本地 JSON 模拟 II 策略上报/读取。")
+    parser.add_argument("--net_offline", action="store_true", help="网络数据离线：使用本地拓扑和链路指标 JSON。")
     parser.add_argument("--src", default=DEFAULT_SRC, help=f"源节点 ID，默认 {DEFAULT_SRC}。")
     parser.add_argument("--dst", default=DEFAULT_DST, help=f"目的节点 ID，默认 {DEFAULT_DST}。")
     parser.add_argument("--src-ip", help="源节点管理 IP 或端口 IP，需与 --dst-ip 成对使用。")
     parser.add_argument("--dst-ip", help="目的节点管理 IP 或端口 IP，需与 --src-ip 成对使用。")
     parser.add_argument("--log-path", type=Path, help="协同推理日志输出路径；不填时离线/在线自动选择默认路径。")
-    parser.add_argument("--offline", action="store_true", help="使用本地 JSON 模拟知识库；默认调用真实知识库接口。")
-    parser.add_argument("--offline-kb", type=Path, default=DEFAULT_OFFLINE_KB_PATH, help="离线模拟知识库 JSON 路径。")
-    parser.add_argument("--online-kb", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--kg_offline_path", type=Path, default=DEFAULT_OFFLINE_KB_PATH, help="知识库离线模拟 JSON 路径。")
     parser.add_argument("--print-child-output", action="store_true", help="打印 II/III 子脚本完整输出。")
     return parser.parse_args()
 
@@ -86,7 +86,7 @@ def resolve_log_path(args: argparse.Namespace) -> Path:
 
 
 def use_online_kb(args: argparse.Namespace) -> bool:
-    return not args.offline
+    return not args.kg_offline
 
 
 def get_time_str() -> str:
@@ -96,10 +96,8 @@ def get_time_str() -> str:
 
 def build_child_args(args: argparse.Namespace) -> list[str]:
     child_args: list[str] = []
-    if args.fetch_online:
-        child_args.append("--fetch-online")
-    if args.fetch_link_metrics:
-        child_args.append("--fetch-link-metrics")
+    if args.net_offline:
+        child_args.append("--net_offline")
     if args.src_ip or args.dst_ip:
         if not args.src_ip or not args.dst_ip:
             raise ValueError("--src-ip and --dst-ip must be provided together.")
@@ -236,8 +234,8 @@ def post_ii_policy(policy: dict[str, Any], args: argparse.Namespace) -> None:
         print(f"[INFO] II 策略已上报真实知识库: {II_POLICY_NAME}")
         return
 
-    post_ii_policy_offline(policy, args.offline_kb)
-    print(f"[INFO] II 策略已写入离线知识库: {args.offline_kb}")
+    post_ii_policy_offline(policy, args.kg_offline_path)
+    print(f"[INFO] II 策略已写入离线知识库: {args.kg_offline_path}")
 
 
 def get_ii_policy(args: argparse.Namespace) -> dict[str, Any]:
@@ -247,8 +245,8 @@ def get_ii_policy(args: argparse.Namespace) -> dict[str, Any]:
         print(f"[INFO] 从真实知识库读取 II 策略: {II_POLICY_NAME}")
         return get_II_info(II_POLICY_NAME)
 
-    print(f"[INFO] 从离线知识库读取 II 策略: {args.offline_kb}")
-    return get_ii_policy_offline(args.offline_kb)
+    print(f"[INFO] 从离线知识库读取 II 策略: {args.kg_offline_path}")
+    return get_ii_policy_offline(args.kg_offline_path)
 
 
 def build_result_string(local_policy: dict[str, Any], global_policy: dict[str, Any]) -> str:
@@ -265,8 +263,9 @@ def main() -> int:
     args = parse_args()
     log_path = resolve_log_path(args)
     configure_logging(log_path)
-    mode = "在线知识库" if use_online_kb(args) else "离线模拟知识库"
-    print(f"[INFO] 运行模式: {mode}")
+    kg_mode = "知识库在线" if use_online_kb(args) else "知识库离线"
+    net_mode = "网络数据离线" if args.net_offline else "网络数据在线"
+    print(f"[INFO] 运行模式: {kg_mode}, {net_mode}")
     print(f"[INFO] 协同推理日志路径: {log_path}")
 
     content4 = "III类检测到某II类节点/链路失效，III类触发协同推理功能"

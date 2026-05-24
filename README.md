@@ -38,7 +38,7 @@ link_status = 0  表示离线/故障
 
 ### 协同推理入口
 
-默认在线模式，会调用真实知识库接口，并将日志写入在线路径：
+默认知识库和网络数据都在线：会调用真实知识库接口，同时在线刷新拓扑和链路指标，并将日志写入在线路径：
 
 ```bash
 python inner_rl_reroute.py
@@ -50,13 +50,19 @@ python inner_rl_reroute.py
 /home/ict/projects/kg_network/semprotocol/log/access.log
 ```
 
-离线调试时使用本地 JSON 模拟知识库：
+当前知识库不可用、但拓扑和链路接口可用时，只让知识库离线：
 
 ```bash
-python inner_rl_reroute.py --offline
+python inner_rl_reroute.py --kg_offline
 ```
 
-离线输出：
+完全离线调试时，知识库和网络数据都使用本地 JSON：
+
+```bash
+python inner_rl_reroute.py --kg_offline --net_offline
+```
+
+知识库离线输出：
 
 ```text
 logs/access.log
@@ -81,10 +87,10 @@ python inner_rl_reroute.py --src asu0n0 --dst eru1n5
 python inner_rl_reroute.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
 ```
 
-在线获取最新拓扑和链路指标：
+如需只让网络数据离线，使用本地拓扑和链路指标：
 
 ```bash
-python inner_rl_reroute.py --fetch-online --fetch-link-metrics
+python inner_rl_reroute.py --net_offline
 ```
 
 如需手动指定日志路径：
@@ -106,7 +112,7 @@ python inner_rl_reroute_II.py
 ```bash
 python inner_rl_reroute_II.py --src asu0n0 --dst eru1n5
 python inner_rl_reroute_II.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
-python inner_rl_reroute_II.py --fetch-online --fetch-link-metrics
+python inner_rl_reroute_II.py --net_offline
 ```
 
 ### 单独运行 III 路由
@@ -130,7 +136,7 @@ QoS 默认值：
 ```bash
 python inner_rl_reroute_III.py --src asu0n0 --dst eru1n5
 python inner_rl_reroute_III.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
-python inner_rl_reroute_III.py --fetch-online --fetch-link-metrics
+python inner_rl_reroute_III.py --net_offline
 ```
 
 ## 内场协同流程
@@ -138,7 +144,7 @@ python inner_rl_reroute_III.py --fetch-online --fetch-link-metrics
 `inner_rl_reroute.py` 的执行顺序：
 
 1. 运行 `inner_rl_reroute_II.py`，得到 II 本地路径。
-2. 将 II 策略上报知识库；离线模式写入 `logs/offline_ii_policy.json`。
+2. 将 II 策略上报知识库；`--kg_offline` 模式写入 `logs/offline_ii_policy.json`。
 3. 运行 `inner_rl_reroute_III.py`，得到 III QoS 路径。
 4. 从知识库读取 II 策略。
 5. 使用 `inner_post_table_flow.policy_compare()` 比较 II/III 策略。
@@ -168,6 +174,18 @@ python environment/inner_graph_data/get-topo-data.py
 
 ```bash
 python environment/inner_graph_data/get-link-metric-data.py
+```
+
+拓扑结构变化后重建 base GraphML：
+
+```bash
+python environment/inner_graph_data/rebuild_base_topology.py
+```
+
+如果拓扑/链路接口不可用，但本地 JSON 已经是新结构：
+
+```bash
+python environment/inner_graph_data/rebuild_base_topology.py --net_offline
 ```
 
 从 JSON 构建或更新 NetworkX 图的核心逻辑在：

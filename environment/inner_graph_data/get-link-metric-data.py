@@ -22,7 +22,7 @@ if requests is not None:
     REQUEST_ERRORS = REQUEST_ERRORS + (requests.RequestException,)
 
 
-DEFAULT_URL = "http://192.168.1.20:8000/api/v1/network/link/metrics"
+DEFAULT_URL = "http://192.168.1.20:8000/api/v1/network/link/metrics/query"
 DEFAULT_OUTPUT = Path(__file__).resolve().parent / "json-data" / "link_metric.json"
 
 
