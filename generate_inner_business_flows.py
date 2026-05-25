@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """生成内场业务流及其当前路径。
 
-默认随机生成 50 对源目的节点业务，路径格式为：
+默认随机生成 20 对源目的节点业务，路径格式为：
   node_id（manage_ip） -> node_id（manage_ip）
 
 运行方式：
-  # 默认在线获取拓扑和链路指标后生成 50 条随机业务。
+  # 默认在线获取拓扑和链路指标后生成 20 条随机业务。
   python generate_inner_business_flows.py
+
+  # 指定随机业务数量。
+  python generate_inner_business_flows.py --count 50
 
   # 使用本地拓扑和链路指标 JSON。
   python generate_inner_business_flows.py --net_offline
@@ -46,7 +49,7 @@ CUSTOM_FLOW_IPS: list[tuple[str, str]] = []
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="随机生成内场业务流路径文件。")
-    parser.add_argument("--count", type=int, default=50, help="随机业务数量，默认 50。")
+    parser.add_argument("--count", type=int, default=20, help="随机业务数量，默认 20。")
     parser.add_argument("--seed", type=int, help="随机种子；不填则每次随机。")
     parser.add_argument("--net_offline", action="store_true", help="使用本地拓扑和链路指标 JSON；默认在线获取。")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="业务流输出 JSON 文件。")
@@ -131,6 +134,10 @@ def connected_ordered_pairs(graph: nx.Graph) -> list[tuple[str, str]]:
 
 def main() -> int:
     args = parse_args()
+    if args.count < 0:
+        print(f"[ERR] --count 不能为负数: {args.count}", file=sys.stderr)
+        return 1
+
     rng = random.Random(args.seed)
     graph, routing_graph = load_routing_graph(args)
     if routing_graph.number_of_nodes() < 2:

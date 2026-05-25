@@ -1,42 +1,130 @@
 # Co-Reasoning Routing
 
-本项目用于网络拓扑解析、II/III 类重路由计算，以及协同推理日志组织。`inner_*` 面向内场联调；`rl_reroute*.py` 面向外场 DDQN 模型流程。
+本项目包含两套流程：
 
-## 目录
+- `inner_*`：内场自动检测、II/III 重路由、协同日志组织。
+- `rl_reroute*.py`：外场 DDQN 路由推理流程。
 
-```text
-inner_rl_reroute.py                 # 内场协同编排入口，默认在线知识库模式
-inner_rl_reroute_II.py              # 内场 II 类本地路径：按时延最短路径
-inner_rl_reroute_III.py             # 内场 III 类全局路径：QoS 约束路由
-inner_post_II_info.py               # 内场专用知识库接口，目标 192.168.1.24
-inner_post_table_flow.py            # 内场专用流表接口，目标 192.168.1.24
-environment/inner_graph_data/       # 内场拓扑、指标、GraphML 与解析工具
-rl_reroute.py                       # 外场 III 类 DDQN 流程
-rl_reroute_II.py                    # 外场 II 类 DDQN 流程
+当前内场推荐主入口是 `auto_inner_reroute.py`。
+
+## 一、默认在线运行流程
+
+本节面向正常运行人员，默认知识库、拓扑接口、链路指标接口都在线。
+
+### 1. 生成业务流
+
+首次运行或需要重新生成业务时执行：
+
+```bash
+python generate_inner_business_flows.py
 ```
 
-## 数据与状态
+默认生成 20 条源目的业务，并保存到：
 
-内场流程默认使用：
+```text
+environment/inner_graph_data/json-data/inner_business_flows.json
+```
+
+如果业务文件已经存在，可以直接进入下一步。
+
+如需指定业务数量：
+
+```bash
+python generate_inner_business_flows.py --count 50
+```
+
+### 2. 启动自动检测与重路由
+
+前台运行：
+
+```bash
+python auto_inner_reroute.py
+```
+
+后台运行，关闭终端后继续执行：
+
+```bash
+mkdir -p logs
+nohup python auto_inner_reroute.py > logs/auto_inner_reroute.log 2>&1 &
+```
+
+查看日志：
+
+```bash
+tail -f logs/auto_inner_reroute.log
+```
+
+停止后台进程：
+
+```bash
+ps aux | grep auto_inner_reroute.py
+kill <PID>
+```
+
+### 3. 默认行为
+
+`auto_inner_reroute.py` 默认每 5 秒执行一次检测：
+
+1. 在线获取最新拓扑和链路指标。
+2. 检测节点或链路是否故障。
+3. 判断故障是否影响 `inner_business_flows.json` 中的业务路径。
+4. 对受影响业务调用 `inner_rl_reroute.py` 重新计算路径。
+5. 打印受影响业务和重路由后的路径。
+
+路径打印格式：
+
+```text
+node_id（ip） -> node_id（ip） -> node_id（ip）
+```
+
+调整检测间隔：
+
+```bash
+python auto_inner_reroute.py --interval 10
+```
+
+## 二、调试文件与工具说明
+
+本节面向调试和开发使用。
+
+### 目录与入口
+
+```text
+auto_inner_reroute.py               # 内场自动故障检测与重路由主入口
+generate_inner_business_flows.py    # 生成内场业务流路径文件
+inner_rl_reroute.py                 # 内场 II/III 协同重路由编排
+inner_rl_reroute_II.py              # II 类路由
+inner_rl_reroute_III.py             # III 类路由
+inner_post_II_info.py               # 内场知识库接口，默认目标 192.168.1.24:5001
+inner_post_table_flow.py            # 内场流表接口，默认目标 192.168.1.24:12590
+environment/inner_graph_data/       # 内场拓扑、链路指标、GraphML 和解析工具
+rl_reroute_II.py                    # 外场 II 类 DDQN 流程
+rl_reroute.py                       # 外场 III 类 DDQN 流程
+```
+
+### 数据文件
+
+内场默认数据位置：
 
 ```text
 environment/inner_graph_data/json-data/network_topology_state.json
 environment/inner_graph_data/json-data/link_metric.json
+environment/inner_graph_data/json-data/inner_business_flows.json
 environment/inner_graph_data/base_ii_topology.graphml
 ```
 
 状态约定：
 
 ```text
-node_status = 0  表示离线/故障
-link_status = 0  表示离线/故障
+node_status = 0  表示节点离线/故障
+link_status = 0  表示链路离线/故障
 ```
 
-`link_metric.json` 通过 `link_id` 更新链路指标，包括利用率、可用带宽、丢包率等。如果指标文件中的 `link_id` 与拓扑不匹配，脚本会保留拓扑中的原始带宽，丢包率按默认值计算。
+`link_metric.json` 通过 `link_id` 更新链路利用率、可用带宽、丢包率等指标。如果指标中的 `link_id` 和拓扑不匹配，脚本会保留拓扑里的原始链路属性。
 
-## 节点 ID 约定
+### 节点 ID 约定
 
-内场拓扑节点 ID 一般采用：
+内场节点 ID 一般采用：
 
 ```text
 <节点角色前缀><子图编号>n<子图内节点编号>
@@ -45,55 +133,71 @@ link_status = 0  表示离线/故障
 示例：
 
 ```text
-bsu0n1  表示第 0 个子图中的骨干节点 bsu，节点编号 n1
-asu0n2  表示第 0 个子图中的接入节点 asu，节点编号 n2
-eru2n4  表示第 2 个子图中的车载侧节点 eru，节点编号 n4
+bsu0n1  第 0 个子图中的骨干节点 n1
+asu0n2  第 0 个子图中的接入节点 n2
+eru2n4  第 2 个子图中的车载侧节点 n4
 ```
 
-常见前缀含义：
+常见前缀：
 
 ```text
-	节点类型：
-    1=一类设备终端，
-    2=一类设备簇头，
-    3=二类设备车载，
-    4=二类设备接入，
-    5=二类设备骨干，
-    6=Ⅳ类设备网关，
-    7=III类设备
-bsu  骨干节点
-asu  接入节点
+bsu      骨干节点
+asu      接入节点
 eru/cnu  车载侧节点
 ```
 
-整个网络由多个子图组成，子图之间通过各子图中的骨干节点 `bsu{x}n1` 互联。例如 `bsu0n1`、`bsu1n1`、`bsu2n1` 可作为不同子图之间的骨干连接点。
+多个子图通过各自的骨干节点互联，例如 `bsu0n1`、`bsu1n1`、`bsu2n1`。
 
-## 推荐运行
+### 常用运行模式
 
-### 协同推理入口
+知识库离线、拓扑和链路接口在线：
 
-默认知识库和网络数据都在线：会调用真实知识库接口，同时在线刷新拓扑和链路指标，并将日志写入在线路径：
+```bash
+python auto_inner_reroute.py --kg_offline
+```
+
+知识库、拓扑、链路指标全部使用本地文件：
+
+```bash
+python auto_inner_reroute.py --kg_offline --net_offline
+```
+
+只检测一次：
+
+```bash
+python auto_inner_reroute.py --kg_offline --net_offline --once
+```
+
+打印 `inner_rl_reroute.py` 子进程完整输出：
+
+```bash
+python auto_inner_reroute.py --print-child-output
+```
+
+### 手动执行协同重路由
+
+默认源宿节点为：
+
+```text
+asu0n0 -> eru1n5
+```
+
+默认在线运行：
 
 ```bash
 python inner_rl_reroute.py
 ```
 
-在线默认日志：
-
-```text
-/home/ict/projects/kg_network/semprotocol/log/access.log
-```
-
-当前知识库不可用、但拓扑和链路接口可用时，只让知识库离线：
+指定节点 ID：
 
 ```bash
-python inner_rl_reroute.py --kg_offline
+python inner_rl_reroute.py --src asu0n0 --dst eru1n5
 ```
 
-完全离线调试时，知识库和网络数据都使用本地 JSON：
+指定节点 IP：
 
 ```bash
-python inner_rl_reroute.py --kg_offline --net_offline
+python inner_rl_reroute.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
 ```
 
 知识库离线输出：
@@ -103,146 +207,52 @@ logs/access.log
 logs/offline_ii_policy.json
 ```
 
-默认源宿节点：
+在线默认协同日志路径：
 
 ```text
-asu0n0 -> eru1n5
+/home/ict/projects/kg_network/semprotocol/log/access.log
 ```
 
-指定源宿节点：
+### 单独运行 II/III 路由
+
+II 类按链路时延计算最短路径：
 
 ```bash
-python inner_rl_reroute.py --src asu0n0 --dst eru1n5
+python inner_rl_reroute_II.py
+python inner_rl_reroute_II.py --src asu0n0 --dst eru1n5
+python inner_rl_reroute_II.py --net_offline
 ```
 
-指定源宿 IP：
+III 类执行 QoS 路由，默认约束为最小可用带宽 100 Mbps、最大端到端丢包率 0.01、最多检查 20 条候选路径：
 
 ```bash
-python inner_rl_reroute.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
+python inner_rl_reroute_III.py
+python inner_rl_reroute_III.py --src asu0n0 --dst eru1n5
+python inner_rl_reroute_III.py --net_offline
 ```
 
-如需只让网络数据离线，使用本地拓扑和链路指标：
+### 生成业务流调试
 
-```bash
-python inner_rl_reroute.py --net_offline
-```
-
-如需手动指定日志路径：
-
-```bash
-python inner_rl_reroute.py --log-path /tmp/access.log
-```
-
-### 批量业务与自动重路由
-
-随机生成 50 条业务，并把路径保存到单独文件：
-
-```bash
-python generate_inner_business_flows.py
-```
-
-默认输出：
-
-```text
-environment/inner_graph_data/json-data/inner_business_flows.json
-```
-
-如需额外添加指定源目的业务，直接修改 `generate_inner_business_flows.py` 中的 `CUSTOM_FLOWS` 或 `CUSTOM_FLOW_IPS`。
-
-本地 JSON 调试：
+本地 JSON 生成业务：
 
 ```bash
 python generate_inner_business_flows.py --net_offline
 ```
 
-自动检测故障并触发重路由：
+固定随机种子：
 
 ```bash
-python auto_inner_reroute.py --kg_offline
+python generate_inner_business_flows.py --seed 1
 ```
 
-后台运行，关闭终端不影响：
+如需添加指定源目的业务，不通过命令行添加，直接修改 `generate_inner_business_flows.py` 顶部配置：
 
-```bash
-nohup python auto_inner_reroute.py --kg_offline > logs/auto_inner_reroute.log 2>&1 &
+```python
+CUSTOM_FLOWS: list[tuple[str, str]] = []
+CUSTOM_FLOW_IPS: list[tuple[str, str]] = []
 ```
 
-默认每 5 秒在线获取拓扑和链路指标。若检测到节点或链路故障，会判断保存的业务路径是否受影响；受影响时调用 `inner_rl_reroute.py`，并打印受影响业务和重路由后的路径。调整检测间隔：
-
-```bash
-python auto_inner_reroute.py --kg_offline --interval 10
-```
-
-只检测一次并使用本地 JSON：
-
-```bash
-python auto_inner_reroute.py --kg_offline --net_offline --once
-```
-
-### 单独运行 II 路由
-
-II 脚本只做在线图过滤后的时延最短路径：
-
-```bash
-python inner_rl_reroute_II.py
-```
-
-常用参数：
-
-```bash
-python inner_rl_reroute_II.py --src asu0n0 --dst eru1n5
-python inner_rl_reroute_II.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
-python inner_rl_reroute_II.py --net_offline
-```
-
-### 单独运行 III 路由
-
-III 脚本执行 QoS 路由：先按可用带宽过滤链路，再生成按时延排序的候选路径，返回第一条满足丢包率约束的路径。
-
-```bash
-python inner_rl_reroute_III.py
-```
-
-QoS 默认值：
-
-```text
-最小瓶颈可用带宽：100 Mbps
-最大端到端丢包率：0.01
-最多检查候选路径数：20
-```
-
-常用参数：
-
-```bash
-python inner_rl_reroute_III.py --src asu0n0 --dst eru1n5
-python inner_rl_reroute_III.py --src-ip 10.104.0.254 --dst-ip 10.103.21.254
-python inner_rl_reroute_III.py --net_offline
-```
-
-## 内场协同流程
-
-`inner_rl_reroute.py` 的执行顺序：
-
-1. 运行 `inner_rl_reroute_II.py`，得到 II 本地路径。
-2. 将 II 策略上报知识库；`--kg_offline` 模式写入 `logs/offline_ii_policy.json`。
-3. 运行 `inner_rl_reroute_III.py`，得到 III QoS 路径。
-4. 从知识库读取 II 策略。
-5. 使用 `inner_post_table_flow.policy_compare()` 比较 II/III 策略。
-6. 参考 `rl_reroute.py` 的格式写协同推理日志。
-
-当前 `inner_rl_reroute.py` 不实际下发流表。流表下发函数在 `inner_post_table_flow.py` 中，默认目标为：
-
-```text
-http://192.168.1.24:12590/api/flow/sflowtblCfg
-```
-
-知识库接口在 `inner_post_II_info.py` 中，默认目标为：
-
-```text
-http://192.168.1.24:5001
-```
-
-## 拓扑与指标工具
+### 拓扑和链路指标工具
 
 抓取拓扑：
 
@@ -262,35 +272,79 @@ python environment/inner_graph_data/get-link-metric-data.py
 python environment/inner_graph_data/rebuild_base_topology.py
 ```
 
-如果拓扑/链路接口不可用，但本地 JSON 已经是新结构：
+如果在线接口不可用，但本地 JSON 已经是新结构：
 
 ```bash
 python environment/inner_graph_data/rebuild_base_topology.py --net_offline
 ```
 
-从 JSON 构建或更新 NetworkX 图的核心逻辑在：
+拓扑解析和路由核心逻辑：
 
 ```text
 environment/inner_graph_data/topology_to_networkx.py
 environment/inner_graph_data/qos_routing.py
 ```
 
-## 外场 DDQN 流程
+### 注入自定义故障
 
-外场流程使用训练好的 DDQN 模型做推理，入口为：
+故障目标不从命令行传入，直接修改脚本顶部配置：
+
+```python
+FAULT_NODES: list[str] = []
+FAULT_LINK_IDS: list[str] = []
+FAULT_LINK_ENDPOINTS: list[tuple[str, str]] = []
+FAIL_INCIDENT_LINKS = False
+CLEAR_EXISTING = False
+```
+
+生成故障拓扑：
+
+```bash
+python environment/inner_graph_data/inject_topology_faults.py
+```
+
+默认输出：
+
+```text
+environment/inner_graph_data/json-data/network_topology_state_fault.json
+```
+
+配合自动检测脚本验证：
+
+```bash
+python auto_inner_reroute.py --kg_offline --net_offline --once \
+  --topology-json environment/inner_graph_data/json-data/network_topology_state_fault.json
+```
+
+### 内场协同逻辑
+
+`inner_rl_reroute.py` 执行顺序：
+
+1. 调用 `inner_rl_reroute_II.py` 得到 II 路径。
+2. 将 II 策略写入知识库；`--kg_offline` 时写入 `logs/offline_ii_policy.json`。
+3. 调用 `inner_rl_reroute_III.py` 得到 III 路径。
+4. 从知识库读取 II 策略。
+5. 使用 `inner_post_table_flow.policy_compare()` 比较 II/III 策略。
+6. 按 `rl_reroute.py` 的格式组织协同日志。
+
+当前 `inner_rl_reroute.py` 不实际下发流表；流表接口在 `inner_post_table_flow.py` 中。
+
+### 外场 DDQN 流程
+
+外场入口：
 
 ```bash
 python rl_reroute_II.py
 python rl_reroute.py
 ```
 
-建议执行顺序：
+建议顺序：
 
-1. 先运行 `rl_reroute_II.py`，执行 II 类本地 DDQN 重路由。
-2. `rl_reroute_II.py` 会加载 II 类模型，计算路径，并通过 `post_II_info.py` 将本地策略上报到外场知识库。
-3. 再运行 `rl_reroute.py`，执行 III 类全局 DDQN 重路由。
-4. `rl_reroute.py` 会从知识库读取 II 类策略，使用 `post_table_flow.policy_compare()` 比较 II/III 策略，生成最终策略。
-5. 最终协同推理过程会写入 `logs/access.log`。当前外场脚本中的流表下发调用保持注释状态，如需真实下发，需要打开 `send_flow_table(...)`。
+1. 先运行 `rl_reroute_II.py`，加载 II 类 DDQN 模型并计算本地策略。
+2. `rl_reroute_II.py` 通过 `post_II_info.py` 将 II 策略上报外场知识库。
+3. 再运行 `rl_reroute.py`，加载 III 类 DDQN 模型并计算全局策略。
+4. `rl_reroute.py` 从知识库读取 II 策略，通过 `post_table_flow.policy_compare()` 比较 II/III 策略。
+5. 最终写入 `logs/access.log`，并输出路径、端口/IP、时延、带宽、丢包率和策略比较结果。
 
 常用运行方式：
 
@@ -299,7 +353,7 @@ python rl_reroute_II.py --src_dev_ip 192.168.10.2/24 --dst_dev_ip 192.168.40.2/2
 python rl_reroute.py --src_dev_ip 192.168.10.2/24 --dst_dev_ip 192.168.40.2/24
 ```
 
-默认源宿业务 IP：
+外场默认业务 IP：
 
 ```text
 src_dev_ip = 192.168.10.2/24
@@ -320,20 +374,11 @@ III 类模型：themodels/latest_II_class_ddqn_iii/seed_1_2026_0312_213702
 在线接口：base_url = http://192.168.2.101:5000
 ```
 
-外场知识库与流表接口沿用原有外场脚本：
+外场接口脚本：
 
 ```text
-post_II_info.py      # II 策略上报/读取，默认目标 192.168.2.11:5001
-post_table_flow.py   # 流表下发与策略比较，默认目标 192.168.2.26:12590
+post_II_info.py      # 默认目标 192.168.2.11:5001
+post_table_flow.py   # 默认目标 192.168.2.26:12590
 ```
 
-输出信息包括：
-
-```text
-DDQN 路径、路径端口/IP、时延、带宽、丢包率
-最短路径参考结果
-II/III 策略比较后的最终策略
-协同推理阶段日志
-```
-
-注意：外场 `rl_reroute*.py` 依赖 Xuance、训练配置、模型文件和外场在线拓扑/知识库服务；内场 `inner_*` 流程主要用于内场路由与协同联调。两套流程不要混用接口脚本。
+注意：内场 `inner_*` 和外场 `rl_reroute*.py` 使用不同接口脚本和不同服务地址，调试时不要混用。
