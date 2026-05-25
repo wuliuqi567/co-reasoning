@@ -2,7 +2,7 @@
 """自动检测内场业务受故障影响并触发重路由。
 
 运行方式：
-  # 默认每 5 秒在线获取拓扑、链路状态和业务列表，知识库在线。
+  # 默认每 5 秒在线获取拓扑、链路状态和业务列表；故障影响业务时模拟重路由。
   python auto_inner_reroute.py
 
   # 后台运行，关闭终端不影响；输出写入日志。
@@ -23,6 +23,7 @@ import json
 import subprocess
 import sys
 import time
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -42,6 +43,16 @@ from generate_inner_business_flows import (
 ROOT = Path(__file__).resolve().parent
 DEFAULT_REROUTE_SCRIPT = ROOT / "inner_rl_reroute.py"
 DEFAULT_TASK_JSON = ROOT / "environment" / "inner_graph_data" / "json-data" / "task_all.json"
+
+
+@dataclass
+class MonitorState:
+    active_fault_signature: str = ""
+    handled_fault_tasks: set[str] = field(default_factory=set)
+    stable_tasks: list[dict[str, Any]] | None = None
+    stable_tasks_path: Path | None = None
+    no_impacted_logged_signature: str = ""
+    handled_skip_logged_signature: str = ""
 
 
 def parse_args() -> argparse.Namespace:
@@ -137,6 +148,10 @@ def normalize_task(raw: dict[str, Any]) -> dict[str, Any]:
     return task
 
 
+def task_id(task: dict[str, Any]) -> str:
+    return str(task.get("task_id") or task.get("flow_id") or "")
+
+
 def load_tasks(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         raise FileNotFoundError(f"业务 JSON 文件不存在: {path}")
@@ -164,10 +179,34 @@ def fault_nodes(graph: nx.Graph) -> list[str]:
     ]
 
 
+def has_saved_path(task: dict[str, Any]) -> bool:
+    path_nodes = task.get("path_nodes", [])
+    path_links = task.get("path", [])
+    return (
+        isinstance(path_nodes, list)
+        and len(path_nodes) >= 2
+        or isinstance(path_links, list)
+        and len(path_links) >= 1
+    )
+
+
+def tasks_without_saved_path(tasks: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [task for task in tasks if not has_saved_path(task)]
+
+
+def task_count_text(tasks: list[dict[str, Any]]) -> str:
+    missing_path_count = len(tasks_without_saved_path(tasks))
+    return (
+        f"total={len(tasks)}, "
+        f"with_path={len(tasks) - missing_path_count}, "
+        f"missing_path={missing_path_count}"
+    )
+
+
 def task_failure_reasons(task: dict[str, Any], routing_graph: nx.Graph) -> list[str]:
     path_nodes = task.get("path_nodes", [])
     if not isinstance(path_nodes, list) or not path_nodes:
-        return ["task has no saved path nodes"]
+        return []
 
     reasons = []
     for node in path_nodes:
@@ -207,10 +246,10 @@ def reroute_endpoints(task: dict[str, Any]) -> tuple[str | None, str | None]:
     # 业务接口的 start/end 经常是 hu 网关节点；当前内场路由脚本计算 II 类图，
     # 因此重路由时使用 hu 接入后的第一个在线网络节点。
     if isinstance(path_nodes, list) and len(path_nodes) >= 2:
-        if src and str(src).startswith("hu") and path_nodes[0] == src:
-            src = path_nodes[1]
-        if dst and str(dst).startswith("hu") and path_nodes[-1] == dst:
-            dst = path_nodes[-2]
+        if src and str(src).startswith("hu"):
+            src = path_nodes[1] if path_nodes[0] == src else path_nodes[0]
+        if dst and str(dst).startswith("hu"):
+            dst = path_nodes[-2] if path_nodes[-1] == dst else path_nodes[-1]
 
     return str(src) if src else None, str(dst) if dst else None
 
@@ -296,31 +335,110 @@ def format_task_path(graph: nx.Graph, task: dict[str, Any]) -> str:
     return " -> ".join(parts)
 
 
-def load_tasks_for_iteration(args: argparse.Namespace) -> tuple[list[dict[str, Any]], Path]:
+def load_tasks_for_iteration(
+    args: argparse.Namespace,
+    *,
+    fetch_online: bool,
+) -> tuple[list[dict[str, Any]], Path]:
     tasks_path = resolve_tasks_path(args)
-    if not args.net_offline:
+    if fetch_online and not args.net_offline:
         fetch_latest_tasks_json(tasks_path)
     return load_tasks(tasks_path), tasks_path
 
 
-def check_once(args: argparse.Namespace) -> None:
-    print(f"\n[{datetime.now().isoformat(timespec='seconds')}] 获取拓扑、链路状态和业务列表...")
+def fault_signature(graph: nx.Graph) -> str:
+    nodes = sorted(fault_nodes(graph))
+    links = sorted(
+        str(link.get("link_id") or f"{link.get('src_node')}->{link.get('dst_node')}")
+        for link in topo.get_fault_links(graph)
+    )
+    return json.dumps({"nodes": nodes, "links": links}, ensure_ascii=False, sort_keys=True)
+
+
+def task_handled_key(fault_sig: str, task: dict[str, Any]) -> str:
+    path = task.get("path") if isinstance(task.get("path"), list) else task.get("path_nodes", [])
+    path_text = json.dumps(path, ensure_ascii=False, sort_keys=True)
+    return f"{fault_sig}|{task_id(task)}|{path_text}"
+
+
+def log_no_impacted_once(state: MonitorState, fault_sig: str) -> None:
+    if state.no_impacted_logged_signature != fault_sig:
+        print("[INFO] 检测到故障，但业务未受影响；已冻结当前业务信息，下一轮继续检测。")
+        state.no_impacted_logged_signature = fault_sig
+
+
+def check_once(args: argparse.Namespace, state: MonitorState) -> None:
+    print(f"\n[{datetime.now().isoformat(timespec='seconds')}] 获取拓扑、链路和业务状态...")
     graph, routing_graph = load_routing_graph(args)
-    tasks, tasks_path = load_tasks_for_iteration(args)
-    print(f"[INFO] loaded tasks: {tasks_path}, count={len(tasks)}")
+    tasks, tasks_path = load_tasks_for_iteration(args, fetch_online=True)
+    print(f"[INFO] 当前业务数量: {task_count_text(tasks)}")
+
+    current_fault_nodes = fault_nodes(graph)
+    current_fault_links = topo.get_fault_links(graph)
+
+    if not current_fault_nodes and not current_fault_links:
+        state.stable_tasks = tasks
+        state.stable_tasks_path = tasks_path
+        if state.active_fault_signature:
+            print("[INFO] 故障已恢复，清理当前故障处理记录。")
+        state.active_fault_signature = ""
+        state.handled_fault_tasks.clear()
+        state.no_impacted_logged_signature = ""
+        state.handled_skip_logged_signature = ""
+        print("[INFO] 未检测到节点或链路故障，已冻结当前业务信息。")
+        return
+
     print_fault_summary(graph)
+    current_fault_signature = fault_signature(graph)
+    assessment_tasks = tasks
+    assessment_tasks_path = tasks_path
+    if state.active_fault_signature != current_fault_signature:
+        state.active_fault_signature = current_fault_signature
+        state.handled_fault_tasks.clear()
+        state.no_impacted_logged_signature = ""
+        state.handled_skip_logged_signature = ""
+        print("[INFO] 检测到新的故障签名，重置本轮模拟处理记录。")
+        if state.stable_tasks is not None:
+            assessment_tasks = state.stable_tasks
+            assessment_tasks_path = state.stable_tasks_path or tasks_path
+            print(
+                "[INFO] 使用已冻结业务信息判断故障影响: "
+                f"{assessment_tasks_path}, {task_count_text(assessment_tasks)}"
+            )
+        else:
+            print("[WARN] 当前没有已冻结业务信息，只能使用当前业务列表判断故障影响。")
 
-    if not fault_nodes(graph) and not topo.get_fault_links(graph):
-        print("[INFO] 未检测到节点或链路故障。")
-        return
+    missing_path_tasks = tasks_without_saved_path(assessment_tasks)
+    if missing_path_tasks:
+        print(
+            "[WARN] "
+            f"{len(missing_path_tasks)} 条业务没有保存路径，无法判断故障影响，已跳过。"
+        )
 
-    impacted = affected_tasks(tasks, routing_graph)
+    impacted = affected_tasks(assessment_tasks, routing_graph)
     if not impacted:
-        print("[INFO] 检测到故障，但当前业务未受影响。")
+        state.stable_tasks = tasks
+        state.stable_tasks_path = tasks_path
+        log_no_impacted_once(state, current_fault_signature)
         return
 
-    print(f"[WARN] 受影响业务数: {len(impacted)}")
-    for task, reasons in impacted:
+    pending_impacted = [
+        (task, reasons)
+        for task, reasons in impacted
+        if task_handled_key(current_fault_signature, task) not in state.handled_fault_tasks
+    ]
+    if not pending_impacted:
+        if state.handled_skip_logged_signature != current_fault_signature:
+            print(
+                f"[INFO] 当前仍有 {len(impacted)} 条业务路径经过故障项，"
+                "但这些业务和路径已经执行过模拟重路由；下一轮继续获取网络和业务状态。"
+            )
+            state.handled_skip_logged_signature = current_fault_signature
+        return
+
+    print(f"[WARN] 受影响业务数: {len(impacted)}, 待重路由: {len(pending_impacted)}")
+    for task, reasons in pending_impacted:
+        handled_key = task_handled_key(current_fault_signature, task)
         print("\n-------------------------------受影响业务---------------------------------")
         print(
             f"task_id={task.get('task_id')}, "
@@ -339,14 +457,17 @@ def check_once(args: argparse.Namespace) -> None:
             print(f"[ERR] 重路由失败: task_id={task.get('task_id')}, code={code}")
             if stderr:
                 print(stderr, file=sys.stderr)
+            state.handled_fault_tasks.add(handled_key)
             continue
 
-        new_path = extract_final_policy_path(stdout)
-        new_path_text = format_policy_path(new_path)
+        new_path_text = format_policy_path(extract_final_policy_path(stdout))
         if new_path_text:
             print(f"重路由后路径: {new_path_text}")
         else:
             print("[WARN] 未能解析重路由后的最终路径。")
+        state.handled_fault_tasks.add(handled_key)
+
+    print("[INFO] 本轮模拟重路由处理完成，下一轮从获取网络和业务状态重新开始。")
 
 
 def main() -> int:
@@ -357,11 +478,12 @@ def main() -> int:
         f"{'offline_json' if args.net_offline else 'online_api'}, "
         f"path={resolve_tasks_path(args)}"
     )
+    state = MonitorState()
     iteration = 0
     while True:
         iteration += 1
         try:
-            check_once(args)
+            check_once(args, state)
         except (OSError, ValueError, json.JSONDecodeError, RuntimeError) as exc:
             print(f"[ERR] {exc}", file=sys.stderr)
             return 1

@@ -8,7 +8,7 @@
           "node_id": "hu0n0",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.05938699,28.66448524",
+          "node_location": "113.05949186,28.66490706",
           "node_manage_ip_addr": "10.102.0.254",
           "node_ports": [
             {
@@ -161,7 +161,7 @@
           "node_id": "hu0n1",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.05979876,28.66458625",
+          "node_location": "113.05968140,28.66423065",
           "node_manage_ip_addr": "10.102.1.254",
           "node_ports": [
             {
@@ -314,7 +314,7 @@
           "node_id": "hu0n2",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.06226733,28.66406334",
+          "node_location": "113.06072663,28.66583167",
           "node_manage_ip_addr": "10.102.2.254",
           "node_ports": [
             {
@@ -467,7 +467,7 @@
           "node_id": "hu0n3",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.05783426,28.66439382",
+          "node_location": "113.05806675,28.66466172",
           "node_manage_ip_addr": "10.102.3.254",
           "node_ports": [
             {
@@ -620,7 +620,7 @@
           "node_id": "hu0n4",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.05989230,28.66473314",
+          "node_location": "113.06103793,28.66501871",
           "node_manage_ip_addr": "10.102.4.254",
           "node_ports": [
             {
@@ -773,7 +773,7 @@
           "node_id": "hu0n5",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.06134016,28.66505261",
+          "node_location": "113.06098714,28.66656950",
           "node_manage_ip_addr": "10.102.5.254",
           "node_ports": [
             {
@@ -926,7 +926,7 @@
           "node_id": "hu1n0",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.06238410,28.66440574",
+          "node_location": "113.06267944,28.66520626",
           "node_manage_ip_addr": "10.102.16.254",
           "node_ports": [
             {
@@ -1079,7 +1079,7 @@
           "node_id": "hu1n1",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.06153601,28.66312834",
+          "node_location": "113.06148907,28.66398809",
           "node_manage_ip_addr": "10.102.17.254",
           "node_ports": [
             {
@@ -1232,7 +1232,7 @@
           "node_id": "hu1n2",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.06393828,28.66385882",
+          "node_location": "113.06351020,28.66566587",
           "node_manage_ip_addr": "10.102.18.254",
           "node_ports": [
             {
@@ -1385,7 +1385,7 @@
           "node_id": "hu1n3",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.06197294,28.66452341",
+          "node_location": "113.06249465,28.66589759",
           "node_manage_ip_addr": "10.102.19.254",
           "node_ports": [
             {
@@ -1538,7 +1538,7 @@
           "node_id": "hu1n4",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.06312246,28.66535147",
+          "node_location": "113.06370071,28.66457925",
           "node_manage_ip_addr": "10.102.20.254",
           "node_ports": [
             {
@@ -1691,7 +1691,7 @@
           "node_id": "hu1n5",
           "node_type": 6,
           "node_status": 1,
-          "node_location": "113.06331262,28.66372123",
+          "node_location": "113.06224639,28.66576982",
           "node_manage_ip_addr": "10.102.21.254",
           "node_ports": [
             {
@@ -1844,7 +1844,7 @@
           "node_id": "bsu0n0",
           "node_type": 5,
           "node_status": 1,
-          "node_location": "113.05996315,28.66416064",
+          "node_location": "113.05919474,28.66443540",
           "node_manage_ip_addr": "10.105.0.254",
           "node_ports": [
             {
@@ -1885,7 +1885,7 @@
           "node_id": "bsu0n1",
           "node_type": 5,
           "node_status": 1,
-          "node_location": "113.06099317,28.66420844",
+          "node_location": "113.06116436,28.66368410",
           "node_manage_ip_addr": "10.105.1.254",
           "node_ports": [
             {
@@ -1942,7 +1942,7 @@
           "node_id": "bsu0n2",
           "node_type": 5,
           "node_status": 1,
-          "node_location": "113.06176785,28.66509560",
+          "node_location": "113.06064859,28.66566295",
           "node_manage_ip_addr": "10.105.2.254",
           "node_ports": [
             {
@@ -1983,7 +1983,7 @@
           "node_id": "asu0n0",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.05864340,28.66519585",
+          "node_location": "113.05941235,28.66417336",
           "node_manage_ip_addr": "10.104.0.254",
           "node_ports": [
             {
@@ -2016,7 +2016,7 @@
           "node_id": "asu0n1",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.05869852,28.66280469",
+          "node_location": "113.05852851,28.66341445",
           "node_manage_ip_addr": "10.104.1.254",
           "node_ports": [
             {
@@ -2065,7 +2065,7 @@
           "node_id": "asu0n2",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.05939478,28.66356666",
+          "node_location": "113.06002169,28.66416432",
           "node_manage_ip_addr": "10.104.2.254",
           "node_ports": [
             {
@@ -2078,7 +2078,7 @@
             },
             {
               "port_id": "asu0n2:2",
-              "status": 1,
+              "status": 0,
               "nid": 40103013,
               "teid": 40103031,
               "ip_address": "172.24.2.2",
@@ -2114,12 +2114,12 @@
           "node_id": "asu0n3",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.05905456,28.66335905",
+          "node_location": "113.05787203,28.66546651",
           "node_manage_ip_addr": "10.104.3.254",
           "node_ports": [
             {
               "port_id": "asu0n3:1",
-              "status": 1,
+              "status": 0,
               "nid": 40104012,
               "teid": 40104030,
               "ip_address": "172.24.3.1",
@@ -2163,7 +2163,7 @@
           "node_id": "asu0n4",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.06109970,28.66660066",
+          "node_location": "113.06060596,28.66603045",
           "node_manage_ip_addr": "10.104.4.254",
           "node_ports": [
             {
@@ -2196,7 +2196,7 @@
           "node_id": "eru0n0",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.05949115,28.66543392",
+          "node_location": "113.05989976,28.66345668",
           "node_manage_ip_addr": "10.103.0.254",
           "node_ports": [
             {
@@ -2229,7 +2229,7 @@
           "node_id": "eru0n1",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06083296,28.66436500",
+          "node_location": "113.06070250,28.66548653",
           "node_manage_ip_addr": "10.103.1.254",
           "node_ports": [
             {
@@ -2250,7 +2250,7 @@
             },
             {
               "port_id": "eru0n1:3",
-              "status": 1,
+              "status": 0,
               "nid": 30102014,
               "teid": 30102032,
               "ip_address": "172.23.1.3",
@@ -2270,7 +2270,7 @@
           "node_id": "eru0n2",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.05949397,28.66414404",
+          "node_location": "113.06108864,28.66328024",
           "node_manage_ip_addr": "10.103.2.254",
           "node_ports": [
             {
@@ -2311,7 +2311,7 @@
           "node_id": "eru0n3",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.05982000,28.66597731",
+          "node_location": "113.06090349,28.66501010",
           "node_manage_ip_addr": "10.103.3.254",
           "node_ports": [
             {
@@ -2352,7 +2352,7 @@
           "node_id": "eru0n4",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06049751,28.66588768",
+          "node_location": "113.05965363,28.66581522",
           "node_manage_ip_addr": "10.103.4.254",
           "node_ports": [
             {
@@ -2393,7 +2393,7 @@
           "node_id": "eru0n5",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06125273,28.66448275",
+          "node_location": "113.05991395,28.66667086",
           "node_manage_ip_addr": "10.103.5.254",
           "node_ports": [
             {
@@ -2426,7 +2426,7 @@
           "node_id": "cnu0n0",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06035599,28.66484570",
+          "node_location": "113.05962409,28.66669396",
           "node_manage_ip_addr": "10.106.0.254",
           "node_ports": [
             {
@@ -2459,7 +2459,7 @@
           "node_id": "cnu0n1",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06078374,28.66544413",
+          "node_location": "113.06099999,28.66515843",
           "node_manage_ip_addr": "10.106.1.254",
           "node_ports": [
             {
@@ -2488,7 +2488,7 @@
             },
             {
               "port_id": "cnu0n1:4",
-              "status": 1,
+              "status": 0,
               "nid": 60102015,
               "teid": 60102033,
               "ip_address": "172.26.1.4",
@@ -2500,7 +2500,7 @@
           "node_id": "cnu0n2",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06101442,28.66676710",
+          "node_location": "113.06290072,28.66576599",
           "node_manage_ip_addr": "10.106.2.254",
           "node_ports": [
             {
@@ -2541,7 +2541,7 @@
           "node_id": "cnu0n3",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06002311,28.66565255",
+          "node_location": "113.05990381,28.66624260",
           "node_manage_ip_addr": "10.106.3.254",
           "node_ports": [
             {
@@ -2582,7 +2582,7 @@
           "node_id": "cnu0n4",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.05966966,28.66510889",
+          "node_location": "113.05965530,28.66493017",
           "node_manage_ip_addr": "10.106.4.254",
           "node_ports": [
             {
@@ -2623,7 +2623,7 @@
           "node_id": "cnu0n5",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06049155,28.66575168",
+          "node_location": "113.06180576,28.66476387",
           "node_manage_ip_addr": "10.106.5.254",
           "node_ports": [
             {
@@ -2656,7 +2656,7 @@
           "node_id": "bsu1n0",
           "node_type": 5,
           "node_status": 1,
-          "node_location": "113.06320452,28.66415536",
+          "node_location": "113.06291556,28.66474262",
           "node_manage_ip_addr": "10.105.16.254",
           "node_ports": [
             {
@@ -2697,7 +2697,7 @@
           "node_id": "bsu1n1",
           "node_type": 5,
           "node_status": 1,
-          "node_location": "113.06179443,28.66540648",
+          "node_location": "113.06263814,28.66451941",
           "node_manage_ip_addr": "10.105.17.254",
           "node_ports": [
             {
@@ -2754,7 +2754,7 @@
           "node_id": "bsu1n2",
           "node_type": 5,
           "node_status": 1,
-          "node_location": "113.06391260,28.66413031",
+          "node_location": "113.06301429,28.66499391",
           "node_manage_ip_addr": "10.105.18.254",
           "node_ports": [
             {
@@ -2795,7 +2795,7 @@
           "node_id": "asu1n0",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.06300285,28.66495233",
+          "node_location": "113.06260638,28.66557824",
           "node_manage_ip_addr": "10.104.16.254",
           "node_ports": [
             {
@@ -2828,7 +2828,7 @@
           "node_id": "asu1n1",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.06232125,28.66480348",
+          "node_location": "113.06264200,28.66431646",
           "node_manage_ip_addr": "10.104.17.254",
           "node_ports": [
             {
@@ -2877,7 +2877,7 @@
           "node_id": "asu1n2",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.06437846,28.66492433",
+          "node_location": "113.06547340,28.66542534",
           "node_manage_ip_addr": "10.104.18.254",
           "node_ports": [
             {
@@ -2926,7 +2926,7 @@
           "node_id": "asu1n3",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.06147546,28.66488552",
+          "node_location": "113.06185697,28.66372994",
           "node_manage_ip_addr": "10.104.19.254",
           "node_ports": [
             {
@@ -2975,7 +2975,7 @@
           "node_id": "asu1n4",
           "node_type": 4,
           "node_status": 1,
-          "node_location": "113.06233819,28.66371825",
+          "node_location": "113.06243247,28.66498190",
           "node_manage_ip_addr": "10.104.20.254",
           "node_ports": [
             {
@@ -2988,7 +2988,7 @@
             },
             {
               "port_id": "asu1n4:2",
-              "status": 1,
+              "status": 0,
               "nid": 40205013,
               "teid": 40205031,
               "ip_address": "172.24.20.2",
@@ -3008,7 +3008,7 @@
           "node_id": "eru1n0",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06090545,28.66474945",
+          "node_location": "113.06231146,28.66475931",
           "node_manage_ip_addr": "10.103.16.254",
           "node_ports": [
             {
@@ -3041,7 +3041,7 @@
           "node_id": "eru1n1",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06303989,28.66329453",
+          "node_location": "113.06277530,28.66467251",
           "node_manage_ip_addr": "10.103.17.254",
           "node_ports": [
             {
@@ -3082,7 +3082,7 @@
           "node_id": "eru1n2",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06414476,28.66503804",
+          "node_location": "113.06294448,28.66526737",
           "node_manage_ip_addr": "10.103.18.254",
           "node_ports": [
             {
@@ -3123,7 +3123,7 @@
           "node_id": "eru1n3",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06177754,28.66490795",
+          "node_location": "113.06135463,28.66653189",
           "node_manage_ip_addr": "10.103.19.254",
           "node_ports": [
             {
@@ -3136,7 +3136,7 @@
             },
             {
               "port_id": "eru1n3:2",
-              "status": 1,
+              "status": 0,
               "nid": 30204013,
               "teid": 30204031,
               "ip_address": "172.23.19.2",
@@ -3164,12 +3164,12 @@
           "node_id": "eru1n4",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06377900,28.66497604",
+          "node_location": "113.06272998,28.66468363",
           "node_manage_ip_addr": "10.103.20.254",
           "node_ports": [
             {
               "port_id": "eru1n4:1",
-              "status": 1,
+              "status": 0,
               "nid": 30205012,
               "teid": 30205030,
               "ip_address": "172.23.20.1",
@@ -3205,7 +3205,7 @@
           "node_id": "eru1n5",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06291908,28.66611511",
+          "node_location": "113.06427592,28.66523994",
           "node_manage_ip_addr": "10.103.21.254",
           "node_ports": [
             {
@@ -3226,7 +3226,7 @@
             },
             {
               "port_id": "eru1n5:3",
-              "status": 1,
+              "status": 0,
               "nid": 30206014,
               "teid": 30206032,
               "ip_address": "172.23.21.3",
@@ -3238,7 +3238,7 @@
           "node_id": "cnu1n0",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06287325,28.66454921",
+          "node_location": "113.06279503,28.66540318",
           "node_manage_ip_addr": "10.106.16.254",
           "node_ports": [
             {
@@ -3271,7 +3271,7 @@
           "node_id": "cnu1n1",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06316405,28.66460165",
+          "node_location": "113.06248709,28.66531402",
           "node_manage_ip_addr": "10.106.17.254",
           "node_ports": [
             {
@@ -3312,7 +3312,7 @@
           "node_id": "cnu1n2",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06461413,28.66650681",
+          "node_location": "113.06583480,28.66551501",
           "node_manage_ip_addr": "10.106.18.254",
           "node_ports": [
             {
@@ -3353,7 +3353,7 @@
           "node_id": "cnu1n3",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06300345,28.66527146",
+          "node_location": "113.06285995,28.66550202",
           "node_manage_ip_addr": "10.106.19.254",
           "node_ports": [
             {
@@ -3394,7 +3394,7 @@
           "node_id": "cnu1n4",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06414402,28.66661845",
+          "node_location": "113.06502495,28.66557305",
           "node_manage_ip_addr": "10.106.20.254",
           "node_ports": [
             {
@@ -3435,7 +3435,7 @@
           "node_id": "cnu1n5",
           "node_type": 3,
           "node_status": 1,
-          "node_location": "113.06312566,28.66535858",
+          "node_location": "113.06385032,28.66526183",
           "node_manage_ip_addr": "10.106.21.254",
           "node_ports": [
             {
@@ -3543,7 +3543,7 @@
         },
         {
           "link_id": "asu0n2:2_asu0n3:1",
-          "link_status": 1,
+          "link_status": 0,
           "link_type": 1,
           "link_bandwidth": 500.0,
           "link_latency": 10.0,
@@ -3917,6 +3917,21 @@
           }
         },
         {
+          "link_id": "cnu0n0:3_eru0n0:2",
+          "link_status": 1,
+          "link_type": 2,
+          "link_bandwidth": 200.0,
+          "link_latency": 50.0,
+          "src": {
+            "src_node": "cnu0n0",
+            "src_port": "cnu0n0:3"
+          },
+          "dst": {
+            "dst_node": "eru0n0",
+            "dst_port": "eru0n0:2"
+          }
+        },
+        {
           "link_id": "cnu0n1:2_cnu0n2:1",
           "link_status": 1,
           "link_type": 2,
@@ -3933,7 +3948,7 @@
         },
         {
           "link_id": "cnu0n1:4_eru0n1:3",
-          "link_status": 1,
+          "link_status": 0,
           "link_type": 2,
           "link_bandwidth": 200.0,
           "link_latency": 50.0,
@@ -4473,7 +4488,7 @@
         },
         {
           "link_id": "eru1n3:2_eru1n4:1",
-          "link_status": 1,
+          "link_status": 0,
           "link_type": 2,
           "link_bandwidth": 200.0,
           "link_latency": 50.0,
@@ -4533,7 +4548,7 @@
         },
         {
           "link_id": "eru1n5:3_asu1n4:2",
-          "link_status": 1,
+          "link_status": 0,
           "link_type": 2,
           "link_bandwidth": 200.0,
           "link_latency": 50.0,
@@ -32265,21 +32280,6 @@
             "dst_node": "cnu1n5",
             "dst_port": "cnu1n5:2"
           }
-        },
-        {
-          "link_id": "cnu0n0:3_eru0n0:2",
-          "link_status": 1,
-          "link_type": 2,
-          "link_bandwidth": 200.0,
-          "link_latency": 50.0,
-          "src": {
-            "src_node": "cnu0n0",
-            "src_port": "cnu0n0:3"
-          },
-          "dst": {
-            "dst_node": "eru0n0",
-            "dst_port": "eru0n0:2"
-          }
         }
       ]
     }
@@ -32297,6 +32297,6 @@
       "8": 0
     },
     "link_count": 1921,
-    "timestamp": "2026-05-25T14:56:34.347143+08:00"
+    "timestamp": "2026-05-25T16:41:13.653675+08:00"
   }
 }
