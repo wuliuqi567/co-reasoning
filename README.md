@@ -11,7 +11,18 @@
 
 本节面向正常运行人员，默认知识库、拓扑接口、链路指标接口都在线。
 
-### 1. 生成业务流
+### 1. 激活运行环境
+
+部署机器上先进入项目目录，并激活 conda 环境：
+
+```bash
+cd /path/to/co-reasoning
+conda activate co-reasoning
+```
+
+后续前台命令默认都在 `co-reasoning` 环境中执行。
+
+### 2. 生成业务流
 
 首次运行或需要重新生成业务时执行：
 
@@ -33,7 +44,7 @@ environment/inner_graph_data/json-data/inner_business_flows.json
 python generate_inner_business_flows.py --count 50
 ```
 
-### 2. 启动自动检测与重路由
+### 3. 启动自动检测与重路由
 
 前台运行：
 
@@ -45,7 +56,7 @@ python auto_inner_reroute.py
 
 ```bash
 mkdir -p logs
-nohup python auto_inner_reroute.py > logs/auto_inner_reroute.log 2>&1 &
+nohup conda run -n co-reasoning python auto_inner_reroute.py > logs/auto_inner_reroute.log 2>&1 &
 ```
 
 查看日志：
@@ -61,7 +72,7 @@ ps aux | grep auto_inner_reroute.py
 kill <PID>
 ```
 
-### 3. 默认行为
+### 4. 默认行为
 
 `auto_inner_reroute.py` 默认每 5 秒执行一次检测：
 
