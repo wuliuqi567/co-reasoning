@@ -2,11 +2,11 @@
 """自动检测内场业务受故障影响并触发重路由。
 
 运行方式：
-  # 默认每 5 秒在线获取拓扑/链路状态，知识库在线。
+  # 默认每 5 秒在线获取拓扑、链路状态和业务列表，知识库在线。
   python auto_inner_reroute.py
 
   # 后台运行，关闭终端不影响；输出写入日志。
-  nohup python auto_inner_reroute.py --kg_offline > logs/auto_inner_reroute.log 2>&1 &
+  nohup conda run -n co-reasoning python auto_inner_reroute.py > logs/auto_inner_reroute.log 2>&1 &
 
   # 当前知识库不可用但网络数据在线。
   python auto_inner_reroute.py --kg_offline
@@ -18,6 +18,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import subprocess
 import sys
@@ -40,11 +41,18 @@ from generate_inner_business_flows import (
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_REROUTE_SCRIPT = ROOT / "inner_rl_reroute.py"
+DEFAULT_TASK_JSON = ROOT / "environment" / "inner_graph_data" / "json-data" / "task_all.json"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="自动检测内场业务故障影响并触发重路由。")
-    parser.add_argument("--flows", type=Path, default=DEFAULT_OUTPUT, help="业务流 JSON 文件。")
+    parser.add_argument(
+        "--tasks",
+        "--flows",
+        dest="tasks",
+        type=Path,
+        help="业务 JSON 文件；在线默认 task_all.json，离线默认 inner_business_flows.json。",
+    )
     parser.add_argument("--interval", type=float, default=5.0, help="检测间隔秒数，默认 5 秒。")
     parser.add_argument("--once", action="store_true", help="只检测一次后退出。")
     parser.add_argument("--max-iterations", type=int, help="最多检测轮数；不填则持续运行。")
@@ -58,14 +66,94 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def load_flows(path: Path) -> list[dict[str, Any]]:
+def resolve_tasks_path(args: argparse.Namespace) -> Path:
+    if args.tasks is not None:
+        return args.tasks
+    return DEFAULT_OUTPUT if args.net_offline else DEFAULT_TASK_JSON
+
+
+def fetch_latest_tasks_json(output_path: Path) -> None:
+    module_path = ROOT / "environment" / "inner_graph_data" / "get-task-data.py"
+    spec = importlib.util.spec_from_file_location("get_task_data", module_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load task fetcher: {module_path}")
+
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    data = module.fetch_task_data(module.DEFAULT_URL, timeout=10.0, retries=2)
+    module.validate_api_result(data)
+    module.save_json(data, output_path)
+
+
+def split_link_nodes(link_id: str) -> tuple[str, str] | None:
+    parts = str(link_id).split("_", 1)
+    if len(parts) != 2:
+        return None
+    return parts[0].split(":", 1)[0], parts[1].split(":", 1)[0]
+
+
+def path_nodes_from_links(path_links: list[str]) -> list[str]:
+    nodes: list[str] = []
+    for link_id in path_links:
+        endpoints = split_link_nodes(link_id)
+        if endpoints is None:
+            continue
+        src, dst = endpoints
+        if not nodes:
+            nodes.extend([src, dst])
+        elif nodes[-1] == src:
+            nodes.append(dst)
+        elif nodes[-1] == dst:
+            nodes.append(src)
+        else:
+            nodes.extend([src, dst])
+    return nodes
+
+
+def normalize_task(raw: dict[str, Any]) -> dict[str, Any]:
+    task = dict(raw)
+
+    # 兼容旧版 generate_inner_business_flows.py 输出的 flows[].path_nodes。
+    if "task_id" not in task and task.get("flow_id"):
+        task["task_id"] = task.get("flow_id")
+    if "start" not in task and task.get("src"):
+        task["start"] = task.get("src")
+    if "end" not in task and task.get("dst"):
+        task["end"] = task.get("dst")
+    if "path" not in task and isinstance(task.get("path_nodes"), list):
+        task["path"] = [
+            f"{src}_{dst}" for src, dst in zip(task["path_nodes"], task["path_nodes"][1:])
+        ]
+
+    path_links = task.get("path") if isinstance(task.get("path"), list) else []
+    if "path_nodes" not in task:
+        task["path_nodes"] = path_nodes_from_links([str(link) for link in path_links])
+
+    if "src" not in task and task.get("start"):
+        task["src"] = task.get("start")
+    if "dst" not in task and task.get("end"):
+        task["dst"] = task.get("end")
+
+    return task
+
+
+def load_tasks(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
-        raise FileNotFoundError(f"业务流文件不存在: {path}")
+        raise FileNotFoundError(f"业务 JSON 文件不存在: {path}")
     data = json.loads(path.read_text(encoding="utf-8"))
-    flows = data.get("flows", [])
-    if not isinstance(flows, list):
-        raise ValueError(f"业务流文件格式错误，缺少 flows 列表: {path}")
-    return [flow for flow in flows if isinstance(flow, dict)]
+
+    tasks = []
+    payload = data.get("data") if isinstance(data, dict) else None
+    if isinstance(payload, dict) and isinstance(payload.get("tasks"), list):
+        tasks = payload["tasks"]
+    elif isinstance(data, dict) and isinstance(data.get("tasks"), list):
+        tasks = data["tasks"]
+    elif isinstance(data, dict) and isinstance(data.get("flows"), list):
+        tasks = data["flows"]
+
+    if not isinstance(tasks, list):
+        raise ValueError(f"业务 JSON 格式错误，缺少 data.tasks/tasks/flows 列表: {path}")
+    return [normalize_task(task) for task in tasks if isinstance(task, dict)]
 
 
 def fault_nodes(graph: nx.Graph) -> list[str]:
@@ -76,17 +164,24 @@ def fault_nodes(graph: nx.Graph) -> list[str]:
     ]
 
 
-def flow_failure_reasons(flow: dict[str, Any], routing_graph: nx.Graph) -> list[str]:
-    path_nodes = flow.get("path_nodes", [])
+def task_failure_reasons(task: dict[str, Any], routing_graph: nx.Graph) -> list[str]:
+    path_nodes = task.get("path_nodes", [])
     if not isinstance(path_nodes, list) or not path_nodes:
-        return ["flow has no saved path_nodes"]
+        return ["task has no saved path nodes"]
 
     reasons = []
     for node in path_nodes:
         if node not in routing_graph:
             reasons.append(f"node offline: {node}")
 
-    for src, dst in zip(path_nodes, path_nodes[1:]):
+    path_links = task.get("path") if isinstance(task.get("path"), list) else []
+    if path_links:
+        link_pairs = [split_link_nodes(str(link_id)) for link_id in path_links]
+        pairs = [pair for pair in link_pairs if pair is not None]
+    else:
+        pairs = list(zip(path_nodes, path_nodes[1:]))
+
+    for src, dst in pairs:
         if src not in routing_graph or dst not in routing_graph:
             continue
         if not routing_graph.has_edge(src, dst):
@@ -95,20 +190,35 @@ def flow_failure_reasons(flow: dict[str, Any], routing_graph: nx.Graph) -> list[
     return reasons
 
 
-def affected_flows(flows: list[dict[str, Any]], routing_graph: nx.Graph) -> list[tuple[dict[str, Any], list[str]]]:
+def affected_tasks(tasks: list[dict[str, Any]], routing_graph: nx.Graph) -> list[tuple[dict[str, Any], list[str]]]:
     affected = []
-    for flow in flows:
-        reasons = flow_failure_reasons(flow, routing_graph)
+    for task in tasks:
+        reasons = task_failure_reasons(task, routing_graph)
         if reasons:
-            affected.append((flow, reasons))
+            affected.append((task, reasons))
     return affected
 
 
-def run_reroute(flow: dict[str, Any], args: argparse.Namespace) -> tuple[int, str, str]:
-    src = flow.get("src")
-    dst = flow.get("dst")
+def reroute_endpoints(task: dict[str, Any]) -> tuple[str | None, str | None]:
+    src = task.get("start") or task.get("src")
+    dst = task.get("end") or task.get("dst")
+    path_nodes = task.get("path_nodes", [])
+
+    # 业务接口的 start/end 经常是 hu 网关节点；当前内场路由脚本计算 II 类图，
+    # 因此重路由时使用 hu 接入后的第一个在线网络节点。
+    if isinstance(path_nodes, list) and len(path_nodes) >= 2:
+        if src and str(src).startswith("hu") and path_nodes[0] == src:
+            src = path_nodes[1]
+        if dst and str(dst).startswith("hu") and path_nodes[-1] == dst:
+            dst = path_nodes[-2]
+
+    return str(src) if src else None, str(dst) if dst else None
+
+
+def run_reroute(task: dict[str, Any], args: argparse.Namespace) -> tuple[int, str, str]:
+    src, dst = reroute_endpoints(task)
     if not src or not dst:
-        return 1, "", "flow missing src or dst"
+        return 1, "", "task missing start/end"
 
     command = [sys.executable, str(args.reroute_script), "--src", str(src), "--dst", str(dst)]
     if args.kg_offline:
@@ -173,33 +283,60 @@ def print_fault_summary(graph: nx.Graph) -> None:
         print("  ... 故障项较多，仅显示前 10 个节点和前 10 条链路")
 
 
-def check_once(args: argparse.Namespace, flows: list[dict[str, Any]]) -> None:
-    print(f"\n[{datetime.now().isoformat(timespec='seconds')}] 获取拓扑和链路状态...")
+def format_task_path(graph: nx.Graph, task: dict[str, Any]) -> str:
+    path_nodes = task.get("path_nodes", [])
+    if not isinstance(path_nodes, list) or not path_nodes:
+        path_links = task.get("path", [])
+        return " -> ".join(str(link) for link in path_links) if isinstance(path_links, list) else ""
+
+    parts = []
+    for node in path_nodes:
+        manage_ip = graph.nodes[node].get("node_manage_ip_addr", "-") if node in graph else "-"
+        parts.append(f"{node}（{manage_ip or '-'}）")
+    return " -> ".join(parts)
+
+
+def load_tasks_for_iteration(args: argparse.Namespace) -> tuple[list[dict[str, Any]], Path]:
+    tasks_path = resolve_tasks_path(args)
+    if not args.net_offline:
+        fetch_latest_tasks_json(tasks_path)
+    return load_tasks(tasks_path), tasks_path
+
+
+def check_once(args: argparse.Namespace) -> None:
+    print(f"\n[{datetime.now().isoformat(timespec='seconds')}] 获取拓扑、链路状态和业务列表...")
     graph, routing_graph = load_routing_graph(args)
+    tasks, tasks_path = load_tasks_for_iteration(args)
+    print(f"[INFO] loaded tasks: {tasks_path}, count={len(tasks)}")
     print_fault_summary(graph)
 
     if not fault_nodes(graph) and not topo.get_fault_links(graph):
         print("[INFO] 未检测到节点或链路故障。")
         return
 
-    impacted = affected_flows(flows, routing_graph)
+    impacted = affected_tasks(tasks, routing_graph)
     if not impacted:
         print("[INFO] 检测到故障，但当前业务未受影响。")
         return
 
     print(f"[WARN] 受影响业务数: {len(impacted)}")
-    for flow, reasons in impacted:
+    for task, reasons in impacted:
         print("\n-------------------------------受影响业务---------------------------------")
-        print(f"flow_id={flow.get('flow_id')}, src={flow.get('src')}, dst={flow.get('dst')}")
-        print(f"原路径: {flow.get('path_info', '')}")
+        print(
+            f"task_id={task.get('task_id')}, "
+            f"start={task.get('start')}({task.get('start_host_ip', '-')}) -> "
+            f"end={task.get('end')}({task.get('end_host_ip', '-')})"
+        )
+        print(f"原路径: {format_task_path(graph, task)}")
         print("影响原因:")
         for reason in reasons:
             print(f"  - {reason}")
 
-        print(f"[INFO] 执行重路由: {flow.get('src')} -> {flow.get('dst')}")
-        code, stdout, stderr = run_reroute(flow, args)
+        reroute_src, reroute_dst = reroute_endpoints(task)
+        print(f"[INFO] 执行重路由: {reroute_src} -> {reroute_dst}")
+        code, stdout, stderr = run_reroute(task, args)
         if code != 0:
-            print(f"[ERR] 重路由失败: flow_id={flow.get('flow_id')}, code={code}")
+            print(f"[ERR] 重路由失败: task_id={task.get('task_id')}, code={code}")
             if stderr:
                 print(stderr, file=sys.stderr)
             continue
@@ -214,17 +351,20 @@ def check_once(args: argparse.Namespace, flows: list[dict[str, Any]]) -> None:
 
 def main() -> int:
     args = parse_args()
-    try:
-        flows = load_flows(args.flows)
-    except (OSError, ValueError, json.JSONDecodeError) as exc:
-        print(f"[ERR] {exc}", file=sys.stderr)
-        return 1
 
-    print(f"[INFO] loaded flows: {args.flows}, count={len(flows)}")
+    print(
+        "[INFO] task mode: "
+        f"{'offline_json' if args.net_offline else 'online_api'}, "
+        f"path={resolve_tasks_path(args)}"
+    )
     iteration = 0
     while True:
         iteration += 1
-        check_once(args, flows)
+        try:
+            check_once(args)
+        except (OSError, ValueError, json.JSONDecodeError, RuntimeError) as exc:
+            print(f"[ERR] {exc}", file=sys.stderr)
+            return 1
         if args.once:
             break
         if args.max_iterations is not None and iteration >= args.max_iterations:

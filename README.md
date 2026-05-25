@@ -22,29 +22,7 @@ conda activate co-reasoning
 
 后续前台命令默认都在 `co-reasoning` 环境中执行。
 
-### 2. 生成业务流
-
-首次运行或需要重新生成业务时执行：
-
-```bash
-python generate_inner_business_flows.py
-```
-
-默认生成 20 条源目的业务，并保存到：
-
-```text
-environment/inner_graph_data/json-data/inner_business_flows.json
-```
-
-如果业务文件已经存在，可以直接进入下一步。
-
-如需指定业务数量：
-
-```bash
-python generate_inner_business_flows.py --count 50
-```
-
-### 3. 启动自动检测与重路由
+### 2. 启动自动检测与重路由
 
 前台运行：
 
@@ -72,15 +50,21 @@ ps aux | grep auto_inner_reroute.py
 kill <PID>
 ```
 
-### 4. 默认行为
+### 3. 默认行为
 
 `auto_inner_reroute.py` 默认每 5 秒执行一次检测：
 
-1. 在线获取最新拓扑和链路指标。
+1. 在线获取最新拓扑、链路指标和业务列表。
 2. 检测节点或链路是否故障。
-3. 判断故障是否影响 `inner_business_flows.json` 中的业务路径。
+3. 判断故障是否影响在线业务 `task_all.json` 中的业务路径。
 4. 对受影响业务调用 `inner_rl_reroute.py` 重新计算路径。
 5. 打印受影响业务和重路由后的路径。
+
+在线业务列表默认保存到：
+
+```text
+environment/inner_graph_data/json-data/task_all.json
+```
 
 路径打印格式：
 
@@ -101,8 +85,8 @@ python auto_inner_reroute.py --interval 10
 ### 目录与入口
 
 ```text
-auto_inner_reroute.py               # 内场自动故障检测与重路由主入口
-generate_inner_business_flows.py    # 生成内场业务流路径文件
+auto_inner_reroute.py               # 内场自动故障检测与重路由主入口，在线获取业务列表
+generate_inner_business_flows.py    # 离线生成内场业务 JSON，结构对齐在线业务接口
 inner_rl_reroute.py                 # 内场 II/III 协同重路由编排
 inner_rl_reroute_II.py              # II 类路由
 inner_rl_reroute_III.py             # III 类路由
@@ -120,6 +104,7 @@ rl_reroute.py                       # 外场 III 类 DDQN 流程
 ```text
 environment/inner_graph_data/json-data/network_topology_state.json
 environment/inner_graph_data/json-data/link_metric.json
+environment/inner_graph_data/json-data/task_all.json
 environment/inner_graph_data/json-data/inner_business_flows.json
 environment/inner_graph_data/base_ii_topology.graphml
 ```
@@ -167,7 +152,7 @@ eru/cnu  车载侧节点
 python auto_inner_reroute.py --kg_offline
 ```
 
-知识库、拓扑、链路指标全部使用本地文件：
+知识库、拓扑、链路指标和业务列表全部使用本地文件：
 
 ```bash
 python auto_inner_reroute.py --kg_offline --net_offline
@@ -244,10 +229,16 @@ python inner_rl_reroute_III.py --net_offline
 
 ### 生成业务流调试
 
-本地 JSON 生成业务：
+离线生成业务 JSON，默认输出 `environment/inner_graph_data/json-data/inner_business_flows.json`，结构为 `data.tasks`：
 
 ```bash
 python generate_inner_business_flows.py --net_offline
+```
+
+指定生成数量：
+
+```bash
+python generate_inner_business_flows.py --count 50
 ```
 
 固定随机种子：
@@ -275,6 +266,18 @@ python environment/inner_graph_data/get-topo-data.py
 
 ```bash
 python environment/inner_graph_data/get-link-metric-data.py
+```
+
+抓取当前在线业务：
+
+```bash
+python environment/inner_graph_data/get-task-data.py
+```
+
+默认保存到：
+
+```text
+environment/inner_graph_data/json-data/task_all.json
 ```
 
 拓扑结构变化后重建 base GraphML：
