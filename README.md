@@ -34,6 +34,40 @@ link_status = 0  表示离线/故障
 
 `link_metric.json` 通过 `link_id` 更新链路指标，包括利用率、可用带宽、丢包率等。如果指标文件中的 `link_id` 与拓扑不匹配，脚本会保留拓扑中的原始带宽，丢包率按默认值计算。
 
+## 节点 ID 约定
+
+内场拓扑节点 ID 一般采用：
+
+```text
+<节点角色前缀><子图编号>n<子图内节点编号>
+```
+
+示例：
+
+```text
+bsu0n1  表示第 0 个子图中的骨干节点 bsu，节点编号 n1
+asu0n2  表示第 0 个子图中的接入节点 asu，节点编号 n2
+eru2n4  表示第 2 个子图中的车载侧节点 eru，节点编号 n4
+```
+
+常见前缀含义：
+
+```text
+	节点类型：
+    1=一类设备终端，
+    2=一类设备簇头，
+    3=二类设备车载，
+    4=二类设备接入，
+    5=二类设备骨干，
+    6=Ⅳ类设备网关，
+    7=III类设备
+bsu  骨干节点
+asu  接入节点
+eru/cnu  车载侧节点
+```
+
+整个网络由多个子图组成，子图之间通过各子图中的骨干节点 `bsu{x}n1` 互联。例如 `bsu0n1`、`bsu1n1`、`bsu2n1` 可作为不同子图之间的骨干连接点。
+
 ## 推荐运行
 
 ### 协同推理入口
@@ -97,6 +131,52 @@ python inner_rl_reroute.py --net_offline
 
 ```bash
 python inner_rl_reroute.py --log-path /tmp/access.log
+```
+
+### 批量业务与自动重路由
+
+随机生成 50 条业务，并把路径保存到单独文件：
+
+```bash
+python generate_inner_business_flows.py
+```
+
+默认输出：
+
+```text
+environment/inner_graph_data/json-data/inner_business_flows.json
+```
+
+如需额外添加指定源目的业务，直接修改 `generate_inner_business_flows.py` 中的 `CUSTOM_FLOWS` 或 `CUSTOM_FLOW_IPS`。
+
+本地 JSON 调试：
+
+```bash
+python generate_inner_business_flows.py --net_offline
+```
+
+自动检测故障并触发重路由：
+
+```bash
+python auto_inner_reroute.py --kg_offline
+```
+
+后台运行，关闭终端不影响：
+
+```bash
+nohup python auto_inner_reroute.py --kg_offline > logs/auto_inner_reroute.log 2>&1 &
+```
+
+默认每 5 秒在线获取拓扑和链路指标。若检测到节点或链路故障，会判断保存的业务路径是否受影响；受影响时调用 `inner_rl_reroute.py`，并打印受影响业务和重路由后的路径。调整检测间隔：
+
+```bash
+python auto_inner_reroute.py --kg_offline --interval 10
+```
+
+只检测一次并使用本地 JSON：
+
+```bash
+python auto_inner_reroute.py --kg_offline --net_offline --once
 ```
 
 ### 单独运行 II 路由

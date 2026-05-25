@@ -1,0 +1,907 @@
+{
+  "generated_at": "2026-05-25T09:41:45",
+  "net_mode": "offline_json",
+  "random_count": 50,
+  "custom_count": 0,
+  "flow_count": 50,
+  "flows": [
+    {
+      "flow_id": "random_001",
+      "source": "random",
+      "src": "eru1n3",
+      "dst": "asu0n2",
+      "path_nodes": [
+        "eru1n3",
+        "asu1n2",
+        "bsu1n1",
+        "bsu0n1",
+        "asu0n2"
+      ],
+      "path_info": "eru1n3（10.103.19.254） -> asu1n2（10.104.18.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> asu0n2（10.104.2.254）",
+      "hop_count": 4,
+      "total_latency": 80.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_002",
+      "source": "random",
+      "src": "eru1n1",
+      "dst": "bsu0n0",
+      "path_nodes": [
+        "eru1n1",
+        "asu1n1",
+        "bsu1n1",
+        "bsu0n1",
+        "bsu0n0"
+      ],
+      "path_info": "eru1n1（10.103.17.254） -> asu1n1（10.104.17.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> bsu0n0（10.105.0.254）",
+      "hop_count": 4,
+      "total_latency": 80.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_003",
+      "source": "random",
+      "src": "cnu0n4",
+      "dst": "eru0n5",
+      "path_nodes": [
+        "cnu0n4",
+        "eru0n4",
+        "eru0n5"
+      ],
+      "path_info": "cnu0n4（10.106.4.254） -> eru0n4（10.103.4.254） -> eru0n5（10.103.5.254）",
+      "hop_count": 2,
+      "total_latency": 100.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_004",
+      "source": "random",
+      "src": "bsu1n0",
+      "dst": "asu0n0",
+      "path_nodes": [
+        "bsu1n0",
+        "bsu1n1",
+        "bsu0n1",
+        "bsu0n0",
+        "asu0n0"
+      ],
+      "path_info": "bsu1n0（10.105.16.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> bsu0n0（10.105.0.254） -> asu0n0（10.104.0.254）",
+      "hop_count": 4,
+      "total_latency": 40.0,
+      "bottleneck_bandwidth": 458.85,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_005",
+      "source": "random",
+      "src": "eru0n3",
+      "dst": "eru0n2",
+      "path_nodes": [
+        "eru0n3",
+        "eru0n2"
+      ],
+      "path_info": "eru0n3（10.103.3.254） -> eru0n2（10.103.2.254）",
+      "hop_count": 1,
+      "total_latency": 50.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_006",
+      "source": "random",
+      "src": "cnu1n1",
+      "dst": "bsu1n0",
+      "path_nodes": [
+        "cnu1n1",
+        "eru1n1",
+        "asu1n1",
+        "bsu1n0"
+      ],
+      "path_info": "cnu1n1（10.106.17.254） -> eru1n1（10.103.17.254） -> asu1n1（10.104.17.254） -> bsu1n0（10.105.16.254）",
+      "hop_count": 3,
+      "total_latency": 110.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_007",
+      "source": "random",
+      "src": "asu0n4",
+      "dst": "bsu1n1",
+      "path_nodes": [
+        "asu0n4",
+        "bsu0n2",
+        "bsu0n1",
+        "bsu1n1"
+      ],
+      "path_info": "asu0n4（10.104.4.254） -> bsu0n2（10.105.2.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254）",
+      "hop_count": 3,
+      "total_latency": 30.0,
+      "bottleneck_bandwidth": 459.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_008",
+      "source": "random",
+      "src": "eru0n5",
+      "dst": "cnu0n1",
+      "path_nodes": [
+        "eru0n5",
+        "asu0n4",
+        "bsu0n2",
+        "bsu0n0",
+        "asu0n1",
+        "eru0n1",
+        "cnu0n1"
+      ],
+      "path_info": "eru0n5（10.103.5.254） -> asu0n4（10.104.4.254） -> bsu0n2（10.105.2.254） -> bsu0n0（10.105.0.254） -> asu0n1（10.104.1.254） -> eru0n1（10.103.1.254） -> cnu0n1（10.106.1.254）",
+      "hop_count": 6,
+      "total_latency": 180.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_009",
+      "source": "random",
+      "src": "eru1n5",
+      "dst": "asu0n1",
+      "path_nodes": [
+        "eru1n5",
+        "asu1n4",
+        "bsu1n2",
+        "bsu1n1",
+        "bsu0n1",
+        "asu0n1"
+      ],
+      "path_info": "eru1n5（10.103.21.254） -> asu1n4（10.104.20.254） -> bsu1n2（10.105.18.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> asu0n1（10.104.1.254）",
+      "hop_count": 5,
+      "total_latency": 90.0,
+      "bottleneck_bandwidth": 158.94,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_010",
+      "source": "random",
+      "src": "asu1n4",
+      "dst": "asu1n2",
+      "path_nodes": [
+        "asu1n4",
+        "asu1n3",
+        "asu1n2"
+      ],
+      "path_info": "asu1n4（10.104.20.254） -> asu1n3（10.104.19.254） -> asu1n2（10.104.18.254）",
+      "hop_count": 2,
+      "total_latency": 20.0,
+      "bottleneck_bandwidth": 500.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_011",
+      "source": "random",
+      "src": "eru1n1",
+      "dst": "eru0n3",
+      "path_nodes": [
+        "eru1n1",
+        "asu1n1",
+        "bsu1n1",
+        "bsu0n1",
+        "asu0n2",
+        "eru0n3"
+      ],
+      "path_info": "eru1n1（10.103.17.254） -> asu1n1（10.104.17.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> asu0n2（10.104.2.254） -> eru0n3（10.103.3.254）",
+      "hop_count": 5,
+      "total_latency": 130.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_012",
+      "source": "random",
+      "src": "asu0n0",
+      "dst": "asu0n2",
+      "path_nodes": [
+        "asu0n0",
+        "bsu0n0",
+        "asu0n1",
+        "asu0n2"
+      ],
+      "path_info": "asu0n0（10.104.0.254） -> bsu0n0（10.105.0.254） -> asu0n1（10.104.1.254） -> asu0n2（10.104.2.254）",
+      "hop_count": 3,
+      "total_latency": 30.0,
+      "bottleneck_bandwidth": 458.85,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_013",
+      "source": "random",
+      "src": "asu1n0",
+      "dst": "asu1n4",
+      "path_nodes": [
+        "asu1n0",
+        "bsu1n0",
+        "bsu1n2",
+        "asu1n4"
+      ],
+      "path_info": "asu1n0（10.104.16.254） -> bsu1n0（10.105.16.254） -> bsu1n2（10.105.18.254） -> asu1n4（10.104.20.254）",
+      "hop_count": 3,
+      "total_latency": 30.0,
+      "bottleneck_bandwidth": 459.1,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_014",
+      "source": "random",
+      "src": "asu1n1",
+      "dst": "eru0n5",
+      "path_nodes": [
+        "asu1n1",
+        "bsu1n1",
+        "bsu0n1",
+        "bsu0n2",
+        "asu0n4",
+        "eru0n5"
+      ],
+      "path_info": "asu1n1（10.104.17.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> bsu0n2（10.105.2.254） -> asu0n4（10.104.4.254） -> eru0n5（10.103.5.254）",
+      "hop_count": 5,
+      "total_latency": 90.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_015",
+      "source": "random",
+      "src": "eru0n3",
+      "dst": "cnu0n2",
+      "path_nodes": [
+        "eru0n3",
+        "eru0n2",
+        "cnu0n2"
+      ],
+      "path_info": "eru0n3（10.103.3.254） -> eru0n2（10.103.2.254） -> cnu0n2（10.106.2.254）",
+      "hop_count": 2,
+      "total_latency": 100.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_016",
+      "source": "random",
+      "src": "asu0n3",
+      "dst": "eru1n5",
+      "path_nodes": [
+        "asu0n3",
+        "bsu0n1",
+        "bsu1n1",
+        "bsu1n2",
+        "asu1n4",
+        "eru1n5"
+      ],
+      "path_info": "asu0n3（10.104.3.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> bsu1n2（10.105.18.254） -> asu1n4（10.104.20.254） -> eru1n5（10.103.21.254）",
+      "hop_count": 5,
+      "total_latency": 90.0,
+      "bottleneck_bandwidth": 158.94,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_017",
+      "source": "random",
+      "src": "cnu1n0",
+      "dst": "bsu0n0",
+      "path_nodes": [
+        "cnu1n0",
+        "eru1n0",
+        "asu1n0",
+        "bsu1n0",
+        "bsu1n1",
+        "bsu0n1",
+        "bsu0n0"
+      ],
+      "path_info": "cnu1n0（10.106.16.254） -> eru1n0（10.103.16.254） -> asu1n0（10.104.16.254） -> bsu1n0（10.105.16.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> bsu0n0（10.105.0.254）",
+      "hop_count": 6,
+      "total_latency": 140.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_018",
+      "source": "random",
+      "src": "asu1n1",
+      "dst": "cnu1n1",
+      "path_nodes": [
+        "asu1n1",
+        "eru1n1",
+        "cnu1n1"
+      ],
+      "path_info": "asu1n1（10.104.17.254） -> eru1n1（10.103.17.254） -> cnu1n1（10.106.17.254）",
+      "hop_count": 2,
+      "total_latency": 100.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_019",
+      "source": "random",
+      "src": "cnu0n0",
+      "dst": "cnu0n2",
+      "path_nodes": [
+        "cnu0n0",
+        "cnu0n1",
+        "cnu0n2"
+      ],
+      "path_info": "cnu0n0（10.106.0.254） -> cnu0n1（10.106.1.254） -> cnu0n2（10.106.2.254）",
+      "hop_count": 2,
+      "total_latency": 100.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_020",
+      "source": "random",
+      "src": "eru1n0",
+      "dst": "cnu1n3",
+      "path_nodes": [
+        "eru1n0",
+        "asu1n0",
+        "asu1n1",
+        "asu1n2",
+        "eru1n3",
+        "cnu1n3"
+      ],
+      "path_info": "eru1n0（10.103.16.254） -> asu1n0（10.104.16.254） -> asu1n1（10.104.17.254） -> asu1n2（10.104.18.254） -> eru1n3（10.103.19.254） -> cnu1n3（10.106.19.254）",
+      "hop_count": 5,
+      "total_latency": 170.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_021",
+      "source": "random",
+      "src": "asu0n0",
+      "dst": "eru0n4",
+      "path_nodes": [
+        "asu0n0",
+        "bsu0n0",
+        "bsu0n1",
+        "asu0n3",
+        "eru0n4"
+      ],
+      "path_info": "asu0n0（10.104.0.254） -> bsu0n0（10.105.0.254） -> bsu0n1（10.105.1.254） -> asu0n3（10.104.3.254） -> eru0n4（10.103.4.254）",
+      "hop_count": 4,
+      "total_latency": 80.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_022",
+      "source": "random",
+      "src": "eru0n1",
+      "dst": "eru1n4",
+      "path_nodes": [
+        "eru0n1",
+        "asu0n1",
+        "bsu0n1",
+        "bsu1n1",
+        "asu1n3",
+        "eru1n4"
+      ],
+      "path_info": "eru0n1（10.103.1.254） -> asu0n1（10.104.1.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> asu1n3（10.104.19.254） -> eru1n4（10.103.20.254）",
+      "hop_count": 5,
+      "total_latency": 130.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_023",
+      "source": "random",
+      "src": "eru1n0",
+      "dst": "bsu0n1",
+      "path_nodes": [
+        "eru1n0",
+        "asu1n0",
+        "bsu1n0",
+        "bsu1n1",
+        "bsu0n1"
+      ],
+      "path_info": "eru1n0（10.103.16.254） -> asu1n0（10.104.16.254） -> bsu1n0（10.105.16.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254）",
+      "hop_count": 4,
+      "total_latency": 80.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_024",
+      "source": "random",
+      "src": "asu1n3",
+      "dst": "cnu1n4",
+      "path_nodes": [
+        "asu1n3",
+        "eru1n4",
+        "cnu1n4"
+      ],
+      "path_info": "asu1n3（10.104.19.254） -> eru1n4（10.103.20.254） -> cnu1n4（10.106.20.254）",
+      "hop_count": 2,
+      "total_latency": 100.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_025",
+      "source": "random",
+      "src": "cnu0n5",
+      "dst": "asu1n3",
+      "path_nodes": [
+        "cnu0n5",
+        "eru0n5",
+        "asu0n4",
+        "asu0n3",
+        "bsu0n1",
+        "bsu1n1",
+        "asu1n3"
+      ],
+      "path_info": "cnu0n5（10.106.5.254） -> eru0n5（10.103.5.254） -> asu0n4（10.104.4.254） -> asu0n3（10.104.3.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> asu1n3（10.104.19.254）",
+      "hop_count": 6,
+      "total_latency": 140.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_026",
+      "source": "random",
+      "src": "cnu1n1",
+      "dst": "cnu0n1",
+      "path_nodes": [
+        "cnu1n1",
+        "eru1n1",
+        "asu1n1",
+        "bsu1n1",
+        "bsu0n1",
+        "asu0n1",
+        "eru0n1",
+        "cnu0n1"
+      ],
+      "path_info": "cnu1n1（10.106.17.254） -> eru1n1（10.103.17.254） -> asu1n1（10.104.17.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> asu0n1（10.104.1.254） -> eru0n1（10.103.1.254） -> cnu0n1（10.106.1.254）",
+      "hop_count": 7,
+      "total_latency": 230.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_027",
+      "source": "random",
+      "src": "eru1n2",
+      "dst": "cnu1n3",
+      "path_nodes": [
+        "eru1n2",
+        "eru1n3",
+        "cnu1n3"
+      ],
+      "path_info": "eru1n2（10.103.18.254） -> eru1n3（10.103.19.254） -> cnu1n3（10.106.19.254）",
+      "hop_count": 2,
+      "total_latency": 100.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_028",
+      "source": "random",
+      "src": "asu0n1",
+      "dst": "eru0n3",
+      "path_nodes": [
+        "asu0n1",
+        "asu0n2",
+        "eru0n3"
+      ],
+      "path_info": "asu0n1（10.104.1.254） -> asu0n2（10.104.2.254） -> eru0n3（10.103.3.254）",
+      "hop_count": 2,
+      "total_latency": 60.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_029",
+      "source": "random",
+      "src": "cnu1n4",
+      "dst": "asu1n0",
+      "path_nodes": [
+        "cnu1n4",
+        "eru1n4",
+        "asu1n3",
+        "bsu1n1",
+        "bsu1n0",
+        "asu1n0"
+      ],
+      "path_info": "cnu1n4（10.106.20.254） -> eru1n4（10.103.20.254） -> asu1n3（10.104.19.254） -> bsu1n1（10.105.17.254） -> bsu1n0（10.105.16.254） -> asu1n0（10.104.16.254）",
+      "hop_count": 5,
+      "total_latency": 130.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_030",
+      "source": "random",
+      "src": "bsu1n1",
+      "dst": "cnu1n3",
+      "path_nodes": [
+        "bsu1n1",
+        "asu1n2",
+        "eru1n3",
+        "cnu1n3"
+      ],
+      "path_info": "bsu1n1（10.105.17.254） -> asu1n2（10.104.18.254） -> eru1n3（10.103.19.254） -> cnu1n3（10.106.19.254）",
+      "hop_count": 3,
+      "total_latency": 110.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_031",
+      "source": "random",
+      "src": "eru1n5",
+      "dst": "bsu1n0",
+      "path_nodes": [
+        "eru1n5",
+        "asu1n4",
+        "bsu1n2",
+        "bsu1n0"
+      ],
+      "path_info": "eru1n5（10.103.21.254） -> asu1n4（10.104.20.254） -> bsu1n2（10.105.18.254） -> bsu1n0（10.105.16.254）",
+      "hop_count": 3,
+      "total_latency": 70.0,
+      "bottleneck_bandwidth": 158.94,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_032",
+      "source": "random",
+      "src": "eru1n1",
+      "dst": "cnu1n0",
+      "path_nodes": [
+        "eru1n1",
+        "eru1n0",
+        "cnu1n0"
+      ],
+      "path_info": "eru1n1（10.103.17.254） -> eru1n0（10.103.16.254） -> cnu1n0（10.106.16.254）",
+      "hop_count": 2,
+      "total_latency": 100.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_033",
+      "source": "random",
+      "src": "eru0n2",
+      "dst": "cnu1n4",
+      "path_nodes": [
+        "eru0n2",
+        "asu0n2",
+        "bsu0n1",
+        "bsu1n1",
+        "asu1n3",
+        "eru1n4",
+        "cnu1n4"
+      ],
+      "path_info": "eru0n2（10.103.2.254） -> asu0n2（10.104.2.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> asu1n3（10.104.19.254） -> eru1n4（10.103.20.254） -> cnu1n4（10.106.20.254）",
+      "hop_count": 6,
+      "total_latency": 180.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_034",
+      "source": "random",
+      "src": "eru1n3",
+      "dst": "cnu0n0",
+      "path_nodes": [
+        "eru1n3",
+        "asu1n2",
+        "bsu1n1",
+        "bsu0n1",
+        "bsu0n0",
+        "asu0n0",
+        "eru0n0",
+        "cnu0n0"
+      ],
+      "path_info": "eru1n3（10.103.19.254） -> asu1n2（10.104.18.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> bsu0n0（10.105.0.254） -> asu0n0（10.104.0.254） -> eru0n0（10.103.0.254） -> cnu0n0（10.106.0.254）",
+      "hop_count": 7,
+      "total_latency": 190.0,
+      "bottleneck_bandwidth": 159.14,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_035",
+      "source": "random",
+      "src": "eru0n0",
+      "dst": "cnu0n2",
+      "path_nodes": [
+        "eru0n0",
+        "eru0n1",
+        "eru0n2",
+        "cnu0n2"
+      ],
+      "path_info": "eru0n0（10.103.0.254） -> eru0n1（10.103.1.254） -> eru0n2（10.103.2.254） -> cnu0n2（10.106.2.254）",
+      "hop_count": 3,
+      "total_latency": 150.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_036",
+      "source": "random",
+      "src": "eru0n3",
+      "dst": "asu1n1",
+      "path_nodes": [
+        "eru0n3",
+        "asu0n2",
+        "bsu0n1",
+        "bsu1n1",
+        "asu1n1"
+      ],
+      "path_info": "eru0n3（10.103.3.254） -> asu0n2（10.104.2.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> asu1n1（10.104.17.254）",
+      "hop_count": 4,
+      "total_latency": 80.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_037",
+      "source": "random",
+      "src": "cnu0n5",
+      "dst": "eru0n0",
+      "path_nodes": [
+        "cnu0n5",
+        "eru0n5",
+        "asu0n4",
+        "bsu0n2",
+        "bsu0n0",
+        "asu0n0",
+        "eru0n0"
+      ],
+      "path_info": "cnu0n5（10.106.5.254） -> eru0n5（10.103.5.254） -> asu0n4（10.104.4.254） -> bsu0n2（10.105.2.254） -> bsu0n0（10.105.0.254） -> asu0n0（10.104.0.254） -> eru0n0（10.103.0.254）",
+      "hop_count": 6,
+      "total_latency": 180.0,
+      "bottleneck_bandwidth": 159.14,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_038",
+      "source": "random",
+      "src": "cnu0n4",
+      "dst": "bsu1n1",
+      "path_nodes": [
+        "cnu0n4",
+        "eru0n4",
+        "asu0n3",
+        "bsu0n1",
+        "bsu1n1"
+      ],
+      "path_info": "cnu0n4（10.106.4.254） -> eru0n4（10.103.4.254） -> asu0n3（10.104.3.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254）",
+      "hop_count": 4,
+      "total_latency": 120.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_039",
+      "source": "random",
+      "src": "asu0n4",
+      "dst": "cnu1n1",
+      "path_nodes": [
+        "asu0n4",
+        "bsu0n2",
+        "bsu0n1",
+        "bsu1n1",
+        "asu1n1",
+        "eru1n1",
+        "cnu1n1"
+      ],
+      "path_info": "asu0n4（10.104.4.254） -> bsu0n2（10.105.2.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> asu1n1（10.104.17.254） -> eru1n1（10.103.17.254） -> cnu1n1（10.106.17.254）",
+      "hop_count": 6,
+      "total_latency": 140.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_040",
+      "source": "random",
+      "src": "asu1n0",
+      "dst": "cnu1n3",
+      "path_nodes": [
+        "asu1n0",
+        "asu1n1",
+        "asu1n2",
+        "eru1n3",
+        "cnu1n3"
+      ],
+      "path_info": "asu1n0（10.104.16.254） -> asu1n1（10.104.17.254） -> asu1n2（10.104.18.254） -> eru1n3（10.103.19.254） -> cnu1n3（10.106.19.254）",
+      "hop_count": 4,
+      "total_latency": 120.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_041",
+      "source": "random",
+      "src": "asu0n1",
+      "dst": "asu1n1",
+      "path_nodes": [
+        "asu0n1",
+        "bsu0n1",
+        "bsu1n1",
+        "asu1n1"
+      ],
+      "path_info": "asu0n1（10.104.1.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> asu1n1（10.104.17.254）",
+      "hop_count": 3,
+      "total_latency": 30.0,
+      "bottleneck_bandwidth": 459.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_042",
+      "source": "random",
+      "src": "eru0n0",
+      "dst": "asu1n1",
+      "path_nodes": [
+        "eru0n0",
+        "asu0n0",
+        "bsu0n0",
+        "bsu0n1",
+        "bsu1n1",
+        "asu1n1"
+      ],
+      "path_info": "eru0n0（10.103.0.254） -> asu0n0（10.104.0.254） -> bsu0n0（10.105.0.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> asu1n1（10.104.17.254）",
+      "hop_count": 5,
+      "total_latency": 90.0,
+      "bottleneck_bandwidth": 159.14,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_043",
+      "source": "random",
+      "src": "asu1n1",
+      "dst": "eru0n4",
+      "path_nodes": [
+        "asu1n1",
+        "bsu1n1",
+        "bsu0n1",
+        "asu0n3",
+        "eru0n4"
+      ],
+      "path_info": "asu1n1（10.104.17.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254） -> asu0n3（10.104.3.254） -> eru0n4（10.103.4.254）",
+      "hop_count": 4,
+      "total_latency": 80.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_044",
+      "source": "random",
+      "src": "cnu0n3",
+      "dst": "eru1n0",
+      "path_nodes": [
+        "cnu0n3",
+        "eru0n3",
+        "asu0n2",
+        "bsu0n1",
+        "bsu1n1",
+        "bsu1n0",
+        "asu1n0",
+        "eru1n0"
+      ],
+      "path_info": "cnu0n3（10.106.3.254） -> eru0n3（10.103.3.254） -> asu0n2（10.104.2.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> bsu1n0（10.105.16.254） -> asu1n0（10.104.16.254） -> eru1n0（10.103.16.254）",
+      "hop_count": 7,
+      "total_latency": 190.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_045",
+      "source": "random",
+      "src": "eru1n1",
+      "dst": "bsu0n1",
+      "path_nodes": [
+        "eru1n1",
+        "asu1n1",
+        "bsu1n1",
+        "bsu0n1"
+      ],
+      "path_info": "eru1n1（10.103.17.254） -> asu1n1（10.104.17.254） -> bsu1n1（10.105.17.254） -> bsu0n1（10.105.1.254）",
+      "hop_count": 3,
+      "total_latency": 70.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_046",
+      "source": "random",
+      "src": "eru0n3",
+      "dst": "bsu0n2",
+      "path_nodes": [
+        "eru0n3",
+        "asu0n2",
+        "bsu0n1",
+        "bsu0n2"
+      ],
+      "path_info": "eru0n3（10.103.3.254） -> asu0n2（10.104.2.254） -> bsu0n1（10.105.1.254） -> bsu0n2（10.105.2.254）",
+      "hop_count": 3,
+      "total_latency": 70.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_047",
+      "source": "random",
+      "src": "bsu0n2",
+      "dst": "cnu1n1",
+      "path_nodes": [
+        "bsu0n2",
+        "bsu0n1",
+        "bsu1n1",
+        "asu1n1",
+        "eru1n1",
+        "cnu1n1"
+      ],
+      "path_info": "bsu0n2（10.105.2.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> asu1n1（10.104.17.254） -> eru1n1（10.103.17.254） -> cnu1n1（10.106.17.254）",
+      "hop_count": 5,
+      "total_latency": 130.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_048",
+      "source": "random",
+      "src": "eru0n1",
+      "dst": "eru1n1",
+      "path_nodes": [
+        "eru0n1",
+        "asu0n1",
+        "bsu0n1",
+        "bsu1n1",
+        "asu1n1",
+        "eru1n1"
+      ],
+      "path_info": "eru0n1（10.103.1.254） -> asu0n1（10.104.1.254） -> bsu0n1（10.105.1.254） -> bsu1n1（10.105.17.254） -> asu1n1（10.104.17.254） -> eru1n1（10.103.17.254）",
+      "hop_count": 5,
+      "total_latency": 130.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_049",
+      "source": "random",
+      "src": "asu1n4",
+      "dst": "bsu1n0",
+      "path_nodes": [
+        "asu1n4",
+        "bsu1n2",
+        "bsu1n0"
+      ],
+      "path_info": "asu1n4（10.104.20.254） -> bsu1n2（10.105.18.254） -> bsu1n0（10.105.16.254）",
+      "hop_count": 2,
+      "total_latency": 20.0,
+      "bottleneck_bandwidth": 459.1,
+      "path_loss_rate": 0.0
+    },
+    {
+      "flow_id": "random_050",
+      "source": "random",
+      "src": "eru1n0",
+      "dst": "eru1n3",
+      "path_nodes": [
+        "eru1n0",
+        "asu1n0",
+        "asu1n1",
+        "asu1n2",
+        "eru1n3"
+      ],
+      "path_info": "eru1n0（10.103.16.254） -> asu1n0（10.104.16.254） -> asu1n1（10.104.17.254） -> asu1n2（10.104.18.254） -> eru1n3（10.103.19.254）",
+      "hop_count": 4,
+      "total_latency": 120.0,
+      "bottleneck_bandwidth": 200.0,
+      "path_loss_rate": 0.0
+    }
+  ]
+}
