@@ -43,6 +43,9 @@ from generate_inner_business_flows import (
 ROOT = Path(__file__).resolve().parent
 DEFAULT_REROUTE_SCRIPT = ROOT / "inner_rl_reroute.py"
 DEFAULT_TASK_JSON = ROOT / "environment" / "inner_graph_data" / "json-data" / "task_all.json"
+DEFAULT_MONITOR_LOG_PATH = ROOT / "logs" / "auto_inner_reroute.log"
+DEFAULT_KG_OFFLINE_REASONING_LOG_PATH = ROOT / "logs" / "access.log"
+DEFAULT_KG_ONLINE_REASONING_LOG_PATH = Path("/home/ict/projects/kg_network/semprotocol/log/access.log")
 
 
 @dataclass
@@ -81,6 +84,10 @@ def resolve_tasks_path(args: argparse.Namespace) -> Path:
     if args.tasks is not None:
         return args.tasks
     return DEFAULT_OUTPUT if args.net_offline else DEFAULT_TASK_JSON
+
+
+def resolve_reasoning_log_path(args: argparse.Namespace) -> Path:
+    return DEFAULT_KG_OFFLINE_REASONING_LOG_PATH if args.kg_offline else DEFAULT_KG_ONLINE_REASONING_LOG_PATH
 
 
 def fetch_latest_tasks_json(output_path: Path) -> None:
@@ -478,6 +485,8 @@ def main() -> int:
         f"{'offline_json' if args.net_offline else 'online_api'}, "
         f"path={resolve_tasks_path(args)}"
     )
+    print(f"[INFO] 监控日志输出: 当前终端；后台运行时建议重定向到 {DEFAULT_MONITOR_LOG_PATH}")
+    print(f"[INFO] 协同推理日志路径: {resolve_reasoning_log_path(args)}")
     state = MonitorState()
     iteration = 0
     while True:
