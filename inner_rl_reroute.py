@@ -14,7 +14,7 @@
 python inner_rl_reroute.py --kg_offline --net_offline
 
 默认源宿节点：asu0n0 -> eru1n5。
-默认日志路径：知识库离线写 logs/access.log，知识库在线写 /home/ict/projects/kg_network/semprotocol/log/access.log。
+默认日志路径：知识库离线写 logs/access.log，知识库在线写 /home/user/projects/class_iii/access.log。
 当前脚本不下发真实流表。
 """
 
@@ -39,7 +39,7 @@ ROOT = Path(__file__).resolve().parent
 II_SCRIPT = ROOT / "inner_rl_reroute_II.py"
 III_SCRIPT = ROOT / "inner_rl_reroute_III.py"
 DEFAULT_LOG_PATH = ROOT / "logs" / "access.log"
-DEFAULT_ONLINE_LOG_PATH = Path("/home/ict/projects/kg_network/semprotocol/log/access.log")
+DEFAULT_ONLINE_LOG_PATH = Path("/home/user/projects/class_iii/access.log")
 DEFAULT_OFFLINE_KB_PATH = ROOT / "logs" / "offline_ii_policy.json"
 II_POLICY_NAME = "co_reasoning_II_1_policy"
 DEFAULT_SRC = "asu0n0"
@@ -74,7 +74,36 @@ def configure_logging(log_path: Path) -> None:
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(message)s",
         handlers=handlers,
+        force=True,
     )
+
+
+def write_reasoning_log(log_path: Path, log_text: str) -> bool:
+    before_size = log_path.stat().st_size if log_path.exists() else -1
+    logging.info("%s", log_text)
+
+    for handler in logging.getLogger().handlers:
+        try:
+            handler.flush()
+        except OSError as exc:
+            print(f"[WARN] 日志 flush 失败: {exc}", file=sys.stderr)
+
+    try:
+        after_size = log_path.stat().st_size
+    except OSError as exc:
+        print(f"[ERR] 协同推理日志未写入，无法读取日志文件: {log_path}, {exc}", file=sys.stderr)
+        return False
+
+    if after_size > before_size:
+        print(f"[INFO] 协同推理日志已写入: {log_path} ({before_size}->{after_size} bytes)")
+        return True
+
+    print(
+        f"[ERR] 协同推理日志未写入或文件大小未变化: {log_path} "
+        f"({before_size}->{after_size} bytes)",
+        file=sys.stderr,
+    )
+    return False
 
 
 def resolve_log_path(args: argparse.Namespace) -> Path:
@@ -379,7 +408,8 @@ def main() -> int:
         f"result={result}; status=1; cor_node=II_node_2 III_node_1"
     )
 
-    logging.info("%s", full_log)
+    if not write_reasoning_log(log_path, full_log):
+        return 1
     return 0
 
 

@@ -45,7 +45,7 @@ DEFAULT_REROUTE_SCRIPT = ROOT / "inner_rl_reroute.py"
 DEFAULT_TASK_JSON = ROOT / "environment" / "inner_graph_data" / "json-data" / "task_all.json"
 DEFAULT_MONITOR_LOG_PATH = ROOT / "logs" / "auto_inner_reroute.log"
 DEFAULT_KG_OFFLINE_REASONING_LOG_PATH = ROOT / "logs" / "access.log"
-DEFAULT_KG_ONLINE_REASONING_LOG_PATH = Path("/home/ict/projects/kg_network/semprotocol/log/access.log")
+DEFAULT_KG_ONLINE_REASONING_LOG_PATH = Path("/home/user/projects/class_iii/access.log")
 
 
 @dataclass
@@ -462,6 +462,8 @@ def check_once(args: argparse.Namespace, state: MonitorState) -> None:
         code, stdout, stderr = run_reroute(task, args)
         if code != 0:
             print(f"[ERR] 重路由失败: task_id={task.get('task_id')}, code={code}")
+            if stdout:
+                print(stdout)
             if stderr:
                 print(stderr, file=sys.stderr)
             state.handled_fault_tasks.add(handled_key)

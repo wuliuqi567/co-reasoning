@@ -218,7 +218,7 @@ logs/offline_ii_policy.json
 在线默认协同日志路径：
 
 ```text
-/home/ict/projects/kg_network/semprotocol/log/access.log
+/home/user/projects/class_iii/access.log
 ```
 
 ### 单独运行 II/III 路由
