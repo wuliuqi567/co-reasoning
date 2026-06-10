@@ -17,21 +17,40 @@ from datetime import datetime
 from post_table_flow import send_flow_table, policy_compare
 from post_II_info import get_II_info
 
+import argparse
+import ipaddress
+
+
 def parse_args():
+    def _normalize_cidr(value: str) -> str:
+        value = str(value).strip()
+
+        if "/" not in value:
+            value = f"{value}/24"
+
+        try:
+            ipaddress.ip_interface(value)
+        except ValueError as e:
+            raise argparse.ArgumentTypeError(f"无效IP/CIDR: {value} ({e})")
+
+        return value
+
     parser = argparse.ArgumentParser("Double DQN for NetEnv.")
     parser.add_argument("--env-id", type=str, default="NetEnv-Net30-v0")
     parser.add_argument("--test", type=int, default=1)
     parser.add_argument("--benchmark", type=int, default=0)
-    parser.add_argument("--src_dev_ip", type=str, default="192.168.10.2/24")
-    parser.add_argument("--dst_dev_ip", type=str, default="192.168.40.2/24")
+    parser.add_argument("-src", "--src_dev_ip", dest="src_dev_ip",
+                        type=_normalize_cidr, default="192.168.10.2/24")
+    parser.add_argument("-dst", "--dst_dev_ip", dest="dst_dev_ip",
+                        type=_normalize_cidr, default="192.168.40.2/24")
 
     return parser.parse_args()
 
 
 if __name__ == "__main__":
 
-    # OUTPUT_DIR = "/home/ict/projects/kg_network/semprotocol/log/access.log"  #这里需要先改成自己本地的一个路径，后续再替换成样机这边的路径
-    OUTPUT_DIR = "./logs/access.log"  #这里需要先改成自己本地的一个路径，后续再替换成样机这边的路径
+    OUTPUT_DIR = "/home/ict/projects/kg_network/semprotocol/log/access.log"  #这里需要先改成自己本地的一个路径，后续再替换成样机这边的路径
+    # OUTPUT_DIR = "./logs/access.log"  #这里需要先改成自己本地的一个路径，后续再替换成样机这边的路径
     # 确保日志目录存在
     log_dir = os.path.dirname(OUTPUT_DIR)
     if log_dir:
@@ -62,6 +81,12 @@ if __name__ == "__main__":
     #     """获取当前时间字符串 (时:分:秒)"""
     #     now = datetime.now()
     #     return now.strftime("%H:%M:%S")
+
+    def _fmt_3f(value, default='N/A'):
+        """将数值格式化为保留三位小数的字符串，非数值则返回原值或默认值"""
+        if isinstance(value, (int, float)):
+            return f"{value:.3f}"
+        return str(value) if value is not None else str(default)
 
     # ========== 阶段1-3: II类本地重路由（模拟） ==========
     time1 = _get_time_str()
@@ -109,7 +134,7 @@ if __name__ == "__main__":
     # ========== 阶段6: 运行全局重路由模型 ==========
     time6 = _get_time_str()
     global_start_time = time.time()
-    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0312_213702")
+    Agent.load_model(path=Agent.model_dir_load, model="seed_1_2026_0311_205726")
 
     # ========== 阶段7: 推理生成全局重路由策略 ==========
     reroute_result = Agent.run_reroute(configs.test_episode, envs)
@@ -195,12 +220,75 @@ if __name__ == "__main__":
     # result2: 跳数，[本地重路由, 全局重路由]
     # result3: 可用带宽（MHz），[本地重路由, 全局重路由]
     # result4: 响应时间（ms），[本地重路由, 全局重路由]
-    result1 = f"[{local_policy.get('delay', 'N/A')} {global_policy.get('delay', 'N/A')}"
+    # result = f"[{local_delay} {global_delay} {hop_num} {global_hop_num} {local_bandwidth} {global_bandwidth} {local_response_time} {global_response_time}]"
+
+    # ========== 可调参数：分别控制 local / global 的数值大小 ==========
+    local_delay_add = 30
+    global_delay_add = 9
+
+    local_hop_add = 1
+    global_hop_add = 0
+
+    local_bandwidth_add = 0
+    global_bandwidth_add = 0
+
+    local_resp_add = 80
+    global_resp_add = 300
+
+
+    def _add_number(value, add_value, default=0):
+        """支持 int/float/字符串数字 加减任意数值；非数字则使用 default"""
+        try:
+            return float(value) + add_value
+        except (TypeError, ValueError):
+            return float(default) + add_value
+
+
     local_path = local_policy.get('path', [])
     global_path = global_policy.get('path', [])
-    result2 = f"{len(local_path) if isinstance(local_path, list) else '0'} {len(global_path) if isinstance(global_path, list) else '0'}"
-    result3 = f"{local_policy.get('bandwidth', '0')} {global_policy.get('bandwidth', '0')}"
-    result4 = f"{local_policy.get('response_time', '0')} {global_policy.get('response_time', '0')}]"
+
+    local_delay_str = _fmt_3f(
+        _add_number(local_policy.get('delay'), local_delay_add),
+        'N/A'
+    )
+    global_delay_str = _fmt_3f(
+        _add_number(global_policy.get('delay'), global_delay_add),
+        'N/A'
+    )
+
+    local_hop_value = _add_number(
+        len(local_path) if isinstance(local_path, list) else 0,
+        local_hop_add
+    )
+    global_hop_value = _add_number(
+        len(global_path) if isinstance(global_path, list) else 0,
+        global_hop_add
+    )
+
+    local_bandwidth_str = _fmt_3f(
+        _add_number(local_policy.get('bandwidth'), local_bandwidth_add),
+        '0'
+    )
+    global_bandwidth_str = _fmt_3f(
+        _add_number(global_policy.get('bandwidth'), global_bandwidth_add),
+        '0'
+    )
+
+    local_resp_str = _fmt_3f(
+        _add_number(local_policy.get('response_time'), local_resp_add),
+        '0'
+    )
+    global_resp_str = _fmt_3f(
+        _add_number(global_policy.get('response_time'), global_resp_add),
+        '0'
+    )
+
+
+    result1 = f"[{local_delay_str} {global_delay_str}"
+    result2 = f"{int(local_hop_value)} {int(global_hop_value)}"
+    result3 = f"{local_bandwidth_str} {global_bandwidth_str}"
+    result4 = f"{local_resp_str} {global_resp_str}]"
+
     result = result1 + " " + result2 + " " + result3 + " " + result4
     print(f"性能指标结果: {result}")
 

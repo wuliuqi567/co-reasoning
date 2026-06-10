@@ -1,6 +1,6 @@
 dl_toolbox: "torch"  # The deep learning toolbox. Choices: "torch", "mindspore", "tensorlayer"
 project_name: "netenv_ddqn_reroute_II_class_state" # netenv_ddqn_resilience_v2 | netenv_ddqn_resilience_fail_v2
-logger: "wandb"  # Choices: tensorboard, wandb.
+logger: "tensorboard"  # Choices: tensorboard, wandb.
 wandb_user_name: "wmqbit"
 render: False
 render_mode: 'rgb_array' # Choices: 'human', 'rgb_array'.
