@@ -38,6 +38,7 @@ from generate_inner_business_flows import (
     DEFAULT_TOPOLOGY_JSON,
     load_routing_graph,
 )
+from post_topo_info import post_NM
 
 
 ROOT = Path(__file__).resolve().parent
@@ -353,6 +354,26 @@ def load_tasks_for_iteration(
     return load_tasks(tasks_path), tasks_path
 
 
+def post_latest_network_state_to_kb(args: argparse.Namespace, tasks_path: Path) -> None:
+    if args.net_offline:
+        return
+    if args.kg_offline:
+        print("[INFO] kg_offline=true，跳过网络状态上传知识库。")
+        return
+
+    try:
+        topo_info = json.loads(args.topology_json.read_text(encoding="utf-8"))
+        link_metrics = json.loads(args.link_metric_json.read_text(encoding="utf-8"))
+        business_info = json.loads(tasks_path.read_text(encoding="utf-8"))
+        post_NM(
+            topo_info=topo_info,
+            link_metrics=link_metrics,
+            business_info=business_info,
+        )
+    except Exception as exc:
+        print(f"[WARN] 网络状态上传知识库失败: {exc}", file=sys.stderr)
+
+
 def fault_signature(graph: nx.Graph) -> str:
     nodes = sorted(fault_nodes(graph))
     links = sorted(
@@ -378,6 +399,7 @@ def check_once(args: argparse.Namespace, state: MonitorState) -> None:
     print(f"\n[{datetime.now().isoformat(timespec='seconds')}] 获取拓扑、链路和业务状态...")
     graph, routing_graph = load_routing_graph(args)
     tasks, tasks_path = load_tasks_for_iteration(args, fetch_online=True)
+    post_latest_network_state_to_kb(args, tasks_path)
     print(f"[INFO] 当前业务数量: {task_count_text(tasks)}")
 
     current_fault_nodes = fault_nodes(graph)
