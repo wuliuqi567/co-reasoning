@@ -11,12 +11,29 @@ from typing import Any
 
 from kg_sdk import KGClient
 
-INNER_KG_BASE_URL = "http://192.168.1.24:5001"
+INNER_KG_BASE_URL = "http://192.168.1.24:5002"
 INNER_II_POLICY_NAME = "co_reasoning_II_1_policy"
 ROOT = Path(__file__).resolve().parent
 INNER_GRAPH_DATA_DIR = ROOT / "environment" / "inner_graph_data"
 
 api_II = KGClient(base_url=INNER_KG_BASE_URL)
+
+
+def _brief_result(result: Any) -> Any:
+    """只保留接口返回中的简短标识，避免在终端打印大段 JSON 数据。"""
+    items = result if isinstance(result, list) else [result]
+    brief_items = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        brief = {
+            key: item[key]
+            for key in ("created", "updated", "id", "name")
+            if key in item
+        }
+        if brief:
+            brief_items.append(brief)
+    return brief_items or "ok"
 
 
 logic_knowledge = {
@@ -44,12 +61,12 @@ def post_II_info(local_policy: dict[str, Any]) -> None:
     payload["update_time"] = str(datetime.date.today())
 
     result = api_II.create_logical_decision_model(payload)
-    print("inner II类属性知识创建逻辑决策型结果:", result)
+    print("inner II类属性知识创建逻辑决策型结果:", _brief_result(result))
 
     result = api_II.add_relational_calc_relation(
         payload.get("name"), "co_reasoning_II",
     )
-    print("inner II类知识创建关系结果:", result)
+    print("inner II类知识创建关系结果:", _brief_result(result))
 
 
 def get_II_info(name: str = INNER_II_POLICY_NAME) -> dict[str, Any]:
@@ -114,7 +131,7 @@ def create_json_data_attribute(
     }
 
     result = api_II.create_data_attribute(payload)
-    print(f"{title} 创建结果:", result)
+    print(f"[UPLOAD_OK] {name} 上传成功:", _brief_result(result))
 
 
 def post_topo(topo_info: dict[str, Any] | None = None) -> None:
@@ -165,6 +182,7 @@ def post_NM(
     post_topo(topo_info)
     post_link_metrics(link_metrics)
     post_business(business_info)
+    print("[UPLOAD_OK] 网络状态数据上传完成: NM_topo, NM_link_metrics, E2E_flow_data")
 
 
 if __name__ == "__main__":
