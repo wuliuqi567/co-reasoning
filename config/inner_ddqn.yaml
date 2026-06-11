@@ -1,0 +1,82 @@
+dl_toolbox: "torch"
+project_name: "inner_netenv_ddqn"
+logger: "tensorboard"  # 离线训练使用 tensorboard；联网同步可改为 wandb。
+wandb_user_name: "wmqbit"
+render: False
+render_mode: "rgb_array"
+fps: 50
+test_mode: False
+device: "cuda:0"
+distributed_training: False
+master_port: "12355"
+
+agent: "DDQN"
+env_name: "InnerNetEnv"
+env_id: "InnerNetEnv-Net-v0"
+env_seed: 1
+RGBImgPartialObsWrapper: False
+ImgObsWrapper: False
+vectorize: "SubprocVecEnv"
+learner: "MyDDQNLearner"
+policy: "Basic_Q_network"
+representation: "Basic_MLP"
+runner: "DRL"
+
+# 内场拓扑数据来源。inner_latest 会读取 environment/inner_graph_data 下的在线拓扑 JSON 和链路指标 JSON。
+graph_source: "inner_latest"
+inner_topology_json: "../environment/inner_graph_data/json-data/network_topology_state.json"
+inner_link_metric_json: "../environment/inner_graph_data/json-data/link_metric.json"
+inner_fetch_latest: False  # True 时训练启动前从内场在线接口刷新拓扑和链路指标。
+inner_node_types: "3,4,5"  # 训练 II 类节点；如需包含全部节点可改为 "all"。
+dynamic_topo_prob: 0.0
+
+obs_type: "state"
+max_episode_steps: 64
+execute_reroute: False
+enable_failure: False
+failure_mode: "node"
+fail_num: 2
+fail_step: -1
+failure_prob: 1
+ensure_reachable: True
+max_failure_tries: 30
+utilization_threshold: 0.85
+loss_rate_threshold: 0.1
+
+representation_hidden_size: [1024, 256]
+q_hidden_size: [128, 64, 32]
+activation: "relu"
+
+seed: 1
+parallels: 20
+buffer_size: 400000
+batch_size: 128
+learning_rate: 0.00001
+gamma: 0.99
+n_epochs: 4
+
+start_greedy: 0.8
+end_greedy: 0.0
+decay_step_greedy: 160_000_000
+sync_frequency: 1000
+training_frequency: 1
+running_steps: 1_000_000
+start_training: 5000
+
+use_grad_clip: True
+grad_clip_norm: 1.0
+use_linear_lr_decay: False
+end_factor_lr_decay: 0.2
+
+use_actions_mask: True
+use_obsnorm: False
+use_rewnorm: True
+obsnorm_range: 5
+rewnorm_range: 5
+
+test_steps: 10000
+eval_interval: 50_000
+test_episode: 20
+log_dir: "../logs/inner_ddqn/"
+model_dir: "../models/inner_ddqn/"
+load_model: ""
